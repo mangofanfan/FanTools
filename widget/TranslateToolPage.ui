@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>805</width>
+    <height>510</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_2">
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_7">
+     <item>
+      <widget class="SubtitleLabel" name="SubtitleLabel">
+       <property name="text">
+        <string>Subtitle label</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="SplitToolButton" name="SplitToolButton"/>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="PlainTextEdit" name="PlainTextEdit_OriginalText">
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="PlainTextEdit" name="PlainTextEdit_TranslatedText">
+       <property name="placeholderText">
+        <string>在此处输入左边词条的翻译文本……</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="PushButton" name="PushButton_OneBefore">
+       <property name="text">
+        <string>上一条</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="PushButton" name="PushButton_OneNext">
+       <property name="text">
+        <string>下一条</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="PrimaryPushButton" name="PrimaryPushButton_SaveAndContinue">
+       <property name="text">
+        <string>保存 - 下一条</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="PrimaryPushButton" name="PrimaryPushButton_MarkAndContinue">
+       <property name="text">
+        <string>标记 - 下一条</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="PrimarySplitPushButton" name="PrimarySplitPushButton_API">
+         <property name="text_" stdset="0">
+          <string>喊人帮忙翻一下</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="PushButton" name="PushButton_EditPrompt">
+         <property name="text">
+          <string>[AI专用] 编辑 prompt</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="PushButton" name="PushButton_EditAPIConfig">
+         <property name="text">
+          <string>API 配置</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="PrimaryPushButton" name="PrimaryPushButton_TranslateWithAPI">
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;将通过 API 获取的翻译应用到该词条，这将自动保存词条并添加标签。&lt;/p&gt;&lt;p&gt;在应用之前，您仍然可以在右侧文本框中编辑 API 获取的翻译字段。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="text">
+          <string>应用此翻译</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="ToggleButton" name="ToggleButton_AutoTranslateWithAPI">
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;激活自动翻译期间，您将无法编辑每一次由 API 生成的翻译文本。&lt;/p&gt;&lt;p&gt;每个词条的翻译文本仅展示一秒时间。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="text">
+          <string>自动翻译</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="TextEdit" name="TextEdit_API"/>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_4">
+     <item>
+      <widget class="PushButton" name="PushButton_SaveProject">
+       <property name="text">
+        <string>保存本项目</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="PushButton" name="PushButton_ViewProject">
+       <property name="text">
+        <string>查看本项目的信息和数据</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>PushButton</class>
+   <extends>QPushButton</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>PrimaryPushButton</class>
+   <extends>PushButton</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>SplitPushButton</class>
+   <extends>QWidget</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>PrimarySplitPushButton</class>
+   <extends>SplitPushButton</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>SplitToolButton</class>
+   <extends>QWidget</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>ToggleButton</class>
+   <extends>PushButton</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>SubtitleLabel</class>
+   <extends>QLabel</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>TextEdit</class>
+   <extends>QTextEdit</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>PlainTextEdit</class>
+   <extends>QPlainTextEdit</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
