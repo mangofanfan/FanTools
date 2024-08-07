@@ -16,6 +16,7 @@ from qfluentwidgets import PushButton
 from qfluentwidgets import PrimaryPushButton
 from qfluentwidgets import SplitPushButton
 from qfluentwidgets import PrimarySplitPushButton
+from qfluentwidgets import ToolButton
 from qfluentwidgets import ToggleButton
 from qfluentwidgets import SubtitleLabel
 from qfluentwidgets import TextEdit
@@ -26,7 +27,11 @@ class Ui_Form(object):
     def setupUi(self, Form):
         if not Form.objectName():
             Form.setObjectName(u"Form")
-        Form.resize(805, 510)
+        Form.setWindowModality(Qt.NonModal)
+        Form.resize(1003, 510)
+        Form.setAutoFillBackground(False)
+        Form.setProperty("lightCustomQss", u"QWidget { color: ghostwhite; }")
+        Form.setProperty("darkCustomQss", u"QWidget { color: black; }")
         self.verticalLayout_2 = QVBoxLayout(Form)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.horizontalLayout_7 = QHBoxLayout()
@@ -81,6 +86,21 @@ class Ui_Form(object):
         self.PrimaryPushButton_MarkAndContinue.setObjectName(u"PrimaryPushButton_MarkAndContinue")
 
         self.horizontalLayout.addWidget(self.PrimaryPushButton_MarkAndContinue)
+
+        self.ToolButton_CopyOriginalText = ToolButton(Form)
+        self.ToolButton_CopyOriginalText.setObjectName(u"ToolButton_CopyOriginalText")
+
+        self.horizontalLayout.addWidget(self.ToolButton_CopyOriginalText)
+
+        self.ToolButton_SearchInWeb = ToolButton(Form)
+        self.ToolButton_SearchInWeb.setObjectName(u"ToolButton_SearchInWeb")
+
+        self.horizontalLayout.addWidget(self.ToolButton_SearchInWeb)
+
+        self.ToolButton_ClearTranslatedText = ToolButton(Form)
+        self.ToolButton_ClearTranslatedText.setObjectName(u"ToolButton_ClearTranslatedText")
+
+        self.horizontalLayout.addWidget(self.ToolButton_ClearTranslatedText)
 
 
         self.verticalLayout_2.addLayout(self.horizontalLayout)
@@ -156,15 +176,18 @@ class Ui_Form(object):
         self.PlainTextEdit_TranslatedText.setPlaceholderText(QCoreApplication.translate("Form", u"\u5728\u6b64\u5904\u8f93\u5165\u5de6\u8fb9\u8bcd\u6761\u7684\u7ffb\u8bd1\u6587\u672c\u2026\u2026", None))
         self.PushButton_OneBefore.setText(QCoreApplication.translate("Form", u"\u4e0a\u4e00\u6761", None))
         self.PushButton_OneNext.setText(QCoreApplication.translate("Form", u"\u4e0b\u4e00\u6761", None))
-        self.PrimaryPushButton_SaveAndContinue.setText(QCoreApplication.translate("Form", u"\u4fdd\u5b58 - \u4e0b\u4e00\u6761", None))
-        self.PrimaryPushButton_MarkAndContinue.setText(QCoreApplication.translate("Form", u"\u6807\u8bb0 - \u4e0b\u4e00\u6761", None))
-        self.PrimarySplitPushButton_API.setProperty("text_", QCoreApplication.translate("Form", u"\u558a\u4eba\u5e2e\u5fd9\u7ffb\u4e00\u4e0b", None))
+        self.PrimaryPushButton_SaveAndContinue.setText(QCoreApplication.translate("Form", u"\u4fdd\u5b58", None))
+        self.PrimaryPushButton_MarkAndContinue.setText(QCoreApplication.translate("Form", u"\u6807\u8bb0", None))
+#if QT_CONFIG(tooltip)
+        self.ToolButton_CopyOriginalText.setToolTip(QCoreApplication.translate("Form", u"<html><head/><body><p>\u5c06\u5de6\u4fa7\u7684\u539f\u6587\u590d\u5236\u4e3a\u53f3\u4fa7\u7684\u8bd1\u6587\uff0c\u9002\u7528\u4e8e\u683c\u5f0f\u4ee3\u7801\u590d\u6742\u7684\u6587\u672c\u3002</p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
+        self.PrimarySplitPushButton_API.setProperty("text_", QCoreApplication.translate("Form", u"\u8c03\u7528\u9ed8\u8ba4API\u8fdb\u884c\u7ffb\u8bd1", None))
         self.PushButton_EditPrompt.setText(QCoreApplication.translate("Form", u"[AI\u4e13\u7528] \u7f16\u8f91 prompt", None))
         self.PushButton_EditAPIConfig.setText(QCoreApplication.translate("Form", u"API \u914d\u7f6e", None))
 #if QT_CONFIG(tooltip)
         self.PrimaryPushButton_TranslateWithAPI.setToolTip(QCoreApplication.translate("Form", u"<html><head/><body><p>\u5c06\u901a\u8fc7 API \u83b7\u53d6\u7684\u7ffb\u8bd1\u5e94\u7528\u5230\u8be5\u8bcd\u6761\uff0c\u8fd9\u5c06\u81ea\u52a8\u4fdd\u5b58\u8bcd\u6761\u5e76\u6dfb\u52a0\u6807\u7b7e\u3002</p><p>\u5728\u5e94\u7528\u4e4b\u524d\uff0c\u60a8\u4ecd\u7136\u53ef\u4ee5\u5728\u53f3\u4fa7\u6587\u672c\u6846\u4e2d\u7f16\u8f91 API \u83b7\u53d6\u7684\u7ffb\u8bd1\u5b57\u6bb5\u3002</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
-        self.PrimaryPushButton_TranslateWithAPI.setText(QCoreApplication.translate("Form", u"\u5e94\u7528\u6b64\u7ffb\u8bd1", None))
+        self.PrimaryPushButton_TranslateWithAPI.setText(QCoreApplication.translate("Form", u"\u4f7f\u7528\u8fd9\u4e2a\u7ffb\u8bd1", None))
 #if QT_CONFIG(tooltip)
         self.ToggleButton_AutoTranslateWithAPI.setToolTip(QCoreApplication.translate("Form", u"<html><head/><body><p>\u6fc0\u6d3b\u81ea\u52a8\u7ffb\u8bd1\u671f\u95f4\uff0c\u60a8\u5c06\u65e0\u6cd5\u7f16\u8f91\u6bcf\u4e00\u6b21\u7531 API \u751f\u6210\u7684\u7ffb\u8bd1\u6587\u672c\u3002</p><p>\u6bcf\u4e2a\u8bcd\u6761\u7684\u7ffb\u8bd1\u6587\u672c\u4ec5\u5c55\u793a\u4e00\u79d2\u65f6\u95f4\u3002</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)

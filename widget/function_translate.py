@@ -1,7 +1,5 @@
-import json
-import requests
-import hashlib
-import random
+import json, requests, hashlib, random, time
+from urllib.parse import quote
 
 try:
     from function import basicFunc
@@ -12,6 +10,7 @@ except:
 class TranslateTag:
     use_API = "使用API翻译"
     human = "人工翻译"
+    repeat = "重复词条复制"
 
 
 class TranslateText:
@@ -82,10 +81,10 @@ def fanyi_baidu(originalText: str, originalLan: str = "en", targetLan: str = "zh
     fanyi_api = "https://fanyi-api.baidu.com/api/trans/vip/translate"
     appid = "20220208001076927"
     key = "zwX78gFP3O4dA0Mwf7zD"
-    salt = random.randint(100000, 999999)
-    sign = hashlib.md5((appid + originalText + str(salt) + key).encode("utf-8")).hexdigest()
+    salt = str(random.randint(100000, 999999))
+    sign = hashlib.md5((appid + originalText + salt + key).encode("utf-8")).hexdigest()
 
-    fanyi_url = f"{fanyi_api}?q={originalText}&from={originalLan}&to={targetLan}&appid={appid}&salt={salt}&sign={sign}"
+    fanyi_url = f"{fanyi_api}?q={quote(originalText)}&from={originalLan}&to={targetLan}&appid={appid}&salt={salt}&sign={sign}"
 
     proxies = {
         'http': 'http://127.0.0.1:7890',
@@ -96,6 +95,34 @@ def fanyi_baidu(originalText: str, originalLan: str = "en", targetLan: str = "zh
 
     trans_result: dict = res.get("trans_result")[0]
     targetText = trans_result["dst"]
+
+    return targetText
+
+
+def fanyi_youdao(originalText: str, originalLan: str = "en", targetLan: str = "zh-CHS"):
+    fanyi_api = "https://openapi.youdao.com/api"
+    appKey = "47d707b612be94ab"
+    key = "UBs0CdipioXsc48tD5y0sYqKL8n4hjBi"
+    utcTime = str(int(time.time()))
+    salt = str(random.randint(100000, 999999))
+
+    # 根据 originalText 的长度来决定签名格式
+    if len(originalText) > 20:
+        input_ = originalText[0:10] + str(len(originalText)) + originalText[-10:len(originalText)]
+    else:
+        input_ = originalText
+    sign = hashlib.sha256((appKey + input_ + salt + utcTime + key).encode("utf-8")).hexdigest()
+
+    fanyi_url = f"{fanyi_api}?q={quote(originalText)}&from={originalLan}&to={targetLan}&appKey={appKey}&salt={salt}&sign={sign}&signType=v3&curtime={utcTime}"
+
+    proxies = {
+        'http': 'http://127.0.0.1:7890',
+        'https': 'http://127.0.0.1:7890',
+    }
+
+    res: dict = requests.get(url=fanyi_url, proxies=proxies, timeout=3).json()
+
+    targetText = res["translation"][0]
 
     return targetText
 

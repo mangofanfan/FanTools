@@ -38,6 +38,24 @@ class Rule:
             result = result.replace("ON", "启用")
         if "OFF" in result:
             result = result.replace("OFF", "禁用")
+        if "冻结隧道" in result:
+            result = result.replace("冻结隧道", "冰封隧道")
+        if "冰冻隧道" in result:
+            result = result.replace("冰冻隧道", "冰封隧道")
+        if "氮氧化物" in result:
+            result = result.replace("氮氧化物", "Noxesium")
+        if "氮钾化物" in result:
+            result = result.replace("氮钾化物", "Noxesium")
+        if "氮钾" in result:
+            result = result.replace("氮钾", "Noxesium")
+        if "暗氮" in result:
+            result = result.replace("暗氮", "Noxesium")
+        if "成绩" in result:
+            result = result.replace("成绩", "成就")
+        if "成就已锁定" in result:
+            result = result.replace("成就已锁定", "成就锁定")
+        if "西装" in result:
+            result = result.replace("西装", "套装")
         return result
 
 

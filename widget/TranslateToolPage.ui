@@ -2,16 +2,28 @@
 <ui version="4.0">
  <class>Form</class>
  <widget class="QWidget" name="Form">
+  <property name="windowModality">
+   <enum>Qt::NonModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>805</width>
+    <width>1003</width>
     <height>510</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
+  </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
+  <property name="lightCustomQss" stdset="0">
+   <string notr="true">QWidget { color: ghostwhite; }</string>
+  </property>
+  <property name="darkCustomQss" stdset="0">
+   <string notr="true">QWidget { color: black; }</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
@@ -72,16 +84,29 @@
      <item>
       <widget class="PrimaryPushButton" name="PrimaryPushButton_SaveAndContinue">
        <property name="text">
-        <string>保存 - 下一条</string>
+        <string>保存</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="PrimaryPushButton" name="PrimaryPushButton_MarkAndContinue">
        <property name="text">
-        <string>标记 - 下一条</string>
+        <string>标记</string>
        </property>
       </widget>
+     </item>
+     <item>
+      <widget class="ToolButton" name="ToolButton_CopyOriginalText">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;将左侧的原文复制为右侧的译文，适用于格式代码复杂的文本。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="ToolButton" name="ToolButton_SearchInWeb"/>
+     </item>
+     <item>
+      <widget class="ToolButton" name="ToolButton_ClearTranslatedText"/>
      </item>
     </layout>
    </item>
@@ -92,7 +117,7 @@
        <item>
         <widget class="PrimarySplitPushButton" name="PrimarySplitPushButton_API">
          <property name="text_" stdset="0">
-          <string>喊人帮忙翻一下</string>
+          <string>调用默认API进行翻译</string>
          </property>
         </widget>
        </item>
@@ -116,7 +141,7 @@
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;将通过 API 获取的翻译应用到该词条，这将自动保存词条并添加标签。&lt;/p&gt;&lt;p&gt;在应用之前，您仍然可以在右侧文本框中编辑 API 获取的翻译字段。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="text">
-          <string>应用此翻译</string>
+          <string>使用这个翻译</string>
          </property>
         </widget>
        </item>
@@ -176,6 +201,11 @@
   <customwidget>
    <class>PrimarySplitPushButton</class>
    <extends>SplitPushButton</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>ToolButton</class>
+   <extends>QToolButton</extends>
    <header>qfluentwidgets</header>
   </customwidget>
   <customwidget>

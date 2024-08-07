@@ -51,7 +51,7 @@ class Main:
     def run(self):
         self.addSubWindow()
         self.mainWindow.show()
-        setTheme(Theme.LIGHT)
+        setTheme(Theme.AUTO)
 
 
 if __name__ == "__main__":
