@@ -32,6 +32,12 @@ class Rule:
             result = result.replace("。。。", "……")
         if "-" in result:
             result = result.replace("-", "——")
+        if "TFA——1541" in result:
+            result = result.replace("TFA——1541", "TFA-1541")
+        if "ON" in result:
+            result = result.replace("ON", "启用")
+        if "OFF" in result:
+            result = result.replace("OFF", "禁用")
         return result
 
 

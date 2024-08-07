@@ -16,7 +16,6 @@ from qfluentwidgets import PushButton
 from qfluentwidgets import PrimaryPushButton
 from qfluentwidgets import SplitPushButton
 from qfluentwidgets import PrimarySplitPushButton
-from qfluentwidgets import SplitToolButton
 from qfluentwidgets import ToggleButton
 from qfluentwidgets import SubtitleLabel
 from qfluentwidgets import TextEdit
@@ -37,10 +36,10 @@ class Ui_Form(object):
 
         self.horizontalLayout_7.addWidget(self.SubtitleLabel)
 
-        self.SplitToolButton = SplitToolButton(Form)
-        self.SplitToolButton.setObjectName(u"SplitToolButton")
+        self.SplitPushButton = SplitPushButton(Form)
+        self.SplitPushButton.setObjectName(u"SplitPushButton")
 
-        self.horizontalLayout_7.addWidget(self.SplitToolButton)
+        self.horizontalLayout_7.addWidget(self.SplitPushButton)
 
 
         self.verticalLayout_2.addLayout(self.horizontalLayout_7)
@@ -150,6 +149,10 @@ class Ui_Form(object):
     def retranslateUi(self, Form):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
         self.SubtitleLabel.setText(QCoreApplication.translate("Form", u"Subtitle label", None))
+#if QT_CONFIG(tooltip)
+        self.SplitPushButton.setToolTip(QCoreApplication.translate("Form", u"\u4e0b\u62c9\u9009\u62e9\u5feb\u901f\u64cd\u4f5c\u7c7b\u578b", None))
+#endif // QT_CONFIG(tooltip)
+        self.SplitPushButton.setProperty("text_", QCoreApplication.translate("Form", u"\u4e0b\u62c9\u9009\u62e9\u5feb\u901f\u64cd\u4f5c\u7c7b\u578b", None))
         self.PlainTextEdit_TranslatedText.setPlaceholderText(QCoreApplication.translate("Form", u"\u5728\u6b64\u5904\u8f93\u5165\u5de6\u8fb9\u8bcd\u6761\u7684\u7ffb\u8bd1\u6587\u672c\u2026\u2026", None))
         self.PushButton_OneBefore.setText(QCoreApplication.translate("Form", u"\u4e0a\u4e00\u6761", None))
         self.PushButton_OneNext.setText(QCoreApplication.translate("Form", u"\u4e0b\u4e00\u6761", None))

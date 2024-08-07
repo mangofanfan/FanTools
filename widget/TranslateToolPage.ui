@@ -24,7 +24,14 @@
       </widget>
      </item>
      <item>
-      <widget class="SplitToolButton" name="SplitToolButton"/>
+      <widget class="SplitPushButton" name="SplitPushButton">
+       <property name="toolTip">
+        <string>下拉选择快速操作类型</string>
+       </property>
+       <property name="text_" stdset="0">
+        <string>下拉选择快速操作类型</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
@@ -169,11 +176,6 @@
   <customwidget>
    <class>PrimarySplitPushButton</class>
    <extends>SplitPushButton</extends>
-   <header>qfluentwidgets</header>
-  </customwidget>
-  <customwidget>
-   <class>SplitToolButton</class>
-   <extends>QWidget</extends>
    <header>qfluentwidgets</header>
   </customwidget>
   <customwidget>

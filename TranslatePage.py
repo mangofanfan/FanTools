@@ -1,7 +1,8 @@
 from PySide2.QtCore import QObject, Signal, QThread
 from PySide2.QtGui import Qt
 from PySide2.QtWidgets import QWidget, QLabel, QSpacerItem, QSizePolicy
-from qfluentwidgets import VBoxLayout, PushButton, setTheme, Theme
+from qfluentwidgets import VBoxLayout, PushButton, setTheme, Theme, RoundMenu, Action
+from qfluentwidgets import FluentIcon as FIC
 
 import webbrowser
 
@@ -67,6 +68,11 @@ class TranslateToolPage(QWidget):
                                                                                          self.ui.TextEdit_API.toPlainText(),
                                                                                          funcT.TranslateTag.use_API))
 
+        # 顶部右侧的下拉按钮
+        ButtonMenu = RoundMenu(parent=self.ui.SplitPushButton)
+        ButtonMenu.addAction(Action(icon=FIC.PLAY, text="从最近的未翻译词条开始", triggered=lambda: self.continueLastText()))
+        self.ui.SplitPushButton.setFlyout(ButtonMenu)
+
     def setProject(self, file: str):
         self.project.loadProject(file)
         firstText = self.getIdText(1)
@@ -78,6 +84,15 @@ class TranslateToolPage(QWidget):
             if text.id == id:
                 return text
         raise
+
+    def continueLastText(self):
+        for text in self.project.textList:
+            text: funcT.TranslateText
+            if text.translatedText == "None":
+                self.displayText(text)
+                return None
+        print("好像都翻译完了，好耶~")
+        return None
 
     def displayText(self, text: funcT.TranslateText):
         self.ui.SubtitleLabel.setText(f"共有 {self.project.n} 个翻译条目；当前条目ID：{text.id}；条目标签（Tag）：{text.translateTag}")
