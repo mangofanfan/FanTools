@@ -1,6 +1,6 @@
 from PySide2.QtGui import Qt
 from PySide2.QtWidgets import QWidget, QLabel, QSpacerItem, QSizePolicy, QHBoxLayout
-from qfluentwidgets import MessageBox, VBoxLayout, PushButton, PrimaryPushButton
+from qfluentwidgets import MessageBox, VBoxLayout, PushButton, PrimaryPushButton, TitleLabel, BodyLabel
 
 import webbrowser
 
@@ -15,11 +15,13 @@ class MainPage:
         self.spacer = QSpacerItem(1000, 1000, hData=QSizePolicy.Maximum, vData=QSizePolicy.Maximum)
         self.run()
 
-    def addTextLine(self, text: str, idName: str = None, alignment=Qt.AlignLeft):
-        textLine = QLabel(text=text)
-        if idName:
-            textLine.setObjectName(idName)
-        self.layout.addWidget(textLine, alignment=alignment)
+    def addTextLine(self, text: str, labelType: str = "Body"):
+        if labelType == "Title":
+            label = TitleLabel()
+        else:
+            label = BodyLabel()
+        label.setText(text)
+        self.layout.addWidget(label)
 
     def showMessageBox(self):
         w = MessageBox("支持作者🙏",
