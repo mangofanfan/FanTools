@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>1003</width>
-    <height>510</height>
+    <height>506</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -50,14 +50,14 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
-      <widget class="PlainTextEdit" name="PlainTextEdit_OriginalText">
+      <widget class="TextEdit" name="TextEdit_OriginalText">
        <property name="readOnly">
         <bool>true</bool>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="PlainTextEdit" name="PlainTextEdit_TranslatedText">
+      <widget class="TextEdit" name="TextEdit_TranslatedText">
        <property name="placeholderText">
         <string>在此处输入左边词条的翻译文本……</string>
        </property>
@@ -83,6 +83,9 @@
      </item>
      <item>
       <widget class="PrimaryPushButton" name="PrimaryPushButton_SaveAndContinue">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;使用上方的人工翻译文本作为译文保存。&lt;/p&gt;&lt;p&gt;同时添加标签「人工翻译」。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
        <property name="text">
         <string>保存</string>
        </property>
@@ -103,10 +106,25 @@
       </widget>
      </item>
      <item>
-      <widget class="ToolButton" name="ToolButton_SearchInWeb"/>
+      <widget class="ToolButton" name="ToolButton_Glossary">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;查看术语表，或编辑术语。&lt;/p&gt;&lt;p&gt;术语表中的词汇会在左侧原文中高亮显示；在调用 API 时，如对应 API 支持，术语表中的词汇也不会被翻译，或将翻译为标准译文。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
      </item>
      <item>
-      <widget class="ToolButton" name="ToolButton_ClearTranslatedText"/>
+      <widget class="ToolButton" name="ToolButton_SearchInWeb">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;在系统默认浏览器中打开并搜索待翻译文本。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="ToolButton" name="ToolButton_ClearTranslatedText">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;清空右侧的待翻译文本。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
@@ -116,22 +134,11 @@
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
         <widget class="PrimarySplitPushButton" name="PrimarySplitPushButton_API">
+         <property name="toolTip">
+          <string>当前的默认 API 为「百度通用文本翻译API」</string>
+         </property>
          <property name="text_" stdset="0">
           <string>调用默认API进行翻译</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="PushButton" name="PushButton_EditPrompt">
-         <property name="text">
-          <string>[AI专用] 编辑 prompt</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="PushButton" name="PushButton_EditAPIConfig">
-         <property name="text">
-          <string>API 配置</string>
          </property>
         </widget>
        </item>
@@ -155,6 +162,26 @@
          </property>
         </widget>
        </item>
+       <item>
+        <widget class="PushButton" name="PushButton_EditPrompt">
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;prompt 用于向 AI 阐述它的身份、任务与注意事项。&lt;/p&gt;&lt;p&gt;如按默认设置调用 AI 翻译没有显著的问题，保持默认即可。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="text">
+          <string>[AI专用] 编辑 prompt</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="PushButton" name="PushButton_EditAPIConfig">
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;配置 API 之后才能调用 API 并翻译。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="text">
+          <string>API 配置</string>
+         </property>
+        </widget>
+       </item>
       </layout>
      </item>
      <item>
@@ -166,6 +193,9 @@
     <layout class="QHBoxLayout" name="horizontalLayout_4">
      <item>
       <widget class="PushButton" name="PushButton_SaveProject">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;此为保存项目，而并非导出项目翻译文本。&lt;/p&gt;&lt;p&gt;如果翻译已经结束并需要导出可使用的翻译文本，请查看右上角的下拉按钮。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
        <property name="text">
         <string>保存本项目</string>
        </property>
@@ -173,8 +203,18 @@
      </item>
      <item>
       <widget class="PushButton" name="PushButton_ViewProject">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;项目的信息和数据仅在本地存储，并且不能保证准确可靠。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
        <property name="text">
         <string>查看本项目的信息和数据</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="CaptionLabel" name="CaptionLabel">
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;本翻译工具仅具备调用外部 API 进行翻译的能力；任何外部翻译 API 均与本工具无任何关系。&lt;br/&gt;本工具无法保证外部 API 调用所得翻译结果的准确性与可靠性。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
      </item>
@@ -214,6 +254,11 @@
    <header>qfluentwidgets</header>
   </customwidget>
   <customwidget>
+   <class>CaptionLabel</class>
+   <extends>QLabel</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
    <class>SubtitleLabel</class>
    <extends>QLabel</extends>
    <header>qfluentwidgets</header>
@@ -221,11 +266,6 @@
   <customwidget>
    <class>TextEdit</class>
    <extends>QTextEdit</extends>
-   <header>qfluentwidgets</header>
-  </customwidget>
-  <customwidget>
-   <class>PlainTextEdit</class>
-   <extends>QPlainTextEdit</extends>
    <header>qfluentwidgets</header>
   </customwidget>
  </customwidgets>

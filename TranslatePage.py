@@ -1,7 +1,8 @@
+from PySide2 import QtCore
 from PySide2.QtCore import QObject, Signal, QThread
 from PySide2.QtGui import Qt
 from PySide2.QtWidgets import QWidget, QLabel, QSpacerItem, QSizePolicy
-from qfluentwidgets import VBoxLayout, PushButton, RoundMenu, Action, TitleLabel, BodyLabel
+from qfluentwidgets import VBoxLayout, PushButton, RoundMenu, Action, TitleLabel, BodyLabel, SingleDirectionScrollArea
 from qfluentwidgets import FluentIcon as FIC
 
 import webbrowser
@@ -15,10 +16,15 @@ from script.translate_rule import Rule
 class TranslatePage:
     def __init__(self):
         self.widget = QWidget()
-        self.widget.setObjectName("TranslatePage")
         self.layout = VBoxLayout(self.widget)
         self.widget.setLayout(self.layout)
-        self.spacer = QSpacerItem(1000, 1000, hData=QSizePolicy.Maximum, vData=QSizePolicy.Maximum)
+        self.spacer = QSpacerItem(200, 200, hData=QSizePolicy.Expanding, vData=QSizePolicy.Expanding)
+
+        self.scrollArea = SingleDirectionScrollArea()
+        self.scrollArea.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
+        self.scrollArea.setWidget(self.widget)
+        self.scrollArea.setObjectName("TranslatePage")
+        self.scrollArea.setWidgetResizable(True)
         self.run()
 
     def addTextLine(self, text: str, labelType: str = "Body"):
@@ -67,30 +73,37 @@ class TranslateToolPage(QWidget):
         self.ui.PushButton_OneBefore.clicked.connect(lambda: self.displayText(self.getIdText(self.currentId - 1)))
         self.ui.PrimaryPushButton_SaveAndContinue.setIcon(FIC.ACCEPT)
         self.ui.PrimaryPushButton_SaveAndContinue.clicked.connect(lambda: self.saveText(self.getIdText(self.currentId),
-                                                                                        self.ui.PlainTextEdit_TranslatedText.toPlainText(),
+                                                                                        self.ui.TextEdit_TranslatedText.toPlainText(),
                                                                                         funcT.TranslateTag.human))
         self.ui.PrimaryPushButton_TranslateWithAPI.setIcon(FIC.APPLICATION)
         self.ui.PrimaryPushButton_TranslateWithAPI.clicked.connect(lambda: self.saveText(self.getIdText(self.currentId),
                                                                                          self.ui.TextEdit_API.toPlainText(),
                                                                                          funcT.TranslateTag.use_API))
         self.ui.ToolButton_CopyOriginalText.setIcon(FIC.COPY)
-        self.ui.ToolButton_CopyOriginalText.clicked.connect(lambda: self.ui.PlainTextEdit_TranslatedText.setPlainText(self.ui.PlainTextEdit_OriginalText.toPlainText()))
+        self.ui.ToolButton_CopyOriginalText.clicked.connect(
+            lambda: self.ui.TextEdit_TranslatedText.setPlainText(self.ui.TextEdit_OriginalText.toPlainText()))
         self.ui.ToggleButton_AutoTranslateWithAPI.setIcon(FIC.ROBOT)
         self.ui.PushButton_ViewProject.setIcon(FIC.BOOK_SHELF)
         self.ui.PushButton_EditAPIConfig.setIcon(FIC.EDIT)
 
         # 使用 API 翻译的下拉按钮
-        self.ui.PrimarySplitPushButton_API.clicked.connect(lambda: self.translateWithAPI(self.getIdText(self.currentId).originalText))  # 点击使用默认翻译 API
+        self.ui.PrimarySplitPushButton_API.clicked.connect(
+            lambda: self.translateWithAPI(self.getIdText(self.currentId).originalText))  # 点击使用默认翻译 API
         ButtonMenu_API = RoundMenu(parent=self.ui.PrimarySplitPushButton_API)
-        ButtonMenu_API.addAction(Action(text="百度通用文本翻译API", triggered=lambda: self.translateWithAPI(self.getIdText(self.currentId).originalText, apiFunc=funcT.fanyi_baidu)))
-        ButtonMenu_API.addAction(Action(text="有道文本翻译API", triggered=lambda: self.translateWithAPI(self.getIdText(self.currentId).originalText, apiFunc=funcT.fanyi_youdao)))
+        ButtonMenu_API.addAction(Action(text="百度通用文本翻译API", triggered=lambda: self.translateWithAPI(
+            self.getIdText(self.currentId).originalText, apiFunc=funcT.fanyi_baidu)))
+        ButtonMenu_API.addAction(Action(text="有道文本翻译API", triggered=lambda: self.translateWithAPI(
+            self.getIdText(self.currentId).originalText, apiFunc=funcT.fanyi_youdao)))
         self.ui.PrimarySplitPushButton_API.setFlyout(ButtonMenu_API)
 
         # 顶部右侧的下拉按钮
         ButtonMenu_Quick = RoundMenu(parent=self.ui.SplitPushButton)
-        ButtonMenu_Quick.addAction(Action(icon=FIC.PLAY, text="从最近的未翻译词条开始", triggered=lambda: self.continueLastText()))
+        ButtonMenu_Quick.addAction(
+            Action(icon=FIC.PLAY, text="从最靠前的未翻译词条开始", triggered=lambda: self.continueLastText()))
+        ButtonMenu_Quick.addAction(Action(icon=FIC.ZOOM_OUT, text="格式化并导出翻译文本",
+                                          triggered=lambda: self.project.dumpProject(funcT.FileType.JSON,
+                                                                                     "output.json")))
         self.ui.SplitPushButton.setFlyout(ButtonMenu_Quick)
-
 
     def setProject(self, file: str):
         self.project.loadProject(file)
@@ -102,7 +115,7 @@ class TranslateToolPage(QWidget):
             text: funcT.TranslateText
             if text.id == id:
                 return text
-        raise
+        raise funcT.TextIdError(id)
 
     def continueLastText(self):
         for text in self.project.textList:
@@ -114,17 +127,18 @@ class TranslateToolPage(QWidget):
         return None
 
     def displayText(self, text: funcT.TranslateText):
-        self.ui.SubtitleLabel.setText(f"共有 {self.project.n} 个翻译条目；当前条目ID：{text.id}；条目标签（Tag）：{text.translateTag}")
-        self.ui.PlainTextEdit_OriginalText.setPlainText(text.originalText)
+        self.ui.SubtitleLabel.setText(
+            f"共有 {self.project.n} 个翻译条目；当前条目ID：{text.id}；条目标签（Tag）：{text.translateTag}")
+        self.ui.TextEdit_OriginalText.setPlainText(text.originalText)
         if text.translatedText != "None":
-            self.ui.PlainTextEdit_TranslatedText.setPlainText(text.translatedText)
+            self.ui.TextEdit_TranslatedText.setPlainText(text.translatedText)
         else:
-            self.ui.PlainTextEdit_TranslatedText.clear()
+            self.ui.TextEdit_TranslatedText.clear()
         self.ui.TextEdit_API.clear()
         self.currentId = text.id
 
-        # 检查是否重复，如果是的话则直接复制已有的翻译
-        if self.ui.PlainTextEdit_TranslatedText.toPlainText() == "":
+        # 检查是否重复，如果是的话则直接复制已有的翻译 TODO:要先弹出信息框进行询问！或在存在指定参数时才直接复制
+        if self.ui.TextEdit_TranslatedText.toPlainText() == "":
             for text_ in self.project.textList:
                 text_: funcT.TranslateText
                 if text_.translatedText != "None":
@@ -154,7 +168,8 @@ class TranslateToolPage(QWidget):
             self.displayText(self.getIdText(self.currentId))
         return None
 
-    def translateWithAPI(self, originalText: str, originalLan: str = "en", targetLan: str = "zh", displayInWindow: bool = True, apiFunc: staticmethod = funcT.fanyi_baidu):
+    def translateWithAPI(self, originalText: str, originalLan: str = "en", targetLan: str = "zh",
+                         displayInWindow: bool = True, apiFunc: staticmethod = funcT.fanyi_baidu):
         if self.ui.ToggleButton_AutoTranslateWithAPI.isChecked():
             self.autoTranslate(originalLan, targetLan, apiFunc)
         else:
@@ -196,7 +211,8 @@ class Worker_AutoTranslate(QObject):
     targetIdSignal = Signal(int)
     targetTextSignal = Signal(str)
 
-    def __init__(self, project: funcT.TranslateProject, startId: int, originalLan: str = "en", targetLan: str = "zh", apiFunc: staticmethod = funcT.fanyi_baidu):
+    def __init__(self, project: funcT.TranslateProject, startId: int, originalLan: str = "en", targetLan: str = "zh",
+                 apiFunc: staticmethod = funcT.fanyi_baidu):
         super().__init__()
 
         self.project = project
@@ -229,4 +245,3 @@ class Worker_AutoTranslate(QObject):
             print(f"已完成一次 API 翻译（{n}）。")
             sleep(1)
             n += 1
-
