@@ -1,9 +1,11 @@
+import os
 import sys, locale
+import traceback
 
 from PySide2.QtGui import QGuiApplication, Qt, QIcon
 from PySide2.QtWidgets import QApplication
 import PySide2.QtCore as QC
-from qfluentwidgets import FluentWindow, setTheme, Theme, NavigationItemPosition
+from qfluentwidgets import FluentWindow, setTheme, Theme, NavigationItemPosition, FluentTranslator, MessageBox
 from qfluentwidgets import FluentIcon as FIC
 
 from MainPage import MainPage
@@ -14,6 +16,7 @@ from ConfigPage import ConfigPage
 
 from widget.function import basicFunc
 from widget.function_setting import cfg
+import widget.function_error as funcE
 
 locale.setlocale(locale.LC_ALL, "zh_CN.UTF-8")
 
@@ -24,12 +27,18 @@ QGuiApplication.setHighDpiScaleFactorRoundingPolicy(Qt.HighDpiScaleFactorRoundin
 app = QApplication(sys.argv)
 app.setStyleSheet(basicFunc.readFile(file="/data/global.qss"))
 # app.setStyleSheet("")
+translator = FluentTranslator()
+app.installTranslator(translator)
 
 window_MainPage = MainPage()
 window_DownloadPage = DownloadPage()
 window_HashPage = HashPage()
 window_TranslatePage = TranslatePage()
 window_ConfigPage = ConfigPage()
+
+
+def showInfoBar(msfFunc):
+    msfFunc()
 
 
 class Main:
@@ -64,6 +73,26 @@ class Main:
 
 if __name__ == "__main__":
     main = Main()
-    main.run()
+    try:
+        main.run()
+    except Exception as e:
+        def closeWindowAndLog():
+            os.startfile(basicFunc.getHerePath() + r"\log")
+            sys.exit(1)
 
-    sys.exit(app.exec_())
+        def close():
+            sys.exit(1)
+
+        w = MessageBox(title="启动过程中捕获到异常",
+                       content="安全起见，程序将立即关闭。报错日志始终依照设置生成，您可以通过日志调试检查问题，或将日志与有关信息作为 issue 提交至 GitHub。\n"
+                               f"下面是本次异常的控制台输出信息：{e}" +
+                               traceback.format_exc(),
+                       parent=main.mainWindow)
+        w.yesButton.setText("关闭程序并查看日志文件夹")
+        w.cancelButton.setText("关闭程序")
+        w.yesButton.clicked.connect(closeWindowAndLog)
+        w.cancelButton.clicked.connect(close)
+        w.show()
+
+    finally:
+        sys.exit(app.exec_())

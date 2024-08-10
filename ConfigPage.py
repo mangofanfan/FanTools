@@ -35,6 +35,9 @@ class ConfigPage:
         return None
 
     def run(self):
+        self.addTextLine("设置", "Title")
+        self.addTextLine("设置项目自动保存在本地，即刻生效，部分设置项目仅对特定功能生效。", "Body")
+
         # 程序的全局外观设置
         self.CardGroup_Theme = SettingCardGroup("主题设置", self.widget)
         self.Card_ThemeMode = ComboBoxSettingCard(configItem=funcS.cfg.ThemeMode,

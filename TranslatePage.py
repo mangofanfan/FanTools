@@ -9,6 +9,7 @@ import webbrowser
 
 from widget.function import basicFunc
 import widget.function_translate as funcT
+import widget.function_error as funcE
 from widget.TranslateToolPage import Ui_Form as TranslateToolPageUi
 from script.translate_rule import Rule
 
@@ -115,7 +116,9 @@ class TranslateToolPage(QWidget):
             text: funcT.TranslateText
             if text.id == id:
                 return text
-        raise funcT.TextIdError(id)
+        from widget.InfoBar import msgTextIdError
+        msgTextIdError(self)
+        return None
 
     def continueLastText(self):
         for text in self.project.textList:
@@ -127,11 +130,14 @@ class TranslateToolPage(QWidget):
         return None
 
     def displayText(self, text: funcT.TranslateText):
+        # 如果没有返回正确的 text，则不对 UI 进行任何操作。
+        if not text:
+            return None
         self.ui.SubtitleLabel.setText(
             f"共有 {self.project.n} 个翻译条目；当前条目ID：{text.id}；条目标签（Tag）：{text.translateTag}")
-        self.ui.TextEdit_OriginalText.setPlainText(text.originalText)
+        self.ui.TextEdit_OriginalText.setText(text.originalText)
         if text.translatedText != "None":
-            self.ui.TextEdit_TranslatedText.setPlainText(text.translatedText)
+            self.ui.TextEdit_TranslatedText.setText(text.translatedText)
         else:
             self.ui.TextEdit_TranslatedText.clear()
         self.ui.TextEdit_API.clear()
