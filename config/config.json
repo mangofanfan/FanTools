@@ -1,0 +1,21 @@
+{
+    "API": {
+        "BaiduAPPID": "20220208001076927",
+        "BaiduKey": "zwX78gFP3O4dA0Mwf7zD",
+        "YoudaoAPPKey": "47d707b612be94ab",
+        "YoudaoKey": "UBs0CdipioXsc48tD5y0sYqKL8n4hjBi"
+    },
+    "Function": {
+        "ProxyEnable": true,
+        "ProxyHttp": "http://127.0.0.1:7890",
+        "ProxyHttps": "http://127.0.0.1:7890"
+    },
+    "Appearance": {
+        "ThemeColor": "#ff6d65ff",
+        "ThemeMode": "light"
+    },
+    "QFluentWidgets": {
+        "ThemeColor": "#ff6d65ff",
+        "ThemeMode": "Light"
+    }
+}

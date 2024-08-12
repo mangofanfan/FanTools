@@ -1,0 +1,1426 @@
+ [ 1, 1, 4 ]|!| [ 1, 1, 4 ]|!|;人工翻译
+Terra Swoop Force RP|!|Terra Swoop Force RP|!|;人工翻译
+by Noxcrew|!|由 Noxcrew 制作|!|;人工翻译
+<§bSasha§r> Oh welcome! Welcome!|!|<§bShaha§r> 哦，欢迎！欢迎光临！|!|;使用API翻译;人工翻译
+<§bSasha§r> We were expecting you almost half an hour ago, but being a tad late is far better than being melted to death and never showing up.|!|<§bShaha§r> 我们半小时前就等着你了，但稍微晚一点总比被融化而死再也不出现要好得多。|!|;使用API翻译;人工翻译
+<§bSasha§r> Am I right?|!|<§bShaha§r> 我说的对吧？|!|;使用API翻译;人工翻译
+<§bSasha§r> §o§7*giggles*§r|!|<§bShaha§r>§o§7*咯咯地笑*§r|!|;使用API翻译
+<§bSasha§r> Okay, we are already running late, so you should probably §ahead upstairs to begin Alan's briefing on the mission.|!|<§bSasha§r> 好吧，我们已经迟到了，所以你可能应该提前上楼，开始艾伦关于任务的简报。|!|;使用API翻译
+<§bSasha§r> Good luck!|!|<§bSasha§r> 祝你好运！|!|;使用API翻译
+<§bSasha§r> Have fun!|!|<§bSasha§r> 玩得高兴！|!|;使用API翻译
+<§bSasha§r> See you soon!|!|<§bSasha§r> 期待很快与您见面！|!|;使用API翻译
+<§bSasha§r> Have a nice trip!|!|<§bSasha§r> 祝你旅途愉快！|!|;使用API翻译
+<§bSasha§r> Are- are they gone?|!|<§bSasha§r> 他们走了吗？|!|;使用API翻译
+<§bSasha§r> Are we finished?|!|<§bSasha§r> 我们结束了吗？|!|;使用API翻译
+<§bSasha§r> Phew!|!|<§bSasha§r> 呼！|!|;使用API翻译
+[§eINTERCOM§r] The following is a GDL certified presentation.|!|[§eINTERCOM§r] 以下是GDL认证的演示文稿。|!|;使用API翻译
+[§eINTERCOM§r] Recorded and made for strict use of the Geo Descent Lab grounds only.|!|[§eINTERCOM§r] 仅为严格使用 GDL [Geo Descent Lab] 场地而录制和制作。|!|;使用API翻译;人工翻译
+<§bAlan§r> §o§7*cough*|!|<§bAlan§r> §o§7*咳嗽*|!|;使用API翻译
+<§bAlan§r> Right...|!|<§bAlan§r> 好……|!|;使用API翻译;人工翻译
+<§bAlan§r> Let's see...|!|<§bAlan§r> 让我们看看……|!|;使用API翻译;人工翻译
+<§bAlan§r> Ah, yes.|!|<§bAlan§r> 啊，是的。|!|;使用API翻译;人工翻译
+<§bAlan§r> §o§7*clears throat*|!|<§bAlan§r> §o§7*清嗓子*|!|;使用API翻译
+<§bAlan§r> Welcome!|!|<§bAlan§r> 欢迎！|!|;使用API翻译;人工翻译
+<§bAlan§r> §o§7*clears throat again*|!|<§bAlan§r> §o§7*再次清嗓子*|!|;使用API翻译
+<§bAlan§r> Welcome...|!|<§bAlan§r> 欢迎……|!|;使用API翻译;人工翻译
+<§bAlan§r> §o§7*clears throat more thoroughly*|!|<§bAlan§r> §o§7*更彻底地清嗓子*|!|;使用API翻译
+<§bAlan§r> Welcome to Geo Descent Labs!|!|<§bAlan§r> 欢迎来到 GDL！|!|;使用API翻译;人工翻译
+<§bAlan§r> Where digging into the past, is of the past, because we're digging into the future, instead of the past.|!|<§bAlan§r> 所谓挖掘过去，才应该是过去，因为我们挖掘的是未来，而不是过去。|!|;使用API翻译;人工翻译
+<§bAlan§r> My name is Alan Columbus, and I'm the one in charge of running the operations here.|!|<§bAlan§r> 我叫艾伦·哥伦布，负责这里的运营。|!|;使用API翻译
+<§bAlan§r> So, please do take a seat!|!|<§bAlan§r> 所以，请坐！|!|;使用API翻译
+<§bAlan§r> As the following presentation will outline your mission in adequate detail!|!|<§bAlan§r> 因为下面的演示将足够详细地概述你们的任务！|!|;使用API翻译;人工翻译
+<§bAlan§r> Yes...|!|<§bAlan§r> 对……|!|;使用API翻译;人工翻译
+<§bAlan§r> Right!|!|<§bAlan§r> 没错！|!|;使用API翻译;人工翻译
+<§bAlan§r> Approximately thirty years ago, we sent a bore-drill with a two man crew to create a tunnel to the center of the Earth.|!|<§bAlan§r> 大约三十年前，我们派出了一台钻孔机和一个两人小组，建造了一条通往地球中心的隧道。|!|;使用API翻译
+<§bAlan§r> However, once that drill reached the core...|!|<§bAlan§r> 然而，当钻头到达地球核心时……|!|;使用API翻译;人工翻译
+<§bAlan§r> We lost all communication with the crew.|!|<§bAlan§r> 我们与机组人员失去了所有联系。|!|;使用API翻译
+<§bAlan§r> And uhm- well...|!|<§bAlan§r> 嗯……|!|;使用API翻译;人工翻译
+<§bAlan§r> The crew themselves.|!|<§bAlan§r> 全体地航员。|!|;使用API翻译;人工翻译
+<§bAlan§r> So the project was completely shut down, due to the unforeseen casualties.|!|<§bAlan§r> 因此，由于意外伤亡，该项目完全关闭。|!|;使用API翻译
+<§bAlan§r> I mean-|!|<§bAlan§r> 我是说——|!|;使用API翻译;人工翻译
+<§bAlan§r> I say "unforeseen", but y'know, the nature of uh...|!|<§bAlan§r> 我说“不可预见”，但你知道，嗯……|!|;使用API翻译;人工翻译
+<§bAlan§r> §o§7*inaudible noises*|!|<§bAlan§r> §o§7*听不清的噪音*|!|;使用API翻译;人工翻译
+<§bAlan§r> §o§7*clears throat*|!|<§bAlan§r> §o§7*清嗓子*|!|;使用API翻译
+<§bAlan§r> Now!|!|<§bAlan§r> 现在！|!|;使用API翻译
+<§bAlan§r> Fast forward to about a year ago!|!|<§bAlan§r> 快进到大约一年前！|!|;使用API翻译
+<§bAlan§r> We discovered a new type of rock, deep down in the Earth, named Noxesium.|!|<§bAlan§r> 我们在地球深处发现了一种名为Noxesium的新型岩石。|!|;使用API翻译
+<§bAlan§r> That, when cooked at a temperature of 3456 degrees...|!|<§bAlan§r> 然后，当在3456度的温度下烹饪时……|!|;使用API翻译;人工翻译
+<§bAlan§r> Along with a cow's udder...|!|<§bAlan§r> 随着奶牛的乳房……|!|;使用API翻译
+<§bAlan§r> Apple cider vinegar...|!|<§bAlan§r> 苹果醋……|!|;使用API翻译
+<§bAlan§r> A few gummy bears...|!|<§bAlan§r> 几只小熊软糖……|!|;使用API翻译
+<§bAlan§r> Dried washing-up liquid...|!|<§bAlan§r> 干燥的洗涤液……|!|;使用API翻译
+<§bAlan§r> And a spleen of a ra-|!|<§bAlan§r> 还有一个兔子的脾脏——|!|;使用API翻译;人工翻译
+<§bAlan§r> You know what-|!|<§bAlan§r> 你们知道——|!|;使用API翻译;人工翻译
+<§bAlan§r> §oIn brief§r, it allowed us to create a new alloy that we managed to translate into a fully fledged metallic wingsuit.|!|<§bAlan§r> §o简而言之§r，它使我们能够制造出一种新的合金，并成功地将其转化为功能齐全的金属翼服。|!|;使用API翻译;人工翻译
+<§bAlan§r> Named: The §lThermal Flight Armor 1541§r.|!|<§bAlan§r> 我们称其为：1541热飞行装甲 [Thermal Flight Armor 1541] [TFA-1541]。|!|;使用API翻译;人工翻译
+<§bAlan§r> This suit is made to withstand the highest heats known to man!|!|<§bAlan§r> 这套衣服能承受人类已知的最高温度！|!|;使用API翻译
+<§bAlan§r> And so we believe... the center of the Earth.|!|<§bAlan§r> 所以我们相信……地球核心的温度，同样可以。|!|;使用API翻译;人工翻译
+<§bAlan§r> This is where you come in.|!|<§bAlan§r> 所以，你们来到了这里。|!|;使用API翻译;人工翻译
+<§bAlan§r> You have been hired for a mission to fly down to the center of the Earth...|!|<§bAlan§r> 你们被雇来执行飞往地球核心的任务……|!|;使用API翻译;人工翻译
+<§bAlan§r> Wearing the Thermal Flight Armor 1541...|!|<§bAlan§r> 穿着1541热飞行装甲[Thermal Flight Armor 1541]……|!|;使用API翻译;人工翻译
+<§bAlan§r> To rescue the long lost bore-drill!|!|<§bAlan§r> 救援失联已久的钻孔钻机！|!|;使用API翻译;人工翻译
+<§bAlan§r> Providing that it's intact, you should be able to use the power in your suits to power it up and drive it all the way back.|!|<§bAlan§r> 如果它完好无损，你们应该能够使用身上装备的电源为它供电，并一路开车回来。|!|;使用API翻译;人工翻译
+<§bAlan§r> It would also be nice to recover the bodies...|!|<§bAlan§r> 若能找回地航员的尸体也很好……|!|;使用API翻译;人工翻译
+<§bAlan§r> O- Of the crew we lost.|!|<§bAlan§r> 我是说——我们失去的地航员。|!|;使用API翻译;人工翻译
+<§bAlan§r> And uhm...|!|<§bAlan§r> 嗯……|!|;使用API翻译
+<§bAlan§r> Bring them back for their families.|!|<§bAlan§r> 带他们回家，同家人团聚。|!|;使用API翻译;人工翻译
+<§bAlan§r> Okay!|!|<§bAlan§r> 好！|!|;使用API翻译;人工翻译
+<§bAlan§r> Let's talk about how you're going to do it.|!|<§bAlan§r> 让我们谈谈你们应该怎么做。|!|;使用API翻译;人工翻译
+<§bAlan§r> The bore-drill gradually made its way to the Earth's core through three separate tunnels in a zig-zag formation.|!|<§bAlan§r> 钻孔机逐渐通过三个单独的隧道以锯齿形的形式进入地核。|!|;使用API翻译
+<§bAlan§r> You will glide, using your suits, all the way down to the center of the Earth, through these tunnels.|!|<§bAlan§r> 你们将穿着TFA套装，穿过这些隧道，一路滑行到地球中心。|!|;使用API翻译;人工翻译
+<§bAlan§r> At the end of Tunnel 1 and 2, there is a base camp that you can use to rest up at.|!|<§bAlan§r> 在隧道1和2的尽头，有一个大本营，你可以在那里休息。|!|;使用API翻译
+<§bAlan§r> However, beyond Tunnel 3...|!|<§bAlan§r> 然而，在3号隧道之外……|!|;使用API翻译
+<§bAlan§r> Well...|!|<§bAlan§r> 好……|!|;使用API翻译
+<§bAlan§r> It's all on you, at that point.|!|<§bAlan§r> 在那时候，一切都取决于你。|!|;使用API翻译;人工翻译
+<§bAlan§r> Listen...|!|<§bAlan§r> 听好了……|!|;使用API翻译;人工翻译
+<§bAlan§r> I don't know what you're going to find down there.|!|<§bAlan§r> 我不知道你们在下面会发现什么。|!|;使用API翻译;人工翻译
+<§bAlan§r> But I'm sure you all agreed upon the possible dangers, when you signed up for this job.|!|<§bAlan§r> 但我相信，当你报名申请这次任务时，你们都已知晓可能存在的危险。|!|;使用API翻译;人工翻译
+<§bAlan§r> Right.|!|<§bAlan§r> 是的。|!|;使用API翻译;人工翻译
+<§bAlan§r> As soon as this brief is finished, you'll head out the door behind you and follow the route down to the Armory.|!|<§bAlan§r> 任务简报结束后，你们将走出身后的门，沿着路线前往军械库。|!|;使用API翻译;人工翻译
+<§bAlan§r> Where you'll equip your brand-spanking-new, Thermal Flight Armor 1541s.|!|<§bAlan§r> 你们将在那里装备全新的 TFA 1541。|!|;使用API翻译;人工翻译
+<§bAlan§r> And then progress...|!|<§bAlan§r> 然后就是……|!|;使用API翻译;人工翻译
+<§bAlan§r> §oTo the Drop Zone§r!|!|<§bAlan§r> §o前往下降平台§r！|!|;使用API翻译;人工翻译
+<§bAlan§r> Uhm...|!|<§bAlan§r> 嗯……|!|;使用API翻译
+<§bAlan§r> Sasha!?|!|<§bAlan§r> 萨沙！？|!|;使用API翻译
+<§bAlan§r> Is it-|!|<§bAlan§r> 是吗——|!|;使用API翻译;人工翻译
+<§bAlan§r> Is it possible to get this recording to uhm-|!|<§bAlan§r> 有可能把这段录音传到嗯——|!|;使用API翻译;人工翻译
+<§bAlan§r> Self destruct?|!|<§bAlan§r> 自毁？|!|;使用API翻译
+<§bAlan§r> After it's finished?|!|<§bAlan§r> 完成之后？|!|;使用API翻译
+<§bAlan§r> Y'know like the uhm- Mission Impossible film?|!|<§bAlan§r> 你知道吗，就像《碟中谍（Mission Impossible）》一样？|!|;使用API翻译;人工翻译
+<§bAlan§r> No?|!|<§bAlan§r> 不？|!|;使用API翻译;人工翻译
+<§bAlan§r> What do you mean no?|!|<§bAlan§r> 你说不——是什么意思？|!|;使用API翻译;人工翻译
+<§bAlan§r> Okay.|!|<§bAlan§r> 好。|!|;使用API翻译;人工翻译
+<§bAlan§r> Okay Ne-|!|<§bAlan§r> 好的，没——|!|;使用API翻译;人工翻译
+<§bAlan§r> Nevermind.|!|<§bAlan§r> 没事的。|!|;人工翻译
+<§bAlan§r> Pfft.|!|<§bAlan§r> 我不。|!|;使用API翻译
+<§bAlan§r> Mardy...|!|<§bAlan§r> 马尔迪……|!|;使用API翻译
+<§bAlan§r> k- ka-|!|<§bAlan§r> k——卡——|!|;使用API翻译;人工翻译
+<§bAlan§r> Kaboooooooooooooooooooooooooom!|!|<§bAlan§r> 哇，哇——哇！！！！！！！！！！！！！|!|;使用API翻译
+<§bAlan§r> Kaboom...|!|<§bAlan§r> 卡布姆……|!|;使用API翻译
+<§bAlan§r> §o§7*cough*|!|<§bAlan§r> §o§7*咳嗽*|!|;使用API翻译
+<GDL Scientist> The big Dr. Barney and Dr. Minnowski mystery is finally going to be solved!|!|<GDL Scientist> 巴尼博士和明诺夫斯基博士的大谜团终于要被解开了！|!|;使用API翻译
+<GDL Scientist> I can't wait!|!|<GDL Scientist> 我等不及了！|!|;使用API翻译
+<§cTFA-1541§r> Wing boot up sequence initiated... ... ...|!|<§cTFA——1541§r> 机翼启动程序初始化……|!|;使用API翻译
+<§cTFA-1541§r> A number of checks will now commence. Please standby.|!|<§cTFA——1541§r> 现在开始进行多项检查，请稍候。|!|;使用API翻译
+<§cTFA-1541§r> Wing flexibility check complete.|!|<§cTFA——1541§r> 机翼灵活性检查完成。|!|;使用API翻译
+<§cTFA-1541§r> Suit alloy fusion integrity check complete.|!|<§cTFA——1541§r> 套件合金熔合完整性检查完成。|!|;使用API翻译;人工翻译
+<§cTFA-1541§r> Inline breathability module flowing.|!|<§cTFA——1541§r> 内联透气模块启动完成。|!|;使用API翻译;人工翻译
+<§cTFA-1541§r> Thermal resistance gel application complete.|!|<§cTFA——1541§r> 热阻凝胶应用完成。|!|;使用API翻译
+<§cTFA-1541§r> Welcome to the TFA-1541.|!|<§cTFA——1541§r> 欢迎使用 TFA-1541。|!|;使用API翻译
+<§cTFA-1541§r> I am Ely, and I will accompany you on your journey to the center of the Earth.|!|<§cTFA——1541§r> 我是伊利，我将陪伴你踏上前往地球中心的旅程。|!|;使用API翻译
+<§cTFA-1541§r> For your safety, do not attempt to land the suit until I have deployed the landing gear.|!|<§cTFA——1541§r> 为了你的安全，在我打开起落架之前，不要试图降落。|!|;使用API翻译
+<§cTFA-1541§r> Do not drive the TFA-1541 into water, hot liquids, or magma.|!|<§cTFA-1541§r> 请勿让TFA-1541接触水、高温液体或岩浆。|!|;使用API翻译;人工翻译
+<§cTFA-1541§r> Enjoy your flight.|!|<§cTFA-1541§r> 祝您任务顺利。|!|;使用API翻译;人工翻译
+[§eINTERCOM§r] The Terra Swoop Force has arrived.|!|[§eINTERCOM§r] TS（Terra Swoop）任务人员已经到达。|!|;使用API翻译;人工翻译
+[§eINTERCOM§r] Descent sequence will initiate upon activation of the hatch door controls.|!|[§eINTERCOM§r] 激活舱门控制装置后，下降程序将启动。|!|;使用API翻译
+[§eINTERCOM§r] Warning: Bore Hole Hatch Doors are preparing to open.|!|[§eINTERCOM§r] 警告：钻孔舱门将要打开。|!|;使用API翻译
+[§eINTERCOM§r] Please stand clear of the Drop Zone.|!|[§eINTERCOM§r] 请远离降落区。|!|;使用API翻译
+[§eINTERCOM§r] Remember: GDL will not be held responsible in the event of a likely death.|!|[§eINTERCOM§r] 记住：GDL对潜在的人员死亡可能性不承担责任。|!|;使用API翻译;人工翻译
+[§eINTERCOM§r] Your descent will begin in...|!|[§eINTERCOM§r] 下降倒计时……|!|;使用API翻译;人工翻译
+[§eINTERCOM§r] 3...|!|[§eINTERCOM§r] 3……|!|;人工翻译
+[§eINTERCOM§r] 2...|!|[§eINTERCOM§r] 2……|!|;人工翻译
+[§eINTERCOM§r] 1...|!|[§eINTERCOM§r] 1……|!|;人工翻译
+[§6INTERCOM§r] Please wait for the Oxygen Renewal Chamber to cycle.|!|[§6INTERCOM§r] 请等待氧气循环更新完毕。|!|;使用API翻译
+<§cTFA-1541§r> Alpha Base Camp has been reached.|!|<§cTFA-1541§r> 阿尔法大本营已经到达。|!|;使用API翻译
+<§cTFA-1541§r> Activating the console in the Oxygen Renewal Chamber will rendezvous all active TFA-1541 modules to Alpha Base.|!|<§cTFA-1541§r> 激活氧气更新室中的控制台将引导所有活动中的TFA-1541模块与阿尔法大本营会合。|!|;使用API翻译;人工翻译
+<§cTFA-1541§r> Alpha Base Camp has been reached.|!|<§cTFA-1541§r> 阿尔法大本营已经到达。|!|;使用API翻译
+<§cTFA-1541§r> Standby for rendezvous at Alpha Base.|!|<§cTFA-1541§r> 在阿尔法大本营等待会合。|!|;使用API翻译;人工翻译
+<§cTFA-1541§r> Beta Base Camp has been reached.|!|<§cTFA-1541§r> 贝塔大本营已经到达。|!|;使用API翻译
+<§cTFA-1541§r> Activating the console in the Oxygen Renewal Chamber will rendezvous all active TFA-1541 modules to Beta Base.|!|<§cTFA-1541§r> 激活氧气更新室中的控制台将引导所有活动中的TFA-1541模块与贝塔大本营会合。|!|;使用API翻译;人工翻译
+<§cTFA-1541§r> Beta Base Camp has been reached.|!|<§cTFA-1541§r> 贝塔大本营已经到达。|!|;使用API翻译
+<§cTFA-1541§r> Standby for rendezvous at Beta Base.|!|<§cTFA-1541§r> 准备在贝塔大本营会合。|!|;使用API翻译;人工翻译
+<§cTFA-1541§r> Core Drill sensed nearby.|!|<§cTFA-1541§r> 岩芯钻机的气味就在附近。|!|;使用API翻译
+<§cTFA-1541§r> Continuing to explore forward will activate forward support teleportation on TFA-1541 suits.|!|<§cTFA-1541§r> 继续向前探索将激活TFA-1541套装设备的前方支援传送，从而让所有活动中的TFA-1541立即汇合。|!|;使用API翻译;人工翻译
+<§cTFA-1541§r> Standby for rendezvous at Core.|!|<§cTFA-1541§r> 准备在核心会合。|!|;使用API翻译
+<§cTFA-1541§r> Your suit is nearing the maximum temperature it can withstand.|!|<§cTFA-1541§r> 你的套件已接近所能承受的最高温度。|!|;使用API翻译;人工翻译
+<§cTFA-1541§r> Please proceed with caution.|!|<§cTFA-1541§r> 请谨慎行事。|!|;使用API翻译
+[§6INTERCOM§r] Please wait for the Airlock to cycle.|!|[§6INTERCOM§r] 请等待气闸循环。|!|;使用API翻译
+[§6INTERCOM§r] Please-|!|[§6INTERCOM§r] 请——|!|;使用API翻译
+[§6INTERCOM§r] wait-|!|[§6INTERCOM§r] 等——|!|;人工翻译
+[§6INTERCOM§r] wait-|!|[§6INTERCOM§r] 等等——|!|;人工翻译
+[§6INTERCOM§r] wait-|!|[§6INTERCOM§r] 等——|!|;人工翻译
+[§6INTERCOM§r] wait-|!|[§6INTERCOM§r] 等——|!|;人工翻译
+[§6INTERCOM§r] wait-|!|[§6INTERCOM§r] 等待——|!|;人工翻译
+[§6INTERCOM§r] wait-|!|[§6INTERCOM§r] 等等等等——|!|;人工翻译
+[§6INTERCOM§r] wait-|!|[§6INTERCOM§r] 等——|!|;人工翻译
+[§6INTERCOM§r] wait-|!|[§6INTERCOM§r] 等——|!|;人工翻译
+[§6INTERCOM§r] wait-|!|[§6INTERCOM§r] 等——|!|;人工翻译
+[§6INTERCOM§r] wait-|!|[§6INTERCOM§r] 等——|!|;人工翻译
+[§6INTERCOM§r] wait-|!|[§6INTERCOM§r] 等——|!|;人工翻译
+[§6INTERCOM§r] wait-|!|[§6INTERCOM§r] 等——|!|;人工翻译
+[§6INTERCOM§r] wait-|!|[§6INTERCOM§r] 等——|!|;人工翻译
+[§6INTERCOM§r] wait-|!|[§6INTERCOM§r] 等——|!|;人工翻译
+[§6INTERCOM§r] For the Airlock to-|!|[§6INTERCOM§r] 等待气闸——|!|;人工翻译
+§o§7INTERCOM breaks down.|!|§o§7地面通信中断。|!|;使用API翻译;人工翻译
+<§dDr. Barney§r> Oh-|!|<§dDr. Barney§r> 哦——|!|;使用API翻译
+<§dDr. Barney§r> Oh my god...|!|<§dDr. Barney§r> 天呐……|!|;使用API翻译
+<§dDr. Barney§r> Oh my god!|!|<§dDr. Barney§r> 老天爷啊啊啊！！|!|;人工翻译
+<§dDr. Barney§r> I-|!|<§dDr. Barney§r> 我——|!|;人工翻译
+<§dDr. Barney§r> I- It can't be!|!|<§dDr. Barney§r> 我——这不可能！|!|;使用API翻译
+<§dDr. Barney§r> Are you real?|!|<§dDr. Barney§r> 你是真实的吗？|!|;使用API翻译
+<§dDr. Barney§r> I-|!|<§dDr. Barney§r> 我——|!|;人工翻译
+<§dDr. Barney§r> I can't believe my eyes!|!|<§dDr. Barney§r> 简直难以置信！|!|;使用API翻译;人工翻译
+<§dDr. Barney§r> I've waited so long for this...|!|<§dDr. Barney§r> 我等了这么久……|!|;使用API翻译
+<§dDr. Barney§r> So long...|!|<§dDr. Barney§r> 这么久……|!|;使用API翻译
+<§dDr. Barney§r> I have yearned for this moment and it has finally come...|!|<§dDr. Barney§r> 我一直渴望的这一刻，它终于来了……|!|;使用API翻译
+<§dDr. Barney§r> §o§7*sobs*|!|<§dDr. Barney§r> §o§7*哭泣*|!|;使用API翻译
+<§dDr. Barney§r> I don't know what to say!|!|<§dDr. Barney§r> 我不知道该说什么！|!|;使用API翻译
+<§dDr. Barney§r> What?|!|<§dDr. Barney§r> 什么？|!|;使用API翻译
+<§dDr. Barney§r> Oh!|!|<§dDr. Barney§r> 哦！|!|;使用API翻译
+<§dDr. Barney§r> §o§7*laughs*|!|<§dDr. Barney§r> §o§7*大笑*|!|;使用API翻译
+<§dDr. Barney§r> I'm sorry, you must be surprised!|!|<§dDr. Barney§r> 抱歉，你一定很惊讶！|!|;使用API翻译
+<§dDr. Barney§r> I'm still alive!|!|<§dDr. Barney§r> 我还活着！|!|;使用API翻译
+<§dDr. Barney§r> After all this time!|!|<§dDr. Barney§r> 过去了这么长时间！|!|;使用API翻译
+<§dDr. Barney§r> §o§7*laughs*|!|<§dDr. Barney§r> §o§7*笑*|!|;使用API翻译
+<§dDr. Barney§r> I don't even know how long it's been since Dr. Minnowski left my side.|!|<§dDr. Barney§r> 我甚至不知道明诺夫斯基离开我多久了。|!|;使用API翻译
+<§dDr. Barney§r> Well...|!|<§dDr. Barney§r> 好……|!|;使用API翻译
+<§dDr. Barney§r> After we ran out of actual food we had to train our stomachs to survive off...|!|<§dDr. Barney§r> 当我们耗尽了真正的食物后，为了活下来，我们不得不训练自己的胃……|!|;使用API翻译
+<§dDr. Barney§r> §oThe drill itself!§r|!|<§dDr. Barney§r> §o钻头！§r|!|;使用API翻译
+<§dDr. Barney§r> §o§7*laughs*|!|<§dDr. Barney§r> §o§7*笑*|!|;使用API翻译
+<§dDr. Barney§r> Which... didn't taste so bad...|!|<§dDr. Barney§r> 至少来说……味道没那么差……|!|;使用API翻译
+<§dDr. Barney§r> After a while that is.|!|<§dDr. Barney§r> 过了一段时间，就这样了。|!|;使用API翻译
+<§dDr. Barney§r> §o§7*laughs*|!|<§dDr. Barney§r> §o§7*笑*|!|;使用API翻译
+<§dDr. Barney§r> §o§7*hacking coughs*|!|<§dDr. Barney§r> §o§7*咳嗽*|!|;使用API翻译
+<§dDr. Barney§r> And y'know...|!|<§dDr. Barney§r> 你也知道……|!|;使用API翻译
+<§dDr. Barney§r> I always thought the guy was a little bit fishy...|!|<§dDr. Barney§r> 我一直觉得那家伙有点可疑……|!|;使用API翻译
+<§dDr. Barney§r> But really, I thank the heavens that Minnowski brought his 5000 page annotated hardback, of Dr. Wulf's Motivational Philosophies.|!|<§dDr. Barney§r> 但真的，我感谢上天，明诺夫斯基带来了他5000页的精装注释，关于沃尔夫博士的动机哲学。|!|;使用API翻译
+<§dDr. Barney§r> The pictures certainly added a refreshing taste to the diet every so often.|!|<§dDr. Barney§r> 这些照片确实时不时地给饮食增添了清爽的味道。|!|;使用API翻译
+<§dDr. Barney§r> Oh Minnowski...|!|<§dDr. Barney§r> 哦，明诺夫斯基……|!|;使用API翻译
+<§dDr. Barney§r> Poor... Poor Minnowski...|!|<§dDr. Barney§r> 可怜……可怜的明诺夫斯基……|!|;使用API翻译
+<§dDr. Barney§r> WHERE DID YOU GO, MINNOWSKI!?|!|<§dDr. Barney§r> 你去哪里了，明诺夫斯基！？|!|;人工翻译;使用API翻译
+<§dDr. Barney§r> Oh!|!|<§dDr. Barney§r> 哦！|!|;使用API翻译
+<§dDr. Barney§r> I just noticed!|!|<§dDr. Barney§r> 我才注意到！|!|;使用API翻译
+<§dDr. Barney§r> Those...|!|<§dDr. Barney§r> 那些……|!|;使用API翻译
+<§dDr. Barney§r> Those suits!|!|<§dDr. Barney§r> 那些套件！|!|;使用API翻译
+<§dDr. Barney§r> They-|!|<§dDr. Barney§r> 他们——|!|;使用API翻译
+<§dDr. Barney§r> They were working on protoypes of those suits for years!|!|<§dDr. Barney§r> 他们多年来一直在研究这些套件！|!|;使用API翻译
+<§dDr. Barney§r> But these...|!|<§dDr. Barney§r> 但是这些……|!|;使用API翻译
+<§dDr. Barney§r> These look completely different!|!|<§dDr. Barney§r> 这些看起来完全不一样了！|!|;使用API翻译
+<§dDr. Barney§r> Really...|!|<§dDr. Barney§r> 真的……|!|;使用API翻译
+<§dDr. Barney§r> §oModernised...§r|!|<§dDr. Barney§r> §现代化……§r|!|;使用API翻译
+<§dDr. Barney§r> I have must have been down here for too long...|!|<§dDr. Barney§r> 我一定在这里待得太久了……|!|;使用API翻译
+<§dDr. Barney§r> Wow...|!|<§dDr. Barney§r> 哇哦……|!|;使用API翻译
+<§dDr. Barney§r> When I was still surfaced the wings were only a dream.|!|<§dDr. Barney§r> 当我浮出水面时，翅膀只是一个梦。|!|;使用API翻译
+<§dDr. Barney§r> I had no idea they'd be able to make them a reality.|!|<§dDr. Barney§r> 我不知道他们能把它们变成现实。|!|;使用API翻译
+<§dDr. Barney§r> Would you-|!|<§dDr. Barney§r> 你介意——|!|;使用API翻译;人工翻译
+<§dDr. Barney§r> Would you mind if I had a look?|!|<§dDr. Barney§r> 你介意我看看吗？|!|;使用API翻译
+<§dDr. Barney§r> Just-|!|<§dDr. Barney§r> 就——|!|;使用API翻译
+<§dDr. Barney§r> Y'know.|!|<§dDr. Barney§r> 你懂的。|!|;使用API翻译
+<§dDr. Barney§r> §oTry it on.§r|!|<§dDr. Barney§r> §o试一下。§r|!|;使用API翻译
+<§dDr. Barney§r> §o§7*laughs*|!|<§dDr. Barney§r> §o§7*笑*|!|;使用API翻译
+<§dDr. Barney§r> Y'know|!|<§dDr. Barney§r> 你明白|!|;使用API翻译
+<§dDr. Barney§r> For-|!|<§dDr. Barney§r> 为了——|!|;使用API翻译
+<§dDr. Barney§r> For Minnowski's sake.|!|<§dDr. Barney§r> 看在明诺夫斯基的份上。|!|;使用API翻译
+<§dDr. Barney§r> Oh...|!|<§dDr. Barney§r> 哦……|!|;使用API翻译
+<§dDr. Barney§r> §o§7*whimpers*|!|<§dDr. Barney§r> §o§7*呜咽*|!|;使用API翻译
+<§dDr. Barney§r> Oh Minnowski...|!|<§dDr. Barney§r> 哦，明诺夫斯基……|!|;使用API翻译
+<§dDr. Barney§r> This-|!|<§dDr. Barney§r> 这个——|!|;使用API翻译
+<§dDr. Barney§r> This is great!|!|<§dDr. Barney§r> 太棒了！|!|;使用API翻译
+<§dDr. Barney§r> So perfect!|!|<§dDr. Barney§r> 太完美了！|!|;使用API翻译
+<§dDr. Barney§r> Such mastercraft!|!|<§dDr. Barney§r> 如此精湛的工艺！|!|;使用API翻译
+<§dDr. Barney§r> Oh...|!|<§dDr. Barney§r> 哦……|!|;使用API翻译
+<§dDr. Barney§r> Mmm...|!|<§dDr. Barney§r> 嗯……|!|;使用API翻译
+<§dDr. Barney§r> It feels so comfortable!|!|<§dDr. Barney§r> 感觉很舒服！|!|;使用API翻译
+<§dDr. Barney§r> Mmm...|!|<§dDr. Barney§r> 嗯……|!|;使用API翻译
+<§dDr. Barney§r> §oMmm...§r|!|<§dDr. Barney§r> §嗯……§r|!|;使用API翻译
+<§dDr. Barney§r> If only Minnowski was here to see it.|!|<§dDr. Barney§r> 要是明诺夫斯基能来看看就好了。|!|;使用API翻译
+<§dDr. Barney§r> §o§7*sniffs*|!|<§dDr. Barney§r> §o§7*抽鼻子*|!|;使用API翻译
+<§dDr. Barney§r> Don't worry, Minnowski!|!|<§dDr. Barney§r> 别担心，明诺夫斯基！|!|;使用API翻译
+<§dDr. Barney§r> I will avenge you!|!|<§dDr. Barney§r> 我会为你报仇的！|!|;使用API翻译
+<§dDr. Barney§r> You see...|!|<§dDr. Barney§r> 你看……|!|;使用API翻译
+<§dDr. Barney§r> That core stared at us all day.|!|<§dDr. Barney§r> 那个核心整天盯着我们看。|!|;使用API翻译
+<§dDr. Barney§r> §oEvery day!§r|!|<§dDr. Barney§r> §o每天！§r|!|;使用API翻译
+<§dDr. Barney§r> Slowly reaching into our souls and crippling us.|!|<§dDr. Barney§r> 慢慢地入侵我们的灵魂，瘫痪我们。|!|;使用API翻译
+<§dDr. Barney§r> Then-|!|<§dDr. Barney§r> 然后——|!|;使用API翻译;人工翻译
+<§dDr. Barney§r> After a while, we began to notice-|!|<§dDr. Barney§r> 过了一会儿，我们开始注意到——|!|;使用API翻译
+<§dDr. Barney§r> They came to the core one by one.|!|<§dDr. Barney§r> 他们一个接一个地来到核心。|!|;使用API翻译
+<§dDr. Barney§r> They started off just taking small pieces of it.|!|<§dDr. Barney§r> 他们一开始只是取了一小块。|!|;使用API翻译
+<§dDr. Barney§r> Like crumbs!|!|<§dDr. Barney§r> 像面包屑一样！|!|;使用API翻译
+<§dDr. Barney§r> §o§7*laughs*|!|<§dDr. Barney§r> §o§7*笑*|!|;使用API翻译
+<§dDr. Barney§r> Then they came with their massive platters!|!|<§dDr. Barney§r> 然后他们带着巨大的盘子来了！|!|;使用API翻译
+<§dDr. Barney§r> And began carving juicy 10 ounce slices of it!|!|<§dDr. Barney§r> 然后开始切10盎司的多汁切片！|!|;使用API翻译
+<§dDr. Barney§r> §oMmmmmmm...§r|!|<§dDr. Barney§r> §嗯……§r|!|;使用API翻译
+<§dDr. Barney§r> So before it could get any worse...|!|<§dDr. Barney§r> 所以在情况变得更糟之前……|!|;使用API翻译
+<§dDr. Barney§r> We built a cannon into the side of the drill.|!|<§dDr. Barney§r> 我们在钻头的侧面装了一门大炮。|!|;使用API翻译
+<§dDr. Barney§r> A cannon to fight off those darn- EVIL TUNNEL PIRATES!|!|<§dDr. Barney§r> 一门大炮，用来击退那些该死的邪恶隧道海盗！|!|;使用API翻译
+<§dDr. Barney§r> Before they could eat up all the core!|!|<§dDr. Barney§r> 在他们吃掉所有核心之前！|!|;使用API翻译
+<§dDr. Barney§r> IT'S NOT THEIRS!|!|<§dDr. Barney§r> 这不是他们的！|!|;使用API翻译
+<§dDr. Barney§r> IT'S MINE!|!|<§dDr. Barney§r> 这是我的！|!|;使用API翻译
+<§dDr. Barney§r> Uh-|!|<§dDr. Barney§r> 呃——|!|;使用API翻译
+<§dDr. Barney§r> Mine and M- Minnowski's, of course.|!|<§dDr. Barney§r> 明诺夫斯基和我的，当然了。|!|;使用API翻译
+<§dDr. Barney§r> RIGHT!|!|<§dDr. Barney§r> 没错！|!|;使用API翻译
+<§dDr. Barney§r> THIS IS IT!|!|<§dDr. Barney§r> 就是这里！|!|;使用API翻译
+<§dDr. Barney§r> We will not witness our mother of crops being robbed ever again!|!|<§dDr. Barney§r> 我们再也不会看到我们的食物之母被掠夺了！|!|;使用API翻译;人工翻译
+<§dDr. Barney§r> Because this time-|!|<§dDr. Barney§r> 因为这次——|!|;使用API翻译
+<§dDr. Barney§r> THIS TIME I AM GOING IN!|!|<§dDr. Barney§r> 这！次！我！要！进！来！了！|!|;使用API翻译;人工翻译
+<§dDr. Barney§r> MINNOWSKI!|!|<§dDr. Barney§r> 明诺夫斯基！|!|;使用API翻译
+<§dDr. Barney§r> THIS IS FOR YOU!|!|<§dDr. Barney§r> 这是给你的！|!|;使用API翻译
+<§dDr. Barney§r> CURSES TO THE TUNNEL PIRATES!|!|<§dDr. Barney§r> 诅咒隧道海盗！|!|;使用API翻译
+<§dDr. Barney§r> I WILL STOP THEM ONCE AND FOR ALL!|!|<§dDr. Barney§r> 我会一劳永逸地阻止他们！|!|;使用API翻译
+<§dDr. Barney§r> WITH THIS BRAND NEW SUIT, NOTHING WILL BE ABLE TO STOP ME!|!|<§dDr. Barney§r> 有了这全新的套装，没有什么能阻止我！|!|;使用API翻译
+<§dDr. Barney§r> AHAHAHHAHAHA-|!|<§dDr. Barney§r> 啊哈哈哈哈哈哈——|!|;使用API翻译
+<§dDr. Barney§r> §o§7*hacking and spluttering coughs*|!|<§dDr. Barney§r> §o§7*咳嗽不止*|!|;使用API翻译
+<§dDr. Barney§r> §oIt's a blessing...§r|!|<§dDr. Barney§r> §o这是一种祝福……§r|!|;使用API翻译
+<§dDr. Barney§r> It's a dream come true...|!|<§dDr. Barney§r> 这是一个成真的梦……|!|;使用API翻译
+<§dDr. Barney§r> It's everything I've lived for!|!|<§dDr. Barney§r> 这就是我为之而活的一切！|!|;使用API翻译
+<§dDr. Barney§r> §o§7*sighs*|!|<§dDr. Barney§r> §o§7*叹气*|!|;使用API翻译
+<§dDr. Barney§r> §oAh...§r|!|<§dDr. Barney§r> §o啊……§r|!|;使用API翻译
+<§dDr. Barney§r> §oI finally get to taste it...§r|!|<§dDr. Barney§r> §o我终于尝到了…§r|!|;使用API翻译
+<§dDr. Barney§r> §o§7*screams*|!|<§dDr. Barney§r> §o§7*尖叫*|!|;使用API翻译
+[§6INTERCOM§r] Warning: External temperature rising at abnormal rate.|!|[§6INTERCOM§r] 警告：外部温度异常上升。|!|;使用API翻译
+[§6INTERCOM§r] Warning: Bore Drill integrity critical.|!|[§6INTERCOM§r] 警告：钻头完整性处于危险状态。|!|;使用API翻译
+<§bAlan§r> An original inhabitant of the Geo Descent Labs Alpha Camp site, the Dumbshark was famously lured onto the hook of Dr. Minnowski with a plate of salami.|!|<§bAlan§r> Dumbshark是GDL阿尔法基地的原住民，以用一盘意大利腊肠引诱明诺夫斯基博士上钩而闻名。|!|;使用API翻译
+<§bAlan§r> Fun story: a couple of years back we caught a massive shark with a boat stuck on it.|!|<§bAlan§r> 有趣的故事：几年前，我们抓到了一条巨大的 shark，大到我们的船被卡在上面。|!|;使用API翻译
+<§bAlan§r> We thought the two might mate, but when we introduced the Boat Shark to the tank, Dumbshark just ate it. In a matter of seconds!|!|<§bAlan§r> 我们以为这两只可能会交配，但当我们把“船鲨”引入水箱时，小白鲨就吃掉了它。几秒钟之后！|!|;使用API翻译
+<§bAlan§r> Whole shark, just one gulp.|!|<§bAlan§r> 一条鲨鱼，一口解决。|!|;使用API翻译
+<§bAlan§r> Spat the boat right back out.|!|<§bAlan§r> 把船开回去。|!|;使用API翻译
+<§bAlan§r> Poor shark.|!|<§bAlan§r> 可怜的鲨鱼。|!|;使用API翻译
+<§bAlan§r> Some say the fabled Nox-Mammoth was merely a collector of treasure, but most experts agree that the excrement of a beast this size would prove fantastic.|!|<§bAlan§r> 有人说传说中的Nox Mammoth只是一个宝藏的收藏家，但大多数专家都认为，这种大小的野兽的粪便迟早会被发现其暗藏的惊人价值。|!|;使用API翻译
+<§bAlan§r> Individuals brave enough to inspect the rear of these gentle giants may be richly rewarded.|!|<§bAlan§r> 有勇气检查这些温和的巨人的后面的人可能会得到丰厚的奖励。|!|;使用API翻译;人工翻译
+<§bAlan§r> ...or not.|!|<§bAlan§r> …或者什么也得不到。|!|;使用API翻译;人工翻译
+<§bAlan§r> Welcome!|!|<§bAlan§r> 欢迎！|!|;使用API翻译
+<§bAlan§r> We have come to these frozen wastes on a mission for the betterment of mankind!|!|<§bAlan§r> 来到这些冰冻的废墟，我们的任务是为了造福全人类！|!|;使用API翻译
+<§bAlan§r> That facility is right here!|!|<§bAlan§r> 那个设施就在这里！|!|;使用API翻译
+<§bAlan§r> And currently, it's deserted...|!|<§bAlan§r> 目前，它已经荒废了……|!|;使用API翻译
+<§bAlan§r> No one knows why, of course.|!|<§bAlan§r> 当然，没有人知道为什么。|!|;使用API翻译
+<§bAlan§r> There's been some theories...|!|<§bAlan§r> 有一些理论……|!|;使用API翻译
+<§bAlan§r> Gas leak, monstrosities, scientists gone mad...|!|<§bAlan§r> 煤气泄漏，怪物袭击，还有科学家疯了……|!|;使用API翻译
+<§bAlan§r> But they're all as likely as fairies and goblins!|!|<§bAlan§r> 但这些的可能性都像出现仙女和妖精一样！|!|;使用API翻译
+<§bAlan§r> First you'll need to find the facility.|!|<§bAlan§r> 首先，你需要找到设施。|!|;使用API翻译
+<§bAlan§r> We thought we built this research facility far away from anything dangerous but alas!|!|<§bAlan§r> 我们以为我们建造的这个研究设施远离任何危险，但……唉！|!|;使用API翻译
+<§bAlan§r> We were wrong.|!|<§bAlan§r> 我们错了。|!|;使用API翻译
+<§bAlan§r> Fish! Giant fish- no!|!|<§bAlan§r> 鱼！巨大的鱼——不！|!|;使用API翻译
+<§bAlan§r> Aquatic monsters of the deep have swarmed the remote parts of our facility and bamboozled our remote generators!|!|<§bAlan§r> 深海中的水生怪物已经蜂拥而至我们设施的偏远地区，并毁坏了我们的远程发电机！|!|;使用API翻译
+<§bAlan§r> Deal with the monsters and bring those generators back online!|!|<§bAlan§r> 对付怪物，让那些发电机重新上线！|!|;使用API翻译
+[§6§l!§r] §6Gamemode changed!§r You are now in §aCreative mode§r.|!|[§6§l!§r] §6模式已更改！§r您现在是§a创造模式§r。|!|;使用API翻译;人工翻译
+[§6§l!§r] This map is designed to be played in §bAdventure mode§r. Some features and achievements will not work properly in this mode.|!|[§6§l!§r] 此地图设计为在§b冒险模式§r下游玩。在当前模式下，某些功能和成就将无法正常运作。|!|;使用API翻译
+[§6§l!§r] §5You are leaving the playable area! Turn back!|!|[§6§l!§r] §5前面的区域，以后再来探索吧！|!|;人工翻译
+[§6§l!§r] §lYou were teleported back to safety.|!|[§6§l!§r] §l你已被传送回安全地带。|!|;使用API翻译
+[§6§l!§r] Noxesium is invisible while any player is in §aCreative mode§r. Return all players to §bAdventure mode§r to collect them.|!|[§6§l!§r] 当任何玩家处于§a创造模式§r时，Noxesium都是不可见的。让所有玩家切换至§b冒险模式§r以收集他们。|!|;使用API翻译;人工翻译
+[§6§l!§r] §6Gamemode changed!§r You are now in §bAdventure mode§r.|!|[§6§l!§r] §6模式已更改！§r您现在处于§b冒险模式§r。|!|;使用API翻译
+<§cTFA-1541§r> §aRemember: Jump again mid-air to activate your wings.|!|<§cTFA-1541§r> §a记住：在空中两次跳跃，激活您的TFA机翼。|!|;使用API翻译;人工翻译
+<§cTFA-1541§r> §aLanding gear deployed! It is now safe to land.|!|<§cTFA-1541§r> §起落架已展开！现在可以安全着陆了。|!|;使用API翻译
+<§cTFA-1541§r> §aTunnel 2 hatch released, drop when ready.|!|<§cTFA-1541§r> §a隧道2舱口已解锁，准备完毕后允许下降。|!|;使用API翻译;人工翻译
+<§cTFA-1541§r> §aTunnel 3 hatch released, drop when ready.|!|<§cTFA-1541§r> §a隧道3舱口以解锁，准备完毕后允许下降。|!|;使用API翻译;人工翻译
+§r arrived at §bBase Camp Alpha!|!|§r到达了§b阿尔法大本营！|!|;使用API翻译
+§r arrived at §bBase Camp Beta!|!|§r到达了§b贝塔大本营！|!|;使用API翻译
+§r is approaching the core!|!|§r正在接近核心！|!|;使用API翻译
+Walk up to Dr. Barney and §6Interact§r with him to give him the suit.|!|走到巴尼博士跟前，与他互动，把套件递给他。|!|;使用API翻译;人工翻译
+§dDr. Barney§r tried to take a bite out of the core... uh oh...|!|§d巴尼试图咬一口核心……嗯……|!|;使用API翻译
+§6--------------------|!|§6--------------------|!|;人工翻译
+Thank you for playing §eTerra Swoop Force§r by §cThe Noxcrew§r.|!|感谢您游玩 §cNoxcrew§r的 §eTerra Swoop Force§r。|!|;使用API翻译
+You activated the Killamatron §b|!|你激活了Killamatron§b|!|;使用API翻译
+§r times.|!|§r times.|!|;人工翻译
+Speedrun Mode is now unlocked! Use the teleporter to return to the speed run hub.|!|竞速模式现已解锁！使用传送器返回竞速中心。|!|;使用API翻译
+Get a more detailed Killamatron Report by pressing the button in the speed run hub!|!|按下竞速中心的按钮，获取更详细的Killamatron报告！|!|;使用API翻译
+[§6!§r] Wait a minute, that ding §ocouldn't§r have been Noxesium... could it?|!|[§6!§r] 等等，那个§o不可能§r是氮钾……可以吗？|!|;使用API翻译;人工翻译
+[§eINTERCOM§r] Sufficient Noxesium Crystals have been infused.|!|[§eINTERCOM§r] 已经注入了足够的氮钾晶体。|!|;使用API翻译
+[§eINTERCOM§r] The TFA Rainbow Unicorn version 1.0 is now online.|!|[§eINTERCOM§r] TFA彩虹独角兽1.0版现已上线。|!|;使用API翻译
+[§6§l!§r]: §bCaptions:§r ON|!|[§6§l！§r]：§b说明：§r 启用|!|;使用API翻译
+[§6§l!§r]: §bCaptions:§r OFF|!|[§6§l！§r]：§b说明：§r 禁用|!|;使用API翻译
+<§eKEYPAD§r> §2CODE CONFIRMED|!|<§eKEYPAD§r>§2代码已确认|!|;使用API翻译
+<§eKEYPAD§r> §4CODE DENIED|!|<§eKEYPAD§r>§4代码被拒绝|!|;使用API翻译
+[§6§l!§r]: The TFA Dark Rainbow Unicorn version EV.1L is now online.|!|[§6§l！§r]：TFA黑暗彩虹独角兽版本EV.1L现已上线。|!|;使用API翻译
+[§6§l!§r]: Speedrun Mode: §bSingle Tunnel|!|[§6§l！§r]：极速模式：§b单隧道|!|;使用API翻译
+[§6§l!§r]: Speedrun Mode: §bALL Tunnels|!|[§6§l！§r]：极速模式：§b全部隧道|!|;使用API翻译
+[§6§l!§r]: §bMusic:§r ON|!|[§6§l！§r]：§b音乐：§r 启用|!|;使用API翻译
+[§6§l!§r]: §bMusic:§r OFF|!|[§6§l！§r]：§b音乐：§r禁用|!|;使用API翻译
+[§6§l!§r]: Lift temporarily out of service. Progress in the story to return to this area.|!|[§6§l！§r]：电梯暂时停止使用。继续推进故事线，然后回到这片区域。|!|;使用API翻译
+[§6§l!§r]: §eYou have 100% completed the map! §bTag us on Twitter @Noxcrew!|!|[§6§l！§r]：§e您已100%完成地图！§b在推特上关注我们 @Noxcrew！|!|;使用API翻译
+[§6§l!§r]: §bCaptions:§r ON|!|[§6§l！§r]：§b说明：§r 启用|!|;使用API翻译
+[§6§l!§r]: §bCaptions:§r OFF|!|[§6§l！§r]：§b说明：§r 禁用|!|;使用API翻译
+[§6§l!§r]: This is the test captions button.|!|[§6§l！§r]：这是测试字幕按钮。|!|;使用API翻译
+[§6§l!§r]: During your gameplay, any audio voice lines will appear like this.|!|[§6§l！§r]：在游戏过程中，任何音频语音语句都会显示为这样。|!|;使用API翻译
+[§6§l!§r]: Press the buttons in the lobby to turn captions §bON§r or §bOFF§r.|!|[§6§l！§r]：按下大厅的按钮，打开字幕§b启用§r或§b禁用§r。|!|;使用API翻译
+[§6§l!§r]: §lCaptions are per player!§r|!|[§6§l！§r]：§l字幕设置是区分不同玩家的！§r|!|;人工翻译
+[§6§l!§r]: Each player sets their own captions preference.|!|[§6§l！§r]：每个玩家需要设置自己的字幕偏好。|!|;使用API翻译
+§6--------------------|!|§6--------------------|!|;人工翻译
+Total Killamatron activations: §b|!|Killamatron激活总数：§b|!|;使用API翻译
+Your total Killamatron activations: §b|!|你的Killamatron激活总数：§b|!|;使用API翻译
+Tunnel 1 Killamatron: §b|!|Killamatron 1号隧道：§b|!|;使用API翻译
+Tunnel 2 Killamatron: §b|!|Killamatron 2号隧道：§b|!|;使用API翻译
+Tunnel 3 Killamatron: §b|!|Killamatron 3号隧道：§b|!|;使用API翻译
+Frozen Tunnel Killamatron: §b|!|Killamatron 冰冻隧道：§b|!|;使用API翻译
+When you're at rock bottom, the only way out is up!|!|当你跌入谷底时，唯一的出路就是向上！|!|;使用API翻译
+Pfft. Seen better|!|停下，好好看看。|!|;人工翻译
+It's okay, you'll do better next time.|!|没关系，下次你会做得更好。|!|;使用API翻译
+Just believe in yourself, you can get more.|!|相信自己，你能得到更多。|!|;使用API翻译
+Good work, but bigger is better!|!|干得好，但越大越好！|!|;使用API翻译
+Well done!|!|做得好！|!|;使用API翻译
+Great job!|!|好样的！|!|;使用API翻译
+Fantastic work!|!|绝妙！|!|;使用API翻译
+Incredible!|!|简直不可思议！|!|;使用API翻译
+Absolutely amazing!|!|太神奇了！|!|;使用API翻译
+Your greatness is unparalleled.|!|你的伟大是无与伦比的。|!|;使用API翻译
+Stories should be written about your greatness.|!|一切伟大的故事都应该为你而创作。|!|;使用API翻译
+Statues should be made in your likeness.|!|一切雕像都应该模仿你。|!|;使用API翻译
+All should bow down before you.|!|所有人都应该向你鞠躬。|!|;使用API翻译
+You are supreme.|!|你是至高无上的。|!|;使用API翻译
+You are on the path to godliness.|!|你正在通往敬虔的道路上。|!|;使用API翻译
+You have reached ascension.|!|你已经达到了至高之位。|!|;使用API翻译
+§r has gathered a piece of §bNoxesium§r!|!|§r收集了一块§b氮钾化物§r！|!|;使用API翻译;人工翻译
+§r piece of §bNoxesium has been collected§r!|!|§r已收集到§b氮钾化物§r！|!|;使用API翻译;人工翻译
+§r pieces of §bNoxesium have been collected§r!|!|§r已收集到§bNoxesium的碎片§r！|!|;使用API翻译;人工翻译
+§r has gathered a piece of §bDark Noxesium§r!|!|§r已经收集了一块§b深色Noxesium§r！|!|;使用API翻译;人工翻译
+§r piece of §bDark Noxesium has been collected§r!|!|§r已收集到一块§b深色Noxesium§r！|!|;使用API翻译
+§r pieces of §bDark Noxesium have been collected§r!|!|§r已收集到§b深色Noxesium§r！|!|;使用API翻译
+§rAll the §bNoxesium has been collected§r! §eReturn to the Trophy Room for a surprise...§r|!|§r所有§bNoxesium已被收集§r！§e返回奖杯室来迎接惊喜……§r|!|;使用API翻译
+§rAll the §bDark Noxesium has been collected§r! §eReturn to the Frozen Trophy Room for a surprise...§r|!|§r所有§b深色Noxesium已被收集§r！§返回冰冻奖杯室，享受惊喜……§r|!|;使用API翻译
+§6--------------------|!|§6--------------------|!|;人工翻译
+Best times for |!|最佳成绩|!|;使用API翻译
+:|!|:|!|;使用API翻译
+Tunnel 1:|!|隧道1：|!|;使用API翻译
+Tunnel 2:|!|隧道2：|!|;使用API翻译
+Tunnel 3:|!|隧道3：|!|;使用API翻译
+Frozen Tunnel:|!|冰冻隧道：|!|;使用API翻译
+All Tunnels:|!|所有隧道：|!|;使用API翻译
+ has finished Tunnel 1 with a time of §c|!|已完成隧道1，时间为§c|!|;使用API翻译
+ has finished Tunnel 2 with a time of §c|!|已完成隧道2，时间为§c|!|;使用API翻译;人工翻译
+ has finished Tunnel 3 with a time of §c|!|已完成隧道3，时间为§c|!|;人工翻译
+ has finished the Frozen Tunnel with a time of §c|!|已完成冰冻隧道，时间为§c|!|;人工翻译
+ has finished all Tunnels with a time of §c|!|已完成所有隧道，时间为§c|!|;人工翻译
+ has a new personal best in Tunnel 1 with a time of §c|!|以§c的成绩在隧道1中取得了新的个人最佳成绩|!|;使用API翻译;人工翻译
+ has a new personal best in Tunnel 2 with a time of §c|!|以§c的成绩在隧道2中取得了新的个人最佳成绩|!|;使用API翻译
+ has a new personal best in Tunnel 3 with a time of §c|!|以§c的成绩在隧道3中取得了新的个人最佳成绩|!|;人工翻译
+ has a new personal best in Frozen Tunnel with a time of §c|!|以§c的成绩在冰封隧道中取得了新的个人最佳成绩|!|;人工翻译
+ has a new personal best in all Tunnels with a time of §c|!|以§c的成绩在全部隧道中取得了新的个人最佳成绩|!|;人工翻译
+(All §c|!|（所有§c|!|;使用API翻译
+§r)|!|§r）|!|;使用API翻译
+____________________|!|____________________|!|;人工翻译
+§a§lAchievement Unlocked!|!|§a§l成就解锁！|!|;使用API翻译
+§dSecret Achievement! §7Progress further in the story to unlock.|!|§d秘密成就！§7故事的进一步发展需要解锁。|!|;使用API翻译
+§aMusical Chairs: §r§oSit in every chair in the presentation room.|!|§a音乐椅：§r§o演示室里的每把椅子上都有音乐椅。|!|;使用API翻译
+§aSuit Lover: §r§oWear every suit.|!|§a套装爱好者：§r§o穿上每一套套装。|!|;使用API翻译
+§aMineral Collector: §r§oCollect all Noxesium.|!|§a矿物收集者：§r§o收集所有Noxesium。|!|;使用API翻译
+§aHis Dark Materials: §r§oCollect all Dark Noxesium.|!|§a他的黑暗材料：§r§o收集所有的黑暗物质。|!|;使用API翻译;人工翻译
+§aChicken: §r§oAfter completing a flight of tunnel 3, fly around a lava column... and §olive.|!|§a火鸡：§r§o在完成隧道3的飞行后，绕着熔岩柱飞行…并且§o活下来。|!|;使用API翻译
+§aThe Original Boat: §r§oSit in a boat.|!|§a原始船：§r§o在船上。|!|;使用API翻译
+§aSpeed Freak: §r§oBeat Par time of 35 seconds on Tunnel 1.|!|§a速度怪胎：§r§o在1号隧道上的节拍时间为35秒。|!|;使用API翻译
+§aSuper Speed Freak: §r§oBeat Par time of 35 seconds on Tunnel 2.|!|§a超速怪胎：§r§o在2号隧道上的节拍时间为35秒。|!|;使用API翻译
+§aShockingly Super Speed Freak: §r§oBeat Par time of 42 seconds on Tunnel 3.|!|§令人震惊的超高速怪胎：§r§o在3号隧道上以42秒的速度完成比赛。|!|;使用API翻译
+§aSurprisingly Super Speed Freak: §r§oBeat Par time of 45 seconds on Frozen Tunnel.|!|§令人惊讶的超高速怪胎：§r§o在冰封隧道上以45秒的速度完成比赛。|!|;使用API翻译;人工翻译
+§aUltimate Speed Freak: §r§oBeat Par time on all tunnels speedrun mode.|!|§a极限速度怪胎：§r§o在所有隧道速度运行模式下击败Par time。|!|;使用API翻译
+§aDeathless: §r§oFly all tunnels in a row without dying.|!|§a根本死不掉：§r§o在一轮中飞行通过所有隧道而没有死亡。|!|;使用API翻译;人工翻译
+§aCam-Fan: §r§oEntertain the bathroom security camera for 5 seconds.|!|§a监控摄像头爱好者：§r§o对浴室的监控摄像头进行5秒的监控。|!|;使用API翻译;人工翻译
+§aThe REAL Frozen Tunnel: §r§oJump off the facility roof, fly through the Test Drop hole, and finish the Frozen Tunnel without touching the ground.|!|§a真正的冰封隧道：§r§o从设施屋顶跳下，穿过测试落孔，在不接触地面的情况下完成冰封隧道。|!|;使用API翻译;人工翻译
+§aDetective Stan: §r§oYou have unlocked the §6Relic Suit§r§o.|!|§a侦探斯坦：§r§o你已经解锁了§6文物诉讼§r？o。|!|;使用API翻译
+§cAchievement Locked: §r§oPresentation Room? More like Gym-Room! Give those cheeks a work-out!|!|§c成就锁定：§r§o演示室？更像健身房！给你的脸颊好好锻炼一下！|!|;使用API翻译;人工翻译
+§cAchievement Locked: §r§oThat suit doesn't look good on you. Try on some more.|!|§c成就锁定：§r§o你穿那套衣服不好看。再试试。|!|;使用API翻译
+§cAchievement Locked: §r§oCollect all Noxesium.|!|§c成就锁定：§r§o收集所有Noxesium。|!|;使用API翻译
+§cAchievement Locked: §r§oCollect all Dark Noxesium.|!|§c成就锁定：§r§o收集所有Noxesium。|!|;使用API翻译
+§cAchievement Locked: §r§oAfter completing a flight of tunnel 3, fly around a lava column... and §olive.|!|§c成就锁定：§r§o完成3号隧道飞行后，绕着熔岩柱飞行……§o并且活下来。|!|;使用API翻译
+§cAchievement Locked: §r§oSit in a boat.|!|§c成就锁定：§r§o坐在船上。|!|;使用API翻译;人工翻译
+§cAchievement Locked: §r§oBeat Par time of 35 seconds on Tunnel 1.|!|§c成就锁定：§r§o35秒结束隧道1。|!|;人工翻译
+§cAchievement Locked: §r§oBeat Par time of 35 seconds on Tunnel 2.|!|§c成就锁定：§r§o35秒结束隧道2。|!|;使用API翻译
+§cAchievement Locked: §r§oBeat Par time of 42 seconds on Tunnel 3.|!|§c成就锁定：§r§o42秒结束隧道3。|!|;使用API翻译
+§cAchievement Locked: §r§oBeat Par time of 45 seconds on Frozen Tunnel.|!|§c成就锁定：§r§o45秒结束冰封隧道。|!|;使用API翻译
+§cAchievement Locked: §r§oBeat Par time on all tunnels speedrun mode.|!|§c成就锁定：§r§o极速模式下，所有隧道均达到速度标准。|!|;人工翻译
+§cAchievement Locked: §r§oFly all tunnels in a row without dying.|!|§c成就锁定：§r§o连续飞行所有隧道而不死亡。|!|;使用API翻译
+§cAchievement Locked: §r§oWhen invasive camera watches you, you watch back.|!|§c成就锁定：§r§o当侵入式摄像头监视你时，狠狠地瞪回去。|!|;使用API翻译
+§cAchievement Locked: §r§oJump off the facility roof, fly through the Test Drop hole, and finish the Frozen Tunnel without touching the ground.|!|§c成就锁定：§r§o从设施屋顶跳下，穿过测试落孔，在不接触地面的情况下完成冰封隧道。|!|;使用API翻译
+§cAchievement Locked: §r§oStan tells a story of a lost and forgotten suit. Attention to detail and exploration will unearth the artifact.|!|§C成就锁定：§r§o斯坦讲述了一件被遗失和被遗忘的套件的故事。注重细节和探索，挖掘出这件艺术品。|!|;使用API翻译
+§aMusical Chairs|!|§a音乐椅|!|;使用API翻译
+§aSuit Lover|!|§a套装爱好者|!|;使用API翻译
+§aMineral Collector|!|§a矿产收集者|!|;使用API翻译
+§aHis Dark Materials|!|§a他的黑暗材料|!|;使用API翻译
+§aChicken|!|§a鸡|!|;使用API翻译
+§aThe Original Boat|!|§a船之起源|!|;使用API翻译
+§aSpeed Freak|!|§a速度怪胎|!|;使用API翻译
+§aSuper Speed Freak|!|§a超速怪胎|!|;使用API翻译
+§aShockingly Super Speed Freak|!|§a令人震惊的超高速怪胎|!|;使用API翻译;人工翻译
+§aSurprisingly Super Speed Freak|!|§a惊为天人的超高速怪胎|!|;使用API翻译;人工翻译
+§aUltimate Speed Freak|!|§a终极速度怪胎|!|;使用API翻译
+§aDeathless|!|§a屹立不倒|!|;使用API翻译
+§aCam-Fan|!|§a摄像机爱好者|!|;使用API翻译
+§aThe REAL Frozen Tunnel|!|§a真正的冰封隧道|!|;使用API翻译
+§aDetective Stan|!|§斯坦侦探|!|;使用API翻译
+§r§oSit in every chair in the presentation room.|!|§r§o坐过演讲室里的每把椅子。|!|;使用API翻译
+§r§oWear every suit.|!|§r§o穿上每一件套装。|!|;使用API翻译
+§r§oCollect all Noxesium.|!|§r§o收集所有Noxesium。|!|;使用API翻译
+§r§oCollect all Dark Noxesium.|!|§r§o收集所有深色Noxesium。|!|;使用API翻译
+§r§oAfter completing a flight of tunnel 3, fly around a lava column... and §olive.|!|§r§o完成3号隧道的飞行后，绕着熔岩柱飞行……以及橄榄。|!|;使用API翻译
+§r§oSit in a boat.|!|§r§o坐在船上。|!|;使用API翻译
+§r§oBeat Par time of 35 seconds on Tunnel 1.|!|§r§o 1号隧道的节拍时间为35秒。|!|;使用API翻译
+§r§oBeat Par time of 35 seconds on Tunnel 2.|!|§r§o在2号隧道上的节拍时间为35秒。|!|;使用API翻译
+§r§oBeat Par time of 42 seconds on Tunnel 3.|!|§r§o在3号隧道上的节拍时间为42秒。|!|;使用API翻译
+§r§oBeat Par time of 45 seconds on Frozen Tunnel.|!|§r§o在冰封隧道上的节拍时间为45秒。|!|;使用API翻译
+§r§oBeat Par time on all tunnels speedrun mode.|!|§r§o在所有隧道加速运行模式下缩短停车时间。|!|;使用API翻译
+§r§oFly all tunnels in a row without dying.|!|§r§o将所有隧道排成一排飞行而不会死亡。|!|;使用API翻译
+§r§oEntertain the bathroom security camera for 5 seconds.|!|§r§o对浴室的监控摄像头进行5秒钟的监控。|!|;使用API翻译
+§r§oJump off the facility roof, fly through the Test Drop hole, and finish the Frozen Tunnel without touching the ground.|!|§r§o从设施屋顶跳下，穿过测试落孔，在不接触地面的情况下完成冰封隧道。|!|;使用API翻译
+§r§oYou have unlocked the §6Relic Suit§r§o.|!|§r§o您已解锁§6文物诉讼§r？o。|!|;使用API翻译
+Press Button|!|按下按钮|!|;使用API翻译
+Give Suit|!|赠送套装|!|;使用API翻译;人工翻译
+Start Presentation|!|开始演示|!|;使用API翻译
+Tap Sneak to exit|!|潜行以退出|!|;使用API翻译;人工翻译
+Tap Sneak to exit|!|潜行以退出|!|;使用API翻译;人工翻译
+Tap Sneak to exit|!|潜行以退出|!|;使用API翻译;人工翻译
+Tap Sneak to exit|!|潜行以退出|!|;使用API翻译;人工翻译
+Tap Sneak to exit|!|潜行以退出|!|;使用API翻译;人工翻译
+Tap sneak to exit|!|潜行以退出|!|;使用API翻译;人工翻译
+§lStart|!|§l开始|!|;使用API翻译
+§lGame|!|§l游戏|!|;使用API翻译
+Fire up the|!|点火|!|;使用API翻译
+Teleporter!|!|搬运工！|!|;使用API翻译
+Stan's|!|斯坦的|!|;使用API翻译
+Bouncy Castle|!|弹跳城堡|!|;使用API翻译
+Stan's REAL|!|斯坦的真实|!|;使用API翻译
+Bouncy Castle|!|弹跳城堡|!|;使用API翻译
+No|!|不|!|;使用API翻译
+Smoking|!|吸烟|!|;使用API翻译
+Your journey to the center of the Earth is just the beginning!|!|你前往地球中心的旅程仅仅是个开始！|!|;使用API翻译
+Stan's Desk|!|斯坦的桌子|!|;使用API翻译
+Search "GDL" on the Bedrock|!|在基岩版上搜索“GDL”|!|;使用API翻译;人工翻译
+Marketplace to get more!|!|在市场获取更多！|!|;使用API翻译;人工翻译
+The|!|这个|!|;使用API翻译
+Jenny-rator|!|珍妮·罗瑟|!|;使用API翻译
+Call|!|呼叫|!|;使用API翻译
+Elevator|!|电梯|!|;使用API翻译
+Videos of|!|视频|!|;使用API翻译
+baby sharks|!|幼鲨|!|;使用API翻译
+Pictures of|!|图片|!|;使用API翻译
+baby sharks|!|幼鲨|!|;使用API翻译
+List of evil |!|邪恶列表|!|;使用API翻译
+mastermind lairs|!|策划者巢穴|!|;使用API翻译
+Shark feeding|!|鲨鱼喂食|!|;使用API翻译
+for beginners|!|适合初学者|!|;使用API翻译
+History of|!|历史|!|;使用API翻译
+people eaten by|!|人被吃啦|!|;使用API翻译;人工翻译
+baby sharks|!|幼鲨|!|;使用API翻译
+Flightsuit manual|!|飞行服手册|!|;使用API翻译
+Polish translation|!|波兰语翻译|!|;使用API翻译
+Employee lunch|!|员工午餐|!|;使用API翻译
+lost & found|!|失物招领|!|;使用API翻译
+Printed GIFs|!|打印GIF|!|;使用API翻译
+The Fabled|!|寓言|!|;使用API翻译
+Nox-Mammoth|!|Nox猛犸象|!|;使用API翻译
+The Dumbshark|!|小飞象鲨|!|;使用API翻译
+Exhibit|!|展品|!|;使用API翻译
+Drill Cam|!|钻孔凸轮|!|;使用API翻译
+3000|!|3000|!|;使用API翻译
+Noxite's|!|Noxite的|!|;使用API翻译
+Cave of Emotions|!|情感洞穴|!|;使用API翻译
+§lTEST|!|§l测试|!|;使用API翻译
+§lDrop Zone|!|§l投放区|!|;使用API翻译
+Push me to test |!|推我去测试|!|;使用API翻译
+the captions!|!|字幕！|!|;使用API翻译
+§f§lTOGGLE§r|!|§f§l切换§r|!|;使用API翻译;人工翻译
+§l§lCaptions§r|!|§l§l字幕§r|!|;使用API翻译;人工翻译
+Push me to test |!|推我去测试|!|;重复词条复制
+the music!|!|音乐！|!|;使用API翻译;人工翻译
+Push me to test |!|推我去测试|!|;重复词条复制
+the voices!|!|声音！|!|;使用API翻译
+Teleport to|!|传送到|!|;使用API翻译
+§lTrophy Room|!|§奖杯室|!|;使用API翻译
+Teleport to|!|传送到|!|;重复词条复制
+§lTunnel 2|!|§l隧道2|!|;使用API翻译
+Teleport to|!|传送到|!|;重复词条复制
+§lTunnel 3|!|§l隧道3|!|;使用API翻译
+Teleport to|!|传送到|!|;重复词条复制
+§lFrozen|!|§l冰封|!|;使用API翻译
+§lTrophy Room|!|§奖杯室|!|;重复词条复制
+X]-------------|!|X]-------------|!|;人工翻译
+                  GD|!|                  GD|!|;人工翻译
+             Hall of|!|             大厅|!|;人工翻译
+X]-------------|!|X]-------------|!|;重复词条复制
+-------------[X|!|-------------[X|!|;人工翻译
+L's                 |!|L's                 |!|;人工翻译
+Dr. Wulf           |!|Dr. Wulf           |!|;人工翻译
+-------------[X|!|-------------[X|!|;重复词条复制
+§lIllumination|!|§1照明|!|;使用API翻译
+§lActivation|!|§1激活|!|;使用API翻译
+§lStorage Wing|!|§l存储翼|!|;使用API翻译
+§lVoltolocism|!|§电压论|!|;使用API翻译
+§lDrop|!|§l下降|!|;使用API翻译
+§lOps|!|§10ps|!|;使用API翻译
+Drop Ops|!|Drop Ops|!|;使用API翻译
+Pops|!|Pops|!|;使用API翻译
+Drop Ops|!|Drop Ops|!|;重复词条复制
+Pop Rocks|!|流行摇滚|!|;使用API翻译
+TOP|!|顶部|!|;使用API翻译
+SECRET|!|秘密|!|;使用API翻译
+Slightly Important|!|稍微重要|!|;使用API翻译
+Files|!|文件夹|!|;使用API翻译
+Better to file|!|最好归档|!|;使用API翻译
+than not file|!|than not file|!|;人工翻译
+Complaints on|!|投诉|!|;使用API翻译
+File Ordering|!|文件排序|!|;使用API翻译
+Unsuccessful|!|不成功的|!|;使用API翻译
+Experiments|!|实验|!|;使用API翻译
+BOTTOM|!|底部|!|;使用API翻译
+SECRET|!|秘密|!|;重复词条复制
+Unimportant|!|不重要|!|;使用API翻译
+Files|!|文件夹|!|;重复词条复制
+Dwarf VS Troll|!|矮人VS巨魔|!|;使用API翻译
+Game Discs|!|游戏光盘|!|;使用API翻译
+Accident|!|事故|!|;使用API翻译
+Reports|!|报告|!|;使用API翻译
+Whiteboard|!|白板|!|;使用API翻译
+Reviews|!|评论|!|;使用API翻译
+Broken|!|破碎|!|;使用API翻译
+Rocks|!|岩石|!|;使用API翻译
+Noxesium|!|氮钾|!|;使用API翻译
+Tests|!|测验|!|;使用API翻译
+Bird|!|鸟|!|;使用API翻译
+Observations|!|观察|!|;使用API翻译
+Absolute|!|绝对的|!|;使用API翻译
+Facts|!|事实|!|;使用API翻译
+Neutral|!|中立|!|;使用API翻译
+Facts|!|事实|!|;重复词条复制
+Disputable|!|事实|!|;使用API翻译
+Facts|!|事实|!|;重复词条复制
+§lNoxcrew|!|事实|!|;使用API翻译
+§l2016|!|§2016|!|;使用API翻译
+§lNoxcrew|!|事实|!|;重复词条复制
+§l2020|!|§lNoxcrew|!|;使用API翻译
+§lACTIVATE|!|§1活动|!|;使用API翻译
+§lAQUATIC|!|§定性|!|;使用API翻译
+§lNOURISHMENT|!|§噪音|!|;使用API翻译
+§lMODULE|!|§1模块|!|;使用API翻译
+§lMonsters of|!|§1股东|!|;使用API翻译
+§lthe Deep|!|§深|!|;使用API翻译
+§lMonsters from|!|§l来自|!|;使用API翻译
+§lthe Ice|!|§冰|!|;使用API翻译
+§lWaste Station|!|§l垃圾站|!|;使用API翻译
+§lDazzlatron|!|§Dazzlatron|!|;使用API翻译
+§lWind|!|§l风|!|;使用API翻译
+§lSimulator|!|§l模拟器|!|;使用API翻译
+§lOil Engine|!|§10油发动机|!|;使用API翻译
+§lRetrofill|!|§l追溯|!|;使用API翻译
+§lRespiratory|!|§l呼吸系统|!|;使用API翻译
+§lStatus|!|§l状态|!|;使用API翻译
+§lAquatic|!|§1方程式|!|;使用API翻译
+§lCommunication|!|§l沟通|!|;使用API翻译
+§lModule|!|§l模块|!|;使用API翻译
+§lExtreme|!|§l极端|!|;使用API翻译
+§lSuction|!|§l吸力|!|;使用API翻译
+§lCleanse|!|§l清洁|!|;使用API翻译
+§lMiniverse|!|§1最低限度|!|;使用API翻译
+§lObservation|!|§10观察|!|;使用API翻译
+§lRotary|!|§l旋转|!|;使用API翻译
+§lTransport|!|§l运输|!|;使用API翻译
+§lFashion|!|§l时尚|!|;使用API翻译
+§lNode|!|§lNode|!|;使用API翻译
+§lDemonstration|!|§l演示|!|;使用API翻译
+§lDome|!|§l圆顶|!|;使用API翻译
+§lTogglation|!|§l合并|!|;使用API翻译
+§lWall of|!|§l墙|!|;使用API翻译
+§lBeep|!|§lBeep|!|;使用API翻译
+§lGeneration|!|§l世代|!|;使用API翻译
+§lSchrödinger's|!|§薛定谔|!|;使用API翻译
+§lTeleportation|!|§l远程传输|!|;使用API翻译
+§lModule|!|§l模块|!|;重复词条复制
+Press to Cycle|!|按循环|!|;使用API翻译;人工翻译
+the Airlock|!|气闸|!|;使用API翻译
+§o§7(Will teleport all|!|§o§7（将传送所有|!|;使用API翻译
+§o§7players to you)|!|§o§7玩家至你的位置）|!|;使用API翻译;人工翻译
+Press to Cycle|!|按循环|!|;重复词条复制;人工翻译
+the Airlock|!|气闸|!|;重复词条复制
+§lSpeedrun|!|§l竞速|!|;使用API翻译;人工翻译
+§lTimes|!|§1Times|!|;使用API翻译;人工翻译
+§lSwitch §lSpeedrun|!|§l选择§l竞速|!|;使用API翻译;人工翻译
+§lMode|!|§l模式|!|;使用API翻译;人工翻译
+§lMusic|!|§l音乐|!|;使用API翻译;人工翻译
+§lToggle|!|§l切换|!|;使用API翻译
+§lAchievements|!|§1成就|!|;使用API翻译
+§lKillamatron|!|§1Killamatron|!|;使用API翻译
+§lReport|!|§l报告|!|;使用API翻译
+Moisture|!|水分|!|;使用API翻译
+(1-1)|!|(1-1)|!|;人工翻译
+Sewage|!|污水|!|;使用API翻译
+(1-2)|!|(1-2)|!|;人工翻译
+Mines|!|矿山|!|;使用API翻译
+(1-3)|!|(1-3)|!|;人工翻译
+Funghi Growth|!|真菌生长|!|;使用API翻译
+(1-4)|!|(1-4)|!|;人工翻译
+Water Caves|!|含水洞穴|!|;使用API翻译
+(1-5)|!|(1-5)|!|;人工翻译
+Secret Lab|!|秘密实验室|!|;使用API翻译
+(2-1)|!|(2-1)|!|;人工翻译
+Lost World|!|失落的世界|!|;使用API翻译
+(2-2)|!|(2-2)|!|;人工翻译
+Fossil Dig|!|化石挖掘|!|;使用API翻译
+(2-3)|!|(2-3)|!|;人工翻译
+Ice Cavern|!|寒冰洞穴|!|;使用API翻译
+(2-4)|!|(2-4)|!|;人工翻译
+Cave Trolls|!|洞穴巨魔|!|;使用API翻译
+(2-5)|!|(2-5)|!|;人工翻译
+Bore Drills|!|钻孔机|!|;使用API翻译
+(3-1)|!|(3-1)|!|;人工翻译
+Alien Invasion|!|外星人入侵|!|;使用API翻译
+(3-2)|!|(3-2)|!|;人工翻译
+Nether|!|下界|!|;使用API翻译
+(3-3)|!|(3-3)|!|;人工翻译
+Underworld|!|世界之下|!|;人工翻译
+(3-4)|!|(3-4)|!|;人工翻译
+Hell|!|地狱|!|;人工翻译
+(3-5)|!|(3-5)|!|;人工翻译
+Ice-ture|!|真正的冰|!|;使用API翻译
+(F-1)|!|(F-1)|!|;人工翻译
+Frozen Pipes|!|冰冻管道|!|;使用API翻译
+(F-2)|!|(F-2)|!|;人工翻译
+Caved-in Mines|!|矿井中的洞穴|!|;使用API翻译
+(F-3)|!|(F-3)|!|;人工翻译
+Funghi Fires|!|真菌火灾|!|;使用API翻译
+(F-4)|!|(F-4)|!|;人工翻译
+Lava Caves|!|熔岩洞穴|!|;使用API翻译
+(F-5)|!|(F-5)|!|;人工翻译
+Stan loves you.|!|斯坦爱你。|!|;使用API翻译
+Stan's the kinda |!|斯坦是那种|!|;使用API翻译
+guy who's not |!|不会|!|;人工翻译
+that great at |!|一点点|!|;人工翻译
+socialising.|!|社交的人。|!|;人工翻译
+Stan's the kinda |!|斯坦是那种|!|;重复词条复制
+guy who gets |!|能从他的工友那儿|!|;人工翻译
+tons of flowers |!|获得无数花花|!|;人工翻译
+from his workers.|!|的人。|!|;人工翻译
+-|!|-|!|;人工翻译
+Out of pity.|!|出于同情。|!|;使用API翻译
+Stan's the kinda |!|斯坦是那种|!|;重复词条复制
+guy who has to |!|一定会|!|;使用API翻译
+force himself to |!|强迫自己|!|;使用API翻译
+love his work.|!|热爱他的工作的人。|!|;使用API翻译
+Stan's the kinda |!|斯坦是那种|!|;重复词条复制
+guy who brings a |!|带着一个|!|;使用API翻译
+bouncy castle to |!|充气城堡|!|;使用API翻译
+work.|!|来工作的人。|!|;人工翻译
+Stan's the kinda |!|斯坦是那种|!|;重复词条复制
+guy who doesn't |!|一个实际上并不|!|;人工翻译
+actually exist. |!|真实存在的人。|!|;人工翻译
+But we can hope.|!|但我们可以抱有希望。|!|;使用API翻译
+Stan's the kinda |!|斯坦是那种|!|;重复词条复制
+guy who gets |!|能从他的工友那儿|!|;重复词条复制
+employee of the|!|雇佣|!|;人工翻译
+month all the time.|!|一个月的所有时间的人。|!|;使用API翻译;人工翻译
+Stan's the |!|斯坦是|!|;使用API翻译
+boss here.|!|这儿的老板。|!|;人工翻译
+Stan's the kinda |!|斯坦是那种|!|;重复词条复制
+guy who gets |!|能从他的工友那儿|!|;重复词条复制
+upset if you |!|获得不高兴的人|!|;使用API翻译
+don't like him.|!|如果你不喜欢他|!|;使用API翻译
+Stan's the kinda |!|斯坦是那种|!|;重复词条复制
+guy who has long |!|一个会处于很长|!|;使用API翻译;人工翻译
+periods of |!|时期的|!|;使用API翻译;人工翻译
+unproductivity.|!|低生产力的人。|!|;使用API翻译;人工翻译
+But Stan also |!|但斯坦也|!|;使用API翻译
+gets short |!|让生产力的|!|;使用API翻译
+periods of long |!|时期|!|;使用API翻译
+productivity.|!|变短了。|!|;使用API翻译
+Stan's the kinda |!|斯坦是那种|!|;重复词条复制
+guy who doesn't |!|一个实际上并不|!|;重复词条复制
+have his own |!|有自己的|!|;使用API翻译
+office.|!|办公室的人。|!|;使用API翻译;人工翻译
+He works in the |!|他工作|!|;使用API翻译
+same room as his |!|在同他的工友们|!|;使用API翻译
+workers. He |!|一样的房间。他|!|;使用API翻译
+respects them.|!|尊重他们。|!|;使用API翻译
+Stan's the kinda |!|斯坦是那种|!|;重复词条复制
+guy you don't |!|你不会|!|;使用API翻译;人工翻译
+know if you love |!|知道你是否爱|!|;使用API翻译
+or hate him.|!|或者恨他的人。|!|;使用API翻译;人工翻译
+Stan's the kinda |!|斯坦是那种|!|;重复词条复制
+guy who brings a |!|带一只|!|;重复词条复制;人工翻译
+cat to work. Thus |!|猫来工作，以及|!|;使用API翻译;人工翻译
+the litter tray.|!|垃圾托盘的人。|!|;使用API翻译
+Stan's the kinda |!|斯坦是那种|!|;重复词条复制
+guy who doesn't |!|一个实际上并不|!|;重复词条复制
+like his face on |!|喜欢自己面前的东西|!|;使用API翻译
+things.|!|的人。|!|;使用API翻译
+Stan's the kinda |!|斯坦是那种|!|;重复词条复制
+guy who will |!|会|!|;使用API翻译
+force you to |!|强迫你|!|;使用API翻译
+love him.|!|爱他的人。|!|;使用API翻译;人工翻译
+Stan's the kinda |!|斯坦是那种|!|;重复词条复制
+guy who'd write |!|会写下|!|;使用API翻译
+all these signs |!|所有关于他自己的一切|!|;使用API翻译
+himself.|!|的人。|!|;使用API翻译
+Stan's the kinda |!|斯坦是那种|!|;重复词条复制
+guy who lives life |!|让自己的生活|!|;使用API翻译
+to the full.|!|丰满的人。|!|;使用API翻译
+Stan's the kinda |!|斯坦是那种|!|;重复词条复制
+guy who puts |!|会把其他人|!|;使用API翻译
+others in front |!|放在自己前面|!|;使用API翻译
+of himself.|!|的人。|!|;使用API翻译
+But only when it |!|但只有当它|!|;使用API翻译
+means nothing to |!|对斯坦来说|!|;使用API翻译
+Stan.|!|没有意义时。|!|;使用API翻译
+Stan's the kinda |!|斯坦是那种|!|;重复词条复制
+guy who would |!|会在一次演示中|!|;使用API翻译
+fall asleep in a |!|睡着|!|;使用API翻译
+presentation.|!|的人。|!|;使用API翻译
+Stan's the kinda |!|斯坦是那种|!|;重复词条复制
+guy who would |!|会通过乔装打扮|!|;重复词条复制
+wear disguises to |!|来逃避工作|!|;使用API翻译
+escape work.|!|的人。|!|;使用API翻译
+ didn't dodge, duck, dip, dive §oOR dodge.|!|没有躲闪、躲闪、跳水或躲避。|!|;使用API翻译
+ tried to be original with their path.|!|试图在他们的道路上保持原创性。|!|;使用API翻译
+ voted for the wrong mob.|!|投票给了错误的生物。|!|;使用API翻译;人工翻译
+ voted for The Monster of the Ocean Depths.|!|投票给了《深海怪物》。|!|;使用API翻译
+ voted for The Great Hunger.|!|投票支持《大饥荒》。|!|;使用API翻译
+ voted for The Hovering Inferno.|!|投票给了《盘旋的地狱》。|!|;使用API翻译
+ had a kill-o-gram sent to their front door!|!|有人给他们的前门送了一份杀手锏!|!|;使用API翻译
+ flew too close to the sun. Somehow.|!|飞得离太阳太近了。不知怎么的。|!|;使用API翻译
+ tried to lick the wall.|!|试图舔墙。|!|;使用API翻译
+ discovered a new material: Flerovium, Oxygen, Oxygen, Roentgenium.|!|发现了一种新材料：氟、氧、氧、伦琴。|!|;使用API翻译
+ had a suit malfunction.|!|套装出了故障。|!|;使用API翻译;人工翻译
+ hit a bug mid flight.|!|在飞行途中撞上了虫子。|!|;使用API翻译
+ blinked.|!|眨眼。|!|;使用API翻译
+ didn't get the job done.|!|没有完成工作。|!|;使用API翻译;人工翻译
+ downloaded a virus to their suit.|!|把病毒下载到他们的套装上。|!|;使用API翻译;人工翻译
+ was yeeted into a wall.|!|被钉在墙上。|!|;使用API翻译
+ forgot to wear pants.|!|忘了穿裤子。|!|;使用API翻译
+ doesn't feel so good.|!|感觉不太好。|!|;使用API翻译
+ tried to follow the logic of a paradox.|!|试图遵循一个悖论的逻辑。|!|;使用API翻译
+ thought they were a Zoomer but turned out to be a Boomer.|!|以为他们是变焦一代，结果是婴儿潮一代。|!|;使用API翻译
+ split the party.|!|分裂党派。|!|;使用API翻译
+ ate the onion.|!|吃洋葱。|!|;使用API翻译
+ tried to beat Parkour Warrior.|!|试图打败跑酷勇士。|!|;使用API翻译
+ had jet lag after their last flight.|!|上次飞行后，我有时差反应。|!|;使用API翻译
+ is grounded.|!|是接地的。|!|;使用API翻译
+ grinded the ground.|!|磨碎地面。|!|;使用API翻译
+ forgot their wings.|!|忘记了他们的翅膀。|!|;使用API翻译
+ left team trees.|!|左侧团队树。|!|;使用API翻译
+ died. Wow! Most people just die once!|!|死亡。哇!大多数人只死一次!|!|;使用API翻译
+ broke their NDA with Geo Descent Labs.|!|打破了与地球下降实验室的保密协议|!|;使用API翻译
+ pasted a spooky link.|!|粘贴了一个怪异的链接。|!|;使用API翻译
+ rolled a natural 1 on their acrobatics save.|!|在他们的杂技检定中掷得自然1分。|!|;使用API翻译
+ has missed their flight.|!|错过了他们的航班。|!|;使用API翻译
+§2's§r search for funniest death message continues!|!|§2的§r搜索最有趣的死亡信息继续!|!|;使用API翻译
+ decelerated far too quickly.|!|减速太快了。|!|;使用API翻译
+ did the thing!|!|做了那件事!|!|;使用API翻译
+ picked up a cape instead of an elytra.|!|拿起了斗篷而不是鞘翅。|!|;使用API翻译
+ forgot to press space.|!|忘了按空格键了。|!|;使用API翻译
+ just went CRUNCH.|!|嘎吱嘎吱。|!|;使用API翻译
+ tried to read the TSF terms and conditions.|!|试着阅读了TSF的条款和条件。|!|;使用API翻译
+ thought that Bedrock Edition was better.|!|我觉得基岩版更好。|!|;使用API翻译
+ is no longer with us.|!|不再和我们在一起。|!|;使用API翻译
+ pressed the emergency button.|!|按下紧急按钮。|!|;使用API翻译
+ didn't mind the gap.|!|我不介意缺口。|!|;使用API翻译
+§2's§r favorite color was yellow.|!|§2最喜欢的颜色是黄色。|!|;使用API翻译
+ fell with style!|!|潇洒地摔倒!|!|;使用API翻译
+ is stuck in a time-loop.|!|被困在一个时间循环里。|!|;使用API翻译
+ got lost in IKEA.|!|我在宜家迷路了。|!|;使用API翻译
+ should try 3rd Person view.|!|我应该试试第三人称视角。|!|;使用API翻译
+ is way heavier than they thought they were.|!|比他们想象的要重得多。|!|;使用API翻译
+ needs to get good!|!|需要变好!|!|;使用API翻译
+ got stuck on the zipline.|!|卡在滑索上了。|!|;使用API翻译
+ discovered their rockets were actually made of cake.|!|发现他们的火箭其实是用蛋糕做的。|!|;使用API翻译
+ choked on a comically large spoon.|!|被可笑的大勺子噎住了。|!|;使用API翻译
+ is using tilt controls.|!|正在使用倾斜控制。|!|;使用API翻译
+ dropped their mixtape... no sorry, dropped, just dropped.|!|掉了他们的混音带……不，抱歉，掉了，只是掉了。|!|;使用API翻译
+ §ob§rro§o§lke§r th§oe §lf§r§oon§rt.|!|“我喜欢”“我喜欢”“我喜欢”“我喜欢”“我喜欢”“我喜欢”“我喜欢”。|!|;使用API翻译
+§2's§r pizza is ready.|!|§2的§r披萨准备好了。|!|;使用API翻译
+ found a penny on the floor.|!|在地板上发现了一分钱。|!|;使用API翻译
+ had to brb.|!|我不得不离开。|!|;使用API翻译
+ flew with the grace of a reversing dump truck without any tyres.|!|飞起来就像一辆没有轮胎的翻斗车。|!|;使用API翻译
+ didn't watch the pre-flight safety video.|!|没有看飞行前的安全视频。|!|;使用API翻译
+§2's§r hair turned into a rainbow.|!|§2的头发变成了彩虹。|!|;使用API翻译
+ accidentally opened their inventory.|!|不小心打开了他们的库存。|!|;使用API翻译
+ thought this was a "find the button" map.|!|我还以为这是"找到按钮"的地图呢。|!|;使用API翻译
+ went to go play on a farm.|!|去农场玩了。|!|;使用API翻译
+ got trapped behind an iron door.|!|被困在一扇铁门后面。|!|;使用API翻译
+ asked "are we there yet" too many times.|!|问了太多次“我们到了吗?”|!|;使用API翻译
+: "I'll never die!"|!|“我永远不会死!”|!|;使用API翻译
+ acknowledged this could happen in the 1047 page Terms of Service.|!|承认这可能发生在1047页的服务条款中。|!|;使用API翻译
+ has worked 0 days without an accident.|!|连续工作0天未发生事故。|!|;使用API翻译
+ retired and became lord of potatoes.|!|退休后成了土豆领主。|!|;使用API翻译
+ pulled the wrong lever.|!|拉错了控制杆。|!|;使用API翻译
+ got lost at sea.|!|在海上迷路了。|!|;使用API翻译
+§2's§r life is like a rollercoaster, you've just got to ride it.|!|人生就像过山车，你必须坐上去。|!|;使用API翻译
+ fell into The Mariana Trench.|!|掉进了马里亚纳海沟。|!|;使用API翻译
+ forgot to follow Noxcrew on Twitch.|!|忘了在Twitch上关注诺克crew了。|!|;使用API翻译
+ shouldn't quit their day job.|!|不应该辞掉他们的日常工作。|!|;使用API翻译
+ was just practicing. THIS time it's for real!|!|我只是在练习。这次是真的!|!|;使用API翻译
+ found the swarm of bees.|!|发现了一群蜜蜂。|!|;使用API翻译
+ knows they won't be leaving here.|!|知道他们不会离开这里。|!|;使用API翻译
+ went for a walk, went for a ride, to come outside.|!|去散步，去兜风，去外面。|!|;使用API翻译
+Oh, the places |!|哦，那些地方|!|;使用API翻译
+ would have gone, if they'd not just faceplanted a wall.|!|要不是他们在墙上装了一堵墙，早就走了。|!|;使用API翻译
+ never saw that coming...|!|从没想到会这样……|!|;使用API翻译
+ wanted it that way.|!|我希望这样。|!|;使用API翻译
+ got stuck inside their hoodie.|!|卡在他们的连帽衫里了。|!|;使用API翻译
+ erased themselves.|!|抹去自己。|!|;使用API翻译
+ got the 30 second ad.|!|有30秒的广告。|!|;使用API翻译
+ went into Sir Killalot's Corner.|!|走进了基拉洛爵士的角落。|!|;使用API翻译
+ threw away their shot.|!|把他们的枪扔了。|!|;使用API翻译
+ swears that block wasn't there in the original version.|!|我发誓原来的版本里没有那个块。|!|;使用API翻译
+ lost their nose.|!|失去了他们的鼻子。|!|;使用API翻译
+ now has to blink on purpose.|!|现在要故意眨眼了。|!|;使用API翻译
+ tried to square the circle.|!|试图使圆方起来。|!|;使用API翻译
+8/10 doctors recommend |!|8/10医生推荐|!|;使用API翻译
+ dying.|!|死亡。|!|;使用API翻译
+ won't live to rue the day.|!|不会后悔的。|!|;使用API翻译
+ finally killed that mosquito, but at what cost?|!|终于杀了那只蚊子，但代价是什么?|!|;使用API翻译
+ broke a mirror under the ladder on Friday the 13th.|!|在13号星期五打碎了梯子下面的镜子。|!|;使用API翻译
+ was red-carded for a bad tackle on the tunnel.|!|在隧道里铲球犯规被红牌罚下。|!|;使用API翻译
+ hit the broad side of a barn.|!|撞到谷仓的宽边。|!|;使用API翻译
+ flew into the tunnel, again. How 2016 of them.|!|又飞进了隧道。这是2016年。|!|;使用API翻译
+ destroyed a $10,000 wing suit! COME ON!!!|!|毁了一件价值一万美元的翼装!来吧! !|!|;使用API翻译
+ is suffering from EXTREME road rash.|!|患了严重的路疹。|!|;使用API翻译
+ boarded a one way train to pain town.|!|登上了去痛苦镇的单程火车。|!|;使用API翻译
+ vanished into thin air!|!|消失得无影无踪!|!|;使用API翻译
+ should've paid better attention to the briefing.|!|你应该多注意听简报的。|!|;使用API翻译
+ exploded into a big ball of disappointment.|!|爆发成一个失望的大球。|!|;使用API翻译
+ has been removed from the Floop Squad.|!|已经被撤职了。|!|;使用API翻译
+ thought down was up.|!|以为跌了就是涨了。|!|;使用API翻译
+ is about to click the respawn button.|!|即将点击重生按钮。|!|;使用API翻译
+ blamed lag for that death.|!|死亡归咎于滞后。|!|;使用API翻译
+ got caught in a strong gust of wind.|!|被一股强风困住了。|!|;使用API翻译
+ is THIS close to being fired by Geo Descent Labs!|!|就差这么一点就被Geo Descent Labs发射了!|!|;使用API翻译
+ rubbernecked at the scenery.|!|看风景看得目瞪口呆。|!|;使用API翻译
+ is blasting off agaaaaaaaaaainnnn.....     *PING*|!|是发射agaaaaaaaainnnn .....吗*平*|!|;使用API翻译
+ went kablooey!|!|出毛病的!|!|;使用API翻译
+ ya died! ya died! ya died! ya died! ya died! ya died!|!|丫死了!丫死了!丫死了!丫死了!丫死了!丫死了!|!|;使用API翻译
+ voted for the Desert biome.|!|投给了沙漠生物群落|!|;使用API翻译
+ voted for the Savanna biome.|!|投票支持稀树草原生物群落|!|;使用API翻译
+ voted for the Badlands biome.|!|我选了恶土的生物群落|!|;使用API翻译
+ voted for the Swamp biome.|!|投票支持沼泽生物群落|!|;使用API翻译
+ didn't make it to Dodgebolt.|!|没能到道奇波特那里。|!|;使用API翻译
+§2's§r Persona skin blinked for too long.|!|§2的§r角色皮肤闪烁太长时间|!|;使用API翻译
+ is no longer in the room where it happens.|!|已经不在案发的房间了。|!|;使用API翻译
+ has never played rocket spleef.|!|从没玩过火箭决胜。|!|;使用API翻译
+ hit an iron door midair.|!|在半空中撞到一扇铁门。|!|;使用API翻译
+ got DUNKED!|!|有扣篮!|!|;使用API翻译
+ texted while flying.|!|飞行时发短信。|!|;使用API翻译
+ was playing Minecraft Earth whilst flying.|!|在飞机上玩《我的世界》。|!|;使用API翻译
+ tried defying gravity.|!|试着对抗地心引力。|!|;使用API翻译
+ messed up reaaaaaal bad.|!|搞砸了，真的很糟糕。|!|;使用API翻译
+ decorated the tunnel with meat confetti.|!|用肉屑装饰隧道。|!|;使用API翻译
+ forgot their parachute.|!|忘记带降落伞了。|!|;使用API翻译
+§2's§r mortality was clarified in a single smash!|!|§2的§r死亡率在一次粉碎中得到了澄清!|!|;使用API翻译
+ created an infinite loop.|!|创造了一个无限循环。|!|;使用API翻译
+ created a mathematical impossibility.|!|创造了一个数学上的不可能。|!|;使用API翻译
+ drank a pan-galactic gargle-blaster.|!|喝了泛银河系的含漱爆破药。|!|;使用API翻译
+ didn't check for traps.|!|没有检查陷阱。|!|;使用API翻译
+ played Floor is Lava, but forgot about the walls.|!|我玩过《Floor is Lava》，但忘记了墙壁。|!|;使用API翻译
+ chose the wrong coloured suit.|!|选错了颜色的套装。|!|;使用API翻译
+ found the ground.|!|找到了地面。|!|;使用API翻译
+ thought they were Mary Poppins.|!|我以为他们是玛丽·波平斯。|!|;使用API翻译
+ became part of the New Brick Order.|!|成为新砖秩序的一部分|!|;使用API翻译
+ blinked.|!|眨眼。|!|;重复词条复制
+ surrendered.|!|投降了。|!|;使用API翻译
+ is using mouse yoke.|!|正在使用鼠标轭。|!|;使用API翻译
+ let themselves down.|!|让自己失望。|!|;使用API翻译
+ is playing in VR.|!|正在玩虚拟现实。|!|;使用API翻译
+ didn't make the dex check.|!|没有做索引检查。|!|;使用API翻译
+ snatched defeat from the jaws of victory!|!|从胜利的牙缝里抢走了失败!|!|;使用API翻译
+ sounds like "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHH!"|!|听起来像“aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaahhhhhhhhhhhhhhh !”|!|;使用API翻译
+ is now a wall decoration.|!|现在是墙面装饰。|!|;使用API翻译
+ blew their no claims bonus.|!|挥霍了他们的无索赔奖金。|!|;使用API翻译
+ forgot about fall damage.|!|忘记掉下来的伤害。|!|;使用API翻译
+ now knows what a fly against a windscreen feels like.|!|现在我知道苍蝇撞在挡风玻璃上是什么感觉了。|!|;使用API翻译
+ suddenly reached a velocity of zero.|!|突然达到了零速度。|!|;使用API翻译
+ tried to fight gravity and lost.|!|试图对抗地心引力却失败了。|!|;使用API翻译
+ forgot to avoid the obstacles.|!|忘记避开障碍。|!|;使用API翻译
+ is now dead, nice job.|!|现在死了，干得好。|!|;使用API翻译
+ should've remembered their rockets.|!|应该记得他们的火箭。|!|;使用API翻译
+ was actually doing quite fine and just laid down their rockets and walked away.|!|实际上做得很好，只是放下火箭走开了。|!|;使用API翻译
+ thought Pluto was a planet.|!|认为冥王星是一颗行星|!|;使用API翻译
+ exceeded the speed limit.|!|超速了。|!|;使用API翻译
+ got stuck in the text box.|!|卡在文本框里了。|!|;使用API翻译
+ made a wrong turn.|!|转错弯了。|!|;使用API翻译
+ isn't as immortal as previously believed.|!|并不像我们之前认为的那样不朽。|!|;使用API翻译
+ is freeeeeeee, free falling!|!|是自由落体!|!|;使用API翻译
+ pushed the Noxcrew button one too many times. NOXCREW!|!|按诺克克鲁按钮太多次了。NOXCREW !|!|;使用API翻译
+ forgot to set their phone to flight mode.|!|忘了把手机调成飞行模式了。|!|;使用API翻译
+ is not okay!|!|是不行的!|!|;使用API翻译
+ forgot to turn the oven off.|!|忘了关烤箱了。|!|;使用API翻译
+ thought we were playing monopoly.|!|还以为我们在玩大富翁呢。|!|;使用API翻译
+ missed their rocket jump.|!|错过了他们的火箭跳跃。|!|;使用API翻译
+ decided to become a lawyer instead.|!|决定成为一名律师。|!|;使用API翻译
+ had to go, their dinner was ready.|!|得走了，他们的晚餐准备好了。|!|;使用API翻译
+§2's§r power went out.|!|2的r电源断了。|!|;使用API翻译
+ believed they could fly.|!|相信他们会飞。|!|;使用API翻译
+ walked too far off the ledge.|!|走得太远了。|!|;使用API翻译
+ doesn't follow Noxcrew on Twitter.|!|没有关注诺克crew的推特|!|;使用API翻译
+ fell to despair.|!|陷入绝望。|!|;使用API翻译
+ was playing in the wrong version.|!|在错误的版本中播放。|!|;使用API翻译
+ just wanted to be included in the sequel.|!|只是想加入续集。|!|;使用API翻译
+ wasn't cheating, but probably should have been.|!|我没有作弊，但也许应该作弊。|!|;使用API翻译
+ was a past president of the "Being Alive" club.|!|是“活着”俱乐部的前任主席。|!|;使用API翻译
+ knew exactly what they were doing, but is trying to figure out why.|!|确切地知道他们在做什么，但正在试图找出原因。|!|;使用API翻译
+ didn't activate their stand in time.|!|没有及时激活他们的展台。|!|;使用API翻译
+ was voted out of the tunnels.|!|被投票赶出了隧道。|!|;使用API翻译
+ has been hit by, has been struck by, a smooth... wall.|!|被击中了，被击中了，一个顺利的…墙。|!|;使用API翻译
+ was humiliated on Prom Night.|!|在舞会之夜被羞辱|!|;使用API翻译
+ got an offer they couldn't refuse.|!|得到了一个他们无法拒绝的机会。|!|;使用API翻译
+ is dropping frames... and dropping themselves.|!|是掉帧…让自己掉下去。|!|;使用API翻译
+ met an immovable object.|!|遇到了一个不可移动的物体。|!|;使用API翻译
+ is just making a death compilation.|!|只是在做一个死亡汇编。|!|;使用API翻译
+ couldn't MLG water bucket in time.|!|我没能及时装上水桶。|!|;使用API翻译
+ found out they were quirkless.|!|发现它们很古怪。|!|;使用API翻译
+ got too distracted filming a cool video for social media.|!|为社交媒体拍摄一个很酷的视频，分心了。|!|;使用API翻译
+ didn't realise this was an automatic lock-in situation.|!|没意识到这是自动锁定情况。|!|;使用API翻译
+§2's§r health insurance will not be payed by GDL.|!|§2的§r健康保险将不会由GDL支付。|!|;使用API翻译
+ did the wrong cheat code.|!|使用了错误的作弊代码。|!|;使用API翻译
+ failed to cash in their Money in the Bank contract.|!|未能兑现他们在银行的合同|!|;使用API翻译
+ tried flying with no arms or legs.|!|我试过没手没脚的飞行。|!|;使用API翻译
+ tried to load the map in 1.11.2|!|尝试在1.11.2中加载地图|!|;使用API翻译
+ forgot to wear sunglasses.|!|忘记戴太阳镜了。|!|;使用API翻译
+ seemed to burn.|!|好像在燃烧。|!|;使用API翻译
+ couldn't even win with their $3,000 setup.|!|他们花了三千美金都赢不了。|!|;使用API翻译
+ fed an Enchanted golden apple to a horse.|!|用一个施了魔法的金苹果喂了一匹马。|!|;使用API翻译
+ stepped on the red green.|!|踩红踩绿。|!|;使用API翻译
+ fell on the Big Red Balls.|!|落在大红球上。|!|;使用API翻译
+ ran out of web fluid.|!|网液用完了。|!|;使用API翻译
+ hit the ejector button.|!|按弹射按钮。|!|;使用API翻译
+ needs to be remastered.|!|需要重新灌制。|!|;使用API翻译
+ quit Minecraft to play Rocket League.|!|退出《我的世界》去玩《火箭联盟》|!|;使用API翻译
+ didn't make it to Broadway.|!|没能进入百老汇|!|;使用API翻译
+ didn't keep their distance from the wall.|!|他们没有和城墙保持距离。|!|;使用API翻译
+ didn't make it through the tournament arc.|!|没能通过比赛。|!|;使用API翻译
+ meant to go there, not there!|!|我是想去那儿，不是那儿!|!|;使用API翻译
+ got transported to another world.|!|被传送到另一个世界。|!|;使用API翻译
+ smelt it and dealt it.|!|闻一下，处理一下。|!|;使用API翻译
+ didn't have their trusty boomerang.|!|没有他们信赖的回旋镖。|!|;使用API翻译
+ has realised they have to think about breathing.|!|意识到他们必须考虑呼吸。|!|;使用API翻译
+ is feeling hot hot hot!|!|感觉好热好热!|!|;使用API翻译
+ should visit their doctor, at the earliest convenience.|!|应该尽早去看医生。|!|;使用API翻译
+ didn't look at my horse. The horse is amazing.|!|没看我的马。这匹马太棒了。|!|;使用API翻译
+ wuz 2 bzy txtng 2 c wall|!|Wuz 2 bzy TXTNG 2 c墙|!|;使用API翻译
+ tweeted a picture of this death message to @Noxcrew|!|在推特上发了一张死亡信息的照片给@Noxcrew|!|;使用API翻译
+ stubbed their face on a cave troll.|!|把脸贴在洞穴巨怪上。|!|;使用API翻译
+ hope the tunnel ch-ch-changes.|!|希望隧道能改变。|!|;使用API翻译
+ ...huh...yeah! What are they good for?!?|!|…嗯…是的!它们有什么用?|!|;使用API翻译
+ snapped, then crackled, and on further consideration, popped.|!|啪的一声，然后啪的一声，再仔细想想，啪的一声。|!|;使用API翻译
+ thought the tunnel was a ball and went for a header.|!|以为通道是个球，然后头球攻门。|!|;使用API翻译
+ graduated from Antarctica's Pilot Academy.|!|毕业于南极洲飞行员学院。|!|;使用API翻译
+ has dirt for brains.|!|脑子里有泥土。|!|;使用API翻译
+ kicked the bucket.|!|死了。|!|;使用API翻译
+ caught the plague... suddenly... in midair.|!|染上了瘟疫……突然……在半空中。|!|;使用API翻译
+ bought a pine condominium.|!|买了一套松木公寓。|!|;使用API翻译
+ reached terminal velocity.|!|达到了终端速度。|!|;使用API翻译
+ forgot to wear their Noxygen mask.|!|忘记戴氧气面罩了。|!|;使用API翻译
+ pressed E.|!|按下E。|!|;使用API翻译
+ is now on Santa's naughty list.|!|现在在圣诞老人的淘气名单上。|!|;使用API翻译
+ licked an icicle.|!|舔了一下冰柱。|!|;使用API翻译
+ found a secret way out of the tunnel.|!|找到了一条离开隧道的秘密通道。|!|;使用API翻译
+ can't seem to collect any Noxesium.|!|似乎无法收集到任何诺克赛姆。|!|;使用API翻译
+ is being paid to make the other people look good.|!|就是拿钱让别人好看。|!|;使用API翻译
+ is dinner for the cave trolls.|!|是洞穴巨魔的晚餐。|!|;使用API翻译
+ should have waited for the landing gear to deploy.|!|应该等起落架打开的。|!|;使用API翻译
+ got caught daydreaming.|!|被发现做白日梦。|!|;使用API翻译
+ is restarting from the last checkpoint.|!|正在从上一个检查点重新开始。|!|;使用API翻译
+ went to infinity and beyond!|!|飞向无限远!|!|;使用API翻译
+ asked 'Are we there yet?' too many times.|!|“我们到了吗?”太多次了。|!|;使用API翻译
+ fell too hard for Sasha.|!|我对萨沙太倾心了|!|;使用API翻译
+ sure does die a lot!|!|确实死过很多次!|!|;使用API翻译
+ triggered this death message.|!|触发此死亡消息。|!|;使用API翻译
+ had an unsuccessful short career as a crash test dummy.|!|做过一次不成功的碰撞试验假人。|!|;使用API翻译
+ ate 2 whole bags of sand.|!|吃了整整两袋沙子。|!|;使用API翻译
+ voted for the Moobloom.|!|投票给了穆姆布卢姆|!|;使用API翻译
+ voted for the Iceologer.|!|投票给了冰川学家|!|;使用API翻译
+ didn't play the TSF prequels.|!|没玩过 TSF 前传。|!|;使用API翻译;人工翻译
+ will be back. Soon you'll see.|!|会回来的。很快你就会明白的。|!|;使用API翻译
+ wasn't willing to wait for it.|!|我不愿意再等了。|!|;使用API翻译
+ met the ban hammer.|!|遇到了禁令锤。|!|;使用API翻译
+ wanted a banger funeral.|!|想要一个更棒的葬礼。|!|;使用API翻译
+ died doing what they love.|!|为自己热爱的事业而死。|!|;使用API翻译
+ became one with the walls.|!|与墙壁融为一体。|!|;使用API翻译
+ has fallen and can't get up.|!|摔倒了，爬不起来了。|!|;使用API翻译
+§2's§r flying was explosive.|!|§2的§r飞行是爆炸性的。|!|;使用API翻译;人工翻译
+ threw away their shot.|!|把他们的枪扔了。|!|;重复词条复制
+ flew in peace but everything changed when the Fire Nation attacked.|!|平静地飞翔，但烈火国的进攻改变了一切。|!|;使用API翻译
+ [ REDACTED ]|!|[删节]|!|;使用API翻译
+ is literally a Boomer.|!|就是婴儿潮一代。|!|;使用API翻译
+ miss-spelled supercalifragilisticexpialidocious.|!|miss——spelled难以置信的。|!|;使用API翻译
+ was older than Avondale.|!|比埃文代尔还要老。|!|;使用API翻译
+ shot a portal on the moon.|!|在月球上发射了一个传送门。|!|;使用API翻译
+ milked a squid.|!|给鱿鱼挤奶。|!|;使用API翻译
+ hid a zombie bite.|!|藏了一个僵尸咬伤。|!|;使用API翻译
+ let Rogue ruin the Anderson Family Christmas.|!|让无赖毁了安德森家的圣诞节。|!|;使用API翻译
+ landed on Omicron Persei 8.|!|降落在欧米克隆珀西8号上。|!|;使用API翻译
+ trusted a mimic.|!|相信模仿者。|!|;使用API翻译
+ has some comments about how the ground looks.|!|有一些关于地面的评论。|!|;使用API翻译
+ saw a death message in chat and started reading it, but the sentence was so long they forgot to look ahead and crashed!|!|在聊天中看到一条死亡信息，开始阅读，但句子太长了，他们忘记向前看，崩溃了!|!|;使用API翻译
+ thought landing gear was always deployed.|!|我以为起落架总是打开的。|!|;使用API翻译
+ was our 1000th death and wins a lifetime supply of... oh.|!|是我们的第1000次死亡和一生的胜利哦。|!|;使用API翻译
+ didn't get the team they wanted in MC Championship.|!|没有得到他们在MC锦标赛中想要的球队。|!|;使用API翻译
+ just wants a cup of tea and a lie down.|!|只想喝杯茶，躺下休息。|!|;使用API翻译
+ got on the wrong side of Drugar.|!|站错了毒枭那边|!|;使用API翻译
+ didn't look when crossing the road.|!|过马路的时候没看。|!|;使用API翻译
+ is thinking about rage quitting.|!|正在考虑暴怒戒烟。|!|;使用API翻译
+ rolled a critical fail.|!|滚出严重故障。|!|;使用API翻译
+ has already died |!|已经死了|!|;使用API翻译
+ times in this tunnel.|!|在这条隧道里。|!|;使用API翻译;人工翻译
+ was foiled by Nuktuk! Hero of the South!|!|被努克克挫败了!南方的英雄!|!|;使用API翻译
+ has met an unfortunate end.|!|有了不幸的结局。|!|;使用API翻译
+ got amnesia and...|!|得了健忘症……|!|;使用API翻译
+ placed top 40.|!|排名前40位。|!|;使用API翻译
+ realised the call was coming from inside the house!|!|我意识到电话是从房子里打来的!|!|;使用API翻译
+ got locked in with no crystals.|!|被锁在没有水晶的地方。|!|;使用API翻译
+ done did dieded.|!|Done确实死了。|!|;使用API翻译
+ isn't very good at this game.|!|不是很擅长这个游戏。|!|;使用API翻译
+ thought they were playing dropper.|!|我还以为他们在玩滴管游戏呢。|!|;使用API翻译
+ was actually wearing knight armor.|!|实际上穿着骑士盔甲。|!|;使用API翻译
+ didn't find the lightswitch.|!|没找到电灯开关。|!|;使用API翻译
+ doesn't want to play anymore.|!|不想再玩了。|!|;使用API翻译
+ has had enough of mumble rap music.|!|听够了含糊不清的说唱音乐。|!|;使用API翻译
+ could have done better.|!|本可以做得更好的。|!|;使用API翻译
+ is mad, bro.|!|真是疯了，兄弟。|!|;使用API翻译
+ thinks the map is broken.|!|认为地图坏了。|!|;使用API翻译
+ was too busy dancing to the music.|!|忙着跟着音乐跳舞。|!|;使用API翻译
+ didn't really fall, they just sauntered down.|!|并没有真的掉下来，它们只是慢慢地掉下来。|!|;使用API翻译
+ just wanted that final piece of Noxesium.|!|只是想要那最后一块诺克西元。|!|;使用API翻译
+ never did learn how to land.|!|从来没学过怎么着陆。|!|;使用API翻译
+ needs healing!|!|需要治疗!|!|;使用API翻译
+ will look great in a death montage!|!|在死亡蒙太奇里看起来会很棒!|!|;使用API翻译
+ literally rolled on the floor laughing.|!|真的是在地板上笑个不停。|!|;使用API翻译
+ is really considering Creative mode right now.|!|现在正在考虑创造模式。|!|;使用API翻译
+ tried to emote mid-flight.|!|试图在飞行途中进行情感交流。|!|;使用API翻译
+ flew 500 miles but could not fly 500 more.|!|飞了500英里，但不能再飞了。|!|;使用API翻译
+§2's§r finger slipped.|!|§2的手指滑了一下。|!|;使用API翻译
+ used to rule the world. Chunks would load when they gave the word.|!|曾经统治过世界。当他们发出指令时，大块就会加载。|!|;使用API翻译
+ is short a quarter.|!|少了四分之一。|!|;使用API翻译
+ did not just let GDL down. They let themselves down.|!|不仅让GDL失望他们让自己失望了。|!|;使用API翻译
+ was unworthy!|!|是不值得!|!|;使用API翻译
+ chose... poorly.|!|选择……不佳。|!|;使用API翻译
+ was warned by Lobster Ref.|!|被龙虾裁判警告。|!|;使用API翻译
+ made a -500 IQ play.|!|打出了——500的智商|!|;使用API翻译
+ was wrong on the internet.|!|在网上是错误的。|!|;使用API翻译
+ and Ground sitting in a tree, K. I. S. S. I. N. G.|!|和坐在树上的地面，k.i. s.s. s.i. n.g.。|!|;使用API翻译
+ didn't finish the level within the 9 hour time limit.|!|没有在9小时的时限内通关。|!|;使用API翻译;人工翻译
+ died with a score of &e0.|!|以0英镑的分数去世。|!|;使用API翻译;人工翻译
+ forgot their Floop Squad training.|!|忘了他们的防滑队训练。|!|;使用API翻译
+ couldn't let it go.|!|无法释怀。|!|;使用API翻译
+ used Dive!|!|使用潜水!|!|;使用API翻译
+ is LITERALLY screaming right now.|!|简直就是在尖叫。|!|;使用API翻译
+ met an unstoppable force.|!|遇到了不可阻挡的力量。|!|;使用API翻译
+ had a stupid death... It's funny cause it's true.|!|死得很蠢…这很有趣，因为这是真的。|!|;使用API翻译
+ had their wings stolen at the last second.|!|他们的翅膀在最后一刻被偷走了。|!|;使用API翻译;人工翻译
+ fell off some replica planets.|!|从一些复制星球上掉下来。|!|;使用API翻译
+ must be farming death messages at this point.|!|现在肯定是在发送死亡信息。|!|;使用API翻译
+ is super close to unlocking the secret deaths achievement, keep going bud!|!|超级接近解锁秘密死亡成就，继续前进，伙计!|!|;使用API翻译
+ cannae see, man!|!|我看不见，伙计!|!|;使用API翻译
+ has seen every single unique death message! §oP.S. You can stop dying now.|!|看过每一条独特的死亡信息!§相机会。你现在可以停止死亡了。|!|;使用API翻译
+ would have gotten away with it if it wasn't for those meddling kids.|!|如果不是那些爱管闲事的孩子，我就能逃脱惩罚了。|!|;使用API翻译
+ has no style, has no grace.|!|没有风格，没有优雅。|!|;使用API翻译
+ tried to do a backflip.|!|试着做后空翻。|!|;使用API翻译
+ incorrectly blazoned their own coat of arms.|!|错误地装饰了自己的盾徽。|!|;使用API翻译
+ has redeemed Crash Into Wall for 100 channel points.|!|用Crash Into Wall兑换100频道点数。|!|;使用API翻译
+ went too far beyond plus ultra.|!|超出了plus ultra。|!|;使用API翻译
+ just wants to cry.|!|只想哭。|!|;使用API翻译
+ went back in time to pretend that never happened.|!|回到过去假装什么都没发生过。|!|;使用API翻译
+ tried flying laden with a coconut.|!|试着带着椰子飞。|!|;使用API翻译
+ didn't buy Terra Swoop Force Premium Gold Super Cool Platinum Limited Edition.|!|没有买Terra Swoop Force Premium Gold Super Cool Platinum Limited Edition。|!|;使用API翻译
+ should've shopped at Build Mart.|!|应该去建筑超市购物的。|!|;使用API翻译
+ crossed their heart and hoped to die, and they did.|!|他们发誓，希望去死，他们死了。|!|;使用API翻译
+ was trapped in by the Sands of Time.|!|被时之沙困住了|!|;使用API翻译
+ didn't follow the yellow brick road.|!|没有沿着黄砖路走。|!|;使用API翻译
+ just... keeps... dying!|!|只是…保持……死亡!|!|;使用API翻译
+ supported team S.H.E.D|!|支持s.h.e.d.团队|!|;使用API翻译
+ was taken home to their Country Roads.|!|被带回了他们的乡间小路。|!|;使用API翻译
+ thought saying "pog" was cool.|!|我以为说"pog"很酷。|!|;使用API翻译
+ didn't know what "S" stands for.|!|我不知道S代表什么。|!|;使用API翻译
+ missed the hole in the wall.|!|没打中墙上的洞。|!|;使用API翻译
+ scored an own goal.|!|进了一个乌龙球。|!|;使用API翻译
+ missed the secret easter egg by a couple of blocks.|!|就差几个街区没找到秘密复活节彩蛋。|!|;使用API翻译
+ didn't fly when told so by Gandalf, and thus is a fool.|!|甘道夫让他飞，他却没飞，所以他是个傻瓜。|!|;使用API翻译
+ has their simulation turned off.|!|他们的模拟系统关闭了吗?|!|;使用API翻译
+ now supports the theory of gravity.|!|现在支持重力理论。|!|;使用API翻译
+ signed a bad contract with GDL.|!|和GDL签了一份糟糕的合同。|!|;使用API翻译
+ wants a rewind.|!|想要倒带。|!|;使用API翻译
+ forgot the crackers, Gromit!|!|忘了饼干了，阿高!|!|;使用API翻译
+ was jumping up and down in muddly puddles!|!|在泥泞的水坑里跳上跳下!|!|;使用API翻译
+ has been blueshelled by... themselves.|!|已经被……他们自己。|!|;使用API翻译
+, this is just a dream. You're late for school. Wake up.|!|这只是一场梦。你上学迟到了。醒醒。|!|;使用API翻译;人工翻译
+ turned into lemons and made themselves lemonade.|!|变成柠檬，给自己做柠檬水。|!|;使用API翻译
+ had to cheat to see the ending.|!|必须作弊才能看到结局。|!|;使用API翻译
+ is cheese, the tunnel's the grater. They said hello, the tunnel said later.|!|是奶酪，隧道是磨碎器。他们说你好，隧道后来说。|!|;使用API翻译
+ can't finish the map. They could barely finish their dinner!|!|我画不完地图。他们几乎吃不完晚餐!|!|;使用API翻译
+ failed to steal the Declaration of Independence.|!|没能窃取《独立宣言》|!|;使用API翻译
+ is aerially challenged.|!|是空中挑战。|!|;使用API翻译;人工翻译
+ got foiled by a monkey on the wing!|!|被一只飞翔的猴子挫败了!|!|;使用API翻译
+ ran out of broomstick fuel.|!|飞天扫帚的燃料用完了。|!|;使用API翻译
+ has taken a job in the fertilizer industry.|!|在化肥行业找了份工作。|!|;使用API翻译
+ is MIA.|!|米娅。|!|;使用API翻译
+ got boiled to death.|!|被煮死了。|!|;使用API翻译
+ went down the wrong hole.|!|下错洞了。|!|;使用API翻译
+ struggles with tutorial levels.|!|在教程关卡中挣扎。|!|;使用API翻译
+ is filming a death montage for their YouTube channel.|!|正在为他们的YouTube频道拍摄死亡蒙太奇|!|;使用API翻译
+ would have been better off spending a day at the beach.|!|还不如在海滩上呆上一天。|!|;使用API翻译
+ is afraid of heights!|!|就是恐高!|!|;使用API翻译;人工翻译
+ stared a basilisk in the eye.|!|盯着蛇怪的眼睛|!|;使用API翻译
+ fell to the Dark Side.|!|倒向了黑暗势力|!|;使用API翻译
+Need another death? Why not |!|需要另一个死亡吗?为什么不|!|;使用API翻译
+§r?|!|§r ?|!|;使用API翻译
+ experienced the result of kinetic energy.|!|经历了动能的结果。|!|;使用API翻译
+ couldn't quite fit through the tunnel.|!|不能完全通过隧道。|!|;使用API翻译
+ took an arrow to the knee!|!|膝盖中了一箭!|!|;使用API翻译
+ didn't correctly recite their favorite color.|!|没有正确背诵他们最喜欢的颜色。|!|;使用API翻译;人工翻译
+ made horsey noises with coconuts.|!|用椰子发出马的声音。|!|;使用API翻译
+ ran out of free play time!|!|没有自由玩耍的时间了!|!|;使用API翻译
+ took one for the team.|!|为团队牺牲了一点。|!|;使用API翻译
+ asked too many questions about how they survived...|!|问了太多关于他们如何生存的问题……|!|;使用API翻译
+ should have been following @Noxcrew on Twitter!|!|我应该在推特上关注@诺克crew !|!|;使用API翻译
+ took out Home Tree... BIG mistake.|!|把家树拿出来……大错误。|!|;使用API翻译
+ is now the weakest link. Goodbye.|!|现在是最薄弱的环节。再见。|!|;使用API翻译
+ had to play for the Blue Team.|!|必须为蓝队效力|!|;使用API翻译
+ poked the bear!|!|戳熊!|!|;使用API翻译
+ divided by 0.|!|除以0。|!|;使用API翻译
+ bought the cheap envelopes, and licked them.|!|买了便宜的信封，舔了舔。|!|;使用API翻译
+ asked for a sequel.|!|要求拍续集。|!|;使用API翻译
+ found their cube root.|!|求出它们的立方根。|!|;使用API翻译
+ stared into Buildy's eyes too long.|!|他盯着比迪的眼睛太久了。|!|;使用API翻译;人工翻译
+ dived to put tea in a river.|!|潜入水中把茶倒进河里。|!|;使用API翻译
+ seemed kinda sus.|!|看起来有点像。|!|;使用API翻译
+ jumped into a pit with more than 24 entities.|!|跳进了一个有超过24个实体的坑里。|!|;使用API翻译
+ let go of their earthly tether. Entered the void. Empty, and became wind.|!|放开他们尘世的束缚。进入虚空。空了，又成了风。|!|;使用API翻译
+ talked over the cutscenes.|!|讨论过场动画。|!|;使用API翻译
+ auditioned as a crash test dummy.|!|作为碰撞测试假人试镜。|!|;使用API翻译
+ is just a pile of dust now.|!|现在只是一堆灰尘。|!|;使用API翻译
+ typed @everyone|!|输入@everyone|!|;使用API翻译
+ tried to Escape from Blozark.|!|试图逃离Blozark。|!|;使用API翻译
+ had their account hacked.|!|他们的账户被黑了。|!|;使用API翻译
+ needs additional Vespene gas.|!|需要额外的Vespene气体。|!|;使用API翻译
+ needs additional lumber.|!|需要额外的木材。|!|;使用API翻译
+ built a nuclear power plant in Cherry Point.|!|在切里波因特建了一座核电站|!|;使用API翻译
+ wasn't invited to MCC's birthday party.|!|没被邀请参加世纪挑战集团的生日派对|!|;使用API翻译
+ was the only one to die in this spot.|!|是唯一死在这里的人。|!|;使用API翻译
+ ate an extra large helping of cottage cheese.|!|吃了一大份白干酪。|!|;使用API翻译
+ went poof.|!|噗。|!|;使用API翻译
+ has let down their family name.|!|辜负了他们的姓氏。|!|;使用API翻译
+ traded 64 emeralds for a stick.|!|用64颗祖母绿换了一根棍子。|!|;使用API翻译
+ is not speedrunning.|!|不是极速跑。|!|;使用API翻译
+ forgot to turn off biome blend.|!|忘记关闭生物群落混合了。|!|;使用API翻译
+ didn't get the world record.|!|没有获得世界纪录。|!|;使用API翻译
+ didn't read the terms and conditions.|!|没有读条款和条件。|!|;使用API翻译
+ believes in the infinite monkey theorem.|!|相信无限猴子定理。|!|;使用API翻译
+ forgot their sulfur, tungsten, and silver.|!|忘记他们的硫，钨和银。|!|;使用API翻译
+ died so many times, we ran out of death messages!|!|死了那么多次，我们的死亡信息都用完了!|!|;使用API翻译
+ is playing on Switch.|!|在Switch上玩。|!|;使用API翻译
+ got a face full of wall.|!|满脸都是墙。|!|;使用API翻译
+ had to get the door.|!|我得把门打开。|!|;使用API翻译
+ was not the impostor.|!|不是骗子。|!|;使用API翻译
+ should've payed more attention in pilot school.|!|在飞行员学校的时候就该多注意点。|!|;使用API翻译
+ was captured by sky-pirates|!|被天空海盗抓住了|!|;使用API翻译
+ fell into the blastzone.|!|掉进了爆炸区。|!|;使用API翻译
+ was ejected.|!|被踢出门外。|!|;使用API翻译
+ pulled down their visor too quickly.|!|把遮阳板拉得太快了。|!|;使用API翻译
+ fell asleep at the wing!|!|对着翅膀睡着了!|!|;使用API翻译
+ could've sworn they pressed space.|!|我发誓他们按了空格键。|!|;使用API翻译
+ swears they're lagging.|!|我发誓他们落后了。|!|;使用API翻译
+ said, "Aight, I'mma head out."|!|他说:“好了，我要出去了。”|!|;使用API翻译
+ thought the window was open.|!|我以为窗户是开着的。|!|;使用API翻译
+ had a hard landing... too hard.|!|硬着陆了……太难。|!|;使用API翻译
+ got too curious about what was on a surface. There was nothing there.|!|对表面上的东西太好奇了。那里什么也没有。|!|;使用API翻译
+ has broken every bone in their body. Ouch.|!|折断了他们身上的每一根骨头。哎哟。|!|;使用API翻译
+ fainted!|!|晕倒了!|!|;使用API翻译
+ found the secret invisible wall! Well done!|!|发现了隐形墙的秘密!做得好!|!|;使用API翻译
+ This isn't Creative mode, |!|这不是创造模式，|!|;使用API翻译
+§r.|!|§r。|!|;使用API翻译
+ probably just gave up that time.|!|可能只是放弃了那段时间。|!|;使用API翻译
+ is still a piece of garbage.|!|还是一堆垃圾。|!|;使用API翻译
+ forgot to feed dumbshark.|!|忘了喂哑巴鲨了。|!|;使用API翻译
+ has displeased the Noxcrew Gods.|!|惹恼了诺克塞诸神。|!|;使用API翻译
+ thought this was Grid Runners.|!|我以为这是《Grid Runners》|!|;使用API翻译
+So close, |!|如此接近,|!|;使用API翻译
+§r.|!|§r。|!|;重复词条复制
+ had to take an insurance call.|!|我得接个保险公司的电话。|!|;使用API翻译
+ - Dishonour on you! Dishonour on your cow!|!|——你不光彩!你的牛不光彩!|!|;使用API翻译
+ choked this run.|!|这次跑得很糟糕。|!|;使用API翻译
+ was a hero at 30,000 feet... §owas.|!|是三万英尺高空的英雄…§owa。|!|;使用API翻译
+ broke their keyboard.|!|弄坏了他们的键盘。|!|;使用API翻译
+ ran into a problem and needs to restart.|!|遇到问题，需要重新启动。|!|;使用API翻译
+ should have known the cake was a lie.|!|早该知道那蛋糕是个谎言。|!|;使用API翻译
+ is no longer showing up on our GPS tracker.|!|在我们的GPS追踪器上找不到|!|;使用API翻译
+ didn't get the lap count on that shortcut.|!|我没算出那条近道的圈数。|!|;使用API翻译
+ joined Jeoffrey in his chamber.|!|他回到杰弗里的房间。|!|;使用API翻译
+ lost the game.|!|输掉了比赛。|!|;使用API翻译
+ awoke to find themselves in a Dark Room!|!|醒来发现自己在一间黑屋子里!|!|;使用API翻译
+ didn't keep their foot off the blasted samoflange.|!|他们的脚都没离开该死的萨莫法兰。|!|;使用API翻译
+ should have gotten a fastpass.|!|我应该得到一张快速通行证。|!|;使用API翻译
+ drew without using layers.|!|不使用图层绘制。|!|;使用API翻译
+ teleported into a wall.|!|传送到墙上。|!|;使用API翻译
+ wrote day and night like they were running out of time... and did.|!|日以继夜地写作，仿佛时间已耗尽……也正是这么做的。|!|;使用API翻译
+ fell down the chute.|!|从滑道上摔了下来。|!|;使用API翻译
+ is §othis§r close to the top of the speedrun leaderboards.|!|这条线接近速度跑排行榜的顶端吗?|!|;使用API翻译
+ just wants to play with the Axolotls.|!|只是想和蝾螈一起玩。|!|;使用API翻译
+ is best friends with Launchpad MCQuack.|!|是发射台麦克庸医最好的朋友。|!|;使用API翻译
+ forgot all 27 steps to transform Grimlock into dinobot mode.|!|忘记了把Grimlock变成恐龙模式的27个步骤。|!|;使用API翻译
+ is still waiting for the next monthly roundup.|!|还在等待下一个月的汇总。|!|;使用API翻译
+ RE:ZERO'd themselves.|!|再保险:零本身。|!|;使用API翻译
+ enjoyed a well-done steak.|!|我吃了一份全熟的牛排。|!|;使用API翻译
+ clicked "Skip Ad".|!|点击“跳过广告”。|!|;使用API翻译
+ is restarting the speedrun.|!|正在重新启动速度运行。|!|;使用API翻译
+ is saving time for next time.|!|是为下次节省时间。|!|;使用API翻译
+ died after 5 years in hardcore mode.|!|5年后死于硬核模式。|!|;使用API翻译
+ didn't get a second season.|!|没有第二季。|!|;使用API翻译
+ was playing with a steering wheel, blindfolded.|!|蒙着眼睛在玩方向盘。|!|;使用API翻译
+ has won the Terra Swoop Force Teapot!|!|赢得了Terra Swoop Force茶壶!|!|;使用API翻译
+ clicked a download button that turned out to be an ad.|!|点击了一个下载按钮，结果发现是一则广告。|!|;使用API翻译
+ thought the air was water, they were a fish, and the ground was something that fish like.|!|我以为空气是水，它们是鱼，而地面是鱼喜欢的东西。|!|;使用API翻译
+ did the crime so they have to do the time.|!|犯了罪，所以他们要坐牢。|!|;使用API翻译
+ needs to take off their reading glasses and put on their flying glasses.|!|需要摘掉老花镜，戴上飞行眼镜。|!|;使用API翻译
+ couldn't recognize their nemesis without a fedora.|!|不戴软呢帽根本认不出他们的敌人。|!|;使用API翻译
+ channeled their inner wrecking ball.|!|引导他们内心的毁灭球。|!|;使用API翻译
+ was too busy coming up with a witty comeback to the previous death message.|!|正忙着想出一个机智的方式来回应之前的死亡信息。|!|;使用API翻译
+ got lost at sea on a jetski.|!|在水上摩托艇上迷路了。|!|;使用API翻译
+ got an experimental nose-flattening surgery at great expense.|!|花了一大笔钱做了一个实验性的鼻子扁平手术。|!|;使用API翻译
+ stared into the abyss. And the abyss stared back.|!|凝视着深渊。深渊凝视着他。|!|;使用API翻译
+ rejected modernity, returned to monkey.|!|拒绝现代性，回归猴子。|!|;使用API翻译
+ should've just gone around the obstacles and won.|!|我应该绕过障碍，赢得胜利。|!|;使用API翻译
+ is blaming the wind on their poor flying skills.|!|把他们糟糕的飞行技术归咎于风。|!|;使用API翻译
+ should've gone §oup§r, §odown§r, §oleft§r, §oright§r, §oto the side§r more!|!|应该往上、往下、往左、往右、往左、往左、往左!|!|;使用API翻译
+ didn't move side to side, side to side.|!|没有左右移动。|!|;使用API翻译
+ didn't do the thingy.|!|我没做那件事。|!|;使用API翻译
+ tried their best but they couldn't succeed.|!|他们尽了最大的努力，但他们不能成功。|!|;使用API翻译
+ couldn't get to the other side and whack a fan.|!|没办法到另一边扇扇扇扇。|!|;使用API翻译
+ hung in the sky in much the same way that bricks don't.|!|悬挂在天空的方式和砖块一样。|!|;使用API翻译
+ can count to a million on their body parts.|!|他们的身体部位可以数到一百万。|!|;使用API翻译
+ landed on the ground like a splat of strawberry jam.|!|像一片草莓酱一样掉在地上。|!|;使用API翻译
+ is pushing up daisies now...|!|现在正在长雏菊……|!|;使用API翻译
+ really should have brought a parachute.|!|我真该带个降落伞。|!|;使用API翻译
+ made a full claim on their life insurance policy.|!|对他们的人寿保险单提出全额索赔。|!|;使用API翻译
+ got flushed down the toilet.|!|被冲进了厕所|!|;使用API翻译
+ is a member of Grenade Train.|!|是手榴弹列车的成员。|!|;使用API翻译
+ was sacrificed to a goat!|!|被献给了一只山羊!|!|;使用API翻译
+ was sacrificed to the tunnel pirates!|!|被地道海盗牺牲了!|!|;使用API翻译
+ has died a claaaaassic death.|!|死得很老土|!|;使用API翻译
+ is racking up a new high score!|!|创下了新高!|!|;使用API翻译
+ is on their way to meet the Robot Devil.|!|正在去见机器恶魔的路上|!|;使用API翻译
+ ate too many Krabby Patties.|!|我吃了太多蟹黄堡。|!|;使用API翻译
+ swallowed the wrong colored pill.|!|吞下了错误颜色的药片。|!|;使用API翻译
+ is having a bad day!|!|这是糟糕的一天!|!|;使用API翻译
+ failed to understand the gravity of the situation.|!|没有认识到形势的严重性。|!|;使用API翻译
+ had tunnel vision.|!|视野狭窄。|!|;使用API翻译
+ brought shame to their family.|!|给他们家族带来了耻辱。|!|;使用API翻译
+ is the first place loser!|!|是第一名的失败者!|!|;使用API翻译
+ can't find where they parked their car.|!|找不到他们把车停在哪了。|!|;使用API翻译
+ went the way of Dr. Barney.|!|走了巴尼医生的路|!|;使用API翻译
+ went fishing with Dr. Minnowski.|!|和Minnowski博士一起去钓鱼|!|;使用API翻译
+ ate too many pages out of the 5,000 page annotated hardback of Dr. Wulf's motivational philosophies.|!|在伍尔夫博士那本5000页的精装本有注解的激励哲学中，吃了太多页。|!|;使用API翻译
+ got hit by a shockwave!|!|被冲击波击中了!|!|;使用API翻译
+ remembered the original name for Noxesium.|!|记住了诺克西元最初的名字|!|;使用API翻译
+ tried to take a bite out of the core... uh oh...|!|试着咬一口核心…哦哦……|!|;使用API翻译
+ has now died more times than they ever have!|!|比他们死的次数还多!|!|;使用API翻译
+ wrote Jar Jar Binks into the script.|!|把加·加·宾克斯写进剧本。|!|;使用API翻译
+ succumbed to the Killamatron.|!|屈服于Killamatron。|!|;使用API翻译
+ got knocked down, but then got up again.|!|被击倒了，但又站起来了。|!|;使用API翻译
+ couldn't see through all the void frogs.|!|看不清所有的虚空青蛙。|!|;使用API翻译
+ tried to set a new speed run record, but PanNic-ked.|!|我试图创造一项新的速度跑步记录，但却惊慌失措。|!|;使用API翻译
+ was sacrificed to The Great MeWulf.|!|被献给了伟大的MeWulf|!|;使用API翻译
+§2's§r skeleton will live on as a Lobster Helper.|!|§2的§r骨架将作为龙虾助手继续存在。|!|;使用API翻译
+ thought writing a multi stream story with Noxite as the main character was a good idea.|!|我觉得写一个以诺克赛特为主角的多流故事是个好主意。|!|;使用API翻译
+ saw Noxite's beautiful pink dress.|!|看到了诺克赛特漂亮的粉红色连衣裙。|!|;使用API翻译
+ just saw their FIRTHST death message!|!|刚刚看到他们的第一条死亡信息!|!|;使用API翻译
+ found the funniest death message of them all!|!|找到了最有趣的死亡信息!|!|;使用API翻译
+ didn't do what gamers do.|!|没有做玩家会做的事。|!|;使用API翻译
+ replaced slime blocks with golf carts.|!|用高尔夫球车取代泥块。|!|;使用API翻译
+§lNew Wave Wulf|!|§11新浪潮伍尔夫|!|;使用API翻译
+§rHello. I am Dr. Wulf. I bring you New Look.|!|§rHello。我是伍尔夫博士。我给你带来新面貌。|!|;使用API翻译
+§lWhat is New Look?|!|什么是新面貌?|!|;使用API翻译
+§rLife not always good. Some good. Some bad. New Look helps to see both okay.|!|生活并不总是美好的。一些好。一些坏的。新面貌有助于看到两者都好。|!|;使用API翻译
+§lIntroduction|!|§lIntroduction|!|;使用API翻译
+§rHello. I am Dr. Wulf.|!|§rHello。我是伍尔夫博士。|!|;使用API翻译
+In these page, I tell you story on New Look. I tell you how to see New Look. When you finish, you will know New Look.|!|在这一页，我告诉你关于New Look的故事。我告诉你如何看到新面貌。当你完成后，你会知道New Look。|!|;使用API翻译
+Use wise.|!|明智的使用。|!|;使用API翻译
+§lLost is not to lose|!|失去就是不失去|!|;使用API翻译
+§rWhen human have expectation, is when they have disappointment.|!|人类有期待的时候，就是有失望的时候。|!|;使用API翻译
+Disappointment, because they lose. They do not have what they want. Is bad.|!|失望，是因为自己输了。他们没有他们想要的东西。是坏的。|!|;使用API翻译
+I walk into forest, but have no goal.|!|我走进森林，却没有目标。|!|;使用API翻译
+I walk for 3 hours. I have forgotten where I am. I am lost.|!|我步行3个小时。我忘了自己身在何处。我迷路了。|!|;使用API翻译
+But I had no direction. So am I lost? Or am I where I am?|!|但我没有方向。我迷路了吗?还是我在我所在的地方?|!|;使用API翻译
+I am lost, but not lose.|!|我迷失了，却没有迷失。|!|;使用API翻译
+§lGreat Star|!|§l大明星|!|;使用API翻译;人工翻译
+§rHuman lie down, see star fly across sky and make a wish.|!|人躺下，看星星划过天空，许个愿。|!|;使用API翻译
+"I want more."|!|“我想要更多。”|!|;使用API翻译
+But when star see other star it does not want.|!|但当星星看到其他星星时，它不想要。|!|;使用API翻译
+Star shines bright. Flies through the night, doesn't stop, doesn't blink.|!|星星很亮。在黑夜中飞翔，不停，不眨眼。|!|;使用API翻译
+Star does not wish on other stars. Star does not think on other stars.|!|一颗星不向别的星许愿。一颗星星不去想别的星星。|!|;使用API翻译
+Star is star.|!|星星就是星星。|!|;使用API翻译
+Star is great without more. Human too.|!|明星是伟大的，没有更多。人类。|!|;使用API翻译
+§lHill Can Grow|!|山丘会生长|!|;使用API翻译
+§rSmall Hill sees Big Hill and says "I want to be big."|!|小山丘看到大山丘，说:“我要变大。”|!|;使用API翻译
+Other Big Hills laugh. "You cannot be big. You are small. And hills do not grow."|!|其他的大山都笑了。“你不可能变大。你太小了。山也长不出来。”|!|;使用API翻译
+Hills are ignorant.|!|山是无知的。|!|;使用API翻译
+Small Hill only looks like it cannot grow.|!|小山丘只是看起来不能生长。|!|;使用API翻译
+Maybe Small Hill not really Hill at all. Maybe Small Hill can grow and become Big Hill. Who knows?|!|也许小山丘根本就不是真正的山丘。也许小山丘可以成长为大山丘。谁知道呢?|!|;使用API翻译
+Only Small Hill.|!|只有小山丘。|!|;使用API翻译
+Human can be same. Grow is not owned by plants.|!|人类可以是一样的。生长不属于植物。|!|;使用API翻译
+§lBusy Bee|!|§l忙碌的蜜蜂|!|;使用API翻译;人工翻译
+§rBee is buzzing all day.|!|蜜蜂整天嗡嗡叫。|!|;使用API翻译
+Fly plant to plant. Collect nectar and pollen.|!|从一个植物飞到另一个植物。采集花蜜和花粉。|!|;使用API翻译
+Bee never stop and wonder. Bee never lie back on flower and breathe.|!|蜜蜂从不停下来思考。蜜蜂从不仰卧在花上呼吸。|!|;使用API翻译
+Human need to wonder. Human need to breathe.|!|人类需要好奇。人类需要呼吸。|!|;使用API翻译
+Human is not bee, to be busy and busy.|!|人不是蜜蜂，要忙又要忙。|!|;使用API翻译
+Human can be busy, but is not good all the time.|!|人可以很忙，但并不总是好的。|!|;使用API翻译
+Sometime good to pick nice spot. Lie back and breathe.|!|有时候选个好地方也不错。躺下，呼吸。|!|;使用API翻译
+§lRide the Wave|!|乘浪而上|!|;使用API翻译
+§rSurfer like a bird.|!|像鸟一样冲浪。|!|;使用API翻译
+Big wave come to surfer, and surfer choose to ride along.|!|巨浪向冲浪者袭来，冲浪者选择顺势而上。|!|;使用API翻译
+Big wind come to bird, and bird choose to ride along.|!|大风吹向鸟儿，鸟儿选择顺风而行。|!|;使用API翻译
+Surfer does not drive straight through wave.|!|冲浪者不能直接穿过波浪。|!|;使用API翻译
+Just like bird do not flap through wind.|!|就像鸟儿不能在风中飞翔。|!|;使用API翻译
+Wave and Wind sometimes problem. Not always good to flap and dive through problem.|!|浪和风有时是问题。解决问题并不总是好的。|!|;使用API翻译
+Sometimes good to choose to ride along.|!|有时候选择陪伴是好的。|!|;使用API翻译
+§lForest is Made|!|§1森林是人造的|!|;使用API翻译
+§rWhen young tree grows, has no eyes to see.|!|小树成长时，没有眼睛看。|!|;使用API翻译
+Young tree grow up, blind, reach out with branches and hands to touch.|!|小树长大了，看不见，伸手用树枝和手去摸。|!|;使用API翻译
+"Where is forest? Can't feel Forest," Tree say. "I am alone."|!|“森林在哪里?”“感觉不到森林。”树说。“我一个人。”|!|;使用API翻译;人工翻译
+But young tree not give up. Young tree grow, make longer arms and find more trees. These other trees searching too.|!|但小树不放弃。小树长大了，胳膊变长了，找到了更多的树。其他的树也在搜寻。|!|;使用API翻译
+All searching, all arms spreading, trees have made forest.|!|所有人都在寻找，所有人都在展开，树木长成了森林。|!|;使用API翻译
+Young tree on edge the whole time. Still make forest.|!|小树一直都在边上。还是造森林吧。|!|;使用API翻译
+§lEpilogue|!|§l结语|!|;使用API翻译;人工翻译
+§rHello. I am Dr. Wulf.|!|§rHello。我是伍尔夫博士。|!|;重复词条复制
+In these page you read the New Look. Do you see? Do you know?|!|在这一页你读到的是新面貌。你看到了吗?你知道吗?|!|;使用API翻译
+I hope you now wiser.|!|我希望你现在更聪明了。|!|;使用API翻译
+I am happy. I write more books.|!|我很高兴。我写了更多的书。|!|;使用API翻译
+I am Dr. Wulf.|!|我是伍尔夫博士。|!|;使用API翻译
+I grin and wave, but you can not see on page.|!|我咧嘴一笑，挥挥手，你却看不清书页。|!|;使用API翻译
+I am grin waving.|!|我咧嘴笑着挥手。|!|;使用API翻译
+TFA-1541: White Suit|!|TFA-1541:白色套装|!|;使用API翻译
+TFA-1541: Green Suit|!|TFA-1541:绿色套装|!|;使用API翻译
+TFA-1541: Red Suit|!|TFA-1541:红色套装|!|;使用API翻译
+TFA-1541: Blue Suit|!|TFA-1541:蓝色套装|!|;使用API翻译
+TFA-1541: Brown Suit|!|TFA-1541:棕色套装|!|;使用API翻译
+TFA-1541: Black Suit|!|TFA-1541:黑色套装|!|;使用API翻译
+TFA-1541: Lime Suit|!|TFA-1541:石灰套装|!|;使用API翻译
+TFA-1541: Magenta Suit|!|TFA-1541:洋红色套装|!|;使用API翻译
+TFA-1541: Yellow Suit|!|TFA-1541:黄色套装|!|;使用API翻译
+TFA-1541: Pink Suit|!|TFA-1541:粉色套装|!|;使用API翻译
+TFA-1541: Relic Suit|!|遗迹套装|!|;使用API翻译
+TFA-1541: Noxcrew Suit|!|TFA-1541:Noxcrew 套装|!|;使用API翻译;人工翻译
+TFA: Rainbow Unicorn Suit|!|彩虹独角兽套装|!|;使用API翻译
+TFA-EV.1L: Dark Rainbow Unicorn Suit|!|TFA-EV。黑色彩虹独角兽套装|!|;使用API翻译;人工翻译
+TFA-1541: White Pants|!|TFA-1541:白裤子|!|;使用API翻译
+TFA-1541: Green Pants|!|TFA-1541:绿裤子|!|;使用API翻译
+TFA-1541: Red Pants|!|TFA-1541:红裤子|!|;使用API翻译
+TFA-1541: Blue Pants|!|TFA-1541:蓝裤子|!|;使用API翻译
+TFA-1541: Brown Pants|!|TFA-1541:棕色裤子|!|;使用API翻译
+TFA-1541: Black Pants|!|TFA-1541:黑裤子|!|;使用API翻译
+TFA-1541: Lime Pants|!|TFA-1541:石灰裤子|!|;使用API翻译
+TFA-1541: Magenta Pants|!|TFA-1541:洋红色裤子|!|;使用API翻译
+TFA-1541: Yellow Pants|!|TFA-1541:黄裤子|!|;使用API翻译
+TFA-1541: Pink Pants|!|TFA-1541:粉色裤子|!|;使用API翻译
+TFA-1541: Relic Pants|!|TFA-1541:遗迹裤子|!|;使用API翻译
+TFA-1541: Noxcrew Pants|!|TFA-1541:Noxcrew 裤子|!|;使用API翻译;人工翻译
+TFA: Rainbow Unicorn Pants|!|彩虹独角兽裤|!|;使用API翻译
+TFA-EV.1L: Dark Rainbow Unicorn Pants|!|TFA-EV。黑色彩虹独角兽裤|!|;使用API翻译;人工翻译
+TFA-1541: White Boots|!|TFA-1541:白靴子|!|;使用API翻译
+TFA-1541: Green Boots|!|TFA-1541:绿靴子|!|;使用API翻译
+TFA-1541: Red Boots|!|TFA-1541:红靴子|!|;使用API翻译
+TFA-1541: Blue Boots|!|TFA-1541:蓝靴|!|;使用API翻译
+TFA-1541: Brown Boots|!|TFA-1541:棕色靴子|!|;使用API翻译
+TFA-1541: Black Boots|!|TFA-1541:黑色靴子|!|;使用API翻译
+TFA-1541: Lime Boots|!|TFA-1541:石灰靴|!|;使用API翻译
+TFA-1541: Magenta Boots|!|TFA-1541:洋红色靴子|!|;使用API翻译
+TFA-1541: Yellow Boots|!|TFA-1541:黄靴子|!|;使用API翻译
+TFA-1541: Pink Boots|!|TFA-1541:粉色靴子|!|;使用API翻译
+TFA-1541: Relic Boots|!|TFA-1541:遗迹靴子|!|;使用API翻译
+TFA-1541: Noxcrew Boots|!|TFA-1541:Noxcrew 靴|!|;使用API翻译;人工翻译
+TFA: Rainbow Unicorn Boots|!|彩虹独角兽靴子|!|;使用API翻译
+TFA-EV.1L: Dark Rainbow Unicorn Boots|!|TFA-EV。黑色彩虹独角兽靴子|!|;使用API翻译;人工翻译
+Master Volume|!|主音量|!|;使用API翻译
+§cTURN OFF PLEASE§r|!|§c请关机§r|!|;使用API翻译;人工翻译
+§bMusic|!|§b音乐|!|;使用API翻译;人工翻译
+Weather|!|天气|!|;使用API翻译
+Hostile Creatures|!|敌对生物|!|;使用API翻译
+Friendly Creatures|!|友好的动物|!|;使用API翻译
+Players|!|玩家|!|;使用API翻译;人工翻译
+Blocks|!|块|!|;使用API翻译
+Ambient/Environment|!|环境/环境|!|;使用API翻译
+§bVoiceover|!|§b音量覆盖|!|;使用API翻译;人工翻译
+Go to the §6Trophy Room§r to view achievements|!|进入奖杯室查看成就|!|;使用API翻译;人工翻译
+|!|None|!|;人工翻译
+Tap %1$s to exit|!|按下 %1$s 以离开|!|;人工翻译

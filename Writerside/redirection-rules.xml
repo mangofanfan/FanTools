@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rules SYSTEM "https://resources.jetbrains.com/writerside/1.0/redirection-rules.dtd">
+<rules>
+    <!-- format is as follows
+    <rule id="<unique id>">
+        <accepts>page.html</accepts>
+    </rule>
+    -->
+    <rule id="73b409e8">
+        <description>Created after removal of "全局主题 | Global Theme" from FanTools</description>
+        <accepts>全局主题-Global-Theme.html</accepts>
+    </rule>
+    <rule id="d00ecb8">
+        <description>Created after removal of "配置文件 | Config" from FanTools</description>
+        <accepts>配置文件-Config.html</accepts>
+    </rule>
+    <rule id="19142a44">
+        <description>Created after removal of "全局主题 | Global Theme" from FanTools</description>
+        <accepts>Global_Theme.html</accepts>
+    </rule>
+</rules>
