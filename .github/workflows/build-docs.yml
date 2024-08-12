@@ -3,7 +3,7 @@ name: Build and Publish Writerside Docs
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   build:
