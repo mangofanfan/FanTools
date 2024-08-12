@@ -16,7 +16,7 @@ jobs:
       - name: Set up Writerside
         uses: JetBrains/writerside-github-action@v4
         with:
-          instance: Writerside/starter-topic
+          instance: Writerside/f
           artifact: webHelpHI2-all.zip
           docker_version: 241.18775
 
