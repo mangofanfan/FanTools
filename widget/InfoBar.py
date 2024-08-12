@@ -1,6 +1,6 @@
 import traceback
 
-from qfluentwidgets import InfoBar, InfoBarPosition, FlyoutAnimationType, MessageBox
+from qfluentwidgets import InfoBar, InfoBarPosition, FlyoutAnimationType
 
 
 def msgTextIdError(self):

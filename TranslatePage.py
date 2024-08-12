@@ -11,6 +11,7 @@ from widget.function import basicFunc
 import widget.function_translate as funcT
 import widget.function_error as funcE
 from widget.TranslateToolPage import Ui_Form as TranslateToolPageUi
+from widget.TranslateMultiPage import Ui_Form as TranslateMultiPageUi
 from script.translate_rule import Rule
 
 
@@ -42,16 +43,29 @@ class TranslatePage:
 
         self.layout.addSpacerItem(self.spacer)
 
-        PushButton_Run = PushButton(self.widget)
-        PushButton_Run.setText("启动工具")
-        PushButton_Run.clicked.connect(self.launch)
-        self.layout.addWidget(PushButton_Run)
+        PushButton_RunTool = PushButton(self.widget)
+        PushButton_RunTool.setText("启动普通翻译工具")
 
-    def launch(self):
+        PushButton_RunMulti = PushButton(self.widget)
+        PushButton_RunMulti.setText("启动多项翻译工具")
+
+        PushButton_RunTool.clicked.connect(self.launchTool)
+        PushButton_RunMulti.clicked.connect(self.launchMulti)
+
+        self.layout.addWidget(PushButton_RunTool)
+        self.layout.addWidget(PushButton_RunMulti)
+
+    def launchTool(self):
         global Tool
         Tool = TranslateToolPage()
         Tool.show()
         Tool.setProject("testAAA.txt")
+
+    def launchMulti(self):
+        global Multi
+        Multi = TranslateMultiPage()
+        Multi.show()
+        Multi.setProject("testAAA.txt")
 
 
 class TranslateToolPage(QWidget):
@@ -251,3 +265,26 @@ class Worker_AutoTranslate(QObject):
             print(f"已完成一次 API 翻译（{n}）。")
             sleep(1)
             n += 1
+
+
+class TranslateMultiPage(QWidget):
+
+    def __init__(self, parent=None):
+        QWidget.__init__(self, parent)
+
+        self.ui = TranslateMultiPageUi()
+        self.ui.setupUi(self)
+        self.setWindowTitle("多项翻译工具")
+
+        self.project = funcT.TranslateProject()
+        self.List = QWidget()
+        self.layout = VBoxLayout(parent=self.List)
+        self.List.setLayout(self.layout)
+        self.ui.SingleDirectionScrollArea.setWidget(self.List)
+
+    def setProject(self, file: str):
+        self.project.loadProject(file)
+
+    # def DisplayList(self):
+
+

@@ -1,5 +1,5 @@
 from PySide2.QtGui import Qt
-from PySide2.QtWidgets import QGridLayout, QLabel, QWidget
+from PySide2.QtWidgets import QGridLayout, QWidget
 from qfluentwidgets import CardWidget, LineEdit, ToolButton, PrimaryToolButton, InfoBar, InfoBarPosition, BodyLabel
 from qfluentwidgets import FluentIcon as FIC
 import subprocess
