@@ -2,7 +2,7 @@ from PySide2 import QtCore
 from PySide2.QtCore import QObject, Signal, QThread
 from PySide2.QtGui import Qt
 from PySide2.QtWidgets import QWidget, QLabel, QSpacerItem, QSizePolicy
-from qfluentwidgets import VBoxLayout, PushButton, RoundMenu, Action, TitleLabel, BodyLabel, SingleDirectionScrollArea
+from qfluentwidgets import VBoxLayout, PushButton, RoundMenu, Action, TitleLabel, BodyLabel, SingleDirectionScrollArea, InfoBar
 from qfluentwidgets import FluentIcon as FIC
 
 import webbrowser
@@ -10,13 +10,18 @@ import webbrowser
 from widget.function import basicFunc
 import widget.function_translate as funcT
 import widget.function_error as funcE
+from widget.TranslateButtonCard import Card_Single, Card_Multi
 from widget.TranslateToolPage import Ui_Form as TranslateToolPageUi
 from widget.TranslateMultiPage import Ui_Form as TranslateMultiPageUi
+from widget.TranslateTextCard import Card as TranslateTextCard
 from script.translate_rule import Rule
 
 
-class TranslatePage:
+class TranslatePage(QObject):
+    loadMultiSingal = Signal()
+
     def __init__(self):
+        super().__init__()
         self.widget = QWidget()
         self.layout = VBoxLayout(self.widget)
         self.widget.setLayout(self.layout)
@@ -27,6 +32,10 @@ class TranslatePage:
         self.scrollArea.setWidget(self.widget)
         self.scrollArea.setObjectName("TranslatePage")
         self.scrollArea.setWidgetResizable(True)
+
+        self.CardSingle = Card_Single()
+        self.CardMulti = Card_Multi()
+
         self.run()
 
     def addTextLine(self, text: str, labelType: str = "Body"):
@@ -41,19 +50,13 @@ class TranslatePage:
         self.addTextLine("翻译工具", "Title")
         self.addTextLine("测试中，点击下方按钮打开工具……")
 
+        self.layout.addWidget(self.CardSingle.widget)
+        self.layout.addWidget(self.CardMulti.widget)
+
         self.layout.addSpacerItem(self.spacer)
 
-        PushButton_RunTool = PushButton(self.widget)
-        PushButton_RunTool.setText("启动普通翻译工具")
-
-        PushButton_RunMulti = PushButton(self.widget)
-        PushButton_RunMulti.setText("启动多项翻译工具")
-
-        PushButton_RunTool.clicked.connect(self.launchTool)
-        PushButton_RunMulti.clicked.connect(self.launchMulti)
-
-        self.layout.addWidget(PushButton_RunTool)
-        self.layout.addWidget(PushButton_RunMulti)
+        self.CardSingle.button.clicked.connect(self.launchTool)
+        self.CardMulti.button.clicked.connect(self.launchMulti)
 
     def launchTool(self):
         global Tool
@@ -63,9 +66,34 @@ class TranslatePage:
 
     def launchMulti(self):
         global Multi
-        Multi = TranslateMultiPage()
-        Multi.show()
-        Multi.setProject("testAAA.txt")
+        self.loadMultiTextList()
+        #Multi = TranslateMultiPage()
+        #Multi.show()
+        #Multi.setProject("testAAA.txt")
+
+    def loadMultiTextList(self):
+        self.project = funcT.TranslateProject()  # TODO 日后再改
+        self.project.loadProject("testAAA.txt")
+        self.Thread_TL = QThread(self)
+        self.Worker_TL = Worker_LoadingStatus(self.project)
+        self.Worker_TL.moveToThread(self.Thread_TL)
+        self.Worker_TL.numberCount.connect(lambda: self.updateMultiLoadingStatus)
+        self.loadMultiSingal.connect(self.Worker_TL.run)
+        self.Thread_TL.start()
+        self.loadMultiSingal.emit()
+        print("1")
+
+    def updateMultiLoadingStatus(self, numberCount: tuple):
+        if self.CardMulti.progressBar.isHidden():
+            self.CardMulti.progressBar.setRange(0, 100)
+            self.CardMulti.progressBar.setValue(0)
+            self.CardMulti.progressBar.setHidden(False)
+
+        value = numberCount[0] / numberCount[1]
+        self.CardMulti.progressBar.setValue(value)
+
+        if value == 1:
+            self.CardMulti.progressBar.setHidden(True)
 
 
 class TranslateToolPage(QWidget):
@@ -268,7 +296,6 @@ class Worker_AutoTranslate(QObject):
 
 
 class TranslateMultiPage(QWidget):
-
     def __init__(self, parent=None):
         QWidget.__init__(self, parent)
 
@@ -276,15 +303,48 @@ class TranslateMultiPage(QWidget):
         self.ui.setupUi(self)
         self.setWindowTitle("多项翻译工具")
 
+        self.cardList = []
+
         self.project = funcT.TranslateProject()
         self.List = QWidget()
         self.layout = VBoxLayout(parent=self.List)
         self.List.setLayout(self.layout)
+        self.ui.SingleDirectionScrollArea.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
         self.ui.SingleDirectionScrollArea.setWidget(self.List)
+        self.ui.SingleDirectionScrollArea.setWidgetResizable(True)
+
+        self.setProject("testAAA.txt")
+        # self.DisplayList()
 
     def setProject(self, file: str):
         self.project.loadProject(file)
 
     # def DisplayList(self):
 
+
+class Worker_LoadingStatus(QObject):
+    """用来读取词条数据，此时主线程负责更新UI，防止加载过程中UI假死"""
+    # TODO：还可以设置加载数量（1-500、501-1000等）来缓解加载耗时
+    numberCount = Signal(tuple)
+    textList = Signal(list)
+
+    def __init__(self, project: funcT.TranslateProject):
+        super().__init__()
+        self.cardList = []
+        self.project = project
+
+    def run(self):
+        n = len(self.project.textList)
+        i = 1
+        for text in self.project.textList:
+            text: funcT.TranslateText
+            print(i, text)
+            card = TranslateTextCard(titleLabel=str(text.id))
+            self.cardList.append(card)
+
+            self.numberCount.emit((i, n))
+            i += 1
+
+        self.textList.emit(self.cardList)
+        return None
 

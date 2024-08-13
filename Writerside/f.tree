@@ -12,5 +12,7 @@
     <toc-element topic="Develop-Guide.md">
         <toc-element topic="Global-Theme.md"/>
         <toc-element topic="Config.md"/>
+        <toc-element topic="Scroll-Page.md"/>
+        <toc-element topic="QThread.md"/>
     </toc-element>
 </instance-profile>

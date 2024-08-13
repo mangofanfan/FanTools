@@ -32,10 +32,6 @@
 
 在早期的版本中我使用QLabel+id选择器+QSS的方式来实现类似功能，但是由于qfluentwidgets的新组件都能够自动跟随qfluentwidgets的亮色、暗色模式，自己写的话还要重新造轮子，遂更改。
 
-### 滚动页面
-
-滚动功能是我测试了很久才终于玩明白了一点的功能。
-
 ## 下载工具
 
 下载工具通过 aria2c 开源工具实现下载功能，目前已经且近实现了单文件下载。
@@ -76,3 +72,94 @@
             self.layout.addWidget(self.downloadCard.widget)
             self.layout.addSpacerItem(self.spacer)
 </code-block>
+
+解释一下代码中跟`DownloadCard`有关的部分。
+
+* 我们在外部定义了`DownloadCard`，然后将其导入后实例化为`self.downloadCard`，父对象设置成`self.widget`；
+* 然后在剩下的页面代码中完全不再操作`self.downloadCard`，因为后者的结构、外观，以及信号和下载函数绑定都已经另外完成了。
+* 这样做的好处是可以实现代码解耦，以及复用。如果程序中有不止一个页面需要提供简单的下载功能，我们也只需要把`DownloadCard`倒进来然后扔到layout里的合适位置即可。
+
+这个页面的显示效果是这样的。
+
+![DownloadPage-1.png](DownloadPage-1.png)
+
+DownloadCard的结构如下，我的经验是每当要写一个界面类`XXX`时，把`XXX.widget`定义成一个`QWidget`，然后所有的组件都扔到`XXX.widget`里去。
+
+<warning>
+仅作演示用，由于一些很显而易见的问题，此段代码正等待重构……
+</warning>
+
+<code-block lang="python">
+from PySide2.QtGui import Qt
+from PySide2.QtWidgets import QGridLayout, QWidget
+from qfluentwidgets import CardWidget, LineEdit, ToolButton, PrimaryToolButton, InfoBar, InfoBarPosition, BodyLabel
+from qfluentwidgets import FluentIcon as FIC
+import subprocess
+from widget.function import basicFunc
+class Card:
+    def __init__(self, parent: QWidget):
+        self.parent = parent
+        self.widget = CardWidget()
+        self.layout = QGridLayout()
+        self.widget.setLayout(self.layout)
+        BodyLabel_1 = BodyLabel()
+        BodyLabel_1.setText("下载链接🔗：")
+        self.layout.addWidget(BodyLabel_1, 0, 0)
+        BodyLabel_2 = BodyLabel()
+        BodyLabel_2.setText("保存路径📂：")
+        self.layout.addWidget(BodyLabel_2, 1, 0)
+        self.LineEdit_DownloadUrl = LineEdit()
+        self.layout.addWidget(self.LineEdit_DownloadUrl, 0, 1, 1, 2)
+        self.LineEdit_SavePath = LineEdit()
+        self.layout.addWidget(self.LineEdit_SavePath, 1, 1)
+        ToolButton_SavePath = ToolButton()
+        ToolButton_SavePath.setIcon(FIC.EDIT)
+        ToolButton_SavePath.clicked.connect(self.getPath)
+        self.layout.addWidget(ToolButton_SavePath, 1, 2)
+        BodyLabel_3 = BodyLabel()
+        BodyLabel_3.setText("注意您无法指定下载所得的文件名///准备妥当后点击右边按钮立即开始下载！👉")
+        BodyLabel_4 = BodyLabel()
+        BodyLabel_4.setText("下载过程中本程序进程可能被阻塞，如下载文件较大可能导致无响应，系正常现象，请勿惊慌😊")
+        self.layout.addWidget(BodyLabel_3, 2, 0, 1, 2, alignment=Qt.AlignRight)
+        self.layout.addWidget(BodyLabel_4, 3, 0, 1, 3)
+        PrimaryToolButton_Download = PrimaryToolButton()
+        PrimaryToolButton_Download.setIcon(FIC.DOWNLOAD)
+        PrimaryToolButton_Download.clicked.connect(self.download)
+        self.layout.addWidget(PrimaryToolButton_Download, 2, 2)
+    def download(self):
+        p = basicFunc.getAria2cPath()
+        url = self.LineEdit_DownloadUrl.text()
+        path = self.LineEdit_SavePath.text()
+        command = f"{p} {url} --dir={path}"
+        result = subprocess.Popen(command)
+        InfoBar.success(title="下载任务已启动😆",
+                        content="下载过程中程序进程将被阻塞，请不要急于操作……",
+                        orient=Qt.Horizontal,
+                        isClosable=True,
+                        position=InfoBarPosition.BOTTOM_RIGHT,
+                        duration=4000,
+                        parent=self.widget)
+        result.wait()
+        if result.returncode == 0:
+            InfoBar.success(title="下载任务已完成🥳",
+                            content="您可以在下载目录中查看该文件~",
+                            orient=Qt.Horizontal,
+                            isClosable=True,
+                            position=InfoBarPosition.TOP_RIGHT,
+                            duration=4000,
+                            parent=self.parent)
+        else:
+            InfoBar.error(title="下载失败😭",
+                          content=f"aria2c 进程返回错误代码 {result.returncode}",
+                          orient=Qt.Horizontal,
+                          isClosable=True,
+                          position=InfoBarPosition.TOP_RIGHT,
+                          duration=4000,
+                          parent=self.parent)
+    def getPath(self):
+        p = basicFunc.openDirDialog(caption="选择一个文件夹用来存放下载的文件叭😊", basedPath=basicFunc.getHerePath())
+        self.LineEdit_SavePath.setText(p)
+</code-block>
+
+大概就是这样，懂我意思就好……
+
