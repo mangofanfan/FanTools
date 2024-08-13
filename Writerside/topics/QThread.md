@@ -3,7 +3,7 @@
 ## 问题收录与处理方案
 
 <note>
-我自己给出的未必都是最佳处理方案，也许只是可行，也许埋了坑，总之先记下来然后放在这里了……
+我自己给出的这些未必都是最佳处理方案，也许只是可行，也许埋了坑，总之先记下来然后放在这里了……
 </note>
 
 ### 放在 for 循环内的代码只执行了一次
@@ -97,3 +97,28 @@ QObject::setParent: Cannot set parent, new parent is in a different thread
 **进一步测试后我们得知，在一个线程中创建UI组件时，不可以将该组件的父对象手动设置成其他线程中的对象。**
 
 这样一来我的整个多线程防假死的逻辑就完全不可行了，返工重写喽~
+
+## 另一种类似多线程的实现
+
+只是为了防止窗口假死的话，我们还有另外一种方案：使用`QApplication.processEvents()`。
+
+这种方案有它的局限性，因此不如多线程实现得完善，下面是其原理介绍。
+
+<code-block lang="python">
+n = len(self.project.textList)
+for text in self.project.textList:
+    text: funcT.TranslateText
+    card = TranslateTextCard(titleLabel=str(text.id))
+    self.cardList.append(card)
+    self.updateLoadingStatus.emit((i, n))
+    i += 1
+    QApplication.processEvents()
+</code-block>
+
+这段代码片段执行处理列表中的每一项元素的任务，将列表中的元素依次提取出来，并且针对每个元素实例化一个`card`对象。在循环执行的过程中，每次循环都会发送`self.updateLoadingStatus`信号，用于更新UI上显示的进度条。
+
+问题也显然意见了——在没有多线程的情况下，主线程被困在这个循环体中，则没有人能有空更新UI，程序将会假死。
+
+但在有`QApplication.processEvents()`的前提下就不会出现这个问题。当遇到一次`QApplication.processEvents()`时，线程会处理队列中积压的所有事件，例如UI组件状态更改、窗口移动拖拽缩放、信号接收之后槽函数的执行等。
+
+这种方法并不是万能的，能使用只是由于这个循环每进行一次耗时并不多。若在循环体中加入一点延迟`time.sleep(1)`，此时窗口就会出现显著的卡顿，因为要每隔一秒才能处理一次积压的事件，任何用户都是无法忍受的。
