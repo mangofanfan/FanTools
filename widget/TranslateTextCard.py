@@ -9,11 +9,9 @@ class Card:
         self.tags = tags
 
         self.parent = parent
-        self.widget = CardWidget()
+        self.widget = CardWidget(parent)
         self.layout = QGridLayout()
         self.widget.setLayout(self.layout)
-        self.widget.setMinimumWidth(600)
-        self.widget.setMinimumHeight(60)
 
         Label_Title = SubtitleLabel(self.widget)
         Label_Title.setText(titleLabel)
@@ -22,3 +20,12 @@ class Card:
         BodyLabel_1 = BodyLabel(self.widget)
         BodyLabel_1.setText(f"标签：{tags}")
         self.layout.addWidget(BodyLabel_1, 0, 1)
+
+        self.OriginalText_LineEdit = LineEdit()
+        self.TranslatedText_LineEdit = LineEdit()
+        self.layout.addWidget(self.OriginalText_LineEdit, 1, 0, 1, 2)
+        self.layout.addWidget(self.TranslatedText_LineEdit, 2, 0, 1, 2)
+
+    def setup(self, originalText: str, translatedText: str = ""):
+        self.OriginalText_LineEdit.setText(originalText)
+        self.TranslatedText_LineEdit.setText(translatedText)

@@ -1421,6 +1421,6 @@ Players|!|玩家|!|;使用API翻译;人工翻译
 Blocks|!|块|!|;使用API翻译
 Ambient/Environment|!|环境/环境|!|;使用API翻译
 §bVoiceover|!|§b音量覆盖|!|;使用API翻译;人工翻译
-Go to the §6Trophy Room§r to view achievements|!|进入奖杯室查看成就|!|;使用API翻译;人工翻译
+Go to the §6Trophy Room§r to view achievements|!|进入§6奖杯室§r查看成就|!|;使用API翻译;人工翻译
 |!|None|!|;人工翻译
 Tap %1$s to exit|!|按下 %1$s 以离开|!|;人工翻译

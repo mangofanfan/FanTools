@@ -1,8 +1,9 @@
 from PySide2 import QtCore
 from PySide2.QtCore import QObject, Signal, QThread
 from PySide2.QtGui import Qt
-from PySide2.QtWidgets import QWidget, QLabel, QSpacerItem, QSizePolicy
-from qfluentwidgets import VBoxLayout, PushButton, RoundMenu, Action, TitleLabel, BodyLabel, SingleDirectionScrollArea, InfoBar
+from PySide2.QtWidgets import QWidget, QLabel, QSpacerItem, QSizePolicy, QApplication
+from qfluentwidgets import VBoxLayout, PushButton, RoundMenu, Action, TitleLabel, BodyLabel, SingleDirectionScrollArea, \
+    InfoBar
 from qfluentwidgets import FluentIcon as FIC
 
 import webbrowser
@@ -18,7 +19,6 @@ from script.translate_rule import Rule
 
 
 class TranslatePage(QObject):
-    loadMultiSingal = Signal()
 
     def __init__(self):
         super().__init__()
@@ -35,6 +35,11 @@ class TranslatePage(QObject):
 
         self.CardSingle = Card_Single()
         self.CardMulti = Card_Multi()
+
+        self.Tool = TranslateToolPage()
+        self.Multi = TranslateMultiPage()
+
+        self.Multi.updateLoadingStatus.connect(self.updateMultiLoadingStatus)
 
         self.run()
 
@@ -59,29 +64,13 @@ class TranslatePage(QObject):
         self.CardMulti.button.clicked.connect(self.launchMulti)
 
     def launchTool(self):
-        global Tool
-        Tool = TranslateToolPage()
-        Tool.show()
-        Tool.setProject("testAAA.txt")
+        self.Tool.show()
+        self.Tool.setProject("testAAA.txt")
 
-    def launchMulti(self):
-        global Multi
-        self.loadMultiTextList()
-        #Multi = TranslateMultiPage()
-        #Multi.show()
-        #Multi.setProject("testAAA.txt")
-
-    def loadMultiTextList(self):
-        self.project = funcT.TranslateProject()  # TODO 日后再改
-        self.project.loadProject("testAAA.txt")
-        self.Thread_TL = QThread(self)
-        self.Worker_TL = Worker_LoadingStatus(self.project)
-        self.Worker_TL.moveToThread(self.Thread_TL)
-        self.Worker_TL.numberCount.connect(lambda: self.updateMultiLoadingStatus)
-        self.loadMultiSingal.connect(self.Worker_TL.run)
-        self.Thread_TL.start()
-        self.loadMultiSingal.emit()
-        print("1")
+    def launchMulti(self, textList: list):
+        self.Multi.setProject("testAAA.txt")
+        self.Multi.show()
+        self.Multi.displayTextList()
 
     def updateMultiLoadingStatus(self, numberCount: tuple):
         if self.CardMulti.progressBar.isHidden():
@@ -89,10 +78,10 @@ class TranslatePage(QObject):
             self.CardMulti.progressBar.setValue(0)
             self.CardMulti.progressBar.setHidden(False)
 
-        value = numberCount[0] / numberCount[1]
+        value = (numberCount[0] / numberCount[1]) * 100
         self.CardMulti.progressBar.setValue(value)
 
-        if value == 1:
+        if value == 100:
             self.CardMulti.progressBar.setHidden(True)
 
 
@@ -296,6 +285,8 @@ class Worker_AutoTranslate(QObject):
 
 
 class TranslateMultiPage(QWidget):
+    updateLoadingStatus = Signal(tuple)
+
     def __init__(self, parent=None):
         QWidget.__init__(self, parent)
 
@@ -313,38 +304,22 @@ class TranslateMultiPage(QWidget):
         self.ui.SingleDirectionScrollArea.setWidget(self.List)
         self.ui.SingleDirectionScrollArea.setWidgetResizable(True)
 
-        self.setProject("testAAA.txt")
-        # self.DisplayList()
-
     def setProject(self, file: str):
         self.project.loadProject(file)
 
-    # def DisplayList(self):
-
-
-class Worker_LoadingStatus(QObject):
-    """用来读取词条数据，此时主线程负责更新UI，防止加载过程中UI假死"""
-    # TODO：还可以设置加载数量（1-500、501-1000等）来缓解加载耗时
-    numberCount = Signal(tuple)
-    textList = Signal(list)
-
-    def __init__(self, project: funcT.TranslateProject):
-        super().__init__()
-        self.cardList = []
-        self.project = project
-
-    def run(self):
         n = len(self.project.textList)
         i = 1
         for text in self.project.textList:
             text: funcT.TranslateText
-            print(i, text)
             card = TranslateTextCard(titleLabel=str(text.id))
             self.cardList.append(card)
-
-            self.numberCount.emit((i, n))
+            self.updateLoadingStatus.emit((i, n))
             i += 1
+            QApplication.processEvents()
 
-        self.textList.emit(self.cardList)
-        return None
-
+    def displayTextList(self):
+        for cardWidget in self.layout.widgets:
+            self.layout.removeWidget(cardWidget)
+        for w in self.cardList:
+            w: TranslateTextCard
+            self.layout.addWidget(w.widget)
