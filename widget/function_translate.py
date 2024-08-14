@@ -50,7 +50,7 @@ class TranslateProject:
         return None
 
     def loadProject(self, file: str):
-        tempList = basicFunc.readFile(file).split("\n")
+        tempList = basicFunc.readFile(file, True).split("\n")
         n = 0
         for item in tempList:
             n += 1
@@ -71,7 +71,7 @@ class TranslateProject:
             text: TranslateText
             tempList.append(text.print())
         temp = "\n".join(tempList)
-        basicFunc.saveFile(file, temp)
+        basicFunc.saveFile(file, temp, True)
         print(f"保存了一个包含 {n} 个词条的翻译项目。")
         self.n = n
         return None

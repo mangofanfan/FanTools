@@ -1,5 +1,6 @@
 from PySide2.QtCore import QObject
 from PySide2.QtWidgets import QVBoxLayout, QHBoxLayout
+from qfluentwidgets import FluentIcon as FIC
 from qfluentwidgets import CardWidget, BodyLabel, CaptionLabel, PushButton, ProgressBar, IconWidget
 
 
@@ -11,6 +12,7 @@ class Card_Single:
         self.textLayout = QVBoxLayout()
 
         icon = IconWidget()
+        icon.setIcon(FIC.UNIT)
         icon.setFixedSize(32, 32)
         self.basedLayout.addWidget(icon)
 
@@ -38,6 +40,7 @@ class Card_Multi:
         self.progressBarLayout.addLayout(self.basedLayout)
 
         icon = IconWidget()
+        icon.setIcon(FIC.BOOK_SHELF)
         icon.setFixedSize(32, 32)
         self.basedLayout.addWidget(icon)
 

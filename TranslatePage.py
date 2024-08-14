@@ -1,9 +1,9 @@
 from PySide2 import QtCore
 from PySide2.QtCore import QObject, Signal, QThread
 from PySide2.QtGui import Qt
-from PySide2.QtWidgets import QWidget, QLabel, QSpacerItem, QSizePolicy, QApplication
+from PySide2.QtWidgets import QWidget, QLabel, QSpacerItem, QSizePolicy, QApplication, QHBoxLayout
 from qfluentwidgets import VBoxLayout, PushButton, RoundMenu, Action, TitleLabel, BodyLabel, SingleDirectionScrollArea, \
-    InfoBar
+    InfoBar, HeaderCardWidget, LineEdit, SubtitleLabel, StrongBodyLabel
 from qfluentwidgets import FluentIcon as FIC
 
 import webbrowser
@@ -15,6 +15,7 @@ from widget.TranslateButtonCard import Card_Single, Card_Multi
 from widget.TranslateToolPage import Ui_Form as TranslateToolPageUi
 from widget.TranslateMultiPage import Ui_Form as TranslateMultiPageUi
 from widget.TranslateTextCard import Card as TranslateTextCard
+import widget.InfoBar as IB
 from script.translate_rule import Rule
 
 
@@ -25,7 +26,7 @@ class TranslatePage(QObject):
         self.widget = QWidget()
         self.layout = VBoxLayout(self.widget)
         self.widget.setLayout(self.layout)
-        self.spacer = QSpacerItem(200, 200, hData=QSizePolicy.Expanding, vData=QSizePolicy.Expanding)
+        self.spacer = QSpacerItem(20, 200, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
         self.scrollArea = SingleDirectionScrollArea()
         self.scrollArea.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
@@ -49,26 +50,81 @@ class TranslatePage(QObject):
         else:
             label = BodyLabel()
         label.setText(text)
-        self.layout.addWidget(label)
+        label.setWordWrap(True)
+        self.layout.addWidget(label, 1)
 
     def run(self):
         self.addTextLine("翻译工具", "Title")
-        self.addTextLine("测试中，点击下方按钮打开工具……")
+        self.addTextLine("工具箱提供两种翻译器可供选择，均支持调用外部API进行翻译（例如：百度通用文本翻译、有道文本翻译）（俗称机器翻译）。")
+        self.addTextLine("请先在工具箱设置中配置对应的凭证，然后再尝试机器翻译。")
 
+        # 一张标题内容卡片
+        self.CardStart = HeaderCardWidget(self.widget)
+        self.CardStart.setTitle("翻译项目设置")
+        self.layout.addWidget(self.CardStart)
+
+        self.CardStart_vBoxLayout = VBoxLayout(self.CardStart)
+        self.CardStart.viewLayout.addLayout(self.CardStart_vBoxLayout)
+
+        StrongBodyLabel_ImportProject = StrongBodyLabel()
+        StrongBodyLabel_ImportProject.setText("导入翻译项目")
+        self.CardStart_vBoxLayout.addWidget(StrongBodyLabel_ImportProject)
+        BodyLabel_ImportProject = BodyLabel()
+        BodyLabel_ImportProject.setText("您需要先将待翻译的工程文件导入此处，才能启动翻译工具哦！\n或将工程文件拖拽到这张卡片内也是可行的~")
+        self.CardStart_vBoxLayout.addWidget(BodyLabel_ImportProject)
+
+        self.Layout_ImportProject = QHBoxLayout(self.widget)
+        self.CardStart_vBoxLayout.addLayout(self.Layout_ImportProject)
+        self.LineEdit_ImportProject = LineEdit()
+        self.Layout_ImportProject.addWidget(self.LineEdit_ImportProject)
+        self.PushButton_ImportProject = PushButton()
+        self.PushButton_ImportProject.setText("选择文件")
+        self.PushButton_ImportProject.clicked.connect(self.chooseImportProject)
+        self.Layout_ImportProject.addWidget(self.PushButton_ImportProject)
+
+        StrongBodyLabel_MultiLimit = StrongBodyLabel()
+        StrongBodyLabel_MultiLimit.setText("列表多项翻译工具的单次加载数量上限")
+        self.CardStart_vBoxLayout.addWidget(StrongBodyLabel_MultiLimit)
+        BodyLabel_MultiLimit = BodyLabel()
+        BodyLabel_MultiLimit.setText("[可选]选择列表多项翻译工具一次加载的词条数量上限，单词条翻译工具不受影响。\n一次性加载过多的词条可能导致工具箱崩溃，个人建议在300条左右。")
+        self.CardStart_vBoxLayout.addWidget(BodyLabel_MultiLimit)
+
+        # 两张工具启动卡片
         self.layout.addWidget(self.CardSingle.widget)
         self.layout.addWidget(self.CardMulti.widget)
-
-        self.layout.addSpacerItem(self.spacer)
 
         self.CardSingle.button.clicked.connect(self.launchTool)
         self.CardMulti.button.clicked.connect(self.launchMulti)
 
+        self.layout.addSpacerItem(self.spacer)
+
+    def chooseImportProject(self):
+        filePath, fileType = basicFunc.openFileDialog("请选择翻译工程文件（*.ft-translateProject.txt）",
+                                                     basedPath=basicFunc.getHerePath(),
+                                                     filter="*.ft-translateProject.txt;;*.txt;;*")
+        print(fileType, type(fileType))
+        if fileType == "*":
+            IB.msgChooseImportProjectWarning_2(self.widget)
+        elif fileType == "*.txt":
+            IB.msgChooseImportProjectWarning_1(self.widget)
+        elif fileType == "*.ft-translateProject.txt":
+            IB.msgChooseImportProjectSuccess(self.widget)
+        else:
+            raise
+        self.LineEdit_ImportProject.setText(filePath)
+
     def launchTool(self):
+        if not self.LineEdit_ImportProject.text():
+            IB.msgNotImportProject(self.widget)
+            return None
         self.Tool.show()
-        self.Tool.setProject("testAAA.txt")
+        self.Tool.setProject(self.LineEdit_ImportProject.text())
 
     def launchMulti(self, textList: list):
-        self.Multi.setProject("testAAA.txt")
+        if not self.LineEdit_ImportProject.text():
+            IB.msgNotImportProject(self.widget)
+            return None
+        self.Multi.setProject(self.LineEdit_ImportProject.text())
         self.Multi.show()
         self.Multi.displayTextList()
 
@@ -88,17 +144,18 @@ class TranslatePage(QObject):
 class TranslateToolPage(QWidget):
     runSignal = Signal()
 
-    def __init__(self, parent=None):
+    def __init__(self, file: str = None, parent=None):
         QWidget.__init__(self, parent)
 
         self.ui = TranslateToolPageUi()
         self.ui.setupUi(self)
         self.setWindowTitle("翻译工具")
 
+        self.file = file
         self.currentId = 0
         self.project = funcT.TranslateProject()
         self.ui.PushButton_SaveProject.setIcon(FIC.SAVE)
-        self.ui.PushButton_SaveProject.clicked.connect(lambda: self.project.saveProject(file="testAAA.txt"))
+        self.ui.PushButton_SaveProject.clicked.connect(lambda: self.project.saveProject(self.file))
         self.ui.PushButton_OneNext.setIcon(FIC.RIGHT_ARROW)
         self.ui.PushButton_OneNext.clicked.connect(lambda: self.displayText(self.getIdText(self.currentId + 1)))
         self.ui.PushButton_OneBefore.setIcon(FIC.LEFT_ARROW)
@@ -141,14 +198,14 @@ class TranslateToolPage(QWidget):
         self.project.loadProject(file)
         firstText = self.getIdText(1)
         self.displayText(firstText)
+        self.file = file
 
     def getIdText(self, id: int):
         for text in self.project.textList:
             text: funcT.TranslateText
             if text.id == id:
                 return text
-        from widget.InfoBar import msgTextIdError
-        msgTextIdError(self)
+        IB.msgTextIdError(self)
         return None
 
     def continueLastText(self):

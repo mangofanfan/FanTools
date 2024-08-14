@@ -7,6 +7,7 @@ from PySide2.QtGui import Qt
 from PySide2.QtWidgets import QWidget, QSpacerItem, QSizePolicy, QHBoxLayout
 
 import widget.function_setting as funcS
+from widget.function import PIC
 
 
 class ConfigPage:
@@ -15,7 +16,7 @@ class ConfigPage:
         self.widget.setObjectName("ConfigPage")
         self.layout = VBoxLayout(self.widget)
         self.widget.setLayout(self.layout)
-        self.spacer = QSpacerItem(200, 200, hData=QSizePolicy.Expanding, vData=QSizePolicy.Expanding)
+        self.spacer = QSpacerItem(20, 200, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
         self.scrollArea = SingleDirectionScrollArea()
         self.scrollArea.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
@@ -88,10 +89,10 @@ class ConfigPage:
         self.CardGroup_API = SettingCardGroup("API 设置", self.widget)
         self.layout.addWidget(self.CardGroup_API)
 
-        self.ExpandCard_fanyi_baidu = ExpandGroupSettingCard(icon=FIC.LANGUAGE,
-                                            title="百度通用文本翻译API",
-                                            content="设置「百度通用文本翻译」的API参数以调用。",
-                                            parent=self.widget)
+        self.ExpandCard_fanyi_baidu = ExpandGroupSettingCard(icon=PIC.BaiDu,
+                                                            title="百度通用文本翻译API",
+                                                            content="设置「百度通用文本翻译」的API参数以调用。",
+                                                            parent=self.widget)
         self.CardGroup_API.addSettingCard(self.ExpandCard_fanyi_baidu)
 
         BodyLabel_fanyi_baidu_appid = BodyLabel()
@@ -112,7 +113,7 @@ class ConfigPage:
         LineEdit_fanyi_baidu_key.setText(qconfig.get(funcS.cfg.BaiduKey))
         self.ExpandCard_fanyi_baidu.addGroupWidget(self.expandCardAddWidget(BodyLabel_fanyi_baidu_key, LineEdit_fanyi_baidu_key))
 
-        self.ExpandCard_fanyi_youdao = ExpandGroupSettingCard(icon=FIC.LANGUAGE,
+        self.ExpandCard_fanyi_youdao = ExpandGroupSettingCard(icon=PIC.YouDao,
                                                              title="有道文本翻译API",
                                                              content="设置「有道文本翻译」的API参数以调用。",
                                                              parent=self.widget)
