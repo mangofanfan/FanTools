@@ -3,9 +3,12 @@ from PySide2.QtGui import Qt
 from PySide2.QtWidgets import QWidget, QLabel, QSpacerItem, QSizePolicy
 from qfluentwidgets import VBoxLayout, TextEdit, TitleLabel, FluentLabelBase, BodyLabel, SingleDirectionScrollArea
 
-import webbrowser
-
 from widget.function import basicFunc
+
+import webbrowser
+import logging
+
+logger = logging.getLogger("FanTools.HashPage")
 
 
 class HashPage:
@@ -14,7 +17,7 @@ class HashPage:
         self.widget.setObjectName("HashPage")
         self.layout = VBoxLayout(self.widget)
         self.widget.setLayout(self.layout)
-        self.spacer = QSpacerItem(200, 200, hData=QSizePolicy.Expanding, vData=QSizePolicy.Expanding)
+        self.spacer = QSpacerItem(20, 400, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
         self.scrollArea = SingleDirectionScrollArea()
         self.scrollArea.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
@@ -22,6 +25,8 @@ class HashPage:
         self.scrollArea.setObjectName("HashPage")
         self.scrollArea.setWidgetResizable(True)
         self.run()
+        logger.debug("页面初始化完毕。")
+
 
     def addTextLine(self, text: str, labelType: str = "Body"):
         if labelType == "Title":
@@ -29,7 +34,8 @@ class HashPage:
         else:
             label = BodyLabel()
         label.setText(text)
-        self.layout.addWidget(label)
+        label.setWordWrap(True)
+        self.layout.addWidget(label, 1)
 
     def run(self):
         self.addTextLine("哈希值校验工具", "Title")

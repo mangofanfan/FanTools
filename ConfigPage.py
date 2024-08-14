@@ -9,6 +9,10 @@ from PySide2.QtWidgets import QWidget, QSpacerItem, QSizePolicy, QHBoxLayout
 import widget.function_setting as funcS
 from widget.function import PIC
 
+import logging
+
+logger = logging.getLogger("FanTools.ConfigPage")
+
 
 class ConfigPage:
     def __init__(self):
@@ -25,6 +29,7 @@ class ConfigPage:
         self.scrollArea.setWidgetResizable(True)
 
         self.run()
+        logger.debug("页面初始化完毕。")
 
     def addTextLine(self, text: str, labelType: str = "Body"):
         if labelType == "Title":
@@ -162,9 +167,11 @@ class ConfigPage:
             setTheme(Theme.AUTO)
         else:
             raise
+        logger.info(f"由于设置变动，程序主题已更改为 {value}")
         return None
 
     @staticmethod
     def themeColorChange(value: str):
         setThemeColor(value)
+        logger.info(f"由于设置变动，程序主题色已更改为 {value}")
         return None

@@ -1,0 +1,9 @@
+2024-08-14 21:14:11,002 - FanTools - INFO - 日志模块加载完毕，开始记录日志。
+2024-08-14 21:14:11,199 - FanTools.MainPage - DEBUG - 页面初始化完毕。
+2024-08-14 21:14:12,112 - FanTools.DownloadPage - DEBUG - 页面初始化完毕。
+2024-08-14 21:14:12,127 - FanTools.HashPage - DEBUG - 页面初始化完毕。
+2024-08-14 21:14:12,606 - FanTools.ConfigPage - DEBUG - 页面初始化完毕。
+2024-08-14 21:14:12,606 - FanTools - DEBUG - 各前置模块加载完毕，开始实现窗口。
+2024-08-14 21:14:12,996 - FanTools - DEBUG - 窗口参数设置完毕。
+2024-08-14 21:14:13,388 - FanTools - DEBUG - 窗口子页面全部添加。
+2024-08-14 21:14:13,573 - FanTools - INFO - 窗口已经实现。
