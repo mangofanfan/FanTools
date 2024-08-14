@@ -72,6 +72,21 @@ class Ui_Form(object):
 
         self.verticalLayout.addWidget(self.PrimarySplitPushButton_TranslateWithAPI)
 
+        self.horizontalLayout_3 = QHBoxLayout()
+        self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
+        self.PushButton_PageBefore = PushButton(Form)
+        self.PushButton_PageBefore.setObjectName(u"PushButton_PageBefore")
+
+        self.horizontalLayout_3.addWidget(self.PushButton_PageBefore)
+
+        self.PushButton_PageAfter = PushButton(Form)
+        self.PushButton_PageAfter.setObjectName(u"PushButton_PageAfter")
+
+        self.horizontalLayout_3.addWidget(self.PushButton_PageAfter)
+
+
+        self.verticalLayout.addLayout(self.horizontalLayout_3)
+
         self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
         self.verticalLayout.addItem(self.verticalSpacer)
@@ -99,6 +114,8 @@ class Ui_Form(object):
         self.SplitPushButton.setProperty("text_", QCoreApplication.translate("Form", u"\u4e0b\u62c9\u9009\u62e9\u5feb\u901f\u64cd\u4f5c\u7c7b\u578b", None))
         self.PushButton_SaveProject.setText(QCoreApplication.translate("Form", u"\u4fdd\u5b58\u9879\u76ee", None))
         self.PrimarySplitPushButton_TranslateWithAPI.setProperty("text_", QCoreApplication.translate("Form", u"\u6279\u91cf\u8c03\u7528API\u6267\u884c\u7ffb\u8bd1", None))
+        self.PushButton_PageBefore.setText(QCoreApplication.translate("Form", u"<<<", None))
+        self.PushButton_PageAfter.setText(QCoreApplication.translate("Form", u">>>", None))
         self.BodyLabel.setText(QCoreApplication.translate("Form", u"Body label", None))
     # retranslateUi
 

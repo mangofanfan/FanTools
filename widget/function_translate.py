@@ -1,10 +1,13 @@
 import json, requests, hashlib, random, time
 from urllib.parse import quote
+import logging
+
+logger = logging.getLogger("FanTools.funcT")
 
 try:
     from function import basicFunc
     from function_setting import cfg, qconfig
-except:
+except ModuleNotFoundError:
     from widget.function import basicFunc
     from widget.function_setting import cfg, qconfig
 
@@ -37,6 +40,7 @@ class TranslateProject:
 
     def startProject(self, mode: staticmethod, file: str):
         if self.textList:
+            logger.error("将要启动的 TranslateProject 中已经存在数据。")
             raise  # 如果已经有翻译数据则直接报错
         result: list = mode(file)
         n = 0
@@ -45,7 +49,7 @@ class TranslateProject:
             n += 1
             item = TranslateText(originalText=text, id=n)
             self.textList.append(item)
-        print(f"开始了一个包含 {n} 个词条的翻译项目。")
+        logger.info(f"启动了一个包含 {n} 个词条的翻译项目。（模式为 {mode} | 待翻译文件路径为 {file}）")
         self.n = n
         return None
 
@@ -59,7 +63,7 @@ class TranslateProject:
                               item.split("|!|")[2])
             t.id = n
             self.textList.append(t)
-        print(f"加载了一个包含 {n} 个词条的翻译项目。")
+        logger.info(f"加载了一个包含 {n} 个词条的翻译项目。（工程文件路径为 {file}）")
         self.n = n
         return None
 
@@ -72,10 +76,11 @@ class TranslateProject:
             tempList.append(text.print())
         temp = "\n".join(tempList)
         basicFunc.saveFile(file, temp, True)
-        print(f"保存了一个包含 {n} 个词条的翻译项目。")
+        logger.info(f"保存了一个包含 {n} 个词条的翻译项目。（工程文件路径为{file}）")
         self.n = n
         return None
 
+    # TODO 等待重写
     def dumpProject(self, fileType: FileType, file: str):
         if fileType == FileType.JSON:
             result = {}
@@ -95,6 +100,7 @@ class TranslateProject:
             basicFunc.saveFile(file, temp)
 
 
+# TODO 等待重写
 def readJson(file: str):
     with open(file, mode="r") as f:
         data: dict = json.load(f)
@@ -118,10 +124,14 @@ def fanyi_baidu(originalText: str, originalLan: str = "en", targetLan: str = "zh
     else:
         proxies = {}
 
+    logger.debug(f"正在调用百度通用文本翻译API执行翻译，目标URL为 {fanyi_url} | 代理设置为 {proxies}")
+
     res: dict = requests.get(url=fanyi_url, proxies=proxies, timeout=3).json()
 
     trans_result: dict = res.get("trans_result")[0]
     targetText = trans_result["dst"]
+
+    logger.debug(f"翻译结果：{originalText} ==>> {targetText}")
 
     return targetText
 
@@ -150,9 +160,13 @@ def fanyi_youdao(originalText: str, originalLan: str = "en", targetLan: str = "z
     else:
         proxies = {}
 
+    logger.debug(f"正在调用有道文本翻译API执行翻译，目标URL为 {fanyi_url} | 代理设置为 {proxies}")
+
     res: dict = requests.get(url=fanyi_url, proxies=proxies, timeout=3).json()
 
     targetText = res["translation"][0]
+
+    logger.debug(f"翻译结果：{originalText} ==>> {targetText}")
 
     return targetText
 

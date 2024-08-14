@@ -1,4 +1,3 @@
-from PySide2.QtCore import QObject
 from PySide2.QtWidgets import QVBoxLayout, QHBoxLayout
 from qfluentwidgets import FluentIcon as FIC
 from qfluentwidgets import CardWidget, BodyLabel, CaptionLabel, PushButton, ProgressBar, IconWidget
@@ -17,7 +16,7 @@ class Card_Single:
         self.basedLayout.addWidget(icon)
 
         label_1 = BodyLabel()
-        label_1.setText("逐词条翻译工具")
+        label_1.setText("单词条翻译工具")
         label_2 = CaptionLabel()
         label_2.setText("每页显示一个词条，在套用API翻译结果前可以快捷修改。")
         self.textLayout.addWidget(label_1)

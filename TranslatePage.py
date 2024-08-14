@@ -1,22 +1,22 @@
+import logging
+
 from PySide2 import QtCore
 from PySide2.QtCore import QObject, Signal, QThread
-from PySide2.QtGui import Qt
-from PySide2.QtWidgets import QWidget, QLabel, QSpacerItem, QSizePolicy, QApplication, QHBoxLayout
+from PySide2.QtWidgets import QWidget, QSpacerItem, QSizePolicy, QApplication, QHBoxLayout, QVBoxLayout, QButtonGroup
+from qfluentwidgets import FluentIcon as FIC, RadioButton
 from qfluentwidgets import VBoxLayout, PushButton, RoundMenu, Action, TitleLabel, BodyLabel, SingleDirectionScrollArea, \
-    InfoBar, HeaderCardWidget, LineEdit, SubtitleLabel, StrongBodyLabel
-from qfluentwidgets import FluentIcon as FIC
+    HeaderCardWidget, LineEdit, StrongBodyLabel
 
-import webbrowser
-
-from widget.function import basicFunc
+import widget.InfoBar as IB
 import widget.function_translate as funcT
-import widget.function_error as funcE
+from script.translate_rule import Rule
 from widget.TranslateButtonCard import Card_Single, Card_Multi
-from widget.TranslateToolPage import Ui_Form as TranslateToolPageUi
 from widget.TranslateMultiPage import Ui_Form as TranslateMultiPageUi
 from widget.TranslateTextCard import Card as TranslateTextCard
-import widget.InfoBar as IB
-from script.translate_rule import Rule
+from widget.TranslateToolPage import Ui_Form as TranslateToolPageUi
+from widget.function import basicFunc
+
+logger = logging.getLogger("FanTools.TranslatePage")
 
 
 class TranslatePage(QObject):
@@ -43,6 +43,7 @@ class TranslatePage(QObject):
         self.Multi.updateLoadingStatus.connect(self.updateMultiLoadingStatus)
 
         self.run()
+        logger.debug("页面初始化完毕。")
 
     def addTextLine(self, text: str, labelType: str = "Body"):
         if labelType == "Title":
@@ -63,31 +64,71 @@ class TranslatePage(QObject):
         self.CardStart.setTitle("翻译项目设置")
         self.layout.addWidget(self.CardStart)
 
-        self.CardStart_vBoxLayout = VBoxLayout(self.CardStart)
+        self.CardStart_vBoxLayout = QVBoxLayout()
         self.CardStart.viewLayout.addLayout(self.CardStart_vBoxLayout)
 
         StrongBodyLabel_ImportProject = StrongBodyLabel()
         StrongBodyLabel_ImportProject.setText("导入翻译项目")
         self.CardStart_vBoxLayout.addWidget(StrongBodyLabel_ImportProject)
         BodyLabel_ImportProject = BodyLabel()
-        BodyLabel_ImportProject.setText("您需要先将待翻译的工程文件导入此处，才能启动翻译工具哦！\n或将工程文件拖拽到这张卡片内也是可行的~")
+        BodyLabel_ImportProject.setText("您需要先将待翻译的工程文件导入此处，才能启动翻译工具哦！")
         self.CardStart_vBoxLayout.addWidget(BodyLabel_ImportProject)
 
-        self.Layout_ImportProject = QHBoxLayout(self.widget)
+        self.Layout_ImportProject = QHBoxLayout()
         self.CardStart_vBoxLayout.addLayout(self.Layout_ImportProject)
         self.LineEdit_ImportProject = LineEdit()
+        self.LineEdit_ImportProject.setFixedHeight(30)
         self.Layout_ImportProject.addWidget(self.LineEdit_ImportProject)
         self.PushButton_ImportProject = PushButton()
+        self.PushButton_ImportProject.setFixedHeight(30)
         self.PushButton_ImportProject.setText("选择文件")
         self.PushButton_ImportProject.clicked.connect(self.chooseImportProject)
         self.Layout_ImportProject.addWidget(self.PushButton_ImportProject)
+
+        self.CardStart_vBoxLayout.addSpacing(20)
 
         StrongBodyLabel_MultiLimit = StrongBodyLabel()
         StrongBodyLabel_MultiLimit.setText("列表多项翻译工具的单次加载数量上限")
         self.CardStart_vBoxLayout.addWidget(StrongBodyLabel_MultiLimit)
         BodyLabel_MultiLimit = BodyLabel()
-        BodyLabel_MultiLimit.setText("[可选]选择列表多项翻译工具一次加载的词条数量上限，单词条翻译工具不受影响。\n一次性加载过多的词条可能导致工具箱崩溃，个人建议在300条左右。")
+        BodyLabel_MultiLimit.setText("[可选]选择列表多项翻译工具一次显示的词条数量上限，单词条翻译工具不受影响。\n"
+                                     "多项翻译工具仍然会在启动前花费同样的时间初始化项目，时间长短由项目体量决定，不会随设置变化。")
         self.CardStart_vBoxLayout.addWidget(BodyLabel_MultiLimit)
+
+        ButtonLayout = QHBoxLayout()
+        self.CardStart_vBoxLayout.addLayout(ButtonLayout)
+        self.ButtonGroup = QButtonGroup()
+        self.Button_100 = RadioButton()
+        self.Button_100.setText("100")
+        self.Button_200 = RadioButton()
+        self.Button_200.setText("200")
+        self.Button_300 = RadioButton()
+        self.Button_300.setText("300")
+        self.Button_500 = RadioButton()
+        self.Button_500.setText("500")
+        self.Button_1000 = RadioButton()
+        self.Button_1000.setText("1000")
+        self.Button_ALL = RadioButton()
+        self.Button_ALL.setText("全部")
+        self.ButtonGroup.addButton(self.Button_100)
+        self.ButtonGroup.addButton(self.Button_200)
+        self.ButtonGroup.addButton(self.Button_300)
+        self.ButtonGroup.addButton(self.Button_500)
+        self.ButtonGroup.addButton(self.Button_1000)
+        self.ButtonGroup.addButton(self.Button_ALL)
+        self.ButtonGroup.setId(self.Button_100, 100)
+        self.ButtonGroup.setId(self.Button_200, 200)
+        self.ButtonGroup.setId(self.Button_300, 300)
+        self.ButtonGroup.setId(self.Button_500, 500)
+        self.ButtonGroup.setId(self.Button_1000, 1000)
+        self.ButtonGroup.setId(self.Button_ALL, 0)
+        ButtonLayout.addWidget(self.Button_100)
+        ButtonLayout.addWidget(self.Button_200)
+        ButtonLayout.addWidget(self.Button_300)
+        ButtonLayout.addWidget(self.Button_500)
+        ButtonLayout.addWidget(self.Button_1000)
+        ButtonLayout.addWidget(self.Button_ALL)
+        self.Button_300.setChecked(True)
 
         # 两张工具启动卡片
         self.layout.addWidget(self.CardSingle.widget)
@@ -99,34 +140,44 @@ class TranslatePage(QObject):
         self.layout.addSpacerItem(self.spacer)
 
     def chooseImportProject(self):
+        logger.debug("按下按钮，打开翻译项目工程文件选择器。")
         filePath, fileType = basicFunc.openFileDialog("请选择翻译工程文件（*.ft-translateProject.txt）",
                                                      basedPath=basicFunc.getHerePath(),
                                                      filter="*.ft-translateProject.txt;;*.txt;;*")
-        print(fileType, type(fileType))
+        logger.debug(f"用户选中下列文件作为翻译工程文件：{filePath} | {fileType}")
         if fileType == "*":
             IB.msgChooseImportProjectWarning_2(self.widget)
+            logger.debug(f"由于文件类型选择为 {fileType}，已经展示严重错误警告。")
         elif fileType == "*.txt":
             IB.msgChooseImportProjectWarning_1(self.widget)
+            logger.debug(f"由于文件类型选择为 {fileType}，已经展示潜在错误警告。")
         elif fileType == "*.ft-translateProject.txt":
             IB.msgChooseImportProjectSuccess(self.widget)
+            logger.debug(f"由于文件类型选择为 {fileType}，已经展示鼓励信息。")
         else:
             raise
         self.LineEdit_ImportProject.setText(filePath)
+        logger.info(f"选中文件 {filePath} 作为翻译工程文件。")
 
     def launchTool(self):
         if not self.LineEdit_ImportProject.text():
             IB.msgNotImportProject(self.widget)
+            logger.warning("未选择项目工程文件；已经向用户显示警告。")
             return None
         self.Tool.show()
         self.Tool.setProject(self.LineEdit_ImportProject.text())
+        logger.info("单词条翻译器已经启动。")
 
-    def launchMulti(self, textList: list):
+    def launchMulti(self):
         if not self.LineEdit_ImportProject.text():
             IB.msgNotImportProject(self.widget)
+            logger.warning("未选择项目工程文件；已经向用户显示警告。")
             return None
-        self.Multi.setProject(self.LineEdit_ImportProject.text())
+        logger.info("开始加载列表多项翻译器。")
+        self.Multi.setProject(self.LineEdit_ImportProject.text(), self.ButtonGroup.checkedId())
         self.Multi.show()
         self.Multi.displayTextList()
+        logger.info("列表多项翻译器已经启动。")
 
     def updateMultiLoadingStatus(self, numberCount: tuple):
         if self.CardMulti.progressBar.isHidden():
@@ -325,10 +376,10 @@ class Worker_AutoTranslate(QObject):
     def run(self):
         from time import sleep
         n = self.startId
-        print(f"从 {n} 开始翻译。")
+        logger.info(f"自动翻译正在激活，准备从 {n} 开始翻译。")
         while True:
             if n > self.project.n:
-                print(f"自动翻译已结束（{n}）。")
+                logger.info(f"自动翻译已结束（{n}）。")
                 break
             rule = Rule()
             originalText = rule.translate_rule(self.getIdText(n).originalText)
@@ -336,7 +387,7 @@ class Worker_AutoTranslate(QObject):
             targetText = rule.reborn_rule(targetText)
             self.targetIdSignal.emit(n)
             self.targetTextSignal.emit(targetText)
-            print(f"已完成一次 API 翻译（{n}）。")
+            logger.info(f"已完成一次自动翻译（{n}）。")
             sleep(1)
             n += 1
 
@@ -349,9 +400,10 @@ class TranslateMultiPage(QWidget):
 
         self.ui = TranslateMultiPageUi()
         self.ui.setupUi(self)
-        self.setWindowTitle("多项翻译工具")
+        self.setWindowTitle("列表多项翻译工具")
 
         self.cardList = []
+        self.limit = 0
 
         self.project = funcT.TranslateProject()
         self.List = QWidget()
@@ -361,8 +413,9 @@ class TranslateMultiPage(QWidget):
         self.ui.SingleDirectionScrollArea.setWidget(self.List)
         self.ui.SingleDirectionScrollArea.setWidgetResizable(True)
 
-    def setProject(self, file: str):
+    def setProject(self, file: str, limit: int):
         self.project.loadProject(file)
+        self.limit = limit
 
         n = len(self.project.textList)
         i = 1
@@ -374,9 +427,24 @@ class TranslateMultiPage(QWidget):
             i += 1
             QApplication.processEvents()
 
-    def displayTextList(self):
+    def displayTextList(self, start: int = 0):
         for cardWidget in self.layout.widgets:
             self.layout.removeWidget(cardWidget)
-        for w in self.cardList:
-            w: TranslateTextCard
-            self.layout.addWidget(w.widget)
+
+        if self.limit == 0:
+            self.ui.PushButton_PageBefore.setDisabled(True)
+            self.ui.PushButton_PageAfter.setDisabled(True)
+            for w in self.cardList:
+                w: TranslateTextCard
+                self.layout.addWidget(w.widget)
+        elif self.limit > 0:
+            self.ui.PushButton_PageBefore.setEnabled(True)
+            self.ui.PushButton_PageAfter.setEnabled(True)
+            end = start + self.limit
+            for w in self.cardList[start:end]:
+                w: TranslateTextCard
+                self.layout.addWidget(w.widget)
+        else:
+            raise
+
+
