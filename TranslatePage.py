@@ -202,6 +202,8 @@ class TranslateToolPage(QWidget):
         self.ui.setupUi(self)
         self.setWindowTitle("翻译工具")
 
+        self.logger = logging.getLogger("FanTools.TranslateToolPage")
+
         self.file = file
         self.currentId = 0
         self.project = funcT.TranslateProject()
@@ -244,12 +246,15 @@ class TranslateToolPage(QWidget):
                                           triggered=lambda: self.project.dumpProject(funcT.FileType.JSON,
                                                                                      "output.json")))
         self.ui.SplitPushButton.setFlyout(ButtonMenu_Quick)
+        self.logger.info("单词条翻译工具初始化完毕。")
 
     def setProject(self, file: str):
         self.project.loadProject(file)
         firstText = self.getIdText(1)
         self.displayText(firstText)
         self.file = file
+        self.logger.debug(f"已经将翻译项目设置为 {file}")
+        return None
 
     def getIdText(self, id: int):
         for text in self.project.textList:
@@ -257,6 +262,7 @@ class TranslateToolPage(QWidget):
             if text.id == id:
                 return text
         IB.msgTextIdError(self)
+        self.logger.debug(f"获取ID为 {id} 的翻译词条对象。")
         return None
 
     def continueLastText(self):
@@ -265,7 +271,7 @@ class TranslateToolPage(QWidget):
             if text.translatedText == "None":
                 self.displayText(text)
                 return None
-        print("好像都翻译完了，好耶~")
+        self.logger.info("所有条目均已翻译完毕。")
         return None
 
     def displayText(self, text: funcT.TranslateText):
@@ -281,6 +287,7 @@ class TranslateToolPage(QWidget):
             self.ui.TextEdit_TranslatedText.clear()
         self.ui.TextEdit_API.clear()
         self.currentId = text.id
+        self.logger.debug(f"翻译器条目刷新完毕（{text.id}）。")
 
         # 检查是否重复，如果是的话则直接复制已有的翻译 TODO:要先弹出信息框进行询问！或在存在指定参数时才直接复制
         if self.ui.TextEdit_TranslatedText.toPlainText() == "":
@@ -311,11 +318,13 @@ class TranslateToolPage(QWidget):
             self.displayText(self.getIdText(self.currentId + 1))
         else:
             self.displayText(self.getIdText(self.currentId))
+        self.logger.debug("保存翻译文本成功。")
         return None
 
     def translateWithAPI(self, originalText: str, originalLan: str = "en", targetLan: str = "zh",
                          displayInWindow: bool = True, apiFunc: staticmethod = funcT.fanyi_baidu):
         if self.ui.ToggleButton_AutoTranslateWithAPI.isChecked():
+            self.logger.debug("用户启用了自动翻译，正在准备启动 AT 线程。")
             self.autoTranslate(originalLan, targetLan, apiFunc)
         else:
             rule = Rule()
@@ -324,8 +333,10 @@ class TranslateToolPage(QWidget):
             targetText = rule.reborn_rule(targetText)
             if displayInWindow:
                 self.ui.TextEdit_API.setText(targetText)
+                self.logger.debug("已执行一次API调用翻译，并在屏幕上打印翻译结果，等待指示。")
                 return None
             else:
+                self.logger.debug("已执行一次API调用翻译，并以函数返回值形式返回翻译结果。")
                 return targetText
 
     def autoTranslate(self, originalLan: str = "en", targetLan: str = "zh", apiFunc: staticmethod = funcT.fanyi_baidu):
@@ -340,15 +351,17 @@ class TranslateToolPage(QWidget):
 
     def updateAPIText(self, targetText):
         if self.getIdText(self.currentId).translatedText != "None":
-            print(f"翻译已存在（{self.currentId}），跳过此条目。")
+            self.logger.info(f"翻译已存在（{self.currentId}），跳过此条目。")
         else:
             self.ui.TextEdit_API.setText(targetText)
             self.saveText(self.getIdText(self.currentId), targetText, funcT.TranslateTag.use_API, False)
+            self.logger.info(f"自动翻译结果（{self.currentId} | {targetText}）已应用并保存。")
 
         # 检测是否关闭自动翻译
         if not self.ui.ToggleButton_AutoTranslateWithAPI.isChecked():
-            print("退出 AT 线程。")
+            self.logger.info("用户取消自动翻译，当前翻译条目未应用。")
             self.Thread_AT.terminate()
+            self.logger.debug("AT 线程已退出。")
         return None
 
 
@@ -376,10 +389,10 @@ class Worker_AutoTranslate(QObject):
     def run(self):
         from time import sleep
         n = self.startId
-        logger.info(f"自动翻译正在激活，准备从 {n} 开始翻译。")
+        self.logger.info(f"自动翻译正在激活，准备从 {n} 开始翻译。")
         while True:
             if n > self.project.n:
-                logger.info(f"自动翻译已结束（{n}）。")
+                self.logger.info(f"自动翻译已结束（{n}）。")
                 break
             rule = Rule()
             originalText = rule.translate_rule(self.getIdText(n).originalText)
@@ -387,7 +400,7 @@ class Worker_AutoTranslate(QObject):
             targetText = rule.reborn_rule(targetText)
             self.targetIdSignal.emit(n)
             self.targetTextSignal.emit(targetText)
-            logger.info(f"已完成一次自动翻译（{n}）。")
+            self.logger.info(f"已完成一次自动翻译（{n}）。")
             sleep(1)
             n += 1
 
@@ -404,6 +417,7 @@ class TranslateMultiPage(QWidget):
 
         self.cardList = []
         self.limit = 0
+        self.start = 0
 
         self.project = funcT.TranslateProject()
         self.List = QWidget()
@@ -412,6 +426,9 @@ class TranslateMultiPage(QWidget):
         self.ui.SingleDirectionScrollArea.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
         self.ui.SingleDirectionScrollArea.setWidget(self.List)
         self.ui.SingleDirectionScrollArea.setWidgetResizable(True)
+
+        self.ui.PushButton_PageBefore.clicked.connect(lambda: self.displayTextList(self.start - self.limit))
+        self.ui.PushButton_PageAfter.clicked.connect(lambda: self.displayTextList(self.start + self.limit))
 
     def setProject(self, file: str, limit: int):
         self.project.loadProject(file)
@@ -428,6 +445,7 @@ class TranslateMultiPage(QWidget):
             QApplication.processEvents()
 
     def displayTextList(self, start: int = 0):
+        self.start = start
         for cardWidget in self.layout.widgets:
             self.layout.removeWidget(cardWidget)
 

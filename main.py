@@ -62,9 +62,6 @@ window_ConfigPage = ConfigPage()
 
 logger.debug("各前置模块加载完毕，开始实现窗口。")
 
-def showInfoBar(msfFunc):
-    msfFunc()
-
 
 class Main:
     def __init__(self):
