@@ -48,7 +48,7 @@
           <x>0</x>
           <y>0</y>
           <width>924</width>
-          <height>489</height>
+          <height>491</height>
          </rect>
         </property>
        </widget>
@@ -65,6 +65,12 @@
        </item>
        <item>
         <widget class="PrimarySplitPushButton" name="PrimarySplitPushButton_TranslateWithAPI">
+         <property name="maximumSize">
+          <size>
+           <width>190</width>
+           <height>16777215</height>
+          </size>
+         </property>
          <property name="text_" stdset="0">
           <string>批量调用API执行翻译</string>
          </property>
@@ -89,6 +95,28 @@
         </layout>
        </item>
        <item>
+        <widget class="CaptionLabel" name="CaptionLabel">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>190</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;本页面是列表多项词条翻译器的页面，针对某一词条的工具按钮均放置在该词条卡片上，所有词条在发生变化之后都会自动保存，但您仍然需要手动⬆️保存项目⬆️。&lt;/p&gt;&lt;p&gt;您需要先在工具箱设置中配置翻译API的凭证，然后才能调用API进行翻译。您点击上方调用API翻译的按钮后，本页的所有未提供翻译文本的词条都会被提交翻译，翻译结果将自动填充至译文输入行中。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
         <spacer name="verticalSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
@@ -108,7 +136,7 @@
    <item>
     <widget class="BodyLabel" name="BodyLabel">
      <property name="text">
-      <string>Body label</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;本翻译工具仅具备调用外部 API 进行翻译的能力；任何外部翻译 API 均与本工具无任何关系。本工具无法保证外部 API 调用所得翻译结果的准确性与可靠性。&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
    </item>
@@ -140,6 +168,11 @@
    <extends>QScrollArea</extends>
    <header>qfluentwidgets</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>CaptionLabel</class>
+   <extends>QLabel</extends>
+   <header>qfluentwidgets</header>
   </customwidget>
   <customwidget>
    <class>BodyLabel</class>

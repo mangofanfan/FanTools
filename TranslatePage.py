@@ -3,7 +3,7 @@ import logging
 from PySide2 import QtCore
 from PySide2.QtCore import QObject, Signal, QThread
 from PySide2.QtWidgets import QWidget, QSpacerItem, QSizePolicy, QHBoxLayout, QVBoxLayout, QButtonGroup, QApplication
-from qfluentwidgets import FluentIcon as FIC, RadioButton
+from qfluentwidgets import FluentIcon as FIC, RadioButton, ToolTipFilter
 from qfluentwidgets import VBoxLayout, PushButton, RoundMenu, Action, TitleLabel, BodyLabel, SingleDirectionScrollArea, \
     HeaderCardWidget, LineEdit, StrongBodyLabel
 
@@ -91,7 +91,7 @@ class TranslatePage(QObject):
         self.CardStart_vBoxLayout.addWidget(StrongBodyLabel_MultiLimit)
         BodyLabel_MultiLimit = BodyLabel()
         BodyLabel_MultiLimit.setText("[可选]选择列表多项翻译工具一次显示的词条数量上限，单词条翻译工具不受影响。\n"
-                                     "多项翻译工具仍然会在启动前花费同样的时间初始化项目，时间长短由项目体量决定，不会随设置变化。")
+                                     "适当减小数量上限有助于提升工具启动速度，在启动工具后您可以前后翻页（每页数量上限不变）。")
         self.CardStart_vBoxLayout.addWidget(BodyLabel_MultiLimit)
 
         ButtonLayout = QHBoxLayout()
@@ -141,7 +141,7 @@ class TranslatePage(QObject):
     def chooseImportProject(self):
         logger.debug("按下按钮，打开翻译项目工程文件选择器。")
         filePath, fileType = basicFunc.openFileDialog("请选择翻译工程文件（*.ft-translateProject.txt）",
-                                                     basedPath=basicFunc.getHerePath(),
+                                                     basedPath=basicFunc.getHerePath() + "/file",
                                                      filter="*.ft-translateProject.txt;;*.txt;;*")
         logger.debug(f"用户选中下列文件作为翻译工程文件：{filePath} | {fileType}")
         if fileType == "*":
@@ -232,6 +232,16 @@ class TranslateToolPage(QWidget):
                                           triggered=lambda: self.project.dumpProject(funcT.FileType.JSON,
                                                                                      "output.json")))
         self.ui.SplitPushButton.setFlyout(ButtonMenu_Quick)
+
+        # 为每个按钮都装备全新的工具提示
+        buttons = [self.ui.PushButton_EditPrompt, self.ui.SplitPushButton, self.ui.PushButton_OneNext, self.ui.PushButton_OneBefore,
+                   self.ui.PushButton_SaveProject, self.ui.PushButton_ViewProject, self.ui.PushButton_EditAPIConfig,
+                   self.ui.PrimaryPushButton_MarkAndContinue, self.ui.PrimaryPushButton_SaveAndContinue, self.ui.PrimaryPushButton_TranslateWithAPI,
+                   self.ui.ToolButton_Glossary, self.ui.ToolButton_SearchInWeb, self.ui.ToolButton_ClearTranslatedText, self.ui.ToolButton_CopyOriginalText,
+                   self.ui.PrimarySplitPushButton_API, self.ui.ToggleButton_AutoTranslateWithAPI]
+        for button in buttons:
+            button.installEventFilter(ToolTipFilter(button))
+
         self.logger.info("单词条翻译工具初始化完毕。")
 
     def setProject(self, file: str):
@@ -246,7 +256,7 @@ class TranslateToolPage(QWidget):
         for text in self.project.textList:
             text: funcT.TranslateText
             if text.id == id:
-                self.logger.debug("成功获取ID为 {id} 的翻译词条对象。")
+                self.logger.debug(f"成功获取ID为 {id} 的翻译词条对象。")
                 return text
         IB.msgTextIdError(self)
         self.logger.error(f"尝试获取ID为 {id} 的翻译词条对象时失败，该ID可能超出了词条总数导致不存在。")
@@ -404,6 +414,7 @@ class TranslateMultiPage(QWidget):
         self.cardList = []
         self.limit = 0
         self.start = 0
+        self.file = None
 
         self.project = funcT.TranslateProject()
         self.List = QWidget()
@@ -418,6 +429,7 @@ class TranslateMultiPage(QWidget):
 
     def setProject(self, file: str, limit: int):
         self.project.loadProject(file)
+        self.file = file
         self.limit = limit
         n = len(self.project.textList)
         self.logger.debug(f"项目加载完毕，词条总数为 {n} （{file} | {limit}）")
@@ -440,7 +452,9 @@ class TranslateMultiPage(QWidget):
             self.ui.PushButton_PageAfter.setDisabled(True)
             for text in self.project.textList:
                 text: TranslateText
-                w = TranslateTextCard(titleLabel=str(text.id), tags="None")
+                w = TranslateTextCard(id=str(text.id), tags="None")
+                w.setup(text.originalText, text.translatedText)
+                w.update.connect(self.updateProjectText)
                 self.layout.addWidget(w.widget)
                 QApplication.processEvents()
             self.logger.debug("已在列表中显示全部词条。")
@@ -450,7 +464,9 @@ class TranslateMultiPage(QWidget):
             end = start + self.limit
             for text in self.project.textList[start:end]:
                 text: TranslateText
-                w = TranslateTextCard(titleLabel=str(text.id), tags="None")
+                w = TranslateTextCard(id=str(text.id), tags="None")
+                w.setup(text.originalText, text.translatedText)
+                w.update.connect(self.updateProjectText)
                 self.layout.addWidget(w.widget)
                 QApplication.processEvents()
             self.logger.debug(f"已在列表中显示部分词条：[{start}-{end}]")
@@ -458,5 +474,23 @@ class TranslateMultiPage(QWidget):
             raise
         self.logger.info("列表词条翻译器的列表加载完毕。")
         bar.close()
+
+    def getIdText(self, id: int):
+        for text in self.project.textList:
+            text: funcT.TranslateText
+            if int(text.id) == int(id):
+                self.logger.debug(f"成功获取ID为 {id} 的翻译词条对象。")
+                return text
+        IB.msgTextIdError(self)
+        self.logger.error(f"尝试获取ID为 {id} 的翻译词条对象时失败，该ID可能超出了词条总数导致不存在。）")
+        return None
+
+    def updateProjectText(self, pack: tuple):
+        text = self.getIdText(pack[0])
+        text.translatedText = pack[1]
+        logger.debug(f"已经更新ID为 {pack[0]} 的翻译词条。")
+
+    def saveProject(self):
+        self.project.saveProject(file=self.file)
 
 
