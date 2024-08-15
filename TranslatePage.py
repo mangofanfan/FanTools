@@ -2,7 +2,7 @@ import logging
 
 from PySide2 import QtCore
 from PySide2.QtCore import QObject, Signal, QThread
-from PySide2.QtWidgets import QWidget, QSpacerItem, QSizePolicy, QApplication, QHBoxLayout, QVBoxLayout, QButtonGroup
+from PySide2.QtWidgets import QWidget, QSpacerItem, QSizePolicy, QHBoxLayout, QVBoxLayout, QButtonGroup, QApplication
 from qfluentwidgets import FluentIcon as FIC, RadioButton
 from qfluentwidgets import VBoxLayout, PushButton, RoundMenu, Action, TitleLabel, BodyLabel, SingleDirectionScrollArea, \
     HeaderCardWidget, LineEdit, StrongBodyLabel
@@ -15,6 +15,7 @@ from widget.TranslateMultiPage import Ui_Form as TranslateMultiPageUi
 from widget.TranslateTextCard import Card as TranslateTextCard
 from widget.TranslateToolPage import Ui_Form as TranslateToolPageUi
 from widget.function import basicFunc
+from widget.function_translate import TranslateText
 
 logger = logging.getLogger("FanTools.TranslatePage")
 
@@ -39,8 +40,6 @@ class TranslatePage(QObject):
 
         self.Tool = TranslateToolPage()
         self.Multi = TranslateMultiPage()
-
-        self.Multi.updateLoadingStatus.connect(self.updateMultiLoadingStatus)
 
         self.run()
         logger.debug("页面初始化完毕。")
@@ -173,23 +172,10 @@ class TranslatePage(QObject):
             IB.msgNotImportProject(self.widget)
             logger.warning("未选择项目工程文件；已经向用户显示警告。")
             return None
-        logger.info("开始加载列表多项翻译器。")
         self.Multi.setProject(self.LineEdit_ImportProject.text(), self.ButtonGroup.checkedId())
         self.Multi.show()
         self.Multi.displayTextList()
         logger.info("列表多项翻译器已经启动。")
-
-    def updateMultiLoadingStatus(self, numberCount: tuple):
-        if self.CardMulti.progressBar.isHidden():
-            self.CardMulti.progressBar.setRange(0, 100)
-            self.CardMulti.progressBar.setValue(0)
-            self.CardMulti.progressBar.setHidden(False)
-
-        value = (numberCount[0] / numberCount[1]) * 100
-        self.CardMulti.progressBar.setValue(value)
-
-        if value == 100:
-            self.CardMulti.progressBar.setHidden(True)
 
 
 class TranslateToolPage(QWidget):
@@ -260,9 +246,10 @@ class TranslateToolPage(QWidget):
         for text in self.project.textList:
             text: funcT.TranslateText
             if text.id == id:
+                self.logger.debug("成功获取ID为 {id} 的翻译词条对象。")
                 return text
         IB.msgTextIdError(self)
-        self.logger.debug(f"获取ID为 {id} 的翻译词条对象。")
+        self.logger.error(f"尝试获取ID为 {id} 的翻译词条对象时失败，该ID可能超出了词条总数导致不存在。")
         return None
 
     def continueLastText(self):
@@ -406,14 +393,13 @@ class Worker_AutoTranslate(QObject):
 
 
 class TranslateMultiPage(QWidget):
-    updateLoadingStatus = Signal(tuple)
-
     def __init__(self, parent=None):
         QWidget.__init__(self, parent)
 
         self.ui = TranslateMultiPageUi()
         self.ui.setupUi(self)
         self.setWindowTitle("列表多项翻译工具")
+        self.logger = logging.getLogger("FanTools.TranslateMultiPage")
 
         self.cardList = []
         self.limit = 0
@@ -433,36 +419,44 @@ class TranslateMultiPage(QWidget):
     def setProject(self, file: str, limit: int):
         self.project.loadProject(file)
         self.limit = limit
-
         n = len(self.project.textList)
-        i = 1
-        for text in self.project.textList:
-            text: funcT.TranslateText
-            card = TranslateTextCard(titleLabel=str(text.id))
-            self.cardList.append(card)
-            self.updateLoadingStatus.emit((i, n))
-            i += 1
-            QApplication.processEvents()
+        self.logger.debug(f"项目加载完毕，词条总数为 {n} （{file} | {limit}）")
 
     def displayTextList(self, start: int = 0):
+        bar = IB.msgMultiLoading(self)
         self.start = start
-        for cardWidget in self.layout.widgets:
-            self.layout.removeWidget(cardWidget)
+        cList = list(range(len(self.layout.widgets)))
+        cList.reverse()
+        for i in cList:
+            item = self.layout.itemAt(i)
+            if item:
+                if item.widget():
+                    item.widget().deleteLater()
+            QApplication.processEvents()
+        self.logger.debug("已清空列表中的已存在词条。")
 
         if self.limit == 0:
             self.ui.PushButton_PageBefore.setDisabled(True)
             self.ui.PushButton_PageAfter.setDisabled(True)
-            for w in self.cardList:
-                w: TranslateTextCard
+            for text in self.project.textList:
+                text: TranslateText
+                w = TranslateTextCard(titleLabel=str(text.id), tags="None")
                 self.layout.addWidget(w.widget)
+                QApplication.processEvents()
+            self.logger.debug("已在列表中显示全部词条。")
         elif self.limit > 0:
             self.ui.PushButton_PageBefore.setEnabled(True)
             self.ui.PushButton_PageAfter.setEnabled(True)
             end = start + self.limit
-            for w in self.cardList[start:end]:
-                w: TranslateTextCard
+            for text in self.project.textList[start:end]:
+                text: TranslateText
+                w = TranslateTextCard(titleLabel=str(text.id), tags="None")
                 self.layout.addWidget(w.widget)
+                QApplication.processEvents()
+            self.logger.debug(f"已在列表中显示部分词条：[{start}-{end}]")
         else:
             raise
+        self.logger.info("列表词条翻译器的列表加载完毕。")
+        bar.close()
 
 

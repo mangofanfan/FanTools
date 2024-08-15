@@ -34,9 +34,7 @@ class Card_Multi:
         self.widget = CardWidget()
         self.basedLayout = QHBoxLayout()
         self.textLayout = QVBoxLayout()
-        self.progressBarLayout = QVBoxLayout()
-        self.widget.setLayout(self.progressBarLayout)
-        self.progressBarLayout.addLayout(self.basedLayout)
+        self.widget.setLayout(self.basedLayout)
 
         icon = IconWidget()
         icon.setIcon(FIC.BOOK_SHELF)
@@ -56,6 +54,3 @@ class Card_Multi:
         self.button.setText("启动")
         self.basedLayout.addWidget(self.button)
 
-        self.progressBar = ProgressBar()
-        self.progressBar.setHidden(True)
-        self.progressBarLayout.addWidget(self.progressBar)

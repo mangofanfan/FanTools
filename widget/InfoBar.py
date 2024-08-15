@@ -1,6 +1,6 @@
 import traceback
 
-from qfluentwidgets import InfoBar, InfoBarPosition, FlyoutAnimationType
+from qfluentwidgets import InfoBar, InfoBarPosition, FlyoutAnimationType, IndeterminateProgressRing
 
 
 def msgTextIdError(self):
@@ -20,12 +20,16 @@ def msgNotImportProject(self):
                     parent=self)
 
 def msgMultiLoading(self):
-    InfoBar.success(title="正在加载",
-                    content="进度条读条结束后将打开翻译器窗口……",
-                    isClosable=True,
-                    duration=2000,
-                    position=InfoBarPosition.BOTTOM_RIGHT,
-                    parent=self)
+    bar = InfoBar.info(title="正在加载数据",
+                       content="请等待本消息条消失后再开始工作诺！",
+                       isClosable=False,
+                       duration=-1,
+                       position=InfoBarPosition.TOP_RIGHT,
+                       parent=self)
+    ring = IndeterminateProgressRing()
+    ring.setFixedSize(40, 40)
+    bar.addWidget(ring)
+    return bar
 
 def msgChooseImportProjectSuccess(self):
     InfoBar.success(title="选取成功",
