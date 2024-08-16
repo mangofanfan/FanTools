@@ -28,12 +28,13 @@ class Ui_Form(object):
         if not Form.objectName():
             Form.setObjectName(u"Form")
         Form.setWindowModality(Qt.NonModal)
-        Form.resize(1003, 506)
+        Form.resize(1003, 577)
         Form.setAutoFillBackground(False)
         Form.setProperty("lightCustomQss", u"QWidget { color: ghostwhite; }")
         Form.setProperty("darkCustomQss", u"QWidget { color: black; }")
         self.verticalLayout_2 = QVBoxLayout(Form)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
+        self.verticalLayout_2.setContentsMargins(-1, 42, -1, -1)
         self.horizontalLayout_7 = QHBoxLayout()
         self.horizontalLayout_7.setObjectName(u"horizontalLayout_7")
         self.SubtitleLabel = SubtitleLabel(Form)
@@ -67,6 +68,7 @@ class Ui_Form(object):
 
         self.horizontalLayout = QHBoxLayout()
         self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.horizontalLayout.setContentsMargins(-1, 0, -1, -1)
         self.PushButton_OneBefore = PushButton(Form)
         self.PushButton_OneBefore.setObjectName(u"PushButton_OneBefore")
 

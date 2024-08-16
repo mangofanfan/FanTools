@@ -1,11 +1,15 @@
 import logging
+import sys
 
 from PySide2 import QtCore
 from PySide2.QtCore import QObject, Signal, QThread
+from PySide2.QtGui import QColor
 from PySide2.QtWidgets import QWidget, QSpacerItem, QSizePolicy, QHBoxLayout, QVBoxLayout, QButtonGroup, QApplication
-from qfluentwidgets import FluentIcon as FIC, RadioButton, ToolTipFilter
+from qfluentwidgets import FluentIcon as FIC, RadioButton, ToolTipFilter, qconfig, isDarkTheme, FluentTitleBar
 from qfluentwidgets import VBoxLayout, PushButton, RoundMenu, Action, TitleLabel, BodyLabel, SingleDirectionScrollArea, \
     HeaderCardWidget, LineEdit, StrongBodyLabel
+from qfluentwidgets.common.animation import BackgroundAnimationWidget
+from qfluentwidgets.components.widgets.frameless_window import FramelessWindow
 
 import widget.InfoBar as IB
 import widget.function_translate as funcT
@@ -18,6 +22,36 @@ from widget.function import basicFunc
 from widget.function_translate import TranslateText
 
 logger = logging.getLogger("FanTools.TranslatePage")
+
+
+class TranslateWindow(BackgroundAnimationWidget, FramelessWindow):
+    def __init__(self, parent=None):
+        self._isMicaEnabled = False
+        self._lightBackgroundColor = QColor(243, 243, 243)
+        self._darkBackgroundColor = QColor(32, 32, 32)
+        super().__init__(parent=parent)
+
+        self.setTitleBar(FluentTitleBar(self))
+
+    def setMicaEffectEnabled(self, isEnabled: bool):
+        if sys.platform != 'win32' or sys.getwindowsversion().build < 22000:
+            return
+
+        self._isMicaEnabled = isEnabled
+
+        if isEnabled:
+            self.windowEffect.setMicaEffect(self.winId(), isDarkTheme())
+        else:
+            self.windowEffect.removeBackgroundEffect(self.winId())
+
+        self.setBackgroundColor(self._normalBackgroundColor())
+
+    def isMicaEffectEnabled(self):
+        return self._isMicaEnabled
+
+    def _onThemeChangedFinished(self):
+        if self.isMicaEffectEnabled():
+            self.windowEffect.setMicaEffect(self.winId(), isDarkTheme())
 
 
 class TranslatePage(QObject):
@@ -159,18 +193,26 @@ class TranslatePage(QObject):
         logger.info(f"选中文件 {filePath} 作为翻译工程文件。")
 
     def launchTool(self):
+        if not self.Tool.isHidden() or not self.Multi.isHidden():
+            IB.msgMultiSameWindowWarning(self.widget)
+            logger.warning("尝试多开翻译器窗口，已经阻止操作并警告。")
+            return None
         if not self.LineEdit_ImportProject.text():
             IB.msgNotImportProject(self.widget)
-            logger.warning("未选择项目工程文件；已经向用户显示警告。")
+            logger.warning("未选择项目工程文件；已经阻止操作并警告。")
             return None
         self.Tool.show()
         self.Tool.setProject(self.LineEdit_ImportProject.text())
         logger.info("单词条翻译器已经启动。")
 
     def launchMulti(self):
+        if not self.Tool.isHidden() or not self.Multi.isHidden():
+            IB.msgMultiSameWindowWarning(self.widget)
+            logger.warning("尝试多开翻译器窗口，已经阻止操作并警告。")
+            return None
         if not self.LineEdit_ImportProject.text():
             IB.msgNotImportProject(self.widget)
-            logger.warning("未选择项目工程文件；已经向用户显示警告。")
+            logger.warning("未选择项目工程文件；已经阻止操作并警告。")
             return None
         self.Multi.setProject(self.LineEdit_ImportProject.text(), self.ButtonGroup.checkedId())
         self.Multi.show()
@@ -178,11 +220,17 @@ class TranslatePage(QObject):
         logger.info("列表多项翻译器已经启动。")
 
 
-class TranslateToolPage(QWidget):
+class TranslateToolPage(TranslateWindow):
     runSignal = Signal()
 
     def __init__(self, file: str = None, parent=None):
-        QWidget.__init__(self, parent)
+        self._isMicaEnabled = False
+        self._lightBackgroundColor = QColor(243, 243, 243)
+        self._darkBackgroundColor = QColor(32, 32, 32)
+
+        super().__init__(parent=parent)
+        self.setMicaEffectEnabled(True)
+        qconfig.themeChangedFinished.connect(self._onThemeChangedFinished)
 
         self.ui = TranslateToolPageUi()
         self.ui.setupUi(self)
@@ -402,9 +450,15 @@ class Worker_AutoTranslate(QObject):
             n += 1
 
 
-class TranslateMultiPage(QWidget):
+class TranslateMultiPage(TranslateWindow):
     def __init__(self, parent=None):
-        QWidget.__init__(self, parent)
+        self._isMicaEnabled = False
+        self._lightBackgroundColor = QColor(243, 243, 243)
+        self._darkBackgroundColor = QColor(32, 32, 32)
+
+        super().__init__(parent=parent)
+        self.setMicaEffectEnabled(True)
+        qconfig.themeChangedFinished.connect(self._onThemeChangedFinished)
 
         self.ui = TranslateMultiPageUi()
         self.ui.setupUi(self)
@@ -436,6 +490,7 @@ class TranslateMultiPage(QWidget):
 
     def displayTextList(self, start: int = 0):
         bar = IB.msgMultiLoading(self)
+
         self.start = start
         cList = list(range(len(self.layout.widgets)))
         cList.reverse()
@@ -492,5 +547,4 @@ class TranslateMultiPage(QWidget):
 
     def saveProject(self):
         self.project.saveProject(file=self.file)
-
 

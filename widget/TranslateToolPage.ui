@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>1003</width>
-    <height>506</height>
+    <height>577</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -26,6 +26,9 @@
    <string notr="true">QWidget { color: black; }</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
+   <property name="topMargin">
+    <number>42</number>
+   </property>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_7">
      <item>
@@ -67,6 +70,9 @@
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
+     <property name="topMargin">
+      <number>0</number>
+     </property>
      <item>
       <widget class="PushButton" name="PushButton_OneBefore">
        <property name="text">

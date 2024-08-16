@@ -26,9 +26,10 @@ class Ui_Form(object):
     def setupUi(self, Form):
         if not Form.objectName():
             Form.setObjectName(u"Form")
-        Form.resize(1144, 576)
+        Form.resize(1144, 657)
         self.verticalLayout_2 = QVBoxLayout(Form)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
+        self.verticalLayout_2.setContentsMargins(-1, 42, -1, -1)
         self.horizontalLayout = QHBoxLayout()
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.SubtitleLabel = SubtitleLabel(Form)
@@ -56,7 +57,7 @@ class Ui_Form(object):
         self.SingleDirectionScrollArea.setWidgetResizable(True)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 924, 491))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 924, 539))
         self.SingleDirectionScrollArea.setWidget(self.scrollAreaWidgetContents)
 
         self.horizontalLayout_2.addWidget(self.SingleDirectionScrollArea)

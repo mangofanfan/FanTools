@@ -31,6 +31,14 @@ def msgMultiLoading(self):
     bar.addWidget(ring)
     return bar
 
+def msgMultiLoadingReady(self):
+    InfoBar.success(title="词条列表加载完毕",
+                    content="您现在可以开始工作了。",
+                    isClosable=True,
+                    duration=4000,
+                    position=InfoBarPosition.TOP_RIGHT,
+                    parent=self)
+
 def msgChooseImportProjectSuccess(self):
     InfoBar.success(title="选取成功",
                     content="文件名称校验正确，没有错误发生。现在您可以启动翻译器了。",
@@ -45,7 +53,7 @@ def msgChooseImportProjectWarning_1(self):
                             "详细信息：正确的文件后缀名应为 .ft-translateProject.txt，您选取的文件似乎与之不同。\n"
                             "如您确认无误，可以继续启动翻译器。",
                     isClosable=False,
-                    duration=20000,
+                    duration=2000,
                     position=InfoBarPosition.TOP_RIGHT,
                     parent=self)
 
@@ -55,7 +63,15 @@ def msgChooseImportProjectWarning_2(self):
                             "详细信息：正确的文件后缀名应为 .ft-translateProject.txt，您选取的文件显然与之不同。\n"
                             "如果您是在恶作剧的话——若文件内容无误，翻译器仍然可以启动，但这样真的……好么？",
                     isClosable=False,
-                    duration=20000,
+                    duration=2000,
+                    position=InfoBarPosition.TOP_RIGHT,
+                    parent=self)
+
+def msgMultiSameWindowWarning(self):
+    InfoBar.warning(title="操作已阻止",
+                    content="您已经打开一个翻译器了，不支持同时多开呢……",
+                    isClosable=False,
+                    duration=2000,
                     position=InfoBarPosition.TOP_RIGHT,
                     parent=self)
 

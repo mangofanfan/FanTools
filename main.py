@@ -5,14 +5,10 @@ import traceback
 from PySide2.QtGui import QGuiApplication, Qt, QIcon
 from PySide2.QtWidgets import QApplication
 import PySide2.QtCore as QC
-from qfluentwidgets import FluentWindow, setTheme, Theme, NavigationItemPosition, FluentTranslator, MessageBox
+from qfluentwidgets import setTheme, Theme, NavigationItemPosition, FluentTranslator, MessageBox, \
+    SplashScreen, FluentWindow
 from qfluentwidgets import FluentIcon as FIC
-
-from MainPage import MainPage
-from DownloadPage import DownloadPage
-from HashPage import HashPage
-from TranslatePage import TranslatePage
-from ConfigPage import ConfigPage
+from qframelesswindow import AcrylicWindow
 
 from widget.function import basicFunc
 from widget.function_setting import cfg
@@ -54,12 +50,6 @@ app.setStyleSheet(basicFunc.readFile(file="/data/global.qss"))
 translator = FluentTranslator()
 app.installTranslator(translator)
 
-window_MainPage = MainPage()
-window_DownloadPage = DownloadPage()
-window_HashPage = HashPage()
-window_TranslatePage = TranslatePage()
-window_ConfigPage = ConfigPage()
-
 logger.debug("各前置模块加载完毕，开始实现窗口。")
 
 
@@ -71,20 +61,37 @@ class Main:
         self.mainWindow.setWindowIcon(QIcon(basicFunc.getHerePath() + "\\data\\two_mango_es.png"))
         logger.debug("窗口参数设置完毕。")
 
+        self.splashScreen =  SplashScreen(self.mainWindow.windowIcon(), self.mainWindow)
+        self.splashScreen.setIconSize(QC.QSize(128, 128))
+        self.mainWindow.show()
+        QApplication.processEvents()
+        logger.debug("启动页面已实现。")
+
     def addSubWindow(self):
-        self.mainWindow.addSubInterface(interface=window_MainPage.scrollArea,
+        from MainPage import MainPage
+        from DownloadPage import DownloadPage
+        from HashPage import HashPage
+        from TranslatePage import TranslatePage
+        from ConfigPage import ConfigPage
+        self.window_MainPage = MainPage()
+        self.window_DownloadPage = DownloadPage()
+        self.window_HashPage = HashPage()
+        self.window_TranslatePage = TranslatePage()
+        self.window_ConfigPage = ConfigPage()
+
+        self.mainWindow.addSubInterface(interface=self.window_MainPage.scrollArea,
                                         icon=FIC.HOME,
                                         text="主页")
-        self.mainWindow.addSubInterface(interface=window_DownloadPage.scrollArea,
+        self.mainWindow.addSubInterface(interface=self.window_DownloadPage.scrollArea,
                                         icon=FIC.DOWNLOAD,
                                         text="下载工具")
-        self.mainWindow.addSubInterface(interface=window_HashPage.scrollArea,
+        self.mainWindow.addSubInterface(interface=self.window_HashPage.scrollArea,
                                         icon=FIC.ALBUM,
                                         text="哈希值校验工具")
-        self.mainWindow.addSubInterface(interface=window_TranslatePage.scrollArea,
+        self.mainWindow.addSubInterface(interface=self.window_TranslatePage.scrollArea,
                                         icon=FIC.LANGUAGE,
                                         text="翻译工具")
-        self.mainWindow.addSubInterface(interface=window_ConfigPage.scrollArea,
+        self.mainWindow.addSubInterface(interface=self.window_ConfigPage.scrollArea,
                                         icon=FIC.SETTING,
                                         position=NavigationItemPosition.BOTTOM,
                                         text="设置")
@@ -92,8 +99,8 @@ class Main:
 
     def run(self):
         self.addSubWindow()
-        self.mainWindow.show()
-        logger.info("窗口已经实现。")
+        self.splashScreen.finish()
+        logger.info("启动页面隐藏，窗口已经实现。")
 
 
 if __name__ == "__main__":

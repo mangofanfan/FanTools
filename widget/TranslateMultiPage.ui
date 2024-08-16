@@ -7,13 +7,16 @@
     <x>0</x>
     <y>0</y>
     <width>1144</width>
-    <height>576</height>
+    <height>657</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
+   <property name="topMargin">
+    <number>42</number>
+   </property>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
@@ -48,7 +51,7 @@
           <x>0</x>
           <y>0</y>
           <width>924</width>
-          <height>491</height>
+          <height>539</height>
          </rect>
         </property>
        </widget>
