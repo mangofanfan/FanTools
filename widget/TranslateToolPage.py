@@ -30,8 +30,6 @@ class Ui_Form(object):
         Form.setWindowModality(Qt.NonModal)
         Form.resize(1003, 577)
         Form.setAutoFillBackground(False)
-        Form.setProperty("lightCustomQss", u"QWidget { color: ghostwhite; }")
-        Form.setProperty("darkCustomQss", u"QWidget { color: black; }")
         self.verticalLayout_2 = QVBoxLayout(Form)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.verticalLayout_2.setContentsMargins(-1, 42, -1, -1)
@@ -180,6 +178,8 @@ class Ui_Form(object):
 
     def retranslateUi(self, Form):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
+        Form.setProperty("lightCustomQss", "")
+        Form.setProperty("darkCustomQss", "")
         self.SubtitleLabel.setText(QCoreApplication.translate("Form", u"Subtitle label", None))
 #if QT_CONFIG(tooltip)
         self.SplitPushButton.setToolTip(QCoreApplication.translate("Form", u"\u4e0b\u62c9\u9009\u62e9\u5feb\u901f\u64cd\u4f5c\u7c7b\u578b", None))

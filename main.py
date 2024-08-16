@@ -1,6 +1,7 @@
 import os
 import sys, locale
 import traceback
+import pathlib
 
 from PySide2.QtGui import QGuiApplication, Qt, QIcon
 from PySide2.QtWidgets import QApplication
@@ -16,6 +17,10 @@ import widget.function_error as funcE
 import logging
 
 # 首先加载日志模块
+log_dir = pathlib.Path(basicFunc.getHerePath() + "/log")
+if not log_dir.exists():
+    log_dir.mkdir()
+
 logger = logging.getLogger("FanTools")
 logger.setLevel(logging.DEBUG)
 formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
@@ -97,7 +102,6 @@ class Main:
 
     def run(self):
         self.addSubWindow()
-        r=1/0
         self.splashScreen.finish()
         logger.info("启动页面隐藏，窗口已经实现。")
 

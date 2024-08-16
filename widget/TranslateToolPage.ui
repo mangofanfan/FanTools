@@ -20,10 +20,10 @@
    <bool>false</bool>
   </property>
   <property name="lightCustomQss" stdset="0">
-   <string notr="true">QWidget { color: ghostwhite; }</string>
+   <string/>
   </property>
   <property name="darkCustomQss" stdset="0">
-   <string notr="true">QWidget { color: black; }</string>
+   <string/>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <property name="topMargin">

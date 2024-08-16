@@ -11,7 +11,7 @@ from qfluentwidgets import VBoxLayout, PushButton, RoundMenu, Action, TitleLabel
 from qfluentwidgets.common.animation import BackgroundAnimationWidget
 from qfluentwidgets.components.widgets.frameless_window import FramelessWindow
 
-import widget.InfoBar as IB
+import widget.function_translateMsg as IB
 import widget.function_translate as funcT
 from script.translate_rule import Rule
 from widget.TranslateButtonCard import Card_Single, Card_Multi
@@ -161,7 +161,7 @@ class TranslatePage(QObject):
         ButtonLayout.addWidget(self.Button_500)
         ButtonLayout.addWidget(self.Button_1000)
         ButtonLayout.addWidget(self.Button_ALL)
-        self.Button_300.setChecked(True)
+        self.Button_100.setChecked(True)
 
         # 两张工具启动卡片
         self.layout.addWidget(self.CardSingle.widget)
@@ -188,7 +188,8 @@ class TranslatePage(QObject):
             IB.msgChooseImportProjectSuccess(self.widget)
             logger.debug(f"由于文件类型选择为 {fileType}，已经展示鼓励信息。")
         else:
-            raise
+            IB.msgNoFileChosen(self.widget)
+            logger.debug("由于未选中文件，已经展示错误提示信息。")
         self.LineEdit_ImportProject.setText(filePath)
         logger.info(f"选中文件 {filePath} 作为翻译工程文件。")
 
@@ -290,6 +291,7 @@ class TranslateToolPage(TranslateWindow):
         for button in buttons:
             button.installEventFilter(ToolTipFilter(button))
 
+        IB.msgLoadingReady(self)
         self.logger.info("单词条翻译工具初始化完毕。")
 
     def setProject(self, file: str):
@@ -527,8 +529,9 @@ class TranslateMultiPage(TranslateWindow):
             self.logger.debug(f"已在列表中显示部分词条：[{start}-{end}]")
         else:
             raise
-        self.logger.info("列表词条翻译器的列表加载完毕。")
         bar.close()
+        IB.msgLoadingReady(self)
+        self.logger.info("列表词条翻译器的列表加载完毕。")
 
     def getIdText(self, id: int):
         for text in self.project.textList:
