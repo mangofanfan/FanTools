@@ -5,10 +5,9 @@ import traceback
 from PySide2.QtGui import QGuiApplication, Qt, QIcon
 from PySide2.QtWidgets import QApplication
 import PySide2.QtCore as QC
-from qfluentwidgets import setTheme, Theme, NavigationItemPosition, FluentTranslator, MessageBox, \
+from qfluentwidgets import NavigationItemPosition, FluentTranslator, MessageBox, \
     SplashScreen, FluentWindow
 from qfluentwidgets import FluentIcon as FIC
-from qframelesswindow import AcrylicWindow
 
 from widget.function import basicFunc
 from widget.function_setting import cfg
@@ -17,7 +16,6 @@ import widget.function_error as funcE
 import logging
 
 # 首先加载日志模块
-
 logger = logging.getLogger("FanTools")
 logger.setLevel(logging.DEBUG)
 formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
@@ -99,6 +97,7 @@ class Main:
 
     def run(self):
         self.addSubWindow()
+        r=1/0
         self.splashScreen.finish()
         logger.info("启动页面隐藏，窗口已经实现。")
 
@@ -127,6 +126,7 @@ if __name__ == "__main__":
         w.cancelButton.setText("关闭程序")
         w.yesButton.clicked.connect(closeWindowAndLog)
         w.cancelButton.clicked.connect(close)
+        main.splashScreen.finish()
         w.show()
         logger.error("已创建启动异常警告对话框。")
 
