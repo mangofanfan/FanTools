@@ -84,3 +84,12 @@ def msgNoFileChosen(self):
                     position=InfoBarPosition.TOP_RIGHT,
                     parent=self)
 
+def msgNoAPIChosen(self):
+    InfoBar.warning(title="未选择API",
+                    content="调用API翻译之前，是不是应该先选择一个API来调用呢？\n"
+                            "若您已经选择了API但仍看见此提示，请向开发者反馈……",
+                    isClosable=False,
+                    duration=4000,
+                    position=InfoBarPosition.TOP_RIGHT,
+                    parent=self)
+

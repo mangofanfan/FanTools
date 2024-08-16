@@ -3,9 +3,10 @@ import sys
 
 from PySide2 import QtCore
 from PySide2.QtCore import QObject, Signal, QThread
-from PySide2.QtGui import QColor
+from PySide2.QtGui import QColor, QIcon
 from PySide2.QtWidgets import QWidget, QSpacerItem, QSizePolicy, QHBoxLayout, QVBoxLayout, QButtonGroup, QApplication
-from qfluentwidgets import FluentIcon as FIC, RadioButton, ToolTipFilter, qconfig, isDarkTheme, FluentTitleBar
+from qfluentwidgets import FluentIcon as FIC, RadioButton, ToolTipFilter, qconfig, isDarkTheme, FluentTitleBar, \
+    CardWidget
 from qfluentwidgets import VBoxLayout, PushButton, RoundMenu, Action, TitleLabel, BodyLabel, SingleDirectionScrollArea, \
     HeaderCardWidget, LineEdit, StrongBodyLabel
 from qfluentwidgets.common.animation import BackgroundAnimationWidget
@@ -18,8 +19,8 @@ from widget.TranslateButtonCard import Card_Single, Card_Multi
 from widget.TranslateMultiPage import Ui_Form as TranslateMultiPageUi
 from widget.TranslateTextCard import Card as TranslateTextCard
 from widget.TranslateToolPage import Ui_Form as TranslateToolPageUi
-from widget.function import basicFunc
-from widget.function_translate import TranslateText
+from widget.function import basicFunc, PIC
+from widget.function_translate import TranslateText, TranslateTag
 
 logger = logging.getLogger("FanTools.TranslatePage")
 
@@ -471,6 +472,8 @@ class TranslateMultiPage(TranslateWindow):
         self.limit = 0
         self.start = 0
         self.file = None
+        self.n = 0
+        self.end = 0
 
         self.project = funcT.TranslateProject()
         self.List = QWidget()
@@ -483,17 +486,25 @@ class TranslateMultiPage(TranslateWindow):
         self.ui.PushButton_PageBefore.clicked.connect(lambda: self.displayTextList(self.start - self.limit))
         self.ui.PushButton_PageAfter.clicked.connect(lambda: self.displayTextList(self.start + self.limit))
 
+        self.ui.ComboBox_API.addItem(text="百度通用文本翻译API", icon=PIC.BaiDu, userData=funcT.fanyi_baidu)
+        self.ui.ComboBox_API.addItem(text="有道文本翻译API", icon=PIC.YouDao, userData=funcT.fanyi_youdao)
+        self.ui.ComboBox_API.setIcon(QIcon(FIC.LANGUAGE.path()))
+        self.ui.ComboBox_API.setCurrentIndex(-1)
+
     def setProject(self, file: str, limit: int):
         self.project.loadProject(file)
         self.file = file
         self.limit = limit
         n = len(self.project.textList)
+        self.n = n
         self.logger.debug(f"项目加载完毕，词条总数为 {n} （{file} | {limit}）")
 
     def displayTextList(self, start: int = 0):
         bar = IB.msgMultiLoading(self)
 
         self.start = start
+        self.cardList.clear()
+
         cList = list(range(len(self.layout.widgets)))
         cList.reverse()
         for i in cList:
@@ -507,30 +518,38 @@ class TranslateMultiPage(TranslateWindow):
         if self.limit == 0:
             self.ui.PushButton_PageBefore.setDisabled(True)
             self.ui.PushButton_PageAfter.setDisabled(True)
+            end = self.n
             for text in self.project.textList:
                 text: TranslateText
-                w = TranslateTextCard(id=str(text.id), tags="None")
+                w = TranslateTextCard(text=text)
                 w.setup(text.originalText, text.translatedText)
                 w.update.connect(self.updateProjectText)
+                w.translateWithAPI.connect(self.translateWithAPI)
                 self.layout.addWidget(w.widget)
+                self.cardList.append(w)
                 QApplication.processEvents()
             self.logger.debug("已在列表中显示全部词条。")
         elif self.limit > 0:
             self.ui.PushButton_PageBefore.setEnabled(True)
             self.ui.PushButton_PageAfter.setEnabled(True)
             end = start + self.limit
+            if end > self.n:
+                end = self.n
             for text in self.project.textList[start:end]:
                 text: TranslateText
-                w = TranslateTextCard(id=str(text.id), tags="None")
+                w = TranslateTextCard(text=text)
                 w.setup(text.originalText, text.translatedText)
                 w.update.connect(self.updateProjectText)
+                w.translateWithAPI.connect(self.translateWithAPI)
                 self.layout.addWidget(w.widget)
+                self.cardList.append(w)
                 QApplication.processEvents()
             self.logger.debug(f"已在列表中显示部分词条：[{start}-{end}]")
         else:
             raise
         bar.close()
         IB.msgLoadingReady(self)
+        self.end = end
         self.logger.info("列表词条翻译器的列表加载完毕。")
 
     def getIdText(self, id: int):
@@ -546,8 +565,35 @@ class TranslateMultiPage(TranslateWindow):
     def updateProjectText(self, pack: tuple):
         text = self.getIdText(pack[0])
         text.translatedText = pack[1]
-        logger.debug(f"已经更新ID为 {pack[0]} 的翻译词条。")
+        logger.debug(f"已经更新ID为 {pack[0]} 的翻译词条为 {pack[1]}。")
+        return None
 
     def saveProject(self):
         self.project.saveProject(file=self.file)
+        return None
+
+    def translateWithAPI(self, id: int):
+        card = None
+        for card in self.cardList:
+            card: TranslateTextCard
+            if int(card.text.id) == id:
+                break
+        if not card:
+            # TODO：消息条预备
+            logger.error("未找到发送翻译信号的词条，这可能是程序内部存在的bug，请考虑将其提交给开发者！")
+            return None
+
+        originalText = card.text.originalText
+
+        apiFunc = self.ui.ComboBox_API.itemData(self.ui.ComboBox_API.currentIndex())
+        if not apiFunc:
+            IB.msgNoAPIChosen(self)
+            logger.error("尝试执行API翻译，但没有选中任何API接口。")
+            return None
+
+        targetText = apiFunc(originalText)
+        card.text.translatedText = targetText
+        card.updateText(targetText)
+        logger.info(f"成功执行一次API翻译。（ID {id} | 原文 {originalText} | 译文 {targetText}）")
+        return None
 

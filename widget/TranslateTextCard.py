@@ -3,20 +3,23 @@ import logging
 from PySide2.QtCore import Signal, QObject
 from PySide2.QtGui import Qt
 from PySide2.QtWidgets import QGridLayout, QWidget, QHBoxLayout
+from PySide2.examples.utils.utils import text_type
 from qfluentwidgets import CardWidget, SubtitleLabel, BodyLabel, LineEdit, ToolButton, ToolTipFilter
 from qfluentwidgets import FluentIcon as FIC
+
+from widget.function_translate import TranslateText
 
 logger = logging.getLogger("FanTools.TranslateTextCard")
 
 class Card(QObject):
     update = Signal(tuple)
+    translateWithAPI = Signal(int)
 
-    def __init__(self, parent: QWidget = None, id: str = "ID", tags: str = "None"):
+    def __init__(self, parent: QWidget = None, text: TranslateText = None):
         super().__init__()
-        self.id = id
-        self.tags = tags
         self.parent = parent
         self.widget = None
+        self.text = text
 
         self.run()
 
@@ -26,11 +29,11 @@ class Card(QObject):
         self.widget.setLayout(self.layout)
 
         Label_Title = SubtitleLabel(self.widget)
-        Label_Title.setText(f"ID：{self.id}")
+        Label_Title.setText(f"ID：{self.text.id}")
         self.layout.addWidget(Label_Title, 0, 0)
 
         BodyLabel_1 = BodyLabel(self.widget)
-        BodyLabel_1.setText(f"标签：{self.tags}")
+        BodyLabel_1.setText(f"标签：{self.text.translateTag}")
         self.layout.addWidget(BodyLabel_1, 0, 1)
 
         self.buttonLayout = QHBoxLayout()
@@ -55,6 +58,9 @@ class Card(QObject):
         self.layout.addWidget(self.OriginalText_LineEdit, 1, 0, 1, 3)
         self.layout.addWidget(self.TranslatedText_LineEdit, 2, 0, 1, 3)
 
+        ToolButton_TranslateWithAPI.clicked.connect(lambda: self.translateWithAPI.emit(self.text.id))
+        ToolButton_CopyOriginalText.clicked.connect(lambda: self.TranslatedText_LineEdit.setText(self.OriginalText_LineEdit.text()))
+
     def setup(self, originalText: str, translatedText: str = ""):
         self.OriginalText_LineEdit.setText(originalText)
         if translatedText == "None":
@@ -64,5 +70,10 @@ class Card(QObject):
         self.TranslatedText_LineEdit.editingFinished.connect(lambda: self.updateText(self.TranslatedText_LineEdit.text()))
 
     def updateText(self, translatedText: str):
-        self.update.emit((self.id, translatedText))
-        logger.debug(f"词条卡片已经发送更新信号。（{self.id} | {translatedText}）")
+        self.update.emit((self.text.id, translatedText))
+        self.text.translatedText = translatedText
+        if self.TranslatedText_LineEdit.text() != translatedText:
+            self.TranslatedText_LineEdit.setText(translatedText)
+        logger.debug(f"词条卡片已经发送更新信号。（{self.text.id} | {translatedText}）")
+        return None
+

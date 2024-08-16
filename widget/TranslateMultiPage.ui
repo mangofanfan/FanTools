@@ -67,6 +67,13 @@
         </widget>
        </item>
        <item>
+        <widget class="ComboBox" name="ComboBox_API">
+         <property name="text">
+          <string>选择API以供调用</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="PrimarySplitPushButton" name="PrimarySplitPushButton_TranslateWithAPI">
          <property name="maximumSize">
           <size>
@@ -146,6 +153,11 @@
   </layout>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>ComboBox</class>
+   <extends>QPushButton</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
   <customwidget>
    <class>PushButton</class>
    <extends>QPushButton</extends>

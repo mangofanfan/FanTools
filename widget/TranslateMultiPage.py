@@ -12,6 +12,7 @@ from PySide2.QtCore import *
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 
+from qfluentwidgets import ComboBox
 from qfluentwidgets import PushButton
 from qfluentwidgets import SplitPushButton
 from qfluentwidgets import PrimarySplitPushButton
@@ -68,6 +69,11 @@ class Ui_Form(object):
         self.PushButton_SaveProject.setObjectName(u"PushButton_SaveProject")
 
         self.verticalLayout.addWidget(self.PushButton_SaveProject)
+
+        self.ComboBox_API = ComboBox(Form)
+        self.ComboBox_API.setObjectName(u"ComboBox_API")
+
+        self.verticalLayout.addWidget(self.ComboBox_API)
 
         self.PrimarySplitPushButton_TranslateWithAPI = PrimarySplitPushButton(Form)
         self.PrimarySplitPushButton_TranslateWithAPI.setObjectName(u"PrimarySplitPushButton_TranslateWithAPI")
@@ -128,6 +134,7 @@ class Ui_Form(object):
         self.SubtitleLabel.setText(QCoreApplication.translate("Form", u"Subtitle label", None))
         self.SplitPushButton.setProperty("text_", QCoreApplication.translate("Form", u"\u4e0b\u62c9\u9009\u62e9\u5feb\u901f\u64cd\u4f5c\u7c7b\u578b", None))
         self.PushButton_SaveProject.setText(QCoreApplication.translate("Form", u"\u4fdd\u5b58\u9879\u76ee", None))
+        self.ComboBox_API.setText(QCoreApplication.translate("Form", u"\u9009\u62e9API\u4ee5\u4f9b\u8c03\u7528", None))
         self.PrimarySplitPushButton_TranslateWithAPI.setProperty("text_", QCoreApplication.translate("Form", u"\u6279\u91cf\u8c03\u7528API\u6267\u884c\u7ffb\u8bd1", None))
         self.PushButton_PageBefore.setText(QCoreApplication.translate("Form", u"<<<", None))
         self.PushButton_PageAfter.setText(QCoreApplication.translate("Form", u">>>", None))
