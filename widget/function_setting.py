@@ -16,6 +16,7 @@ class appConfig(QConfig):
     ThemeColor = ColorConfigItem("Appearance", "ThemeColor", "#006DCC")
 
     # 功能设置 Function
+    ExitConfirm = ConfigItem("Function", "ExitConfirm", True, BoolValidator())
     ProxyEnable = ConfigItem("Function", "ProxyEnable", False, BoolValidator())
     ProxyHttp = ConfigItem("Function", "ProxyHttp", "http://127.0.0.1:7890")
     ProxyHttps = ConfigItem("Function", "ProxyHttps", "http://127.0.0.1:7890")

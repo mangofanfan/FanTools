@@ -1,6 +1,6 @@
 from PySide2 import QtCore
 from PySide2.QtGui import Qt
-from PySide2.QtWidgets import QWidget, QLabel, QSpacerItem, QSizePolicy
+from PySide2.QtWidgets import QWidget, QLabel, QSpacerItem, QSizePolicy, QFrame
 from PySide2.QtWidgets import QVBoxLayout as VBoxLayout
 from qfluentwidgets import TitleLabel, BodyLabel, SingleDirectionScrollArea
 
@@ -14,7 +14,7 @@ logger = logging.getLogger("FanTools.DownloadPage")
 
 class DownloadPage:
     def __init__(self):
-        self.widget = QWidget()
+        self.widget = QFrame()
         self.layout = VBoxLayout(self.widget)
         self.widget.setLayout(self.layout)
         self.spacer = QSpacerItem(20, 400, QSizePolicy.Minimum, QSizePolicy.Expanding)

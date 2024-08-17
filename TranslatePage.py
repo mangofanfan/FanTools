@@ -4,7 +4,8 @@ import sys
 from PySide2 import QtCore
 from PySide2.QtCore import QObject, Signal, QThread
 from PySide2.QtGui import QColor, QIcon
-from PySide2.QtWidgets import QWidget, QSpacerItem, QSizePolicy, QHBoxLayout, QVBoxLayout, QButtonGroup, QApplication
+from PySide2.QtWidgets import QWidget, QSpacerItem, QSizePolicy, QHBoxLayout, QVBoxLayout, QButtonGroup, QApplication, \
+    QFrame
 from qfluentwidgets import FluentIcon as FIC, RadioButton, ToolTipFilter, qconfig, isDarkTheme, FluentTitleBar, \
     CardWidget
 from qfluentwidgets import VBoxLayout, PushButton, RoundMenu, Action, TitleLabel, BodyLabel, SingleDirectionScrollArea, \
@@ -59,7 +60,7 @@ class TranslatePage(QObject):
 
     def __init__(self):
         super().__init__()
-        self.widget = QWidget()
+        self.widget = QFrame()
         self.layout = VBoxLayout(self.widget)
         self.widget.setLayout(self.layout)
         self.spacer = QSpacerItem(20, 200, QSizePolicy.Minimum, QSizePolicy.Expanding)

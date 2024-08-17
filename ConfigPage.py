@@ -4,7 +4,7 @@ from qfluentwidgets import ComboBoxSettingCard, ColorSettingCard, SettingCardGro
 from qfluentwidgets import Theme, setTheme, ThemeColor, setThemeColor
 from qfluentwidgets import FluentIcon as FIC
 from PySide2.QtGui import Qt
-from PySide2.QtWidgets import QWidget, QSpacerItem, QSizePolicy, QHBoxLayout
+from PySide2.QtWidgets import QWidget, QSpacerItem, QSizePolicy, QHBoxLayout, QFrame
 
 import widget.function_setting as funcS
 from widget.function import PIC
@@ -16,7 +16,7 @@ logger = logging.getLogger("FanTools.ConfigPage")
 
 class ConfigPage:
     def __init__(self):
-        self.widget = QWidget()
+        self.widget = QFrame()
         self.widget.setObjectName("ConfigPage")
         self.layout = VBoxLayout(self.widget)
         self.widget.setLayout(self.layout)
@@ -64,6 +64,11 @@ class ConfigPage:
 
         # 程序的全局功能设置
         self.CardGroup_Function = SettingCardGroup("功能", self.widget)
+        self.Card_EditConfirm = SwitchSettingCard(icon=FIC.QUESTION,
+                                                  title="退出程序时确认",
+                                                  content="在用户退出程序时弹出窗口确认，提供取消的机会。",
+                                                  configItem=funcS.cfg.ExitConfirm)
+        self.CardGroup_Function.addSettingCard(self.Card_EditConfirm)
         self.Card_Proxy = SwitchSettingCard(icon=FIC.AIRPLANE,
                                             title="启用代理服务",
                                             content="在通过request调用外部API时添加代理配置。",

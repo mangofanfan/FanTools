@@ -6,13 +6,13 @@ import pathlib
 from PySide2.QtGui import QGuiApplication, Qt, QIcon
 from PySide2.QtWidgets import QApplication
 import PySide2.QtCore as QC
-from qfluentwidgets import NavigationItemPosition, FluentTranslator, MessageBox, \
-    SplashScreen, FluentWindow
+from qfluentwidgets import NavigationItemPosition, FluentTranslator, MessageBox, SplashScreen
 from qfluentwidgets import FluentIcon as FIC
 
 from widget.function import basicFunc
 from widget.function_setting import cfg
 import widget.function_error as funcE
+from widget.Window import MainWindow
 
 import logging
 
@@ -58,7 +58,7 @@ logger.debug("各前置模块加载完毕，开始实现窗口。")
 
 class Main:
     def __init__(self):
-        self.mainWindow = FluentWindow()
+        self.mainWindow = MainWindow()
         self.mainWindow.setMinimumSize(QC.QSize(800, 600))
         self.mainWindow.setWindowTitle("🥭 芒果工具箱 🥭 FanTools  🥭")
         self.mainWindow.setWindowIcon(QIcon(basicFunc.getHerePath() + "\\data\\two_mango_es.png"))
@@ -69,6 +69,12 @@ class Main:
         self.mainWindow.show()
         QApplication.processEvents()
         logger.debug("启动页面已实现。")
+
+        self.addSubWindow()
+        self.splashScreen.finish()
+        logger.info("启动页面隐藏，窗口已经实现。")
+
+        self.mainWindow.closeWindow.connect(self.closeWindow)
 
     def addSubWindow(self):
         from MainPage import MainPage
@@ -100,16 +106,30 @@ class Main:
                                         text="设置")
         logger.debug("窗口子页面全部添加。")
 
-    def run(self):
-        self.addSubWindow()
-        self.splashScreen.finish()
-        logger.info("启动页面隐藏，窗口已经实现。")
+    def closeWindow(self):
+        self.window_MainPage.scrollArea.destroy()
+        self.window_DownloadPage.scrollArea.destroy()
+        self.window_HashPage.scrollArea.destroy()
+        self.window_TranslatePage.scrollArea.destroy()
+        self.window_ConfigPage.scrollArea.destroy()
+        del self.window_MainPage
+        del self.window_DownloadPage
+        del self.window_HashPage
+        del self.window_TranslatePage
+        del self.window_ConfigPage
+        logger.debug("已删除所有子页面。")
+        QApplication.quit()
+        return None
+
 
 
 if __name__ == "__main__":
     main = Main()
     try:
-        main.run()
+        logger.debug("加载结束，开始事件循环。")
+        returnCode = app.exec_()
+        logger.debug("事件循环已经结束，准备终止程序。")
+        sys.exit(returnCode)
     except Exception as e:
         def closeWindowAndLog():
             os.startfile(basicFunc.getHerePath() + r"\log")
@@ -133,6 +153,4 @@ if __name__ == "__main__":
         main.splashScreen.finish()
         w.show()
         logger.error("已创建启动异常警告对话框。")
-
-    finally:
-        sys.exit(app.exec_())
+        app.exec_()

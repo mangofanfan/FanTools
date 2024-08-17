@@ -1,6 +1,6 @@
 from PySide2 import QtCore
 from PySide2.QtGui import Qt
-from PySide2.QtWidgets import QWidget, QLabel, QSpacerItem, QSizePolicy
+from PySide2.QtWidgets import QWidget, QLabel, QSpacerItem, QSizePolicy, QFrame
 from qfluentwidgets import VBoxLayout, TextEdit, TitleLabel, FluentLabelBase, BodyLabel, SingleDirectionScrollArea
 
 from widget.function import basicFunc
@@ -13,7 +13,7 @@ logger = logging.getLogger("FanTools.HashPage")
 
 class HashPage:
     def __init__(self):
-        self.widget = QWidget()
+        self.widget = QFrame()
         self.widget.setObjectName("HashPage")
         self.layout = VBoxLayout(self.widget)
         self.widget.setLayout(self.layout)
