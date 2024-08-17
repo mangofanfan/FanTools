@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>1003</width>
-    <height>577</height>
+    <height>551</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -112,13 +112,6 @@
       </widget>
      </item>
      <item>
-      <widget class="ToolButton" name="ToolButton_Glossary">
-       <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;查看术语表，或编辑术语。&lt;/p&gt;&lt;p&gt;术语表中的词汇会在左侧原文中高亮显示；在调用 API 时，如对应 API 支持，术语表中的词汇也不会被翻译，或将翻译为标准译文。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-      </widget>
-     </item>
-     <item>
       <widget class="ToolButton" name="ToolButton_SearchInWeb">
        <property name="toolTip">
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;在系统默认浏览器中打开并搜索待翻译文本。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -139,17 +132,7 @@
      <item>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <widget class="PrimarySplitPushButton" name="PrimarySplitPushButton_API">
-         <property name="toolTip">
-          <string>当前的默认 API 为「百度通用文本翻译API」</string>
-         </property>
-         <property name="text_" stdset="0">
-          <string>调用默认API进行翻译</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="PrimaryPushButton" name="PrimaryPushButton_TranslateWithAPI">
+        <widget class="PrimaryPushButton" name="PrimaryPushButton_UseAPIText">
          <property name="toolTip">
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;将通过 API 获取的翻译应用到该词条，这将自动保存词条并添加标签。&lt;/p&gt;&lt;p&gt;在应用之前，您仍然可以在右侧文本框中编辑 API 获取的翻译字段。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
@@ -159,17 +142,13 @@
         </widget>
        </item>
        <item>
-        <widget class="ToggleButton" name="ToggleButton_AutoTranslateWithAPI">
-         <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;激活自动翻译期间，您将无法编辑每一次由 API 生成的翻译文本。&lt;/p&gt;&lt;p&gt;每个词条的翻译文本仅展示一秒时间。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-         <property name="text">
-          <string>自动翻译</string>
-         </property>
-        </widget>
-       </item>
-       <item>
         <widget class="PushButton" name="PushButton_EditPrompt">
+         <property name="minimumSize">
+          <size>
+           <width>180</width>
+           <height>0</height>
+          </size>
+         </property>
          <property name="toolTip">
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;prompt 用于向 AI 阐述它的身份、任务与注意事项。&lt;/p&gt;&lt;p&gt;如按默认设置调用 AI 翻译没有显著的问题，保持默认即可。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
@@ -179,19 +158,68 @@
         </widget>
        </item>
        <item>
-        <widget class="PushButton" name="PushButton_EditAPIConfig">
+        <widget class="PushButton" name="PushButton_Glossary">
          <property name="toolTip">
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;配置 API 之后才能调用 API 并翻译。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="text">
-          <string>API 配置</string>
+          <string>术语表</string>
          </property>
         </widget>
        </item>
       </layout>
      </item>
      <item>
-      <widget class="TextEdit" name="TextEdit_API"/>
+      <widget class="TextEdit" name="TextEdit_API">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>130</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>130</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_4" stretch="0,0,0">
+       <property name="spacing">
+        <number>6</number>
+       </property>
+       <property name="sizeConstraint">
+        <enum>QLayout::SetMaximumSize</enum>
+       </property>
+       <item>
+        <widget class="PrimaryPushButton" name="PrimaryPushButton_TranslateWithAPI">
+         <property name="text">
+          <string>调用API执行翻译</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="ComboBox" name="ComboBox_API"/>
+       </item>
+       <item>
+        <widget class="ToggleButton" name="ToggleButton_AutoTranslateWithAPI">
+         <property name="minimumSize">
+          <size>
+           <width>180</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;激活自动翻译期间，您将无法编辑每一次由 API 生成的翻译文本。&lt;/p&gt;&lt;p&gt;每个词条的翻译文本仅展示一秒时间。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="text">
+          <string>自动翻译</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
     </layout>
    </item>
@@ -230,6 +258,11 @@
  </widget>
  <customwidgets>
   <customwidget>
+   <class>ComboBox</class>
+   <extends>QPushButton</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
    <class>PushButton</class>
    <extends>QPushButton</extends>
    <header>qfluentwidgets</header>
@@ -242,11 +275,6 @@
   <customwidget>
    <class>SplitPushButton</class>
    <extends>QWidget</extends>
-   <header>qfluentwidgets</header>
-  </customwidget>
-  <customwidget>
-   <class>PrimarySplitPushButton</class>
-   <extends>SplitPushButton</extends>
    <header>qfluentwidgets</header>
   </customwidget>
   <customwidget>

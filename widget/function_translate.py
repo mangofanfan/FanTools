@@ -2,13 +2,15 @@ import json, requests, hashlib, random, time
 from urllib.parse import quote
 import logging
 
+from PySide2.QtGui import QIcon
+
 logger = logging.getLogger("FanTools.funcT")
 
 try:
-    from function import basicFunc
+    from function import basicFunc, PIC
     from function_setting import cfg, qconfig
 except ModuleNotFoundError:
-    from widget.function import basicFunc
+    from widget.function import basicFunc, PIC
     from widget.function_setting import cfg, qconfig
 
 
@@ -174,9 +176,10 @@ def fanyi_youdao(originalText: str, originalLan: str = "en", targetLan: str = "z
 class TranslateAPI:
 
     class Api:
-        def __init__(self, name: str, displayName: str, apiFunc: staticmethod):
+        def __init__(self, name: str, displayName: str, icon: str, apiFunc: staticmethod):
             self.name = name.lower()
             self.displayName = displayName
+            self.icon = QIcon(icon)
             self.apiFunc = apiFunc
 
         def __str__(self):
@@ -185,8 +188,10 @@ class TranslateAPI:
         def apiFunc(self):
             return self.apiFunc
 
-    BaiDu = Api(name="BaiDu", displayName="百度通用文本翻译API", apiFunc=fanyi_baidu)
-    YouDao = Api(name="YouDao", displayName="有道文本翻译API", apiFunc=fanyi_youdao)
+    BaiDu = Api(name="BaiDu", displayName="百度通用文本翻译API", icon=PIC.BaiDu, apiFunc=fanyi_baidu)
+    YouDao = Api(name="YouDao", displayName="有道文本翻译API",icon=PIC.YouDao, apiFunc=fanyi_youdao)
+
+    apiList = [BaiDu, YouDao]
 
     def get(self, name: str = None, displayName: str = None):
         """
@@ -195,14 +200,13 @@ class TranslateAPI:
         :param displayName:二选一即可。
         :return:返回Api对象（TranslateAPI.Api）
         """
-        apiList = [TranslateAPI.BaiDu, TranslateAPI.YouDao]
         name = name.lower()
         if name:
-            for api in apiList:
+            for api in self.apiList:
                 if api.name == name:
                     return api
         else:
-            for api in apiList:
+            for api in self.apiList:
                 if api.displayName == displayName:
                     return api
 

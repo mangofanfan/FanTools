@@ -1,28 +1,24 @@
 import logging
-import sys
 
 from PySide2 import QtCore
 from PySide2.QtCore import QObject, Signal, QThread
-from PySide2.QtGui import QColor, QIcon
 from PySide2.QtWidgets import QWidget, QSpacerItem, QSizePolicy, QHBoxLayout, QVBoxLayout, QButtonGroup, QApplication, \
     QFrame
-from qfluentwidgets import FluentIcon as FIC, RadioButton, ToolTipFilter, qconfig, isDarkTheme, FluentTitleBar, \
-    CardWidget
+from qfluentwidgets import FluentIcon as FIC, RadioButton, ToolTipFilter
 from qfluentwidgets import VBoxLayout, PushButton, RoundMenu, Action, TitleLabel, BodyLabel, SingleDirectionScrollArea, \
     HeaderCardWidget, LineEdit, StrongBodyLabel
-from socks import set_self_blocking
 
-import widget.function_translateMsg as IB
 import widget.function_translate as funcT
+import widget.function_translateMsg as IB
 from script.translate_rule import Rule
 from widget.TranslateButtonCard import Card_Single, Card_Multi
-from widget.TranslateToolPage import Ui_Form as TranslateToolPageUi
-from widget.TranslateMultiPage import Ui_Form as TranslateMultiPageUi
 from widget.TranslateGlossary import Ui_Form as TranslateGlossaryUi
+from widget.TranslateMultiPage import Ui_Form as TranslateMultiPageUi
 from widget.TranslateTextCard import Card as TranslateTextCard
-from widget.function import basicFunc, PIC
-from widget.function_translate import TranslateText, TranslateTag, TranslateAPI
+from widget.TranslateToolPage import Ui_Form as TranslateToolPageUi
 from widget.Window import TranslateWindow
+from widget.function import basicFunc, PIC
+from widget.function_translate import TranslateText, TranslateAPI, fanyi_youdao
 
 logger = logging.getLogger("FanTools.TranslatePage")
 
@@ -229,8 +225,8 @@ class TranslateToolPage(TranslateWindow):
         self.ui.PrimaryPushButton_SaveAndContinue.clicked.connect(lambda: self.saveText(self.getIdText(self.currentId),
                                                                                         self.ui.TextEdit_TranslatedText.toPlainText(),
                                                                                         funcT.TranslateTag.human))
-        self.ui.PrimaryPushButton_TranslateWithAPI.setIcon(FIC.APPLICATION)
-        self.ui.PrimaryPushButton_TranslateWithAPI.clicked.connect(lambda: self.saveText(self.getIdText(self.currentId),
+        self.ui.PrimaryPushButton_UseAPIText.setIcon(FIC.APPLICATION)
+        self.ui.PrimaryPushButton_UseAPIText.clicked.connect(lambda: self.saveText(self.getIdText(self.currentId),
                                                                                          self.ui.TextEdit_API.toPlainText(),
                                                                                          funcT.TranslateTag.use_API))
         self.ui.ToolButton_CopyOriginalText.setIcon(FIC.COPY)
@@ -238,18 +234,16 @@ class TranslateToolPage(TranslateWindow):
             lambda: self.ui.TextEdit_TranslatedText.setPlainText(self.ui.TextEdit_OriginalText.toPlainText()))
         self.ui.ToggleButton_AutoTranslateWithAPI.setIcon(FIC.ROBOT)
         self.ui.PushButton_ViewProject.setIcon(FIC.BOOK_SHELF)
-        self.ui.PushButton_EditAPIConfig.setIcon(FIC.EDIT)
-        self.ui.ToolButton_Glossary.clicked.connect(self.glossarySignal.emit)
+        self.ui.PushButton_Glossary.setIcon(FIC.EDIT)
+        self.ui.PushButton_Glossary.clicked.connect(self.glossarySignal.emit)
 
-        # 使用 API 翻译的下拉按钮
-        self.ui.PrimarySplitPushButton_API.clicked.connect(
-            lambda: self.translateWithAPI(self.getIdText(self.currentId).originalText))  # 点击使用默认翻译 API
-        ButtonMenu_API = RoundMenu(parent=self.ui.PrimarySplitPushButton_API)
-        ButtonMenu_API.addAction(Action(text="百度通用文本翻译API", triggered=lambda: self.translateWithAPI(
-            self.getIdText(self.currentId).originalText, apiFunc=funcT.fanyi_baidu)))
-        ButtonMenu_API.addAction(Action(text="有道文本翻译API", triggered=lambda: self.translateWithAPI(
-            self.getIdText(self.currentId).originalText, apiFunc=funcT.fanyi_youdao)))
-        self.ui.PrimarySplitPushButton_API.setFlyout(ButtonMenu_API)
+        # 选择API的下拉按钮
+        for api in TranslateAPI.apiList:
+            self.ui.ComboBox_API.addItem(text=api.displayName, icon=api.icon, userData=api.apiFunc)
+        self.ui.ComboBox_API.setPlaceholderText("请选择API接口")
+        self.ui.ComboBox_API.setCurrentIndex(-1)
+
+        self.ui.PrimaryPushButton_TranslateWithAPI.clicked.connect(self.translateWithAPI)
 
         # 顶部右侧的下拉按钮
         ButtonMenu_Quick = RoundMenu(parent=self.ui.SplitPushButton)
@@ -262,10 +256,10 @@ class TranslateToolPage(TranslateWindow):
 
         # 为每个按钮都装备全新的工具提示
         buttons = [self.ui.PushButton_EditPrompt, self.ui.SplitPushButton, self.ui.PushButton_OneNext, self.ui.PushButton_OneBefore,
-                   self.ui.PushButton_SaveProject, self.ui.PushButton_ViewProject, self.ui.PushButton_EditAPIConfig,
+                   self.ui.PushButton_SaveProject, self.ui.PushButton_ViewProject, self.ui.PrimaryPushButton_UseAPIText,
                    self.ui.PrimaryPushButton_MarkAndContinue, self.ui.PrimaryPushButton_SaveAndContinue, self.ui.PrimaryPushButton_TranslateWithAPI,
-                   self.ui.ToolButton_Glossary, self.ui.ToolButton_SearchInWeb, self.ui.ToolButton_ClearTranslatedText, self.ui.ToolButton_CopyOriginalText,
-                   self.ui.PrimarySplitPushButton_API, self.ui.ToggleButton_AutoTranslateWithAPI]
+                   self.ui.PushButton_Glossary, self.ui.ToolButton_SearchInWeb, self.ui.ToolButton_ClearTranslatedText, self.ui.ToolButton_CopyOriginalText,
+                   self.ui.ComboBox_API, self.ui.ToggleButton_AutoTranslateWithAPI]
         for button in buttons:
             button.installEventFilter(ToolTipFilter(button))
 
@@ -346,8 +340,16 @@ class TranslateToolPage(TranslateWindow):
         self.logger.debug("保存翻译文本成功。")
         return None
 
-    def translateWithAPI(self, originalText: str, originalLan: str = "en", targetLan: str = "zh",
-                         displayInWindow: bool = True, apiFunc: staticmethod = funcT.fanyi_baidu):
+    def translateWithAPI(self):
+        originalLan = "en"
+        targetLan = "zh"
+        originalText = self.ui.TextEdit_OriginalText.toPlainText()
+        apiFunc = self.ui.ComboBox_API.itemData(self.ui.ComboBox_API.currentIndex())
+
+        if not apiFunc:
+            IB.msgNoAPIChosen(self)
+            return None
+
         if self.ui.ToggleButton_AutoTranslateWithAPI.isChecked():
             self.logger.debug("用户启用了自动翻译，正在准备启动 AT 线程。")
             self.autoTranslate(originalLan, targetLan, apiFunc)
@@ -356,13 +358,9 @@ class TranslateToolPage(TranslateWindow):
             originalText = rule.translate_rule(originalText)
             targetText = apiFunc(originalText, originalLan, targetLan)
             targetText = rule.reborn_rule(targetText)
-            if displayInWindow:
-                self.ui.TextEdit_API.setText(targetText)
-                self.logger.debug("已执行一次API调用翻译，并在屏幕上打印翻译结果，等待指示。")
-                return None
-            else:
-                self.logger.debug("已执行一次API调用翻译，并以函数返回值形式返回翻译结果。")
-                return targetText
+            self.ui.TextEdit_API.setText(targetText)
+            self.logger.info("完成一次API调用翻译。")
+
 
     def autoTranslate(self, originalLan: str = "en", targetLan: str = "zh", apiFunc: staticmethod = funcT.fanyi_baidu):
         self.Thread_AT = QThread(self)
@@ -459,8 +457,9 @@ class TranslateMultiPage(TranslateWindow):
         self.ui.PushButton_PageBefore.clicked.connect(lambda: self.displayTextList(self.start - self.limit))
         self.ui.PushButton_PageAfter.clicked.connect(lambda: self.displayTextList(self.start + self.limit))
 
-        self.ui.ComboBox_API.addItem(text="百度通用文本翻译API", icon=PIC.BaiDu, userData="Baidu")
-        self.ui.ComboBox_API.addItem(text="有道文本翻译API", icon=PIC.YouDao, userData="Youdao")
+        for api in TranslateAPI.apiList:
+            self.ui.ComboBox_API.addItem(text=api.displayName, icon=api.icon, userData=api.apiFunc)
+
         self.ui.ComboBox_API.setPlaceholderText("选择一个API接口")
         self.ui.ComboBox_API.setCurrentIndex(-1)
 
@@ -562,13 +561,12 @@ class TranslateMultiPage(TranslateWindow):
 
         originalText = card.text.originalText
 
-        apiName = self.ui.ComboBox_API.itemData(self.ui.ComboBox_API.currentIndex())
-        if not apiName:
+        apiFunc = self.ui.ComboBox_API.itemData(self.ui.ComboBox_API.currentIndex())
+        if not apiFunc:
             IB.msgNoAPIChosen(self)
             logger.error("尝试执行API翻译，但没有选中任何API接口。")
             return None
 
-        apiFunc = TranslateAPI.get(apiName)
         targetText = apiFunc(originalText)
         card.text.translatedText = targetText
         card.updateText(targetText)
