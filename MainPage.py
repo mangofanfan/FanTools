@@ -1,6 +1,6 @@
 from PySide2 import QtCore
 from PySide2.QtGui import Qt
-from PySide2.QtWidgets import QWidget, QLabel, QSpacerItem, QSizePolicy, QHBoxLayout, QFrame
+from PySide2.QtWidgets import QSpacerItem, QSizePolicy, QHBoxLayout, QFrame
 from qfluentwidgets import MessageBox, VBoxLayout, PushButton, PrimaryPushButton, TitleLabel, BodyLabel, \
     SingleDirectionScrollArea, ToolTipFilter
 

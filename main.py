@@ -70,10 +70,6 @@ class Main:
         QApplication.processEvents()
         logger.debug("启动页面已实现。")
 
-        self.addSubWindow()
-        self.splashScreen.finish()
-        logger.info("启动页面隐藏，窗口已经实现。")
-
         self.mainWindow.closeWindow.connect(self.closeWindow)
 
     def addSubWindow(self):
@@ -91,6 +87,7 @@ class Main:
         self.mainWindow.addSubInterface(interface=self.window_MainPage.scrollArea,
                                         icon=FIC.HOME,
                                         text="主页")
+        self.mainWindow.navigationInterface.addSeparator(position=NavigationItemPosition.TOP)
         self.mainWindow.addSubInterface(interface=self.window_DownloadPage.scrollArea,
                                         icon=FIC.DOWNLOAD,
                                         text="下载工具")
@@ -100,11 +97,17 @@ class Main:
         self.mainWindow.addSubInterface(interface=self.window_TranslatePage.scrollArea,
                                         icon=FIC.LANGUAGE,
                                         text="翻译工具")
+        self.mainWindow.navigationInterface.addSeparator(position=NavigationItemPosition.BOTTOM)
         self.mainWindow.addSubInterface(interface=self.window_ConfigPage.scrollArea,
                                         icon=FIC.SETTING,
                                         position=NavigationItemPosition.BOTTOM,
                                         text="设置")
         logger.debug("窗口子页面全部添加。")
+
+    def run(self):
+        self.addSubWindow()
+        self.splashScreen.finish()
+        logger.info("启动页面隐藏，窗口已经实现。")
 
     def closeWindow(self):
         self.window_MainPage.scrollArea.destroy()
@@ -122,10 +125,10 @@ class Main:
         return None
 
 
-
 if __name__ == "__main__":
     main = Main()
     try:
+        main.run()
         logger.debug("加载结束，开始事件循环。")
         returnCode = app.exec_()
         logger.debug("事件循环已经结束，准备终止程序。")

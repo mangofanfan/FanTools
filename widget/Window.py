@@ -1,6 +1,11 @@
+import sys
+
 from PySide2.QtCore import Signal
-from PySide2.QtWidgets import QApplication
-from qfluentwidgets import FluentWindow, MessageBox
+from PySide2.QtGui import QColor
+from qfluentwidgets import FluentWindow, MessageBox, FluentTitleBar, isDarkTheme
+from qfluentwidgets.common.animation import BackgroundAnimationWidget
+from qfluentwidgets.components.widgets.frameless_window import FramelessWindow
+
 from widget.function_setting import cfg, qconfig
 
 import logging
@@ -42,3 +47,34 @@ class MainWindow(FluentWindow):
         w.show()
 
         event.ignore()
+
+
+class TranslateWindow(BackgroundAnimationWidget, FramelessWindow):
+    def __init__(self, parent=None):
+        super().__init__(parent=parent)
+        self._isMicaEnabled = False
+        self._lightBackgroundColor = QColor(243, 243, 243)
+        self._darkBackgroundColor = QColor(32, 32, 32)
+        self.setMicaEffectEnabled(True)
+        qconfig.themeChangedFinished.connect(self._onThemeChangedFinished)
+        self.setTitleBar(FluentTitleBar(self))
+
+    def setMicaEffectEnabled(self, isEnabled: bool):
+        if sys.platform != 'win32' or sys.getwindowsversion().build < 22000:
+            return
+
+        self._isMicaEnabled = isEnabled
+
+        if isEnabled:
+            self.windowEffect.setMicaEffect(self.winId(), isDarkTheme())
+        else:
+            self.windowEffect.removeBackgroundEffect(self.winId())
+
+        self.setBackgroundColor(self._normalBackgroundColor())
+
+    def isMicaEffectEnabled(self):
+        return self._isMicaEnabled
+
+    def _onThemeChangedFinished(self):
+        if self.isMicaEffectEnabled():
+            self.windowEffect.setMicaEffect(self.winId(), isDarkTheme())

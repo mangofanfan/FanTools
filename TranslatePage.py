@@ -10,50 +10,21 @@ from qfluentwidgets import FluentIcon as FIC, RadioButton, ToolTipFilter, qconfi
     CardWidget
 from qfluentwidgets import VBoxLayout, PushButton, RoundMenu, Action, TitleLabel, BodyLabel, SingleDirectionScrollArea, \
     HeaderCardWidget, LineEdit, StrongBodyLabel
-from qfluentwidgets.common.animation import BackgroundAnimationWidget
-from qfluentwidgets.components.widgets.frameless_window import FramelessWindow
+from socks import set_self_blocking
 
 import widget.function_translateMsg as IB
 import widget.function_translate as funcT
 from script.translate_rule import Rule
 from widget.TranslateButtonCard import Card_Single, Card_Multi
-from widget.TranslateMultiPage import Ui_Form as TranslateMultiPageUi
-from widget.TranslateTextCard import Card as TranslateTextCard
 from widget.TranslateToolPage import Ui_Form as TranslateToolPageUi
+from widget.TranslateMultiPage import Ui_Form as TranslateMultiPageUi
+from widget.TranslateGlossary import Ui_Form as TranslateGlossaryUi
+from widget.TranslateTextCard import Card as TranslateTextCard
 from widget.function import basicFunc, PIC
-from widget.function_translate import TranslateText, TranslateTag
+from widget.function_translate import TranslateText, TranslateTag, TranslateAPI
+from widget.Window import TranslateWindow
 
 logger = logging.getLogger("FanTools.TranslatePage")
-
-
-class TranslateWindow(BackgroundAnimationWidget, FramelessWindow):
-    def __init__(self, parent=None):
-        self._isMicaEnabled = False
-        self._lightBackgroundColor = QColor(243, 243, 243)
-        self._darkBackgroundColor = QColor(32, 32, 32)
-        super().__init__(parent=parent)
-
-        self.setTitleBar(FluentTitleBar(self))
-
-    def setMicaEffectEnabled(self, isEnabled: bool):
-        if sys.platform != 'win32' or sys.getwindowsversion().build < 22000:
-            return
-
-        self._isMicaEnabled = isEnabled
-
-        if isEnabled:
-            self.windowEffect.setMicaEffect(self.winId(), isDarkTheme())
-        else:
-            self.windowEffect.removeBackgroundEffect(self.winId())
-
-        self.setBackgroundColor(self._normalBackgroundColor())
-
-    def isMicaEffectEnabled(self):
-        return self._isMicaEnabled
-
-    def _onThemeChangedFinished(self):
-        if self.isMicaEffectEnabled():
-            self.windowEffect.setMicaEffect(self.winId(), isDarkTheme())
 
 
 class TranslatePage(QObject):
@@ -76,6 +47,10 @@ class TranslatePage(QObject):
 
         self.Tool = TranslateToolPage()
         self.Multi = TranslateMultiPage()
+        self.Glossary = GlossaryWindow()
+
+        self.Tool.glossarySignal.connect(self.launchGlossaryWindow)
+        self.Multi.glossarySignal.connect(self.launchGlossaryWindow)
 
         self.run()
         logger.debug("页面初始化完毕。")
@@ -221,19 +196,19 @@ class TranslatePage(QObject):
         self.Multi.show()
         self.Multi.displayTextList()
         logger.info("列表多项翻译器已经启动。")
+        return None
+
+    def launchGlossaryWindow(self):
+        logger.info("术语表窗口启动。")
+        self.Glossary.show()
 
 
 class TranslateToolPage(TranslateWindow):
     runSignal = Signal()
+    glossarySignal = Signal()
 
     def __init__(self, file: str = None, parent=None):
-        self._isMicaEnabled = False
-        self._lightBackgroundColor = QColor(243, 243, 243)
-        self._darkBackgroundColor = QColor(32, 32, 32)
-
         super().__init__(parent=parent)
-        self.setMicaEffectEnabled(True)
-        qconfig.themeChangedFinished.connect(self._onThemeChangedFinished)
 
         self.ui = TranslateToolPageUi()
         self.ui.setupUi(self)
@@ -264,6 +239,7 @@ class TranslateToolPage(TranslateWindow):
         self.ui.ToggleButton_AutoTranslateWithAPI.setIcon(FIC.ROBOT)
         self.ui.PushButton_ViewProject.setIcon(FIC.BOOK_SHELF)
         self.ui.PushButton_EditAPIConfig.setIcon(FIC.EDIT)
+        self.ui.ToolButton_Glossary.clicked.connect(self.glossarySignal.emit)
 
         # 使用 API 翻译的下拉按钮
         self.ui.PrimarySplitPushButton_API.clicked.connect(
@@ -455,14 +431,10 @@ class Worker_AutoTranslate(QObject):
 
 
 class TranslateMultiPage(TranslateWindow):
-    def __init__(self, parent=None):
-        self._isMicaEnabled = False
-        self._lightBackgroundColor = QColor(243, 243, 243)
-        self._darkBackgroundColor = QColor(32, 32, 32)
+    glossarySignal = Signal()
 
+    def __init__(self, parent=None):
         super().__init__(parent=parent)
-        self.setMicaEffectEnabled(True)
-        qconfig.themeChangedFinished.connect(self._onThemeChangedFinished)
 
         self.ui = TranslateMultiPageUi()
         self.ui.setupUi(self)
@@ -487,10 +459,14 @@ class TranslateMultiPage(TranslateWindow):
         self.ui.PushButton_PageBefore.clicked.connect(lambda: self.displayTextList(self.start - self.limit))
         self.ui.PushButton_PageAfter.clicked.connect(lambda: self.displayTextList(self.start + self.limit))
 
-        self.ui.ComboBox_API.addItem(text="百度通用文本翻译API", icon=PIC.BaiDu, userData=funcT.fanyi_baidu)
-        self.ui.ComboBox_API.addItem(text="有道文本翻译API", icon=PIC.YouDao, userData=funcT.fanyi_youdao)
-        self.ui.ComboBox_API.setIcon(QIcon(FIC.LANGUAGE.path()))
+        self.ui.ComboBox_API.addItem(text="百度通用文本翻译API", icon=PIC.BaiDu, userData="Baidu")
+        self.ui.ComboBox_API.addItem(text="有道文本翻译API", icon=PIC.YouDao, userData="Youdao")
+        self.ui.ComboBox_API.setPlaceholderText("选择一个API接口")
         self.ui.ComboBox_API.setCurrentIndex(-1)
+
+        self.ui.PushButton_Glossary.clicked.connect(self.glossarySignal.emit)
+
+        self.logger.info("列表多项翻译工具初始化完毕。")
 
     def setProject(self, file: str, limit: int):
         self.project.loadProject(file)
@@ -586,15 +562,48 @@ class TranslateMultiPage(TranslateWindow):
 
         originalText = card.text.originalText
 
-        apiFunc = self.ui.ComboBox_API.itemData(self.ui.ComboBox_API.currentIndex())
-        if not apiFunc:
+        apiName = self.ui.ComboBox_API.itemData(self.ui.ComboBox_API.currentIndex())
+        if not apiName:
             IB.msgNoAPIChosen(self)
             logger.error("尝试执行API翻译，但没有选中任何API接口。")
             return None
 
+        apiFunc = TranslateAPI.get(apiName)
         targetText = apiFunc(originalText)
         card.text.translatedText = targetText
         card.updateText(targetText)
         logger.info(f"成功执行一次API翻译。（ID {id} | 原文 {originalText} | 译文 {targetText}）")
         return None
+
+
+class GlossaryWindow(TranslateWindow):
+    def __init__(self, parent=None):
+        super().__init__(parent=parent)
+        self.ui = TranslateGlossaryUi()
+        self.ui.setupUi(self)
+        self.setWindowTitle("术语表设置")
+        self.logger = logging.getLogger("FanTools.TranslateGlossary")
+
+        self.Page_Global = SingleDirectionScrollArea()
+        self.Page_Global_Widget = QWidget()
+        self.Page_Global_Layout = VBoxLayout(self.Page_Global_Widget)
+        self.Page_Global_Widget.setLayout(self.Page_Global_Layout)
+        self.Page_Global.setWidget(self.Page_Global_Widget)
+        self.Page_Global.setWidgetResizable(True)
+
+        Line = LineEdit()
+        Line2 = LineEdit()
+        self.Page_Global_Layout.addWidget(Line)
+        self.Page_Global_Layout.addWidget(Line2)
+
+        self.addSubPage(self.Page_Global, "全局设置")
+        self.ui.PopUpAniStackedWidget.setCurrentWidget(self.Page_Global)
+        self.logger.debug("翻译术语表初始化完毕")
+
+    def addSubPage(self, page: QWidget, name: str):
+        self.ui.PopUpAniStackedWidget.addWidget(page)
+        self.ui.ListWidget.addItem(name)
+        return None
+
+    #def addSubAPIPage(self, api: funcT.):
 

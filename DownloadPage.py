@@ -2,7 +2,7 @@ from PySide2 import QtCore
 from PySide2.QtGui import Qt
 from PySide2.QtWidgets import QWidget, QLabel, QSpacerItem, QSizePolicy, QFrame
 from PySide2.QtWidgets import QVBoxLayout as VBoxLayout
-from qfluentwidgets import TitleLabel, BodyLabel, SingleDirectionScrollArea
+from qfluentwidgets import TitleLabel, BodyLabel, SingleDirectionScrollArea, InfoBar, InfoBarPosition
 
 from widget.DownloadCard import Card as DownloadCard
 
@@ -46,6 +46,14 @@ class DownloadPage:
         self.layout.addWidget(self.downloadCard.widget)
 
         self.layout.addSpacerItem(self.spacer)
+
+        self.tipMsg = InfoBar.warning(title="工具等待重构",
+                                      content="本工具正在等待大规模重构，已修复目前存在的种种问题。",
+                                      isClosable=False,
+                                      position=InfoBarPosition.TOP,
+                                      duration=-1,
+                                      parent=self.widget)
+        self.tipMsg.show()
 
 
 

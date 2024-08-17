@@ -170,3 +170,43 @@ def fanyi_youdao(originalText: str, originalLan: str = "en", targetLan: str = "z
 
     return targetText
 
+
+class TranslateAPI:
+
+    class Api:
+        def __init__(self, name: str, displayName: str, apiFunc: staticmethod):
+            self.name = name.lower()
+            self.displayName = displayName
+            self.apiFunc = apiFunc
+
+        def __str__(self):
+            return self.name
+
+        def apiFunc(self):
+            return self.apiFunc
+
+    BaiDu = Api(name="BaiDu", displayName="百度通用文本翻译API", apiFunc=fanyi_baidu)
+    YouDao = Api(name="YouDao", displayName="有道文本翻译API", apiFunc=fanyi_youdao)
+
+    def get(self, name: str = None, displayName: str = None):
+        """
+        只需要提供 name 或 displayName 两个参数中的一个即可，然后将返回对应的Api对象。
+        :param name:二选一即可，此项优先。
+        :param displayName:二选一即可。
+        :return:返回Api对象（TranslateAPI.Api）
+        """
+        apiList = [TranslateAPI.BaiDu, TranslateAPI.YouDao]
+        name = name.lower()
+        if name:
+            for api in apiList:
+                if api.name == name:
+                    return api
+        else:
+            for api in apiList:
+                if api.displayName == displayName:
+                    return api
+
+
+
+
+
