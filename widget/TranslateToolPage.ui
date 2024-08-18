@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>1003</width>
-    <height>551</height>
+    <height>477</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -64,6 +64,23 @@
        <property name="placeholderText">
         <string>在此处输入左边词条的翻译文本……</string>
        </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="TableWidget" name="TableWidget">
+       <property name="showGrid">
+        <bool>false</bool>
+       </property>
+       <column>
+        <property name="text">
+         <string>原文本</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>建议文本</string>
+        </property>
+       </column>
       </widget>
      </item>
     </layout>
@@ -183,6 +200,9 @@
          <height>130</height>
         </size>
        </property>
+       <property name="placeholderText">
+        <string>API得到的翻译结果将在此处显示，并自动应用术语表结果。</string>
+       </property>
       </widget>
      </item>
      <item>
@@ -300,6 +320,11 @@
   <customwidget>
    <class>TextEdit</class>
    <extends>QTextEdit</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>TableWidget</class>
+   <extends>QTableWidget</extends>
    <header>qfluentwidgets</header>
   </customwidget>
  </customwidgets>

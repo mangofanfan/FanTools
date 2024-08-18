@@ -39,11 +39,13 @@ class TranslateProject:
     def __init__(self):
         self.textList = []
         self.n = 0
+        self.file = None
 
     def startProject(self, mode: staticmethod, file: str):
         if self.textList:
             logger.error("将要启动的 TranslateProject 中已经存在数据。")
             raise  # 如果已经有翻译数据则直接报错
+        self.file = file
         result: list = mode(file)
         n = 0
         for text in result:
@@ -211,6 +213,45 @@ class TranslateAPI:
                     return api
 
 
+class GlossaryTable:
+    def __init__(self, project: TranslateProject, file: str = None):
+        self.project = project
+        self.file = file
+        self.logger = logging.getLogger("FanTools.GlossaryTable")
+        self.lineList = []
 
+    def load(self, file: str = None):
+        self.file = file
+        self.lineList = []
+        if not self.file:
+            raise
+        data = basicFunc.readFile(file, True).split("\n")
+        for line in data:
+            self.lineList.append(line.split("|!|"))
 
+        self.logger.debug(f"成功加载 {self.project.file} 的术语表于 {self.file} 。")
 
+    def save(self, file: str = None):
+        self.file = file
+        if not self.file:
+            raise
+        lineList = []
+        for line in self.lineList:
+            text = f"{line[0]}|!|{line[1]}"
+            lineList.append(text)
+        fileText = "\n".join(lineList)
+        basicFunc.saveFile(self.file, fileText, True)
+        self.logger.debug(f"成功保存 {self.project.file} 的术语表至 {self.file} 。")
+        return None
+
+    def add(self, originalText: str, targetText: str):
+        self.lineList.append([originalText, targetText])
+        self.logger.debug(f"成功在术语表中添加字段 {originalText} ==>> {targetText} 。")
+        return None
+
+    def remove(self, originalText: str):
+        for line in self.lineList:
+            if line[0] == originalText:
+                self.lineList.remove(line)
+                return None
+        self.logger.error(f"未在术语表中查找到需要删除的字段 {originalText} 。")

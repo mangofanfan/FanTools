@@ -73,6 +73,11 @@ class TranslateWindow(BackgroundAnimationWidget, FramelessWindow):
         self.setTitleBar(FanTitleBar(self))
         self.setWindowIcon(QIcon(basicFunc.getHerePath() + "/data/TranslateLogo.png"))
 
+    def centerWindow(self):
+        screen = QDesktopWidget().screenGeometry()
+        size = self.geometry()
+        self.move((screen.width() - size.width()) / 2, (screen.height() - size.height()) / 2)
+
     def setMicaEffectEnabled(self, isEnabled: bool):
         if sys.platform != 'win32' or sys.getwindowsversion().build < 22000:
             return

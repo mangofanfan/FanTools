@@ -69,6 +69,11 @@ class ConfigPage:
                                                   content="在用户退出程序时弹出窗口确认，提供取消的机会。",
                                                   configItem=funcS.cfg.ExitConfirm)
         self.CardGroup_Function.addSettingCard(self.Card_EditConfirm)
+        self.GlobalEnableGlossary = SwitchSettingCard(configItem=funcS.cfg.GlossaryEnable,
+                                                      title="启用术语表",
+                                                      content="翻译工具全局启用术语表，术语表的详细设置需要在术语表窗口中设置。",
+                                                      icon=FIC.ERASE_TOOL)
+        self.CardGroup_Function.addSettingCard(self.GlobalEnableGlossary)
         self.Card_Proxy = SwitchSettingCard(icon=FIC.AIRPLANE,
                                             title="启用代理服务",
                                             content="在通过request调用外部API时添加代理配置。",

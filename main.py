@@ -10,8 +10,6 @@ from qfluentwidgets import NavigationItemPosition, FluentTranslator, MessageBox,
 from qfluentwidgets import FluentIcon as FIC
 
 from widget.function import basicFunc
-from widget.function_setting import cfg
-import widget.function_error as funcE
 from widget.Window import MainWindow
 
 import logging

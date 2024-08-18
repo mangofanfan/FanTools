@@ -20,6 +20,7 @@ class appConfig(QConfig):
     ProxyEnable = ConfigItem("Function", "ProxyEnable", False, BoolValidator())
     ProxyHttp = ConfigItem("Function", "ProxyHttp", "http://127.0.0.1:7890")
     ProxyHttps = ConfigItem("Function", "ProxyHttps", "http://127.0.0.1:7890")
+    GlossaryEnable = ConfigItem("Function", "GlossaryEnable", False, BoolValidator())
 
     # API设置 API
     BaiduAPPID = ConfigItem("API", "BaiduAPPID", "")

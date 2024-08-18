@@ -21,6 +21,7 @@ from qfluentwidgets import ToggleButton
 from qfluentwidgets import CaptionLabel
 from qfluentwidgets import SubtitleLabel
 from qfluentwidgets import TextEdit
+from qfluentwidgets import TableWidget
 
 
 class Ui_Form(object):
@@ -28,7 +29,7 @@ class Ui_Form(object):
         if not Form.objectName():
             Form.setObjectName(u"Form")
         Form.setWindowModality(Qt.NonModal)
-        Form.resize(1003, 551)
+        Form.resize(1003, 477)
         Form.setAutoFillBackground(False)
         self.verticalLayout_2 = QVBoxLayout(Form)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
@@ -60,6 +61,18 @@ class Ui_Form(object):
         self.TextEdit_TranslatedText.setObjectName(u"TextEdit_TranslatedText")
 
         self.horizontalLayout_2.addWidget(self.TextEdit_TranslatedText)
+
+        self.TableWidget = TableWidget(Form)
+        if (self.TableWidget.columnCount() < 2):
+            self.TableWidget.setColumnCount(2)
+        __qtablewidgetitem = QTableWidgetItem()
+        self.TableWidget.setHorizontalHeaderItem(0, __qtablewidgetitem)
+        __qtablewidgetitem1 = QTableWidgetItem()
+        self.TableWidget.setHorizontalHeaderItem(1, __qtablewidgetitem1)
+        self.TableWidget.setObjectName(u"TableWidget")
+        self.TableWidget.setShowGrid(False)
+
+        self.horizontalLayout_2.addWidget(self.TableWidget)
 
 
         self.verticalLayout_2.addLayout(self.horizontalLayout_2)
@@ -197,6 +210,10 @@ class Ui_Form(object):
 #endif // QT_CONFIG(tooltip)
         self.SplitPushButton.setProperty("text_", QCoreApplication.translate("Form", u"\u4e0b\u62c9\u9009\u62e9\u5feb\u901f\u64cd\u4f5c\u7c7b\u578b", None))
         self.TextEdit_TranslatedText.setPlaceholderText(QCoreApplication.translate("Form", u"\u5728\u6b64\u5904\u8f93\u5165\u5de6\u8fb9\u8bcd\u6761\u7684\u7ffb\u8bd1\u6587\u672c\u2026\u2026", None))
+        ___qtablewidgetitem = self.TableWidget.horizontalHeaderItem(0)
+        ___qtablewidgetitem.setText(QCoreApplication.translate("Form", u"\u539f\u6587\u672c", None));
+        ___qtablewidgetitem1 = self.TableWidget.horizontalHeaderItem(1)
+        ___qtablewidgetitem1.setText(QCoreApplication.translate("Form", u"\u5efa\u8bae\u6587\u672c", None));
         self.PushButton_OneBefore.setText(QCoreApplication.translate("Form", u"\u4e0a\u4e00\u6761", None))
         self.PushButton_OneNext.setText(QCoreApplication.translate("Form", u"\u4e0b\u4e00\u6761", None))
 #if QT_CONFIG(tooltip)
@@ -225,6 +242,7 @@ class Ui_Form(object):
         self.PushButton_Glossary.setToolTip(QCoreApplication.translate("Form", u"<html><head/><body><p>\u914d\u7f6e API \u4e4b\u540e\u624d\u80fd\u8c03\u7528 API \u5e76\u7ffb\u8bd1\u3002</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
         self.PushButton_Glossary.setText(QCoreApplication.translate("Form", u"\u672f\u8bed\u8868", None))
+        self.TextEdit_API.setPlaceholderText(QCoreApplication.translate("Form", u"API\u5f97\u5230\u7684\u7ffb\u8bd1\u7ed3\u679c\u5c06\u5728\u6b64\u5904\u663e\u793a\uff0c\u5e76\u81ea\u52a8\u5e94\u7528\u672f\u8bed\u8868\u7ed3\u679c\u3002", None))
         self.PrimaryPushButton_TranslateWithAPI.setText(QCoreApplication.translate("Form", u"\u8c03\u7528API\u6267\u884c\u7ffb\u8bd1", None))
 #if QT_CONFIG(tooltip)
         self.ToggleButton_AutoTranslateWithAPI.setToolTip(QCoreApplication.translate("Form", u"<html><head/><body><p>\u6fc0\u6d3b\u81ea\u52a8\u7ffb\u8bd1\u671f\u95f4\uff0c\u60a8\u5c06\u65e0\u6cd5\u7f16\u8f91\u6bcf\u4e00\u6b21\u7531 API \u751f\u6210\u7684\u7ffb\u8bd1\u6587\u672c\u3002</p><p>\u6bcf\u4e2a\u8bcd\u6761\u7684\u7ffb\u8bd1\u6587\u672c\u4ec5\u5c55\u793a\u4e00\u79d2\u65f6\u95f4\u3002</p></body></html>", None))

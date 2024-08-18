@@ -3,8 +3,8 @@ import logging
 from PySide2 import QtCore
 from PySide2.QtCore import QObject, Signal, QThread
 from PySide2.QtWidgets import QWidget, QSpacerItem, QSizePolicy, QHBoxLayout, QVBoxLayout, QButtonGroup, QApplication, \
-    QFrame, QListWidgetItem
-from qfluentwidgets import FluentIcon as FIC, RadioButton, ToolTipFilter
+    QFrame, QListWidgetItem, QListWidget
+from qfluentwidgets import FluentIcon as FIC, RadioButton, ToolTipFilter, TableWidget, TextEdit, SwitchSettingCard
 from qfluentwidgets import VBoxLayout, PushButton, RoundMenu, Action, TitleLabel, BodyLabel, SingleDirectionScrollArea, \
     HeaderCardWidget, LineEdit, StrongBodyLabel
 
@@ -18,6 +18,7 @@ from widget.TranslateTextCard import Card as TranslateTextCard
 from widget.TranslateToolPage import Ui_Form as TranslateToolPageUi
 from widget.Window import TranslateWindow
 from widget.function import basicFunc
+from widget.function_setting import cfg
 from widget.function_translate import TranslateText, TranslateAPI
 
 logger = logging.getLogger("FanTools.TranslatePage")
@@ -256,6 +257,11 @@ class TranslateToolPage(TranslateWindow):
                                           triggered=lambda: self.project.dumpProject(funcT.FileType.JSON,
                                                                                      "output.json")))
         self.ui.SplitPushButton.setFlyout(ButtonMenu_Quick)
+
+        # 表格
+        self.ui.TableWidget.setBorderVisible(True)
+        self.ui.TableWidget.setBorderRadius(8)
+        self.ui.TableWidget.setWordWrap(False)
 
         # 为每个按钮都装备全新的工具提示
         buttons = [self.ui.PushButton_EditPrompt, self.ui.SplitPushButton, self.ui.PushButton_OneNext, self.ui.PushButton_OneBefore,
@@ -594,15 +600,31 @@ class GlossaryWindow(TranslateWindow):
 
         self.ListItemGlobal = None
 
-        Line = LineEdit()
-        Line2 = LineEdit()
-        self.Page_Global_Layout.addWidget(Line)
-        self.Page_Global_Layout.addWidget(Line2)
+        TextEdit_Tip = TextEdit()
+        TextEdit_Tip.setMarkdown(basicFunc.readFile("data/glossary_tip.md"))
+        self.Page_Global_Layout.addWidget(TextEdit_Tip)
+
+        GlobalEnableGlossary = SwitchSettingCard(configItem=cfg.GlossaryEnable,
+                                                 title="启用术语表",
+                                                 content="全局启用术语表，在各翻译工具中均支持。也可以在工具箱设置中设置本项目。",
+                                                 icon=FIC.ERASE_TOOL)
+        self.Page_Global_Layout.addWidget(GlobalEnableGlossary)
 
         self.addSubPage(self.Page_Global, "全局设置")
         self.ui.PopUpAniStackedWidget.setCurrentWidget(self.Page_Global)
+        self.ui.PopUpAniStackedWidget.setMinimumSize(800, 600)
+        self.centerWindow()
         self.ui.ListWidget.setCurrentItem(self.ListItemGlobal)
+        for api in TranslateAPI.apiList:
+            self.addSubAPIPage(api)
+
+        self.ui.ListWidget.itemSelectionChanged.connect(lambda: self.changedBySelection(self.ui.ListWidget.currentRow() + 1))
+
         self.logger.debug("翻译术语表初始化完毕")
+
+    def changedBySelection(self, current):
+        self.logger.debug(f"切换到 {current} 。")
+        self.ui.PopUpAniStackedWidget.setCurrentIndex(current)
 
     def addSubPage(self, page: QWidget, name: str):
         self.ui.PopUpAniStackedWidget.addWidget(page)
@@ -612,5 +634,13 @@ class GlossaryWindow(TranslateWindow):
             self.ListItemGlobal = item
         return None
 
-    #def addSubAPIPage(self, api: funcT.):
+    def addSubAPIPage(self, api: TranslateAPI.Api):
+        table = TableWidget(self)
+
+        table.setBorderVisible(True)
+        table.setBorderRadius(8)
+        table.setWordWrap(True)
+        table.setRowCount(3)
+        table.setColumnCount(2)
+        self.addSubPage(table, api.displayName)
 
