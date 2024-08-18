@@ -59,9 +59,10 @@ logger.debug("各前置模块加载完毕，开始实现窗口。")
 class Main:
     def __init__(self):
         self.mainWindow = MainWindow()
-        self.mainWindow.setMinimumSize(QC.QSize(800, 600))
+        self.mainWindow.setMinimumSize(QC.QSize(900, 700))
         self.mainWindow.setWindowTitle("🥭 芒果工具箱 🥭 FanTools  🥭")
         self.mainWindow.setWindowIcon(QIcon(basicFunc.getHerePath() + "\\data\\two_mango_es.png"))
+        self.mainWindow.centerWindow()
         logger.debug("窗口参数设置完毕。")
 
         self.splashScreen =  SplashScreen(self.mainWindow.windowIcon(), self.mainWindow)

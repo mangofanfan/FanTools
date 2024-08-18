@@ -1,11 +1,13 @@
 import sys
 
 from PySide2.QtCore import Signal
-from PySide2.QtGui import QColor
+from PySide2.QtGui import QColor, QIcon
+from PySide2.QtWidgets import QDesktopWidget
 from qfluentwidgets import FluentWindow, MessageBox, FluentTitleBar, isDarkTheme
 from qfluentwidgets.common.animation import BackgroundAnimationWidget
 from qfluentwidgets.components.widgets.frameless_window import FramelessWindow
 
+from widget.function import basicFunc
 from widget.function_setting import cfg, qconfig
 
 import logging
@@ -17,6 +19,11 @@ class MainWindow(FluentWindow):
 
     def __init__(self, parent = None):
         super().__init__(parent=parent)
+
+    def centerWindow(self):
+        screen = QDesktopWidget().screenGeometry()
+        size = self.geometry()
+        self.move((screen.width() - size.width()) / 2, (screen.height() - size.height()) / 2)
 
     def closeEvent(self, event):
         if not qconfig.get(cfg.ExitConfirm):
@@ -49,6 +56,12 @@ class MainWindow(FluentWindow):
         event.ignore()
 
 
+class FanTitleBar(FluentTitleBar):
+    def __init__(self, parent=None):
+        super().__init__(parent=parent)
+        self.setContentsMargins(20, 0, 0, 0)
+
+
 class TranslateWindow(BackgroundAnimationWidget, FramelessWindow):
     def __init__(self, parent=None):
         super().__init__(parent=parent)
@@ -57,7 +70,8 @@ class TranslateWindow(BackgroundAnimationWidget, FramelessWindow):
         self._darkBackgroundColor = QColor(32, 32, 32)
         self.setMicaEffectEnabled(True)
         qconfig.themeChangedFinished.connect(self._onThemeChangedFinished)
-        self.setTitleBar(FluentTitleBar(self))
+        self.setTitleBar(FanTitleBar(self))
+        self.setWindowIcon(QIcon(basicFunc.getHerePath() + "/data/TranslateLogo.png"))
 
     def setMicaEffectEnabled(self, isEnabled: bool):
         if sys.platform != 'win32' or sys.getwindowsversion().build < 22000:

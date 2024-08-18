@@ -3,7 +3,7 @@ import logging
 from PySide2 import QtCore
 from PySide2.QtCore import QObject, Signal, QThread
 from PySide2.QtWidgets import QWidget, QSpacerItem, QSizePolicy, QHBoxLayout, QVBoxLayout, QButtonGroup, QApplication, \
-    QFrame
+    QFrame, QListWidgetItem
 from qfluentwidgets import FluentIcon as FIC, RadioButton, ToolTipFilter
 from qfluentwidgets import VBoxLayout, PushButton, RoundMenu, Action, TitleLabel, BodyLabel, SingleDirectionScrollArea, \
     HeaderCardWidget, LineEdit, StrongBodyLabel
@@ -11,14 +11,14 @@ from qfluentwidgets import VBoxLayout, PushButton, RoundMenu, Action, TitleLabel
 import widget.function_translate as funcT
 import widget.function_translateMsg as IB
 from script.translate_rule import Rule
-from widget.TranslateButtonCard import Card_Single, Card_Multi
+from widget.TranslateButtonCard import Card_Single, Card_Multi, Card_Glossary
 from widget.TranslateGlossary import Ui_Form as TranslateGlossaryUi
 from widget.TranslateMultiPage import Ui_Form as TranslateMultiPageUi
 from widget.TranslateTextCard import Card as TranslateTextCard
 from widget.TranslateToolPage import Ui_Form as TranslateToolPageUi
 from widget.Window import TranslateWindow
-from widget.function import basicFunc, PIC
-from widget.function_translate import TranslateText, TranslateAPI, fanyi_youdao
+from widget.function import basicFunc
+from widget.function_translate import TranslateText, TranslateAPI
 
 logger = logging.getLogger("FanTools.TranslatePage")
 
@@ -40,13 +40,14 @@ class TranslatePage(QObject):
 
         self.CardSingle = Card_Single()
         self.CardMulti = Card_Multi()
+        self.CardGlossary = Card_Glossary()
 
         self.Tool = TranslateToolPage()
         self.Multi = TranslateMultiPage()
         self.Glossary = GlossaryWindow()
 
-        self.Tool.glossarySignal.connect(self.launchGlossaryWindow)
-        self.Multi.glossarySignal.connect(self.launchGlossaryWindow)
+        self.Tool.glossarySignal.connect(self.launchGlossary)
+        self.Multi.glossarySignal.connect(self.launchGlossary)
 
         self.run()
         logger.debug("页面初始化完毕。")
@@ -136,12 +137,14 @@ class TranslatePage(QObject):
         ButtonLayout.addWidget(self.Button_ALL)
         self.Button_100.setChecked(True)
 
-        # 两张工具启动卡片
+        # 三张工具启动卡片
         self.layout.addWidget(self.CardSingle.widget)
         self.layout.addWidget(self.CardMulti.widget)
+        self.layout.addWidget(self.CardGlossary.widget)
 
         self.CardSingle.button.clicked.connect(self.launchTool)
         self.CardMulti.button.clicked.connect(self.launchMulti)
+        self.CardGlossary.button.clicked.connect(self.launchGlossary)
 
         self.layout.addSpacerItem(self.spacer)
 
@@ -194,7 +197,7 @@ class TranslatePage(QObject):
         logger.info("列表多项翻译器已经启动。")
         return None
 
-    def launchGlossaryWindow(self):
+    def launchGlossary(self):
         logger.info("术语表窗口启动。")
         self.Glossary.show()
 
@@ -589,6 +592,8 @@ class GlossaryWindow(TranslateWindow):
         self.Page_Global.setWidget(self.Page_Global_Widget)
         self.Page_Global.setWidgetResizable(True)
 
+        self.ListItemGlobal = None
+
         Line = LineEdit()
         Line2 = LineEdit()
         self.Page_Global_Layout.addWidget(Line)
@@ -596,11 +601,15 @@ class GlossaryWindow(TranslateWindow):
 
         self.addSubPage(self.Page_Global, "全局设置")
         self.ui.PopUpAniStackedWidget.setCurrentWidget(self.Page_Global)
+        self.ui.ListWidget.setCurrentItem(self.ListItemGlobal)
         self.logger.debug("翻译术语表初始化完毕")
 
     def addSubPage(self, page: QWidget, name: str):
         self.ui.PopUpAniStackedWidget.addWidget(page)
-        self.ui.ListWidget.addItem(name)
+        item = QListWidgetItem(name)
+        self.ui.ListWidget.addItem(item)
+        if not self.ListItemGlobal:
+            self.ListItemGlobal = item
         return None
 
     #def addSubAPIPage(self, api: funcT.):
