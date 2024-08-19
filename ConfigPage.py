@@ -60,11 +60,11 @@ class ConfigPage:
                                                 enableAlpha=False)
         self.CardGroup_Theme.addSettingCard(self.Card_ThemeColor)
         funcS.cfg.ThemeColor.valueChanged.connect(self.themeColorChange)
-        self.Card_ChildWindowAcrylicEnable = SwitchSettingCard(title="子窗口启用亚克力效果（重启后生效）",
-                                                               content="为工具箱的所有子窗口启用亚克力效果（实时计算的半透明窗口背景，深色模式显示可能存在异常）",
-                                                               configItem=funcS.cfg.ChildWindowAcrylicEnable,
-                                                               icon=FIC.FIT_PAGE)
-        self.CardGroup_Theme.addSettingCard(self.Card_ChildWindowAcrylicEnable)
+        self.Card_WindowAcrylicEnable = SwitchSettingCard(title="启用亚克力效果（重启后生效，需要先启用云母效果）",
+                                                          content="为工具箱的所有窗口启用亚克力效果（实时计算的半透明虚化窗口背景，深色模式显示可能存在异常）",
+                                                          configItem=funcS.cfg.WindowAcrylicEnable,
+                                                          icon=FIC.FIT_PAGE)
+        self.CardGroup_Theme.addSettingCard(self.Card_WindowAcrylicEnable)
         self.layout.addWidget(self.CardGroup_Theme)
 
         # 程序的全局功能设置

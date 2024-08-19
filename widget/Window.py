@@ -16,6 +16,9 @@ class MainWindow(FanFluentWindow):
 
     def __init__(self, parent = None):
         super().__init__(parent=parent)
+        self.setMicaEffectEnabled(True)
+        if funcS.qconfig.get(funcS.cfg.WindowAcrylicEnable):
+            self.setAcrylicEffectEnabled(True)
 
     def centerWindow(self):
         screen = QDesktopWidget().screenGeometry()
@@ -62,10 +65,11 @@ class TranslateWindow(BackgroundAnimationWidget, FramelessWindow):
         self._darkBackgroundColor_int = (32, 32, 32)
         self._lightBackgroundColor = QColor(243, 243, 243)
         self._darkBackgroundColor = QColor(32, 32, 32)
-        if funcS.qconfig.get(funcS.cfg.ChildWindowAcrylicEnable):
+
+        self.setMicaEffectEnabled(True)
+        if funcS.qconfig.get(funcS.cfg.WindowAcrylicEnable):
             self.setAcrylicEffectEnabled(True)
-        else:
-            self.setMicaEffectEnabled(True)
+
         qconfig.themeChangedFinished.connect(self._onThemeChangedFinished)
         self.setTitleBar(FanTitleBar(self))
         self.setWindowIcon(QIcon(basicFunc.getHerePath() + "/data/TranslateLogo.png"))
@@ -98,10 +102,7 @@ class TranslateWindow(BackgroundAnimationWidget, FramelessWindow):
             else:
                 return basicFunc.rgb_to_hex(self._lightBackgroundColor_int)
         else:
-            if isDarkTheme():
-                return self._darkBackgroundColor
-            else:
-                return self._lightBackgroundColor
+            return self.bgColorObject.backgroundColor
 
     def setAcrylicEffectEnabled(self, isEnabled: bool):
         self._isAcrylicEnabled = isEnabled

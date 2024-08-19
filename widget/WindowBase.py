@@ -30,8 +30,6 @@ class FanFluentWindowBase(BackgroundAnimationWidget, FramelessWindow):
         self._lightBackgroundColor = QColor(243, 243, 243)
         self._darkBackgroundColor = QColor(32, 32, 32)
         super().__init__(parent=parent)
-        self.setMicaEffectEnabled(True)
-        self.setAcrylicEffectEnabled(True)
 
         self.hBoxLayout = QHBoxLayout(self)
         self.stackedWidget = StackedWidget(self)
@@ -120,10 +118,7 @@ class FanFluentWindowBase(BackgroundAnimationWidget, FramelessWindow):
             else:
                 return basicFunc.rgb_to_hex(self._lightBackgroundColor_int)
         else:
-            if isDarkTheme():
-                return self._darkBackgroundColor
-            else:
-                return self._lightBackgroundColor
+            return self.bgColorObject.backgroundColor
 
     def setAcrylicEffectEnabled(self, isEnabled: bool):
         self._isAcrylicEnabled = isEnabled
