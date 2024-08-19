@@ -14,6 +14,7 @@
         <toc-element topic="Config.md"/>
         <toc-element topic="Scroll-Page.md"/>
         <toc-element topic="QThread.md"/>
+        <toc-element topic="Right-Click-Menu.md"/>
         <toc-element topic="Other-Bugfixing.md"/>
     </toc-element>
 </instance-profile>

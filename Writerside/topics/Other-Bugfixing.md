@@ -15,3 +15,43 @@
 接下来战略转进到这个代码段，继续重复排除过程，发现真正的问题在于在页面上添加了两个`spacer`，删除一个之后问题解决。
 
 好奇怪，不知道为什么，决定用脑子来想。
+
+## TableWidget组件，枚举删除行、列时出错 NoneType
+
+这个是逻辑上的问题，假如我们拥有一个表格，并需要提供一种方法，能够遍历表格中所有的行，如果这个行是空行就把它删掉。
+
+![translate-tablewidget.png](translate-tablewidget.png)
+
+我把功能写在右键菜单里了，这个的相关信息在[右键菜单](Right-Click-Menu.md)页面。在实现上，我们继承了 `TableWidget` 类，直接在其 `__init__()` 中实现表格的构建。
+
+为下方的删除空行按钮绑定函数的构造如下：
+
+<code-block lang="python">
+    def deleteBlank(self):
+        for i in range(self.rowCount():
+            if not self.item(i, 0).text() and not self.item(i, 1).text():
+                self.removeRow(i)
+                continue
+        return None
+</code-block>
+
+逻辑上是遍历每一行，只要这一行没有内容就删，想法非常好，但是运行起来则会报错。问题出在以下两个方面：
+* 在表格中的某一格x，y内没有任何内容时，方法 `self.item(x, y)` 会得到 `None`，于是我们得到了类型错误；
+* 实际上在行数大于1的时候，我们无法遍历所有行：两行则剩下一行，五行则剩下两行……
+
+第一点好办，只要将 `.text()` 去掉就可以了，第二点问题呢我先把修复过的代码放下来，大家一眼就能看出问题所在：
+
+<code-block lang="python">
+    def deleteBlank(self):
+        l = list(range(self.rowCount()))
+        l.reverse()
+        for i in l:
+            if not self.item(i, 0) and not self.item(i, 1):
+                self.removeRow(i)
+                continue
+        return None
+</code-block>
+
+**没错！我们需要把`range`得到的列表倒序翻转一下，相当于从最后一行向前枚举！** 这是由于如果从前往后枚举，比如我们删除了空的第一行，那么下一步我们枚举得到的第二行则是原表格的第三行，原表格的第二行现在成为了第一行，我们就把这一行跳过了。
+
+嗯，就酱。
