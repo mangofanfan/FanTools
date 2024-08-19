@@ -1,7 +1,7 @@
 import logging
 
 from PySide2.QtCore import Signal
-from PySide2.QtGui import QCursor
+from PySide2.QtGui import QCursor, QKeyEvent
 from PySide2.QtWidgets import QDesktopWidget, QTableWidgetItem, QHeaderView
 from qfluentwidgets import MessageBox, TableWidget, RoundMenu, Action
 from qfluentwidgets import FluentIcon as FIC
@@ -129,7 +129,8 @@ class GlossaryTableWidget(TableWidget):
 
         # 右键菜单设置
         self.RightMenu = RoundMenu()
-        self.RightMenu.addAction(Action(FIC.ADD, "增加新术语词条", triggered=self.addLine))
+        self.RightMenu.addAction(Action(FIC.ADD, "增加新术语词条", triggered=self.addLine, shortcut="Ctrl+N"))
+        self.RightMenu.addAction(Action(FIC.DELETE, "清除空行", triggered=self.deleteBlank))
         self.setContextMenuPolicy(Qt.CustomContextMenu)
         self.customContextMenuRequested.connect(self.RightClickMenu)
 
@@ -148,7 +149,25 @@ class GlossaryTableWidget(TableWidget):
 
     def addLine(self):
         self.insertRow(self.rowCount())
+        return None
+
+    def deleteBlank(self):
+        l = list(range(self.rowCount()))
+        l.reverse()
+        for i in l:
+            if not self.item(i, 0) and not self.item(i, 1):
+                self.removeRow(i)
+                continue
+            if not self.item(i, 0).text() and not self.item(i, 1).text():
+                self.removeRow(i)
+                continue
+        return None
+
 
     def RightClickMenu(self):
         self.RightMenu.popup(QCursor.pos())
+
+    def keyPressEvent(self, e: QKeyEvent):
+        if e.key() == Qt.Key_N and e.modifiers() == Qt.ControlModifier:
+            self.addLine()
 

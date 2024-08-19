@@ -36,9 +36,9 @@
        <widget class="ListWidget" name="ListWidget"/>
       </item>
       <item>
-       <widget class="PrimaryPushButton" name="PrimaryPushButton_SaveAndClose">
+       <widget class="PrimaryPushButton" name="PrimaryPushButton_Save">
         <property name="text">
-         <string>保存并关闭窗口</string>
+         <string>保存所有</string>
         </property>
        </widget>
       </item>

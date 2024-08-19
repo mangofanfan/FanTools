@@ -40,10 +40,10 @@ class Ui_Form(object):
 
         self.verticalLayout_2.addWidget(self.ListWidget)
 
-        self.PrimaryPushButton_SaveAndClose = PrimaryPushButton(self.SimpleCardWidget)
-        self.PrimaryPushButton_SaveAndClose.setObjectName(u"PrimaryPushButton_SaveAndClose")
+        self.PrimaryPushButton_Save = PrimaryPushButton(self.SimpleCardWidget)
+        self.PrimaryPushButton_Save.setObjectName(u"PrimaryPushButton_Save")
 
-        self.verticalLayout_2.addWidget(self.PrimaryPushButton_SaveAndClose)
+        self.verticalLayout_2.addWidget(self.PrimaryPushButton_Save)
 
         self.CaptionLabel = CaptionLabel(self.SimpleCardWidget)
         self.CaptionLabel.setObjectName(u"CaptionLabel")
@@ -71,7 +71,7 @@ class Ui_Form(object):
 
     def retranslateUi(self, Form):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
-        self.PrimaryPushButton_SaveAndClose.setText(QCoreApplication.translate("Form", u"\u4fdd\u5b58\u5e76\u5173\u95ed\u7a97\u53e3", None))
+        self.PrimaryPushButton_Save.setText(QCoreApplication.translate("Form", u"\u4fdd\u5b58\u6240\u6709", None))
         self.CaptionLabel.setText(QCoreApplication.translate("Form", u"<html><head/><body><p align=\"center\"><span style=\" font-size:9pt;\">\u76f4\u63a5\u5173\u95ed\u7a97\u53e3\u89c6\u4f5c\u653e\u5f03\u4fdd\u5b58</span></p></body></html>", None))
     # retranslateUi
 
