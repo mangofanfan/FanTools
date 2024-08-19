@@ -14,6 +14,7 @@ class appConfig(QConfig):
     ThemeMode = OptionsConfigItem("Appearance", "ThemeMode", "light",
                                   OptionsValidator(["light", "dark", "auto"]), restart=True)
     ThemeColor = ColorConfigItem("Appearance", "ThemeColor", "#006DCC")
+    ChildWindowAcrylicEnable = ConfigItem("Appearance", "ChildWindowAcrylicEnable", False, BoolValidator())
 
     # 功能设置 Function
     ExitConfirm = ConfigItem("Function", "ExitConfirm", True, BoolValidator())

@@ -50,6 +50,15 @@ class basicFunc:
         dirPath = QFileDialog.getExistingDirectory(caption=caption, dir=basedPath)
         return dirPath
 
+    @staticmethod
+    def rgb_to_hex(rgb):
+        r, g, b = rgb
+        r = max(0, min(255, r))
+        g = max(0, min(255, g))
+        b = max(0, min(255, b))
+        hex_string = '{:02X}{:02X}{:02X}'.format(r, g, b)
+        return hex_string
+
 
 class PIC:
     BaiDu = basicFunc.getHerePath() + "/data/baidu.png"

@@ -1,4 +1,7 @@
+from lib2to3.fixes.fix_input import context
+
 from PySide2 import QtCore
+from adodbapi import connect
 from qfluentwidgets import ComboBoxSettingCard, ColorSettingCard, SettingCardGroup, SwitchSettingCard, ExpandGroupSettingCard, LineEdit, \
     PasswordLineEdit, VBoxLayout, TitleLabel, BodyLabel, SingleDirectionScrollArea, ExpandLayout, qconfig
 from qfluentwidgets import Theme, setTheme, ThemeColor, setThemeColor
@@ -47,10 +50,10 @@ class ConfigPage:
         # 程序的全局外观设置
         self.CardGroup_Theme = SettingCardGroup("主题设置", self.widget)
         self.Card_ThemeMode = ComboBoxSettingCard(configItem=funcS.cfg.ThemeMode,
-                                             icon=FIC.CONSTRACT,
-                                             title="主题模式",
-                                             content="调整本程序的全局主题模式",
-                                             texts=["亮色", "暗色", "跟随系统设置"])
+                                                  icon=FIC.CONSTRACT,
+                                                  title="主题模式",
+                                                  content="调整本程序的全局主题模式",
+                                                  texts=["亮色", "暗色", "跟随系统设置"])
         self.CardGroup_Theme.addSettingCard(self.Card_ThemeMode)
         funcS.cfg.ThemeMode.valueChanged.connect(self.themeChange)
         self.Card_ThemeColor = ColorSettingCard(configItem=funcS.cfg.ThemeColor,
@@ -60,6 +63,11 @@ class ConfigPage:
                                                 enableAlpha=False)
         self.CardGroup_Theme.addSettingCard(self.Card_ThemeColor)
         funcS.cfg.ThemeColor.valueChanged.connect(self.themeColorChange)
+        self.Card_ChildWindowAcrylicEnable = SwitchSettingCard(title="子窗口启用亚克力效果（重启后生效）",
+                                                               content="为工具箱的所有子窗口启用亚克力效果（实时计算的半透明窗口背景，深色模式显示可能存在异常）",
+                                                               configItem=funcS.cfg.ChildWindowAcrylicEnable,
+                                                               icon=FIC.FIT_PAGE)
+        self.CardGroup_Theme.addSettingCard(self.Card_ChildWindowAcrylicEnable)
         self.layout.addWidget(self.CardGroup_Theme)
 
         # 程序的全局功能设置
