@@ -1,4 +1,5 @@
 import json, requests, hashlib, random, time
+from pathlib import Path
 from urllib.parse import quote
 import logging
 
@@ -224,15 +225,17 @@ class GlossaryTable:
         self.file = file
         self.lineList = []
         if not self.file:
-            raise
+            return None
         data = basicFunc.readFile(file, True).split("\n")
         for line in data:
             self.lineList.append(line.split("|!|"))
 
         self.logger.debug(f"成功加载 {self.projectFile} 的术语表于 {self.file} 。")
+        return None
 
     def save(self, file: str = None):
-        self.file = file
+        if file:
+            self.file = file
         if not self.file:
             raise
         lineList = []
@@ -255,3 +258,35 @@ class GlossaryTable:
                 self.lineList.remove(line)
                 return None
         self.logger.error(f"未在术语表中查找到需要删除的字段 {originalText} 。")
+
+
+class history:
+    def __init__(self):
+        self.historyList = []
+        self.logger = logging.getLogger("FanTools.TranslateHistory")
+        self.path = basicFunc.getHerePath() + "/config/ft-translateHistory.txt"
+        self.load()
+
+    def load(self):
+        if not Path(self.path).exists():
+            f = open(file=self.path, mode="w")
+            f.close()
+            return
+        with open(file=self.path, mode="r") as f:
+            self.historyList = f.readlines()
+        return None
+
+    def add(self, path: str):
+        if path in self.historyList:
+            return None
+        self.historyList.insert(0, path)
+        self.save()
+        return None
+
+    def save(self):
+        with open(file=self.path, mode="w") as f:
+            f.write("\n".join(self.historyList))
+        return None
+
+    def get(self):
+        return self.historyList

@@ -1,16 +1,19 @@
 import logging
+from pathlib import Path
 
 from PySide2 import QtCore
 from PySide2.QtCore import QObject, Signal, QThread
+from PySide2.QtGui import QCursor
 from PySide2.QtWidgets import QWidget, QSpacerItem, QSizePolicy, QHBoxLayout, QVBoxLayout, QButtonGroup, QApplication, \
-    QFrame, QListWidgetItem, QTableWidgetItem, QHeaderView
-from qfluentwidgets import FluentIcon as FIC, RadioButton, ToolTipFilter, TableWidget, TextEdit, SwitchSettingCard
+    QFrame, QListWidgetItem, QTableWidgetItem
+from qfluentwidgets import FluentIcon as FIC, RadioButton, ToolTipFilter, TextEdit, SwitchSettingCard, ToolButton
 from qfluentwidgets import VBoxLayout, PushButton, RoundMenu, Action, TitleLabel, BodyLabel, SingleDirectionScrollArea, \
     HeaderCardWidget, LineEdit, StrongBodyLabel
 
 import widget.function_translate as funcT
 import widget.function_translateMsg as IB
 from script.translate_rule import Rule
+from widget import function_setting as funcS
 from widget.TranslateButtonCard import Card_Single, Card_Multi, Card_Glossary
 from widget.TranslateGlossary import Ui_Form as TranslateGlossaryUi
 from widget.TranslateMultiPage import Ui_Form as TranslateMultiPageUi
@@ -18,8 +21,6 @@ from widget.TranslateTextCard import Card as TranslateTextCard
 from widget.TranslateToolPage import Ui_Form as TranslateToolPageUi
 from widget.Window import TranslateWindow, GlossaryTableWidget
 from widget.function import basicFunc
-from widget import function_setting as funcS
-from widget.function_translate import TranslateText, TranslateAPI, GlossaryTable, TranslateProject
 
 logger = logging.getLogger("FanTools.TranslatePage")
 
@@ -46,6 +47,9 @@ class TranslatePage(QObject):
         self.Tool = TranslateToolPage()
         self.Multi = TranslateMultiPage()
         self.Glossary = GlossaryWindow()
+
+        self.history = funcT.history()
+        self.historyMenu = RoundMenu()
 
         self.Tool.glossarySignal.connect(self.launchGlossary)
         self.Multi.glossarySignal.connect(self.launchGlossary)
@@ -89,9 +93,15 @@ class TranslatePage(QObject):
         self.Layout_ImportProject.addWidget(self.LineEdit_ImportProject)
         self.PushButton_ImportProject = PushButton()
         self.PushButton_ImportProject.setFixedHeight(30)
+        self.PushButton_ImportProject.setFixedWidth(200)
         self.PushButton_ImportProject.setText("选择文件")
         self.PushButton_ImportProject.clicked.connect(self.chooseImportProject)
         self.Layout_ImportProject.addWidget(self.PushButton_ImportProject)
+        self.ToolButton_History = ToolButton()
+        self.ToolButton_History.setIcon(FIC.HISTORY)
+        self.ToolButton_History.setFixedHeight(30)
+        self.ToolButton_History.clicked.connect(self.viewHistory)
+        self.Layout_ImportProject.addWidget(self.ToolButton_History)
 
         self.CardStart_vBoxLayout.addSpacing(20)
 
@@ -181,6 +191,7 @@ class TranslatePage(QObject):
             return None
         self.Tool.show()
         self.Tool.setProject(self.LineEdit_ImportProject.text())
+        self.history.add(self.LineEdit_ImportProject.text())
         logger.info("单词条翻译器已经启动。")
 
     def launchMulti(self):
@@ -195,6 +206,7 @@ class TranslatePage(QObject):
         self.Multi.setProject(self.LineEdit_ImportProject.text(), self.ButtonGroup.checkedId())
         self.Multi.show()
         self.Multi.displayTextList()
+        self.history.add(self.LineEdit_ImportProject.text())
         logger.info("列表多项翻译器已经启动。")
         return None
 
@@ -203,9 +215,23 @@ class TranslatePage(QObject):
             IB.msgNotImportProject(self.widget)
             logger.warning("未选择项目工程文件；已经阻止操作并警告。")
             return None
-        self.Glossary.setProjectFile(self.LineEdit_ImportProject.text())
+        self.Glossary.setProjectFile(self.LineEdit_ImportProject.text().replace("ft-translateProject.txt", "ft-translateGlossary.txt"))
+        self.Glossary.loadProjectFile()
         logger.info("术语表窗口启动。")
+        self.history.add(self.LineEdit_ImportProject.text())
         self.Glossary.show()
+        return None
+
+    def viewHistory(self):
+        hList = self.history.get()
+        self.historyMenu.clear()
+        if not hList:
+            self.historyMenu.addAction(Action(icon=FIC.CLOSE, text="还没有保存的历史记录……"))
+        else:
+            for h in hList:
+                self.historyMenu.addAction(Action(icon=FIC.PLAY, text=h, triggered=lambda: self.LineEdit_ImportProject.setText(h)))
+
+        self.historyMenu.popup(QCursor.pos())
 
 
 class TranslateToolPage(TranslateWindow):
@@ -247,7 +273,7 @@ class TranslateToolPage(TranslateWindow):
         self.ui.PushButton_Glossary.clicked.connect(self.glossarySignal.emit)
 
         # 选择API的下拉按钮
-        for api in TranslateAPI.apiList:
+        for api in funcT.TranslateAPI.apiList:
             self.ui.ComboBox_API.addItem(text=api.displayName, icon=api.icon, userData=api.apiFunc)
         self.ui.ComboBox_API.setPlaceholderText("请选择API接口")
         self.ui.ComboBox_API.setCurrentIndex(-1)
@@ -471,7 +497,7 @@ class TranslateMultiPage(TranslateWindow):
         self.ui.PushButton_PageBefore.clicked.connect(lambda: self.displayTextList(self.start - self.limit))
         self.ui.PushButton_PageAfter.clicked.connect(lambda: self.displayTextList(self.start + self.limit))
 
-        for api in TranslateAPI.apiList:
+        for api in funcT.TranslateAPI.apiList:
             self.ui.ComboBox_API.addItem(text=api.displayName, icon=api.icon, userData=api.apiFunc)
 
         self.ui.ComboBox_API.setPlaceholderText("选择一个API接口")
@@ -510,7 +536,7 @@ class TranslateMultiPage(TranslateWindow):
             self.ui.PushButton_PageAfter.setDisabled(True)
             end = self.n
             for text in self.project.textList:
-                text: TranslateText
+                text: funcT.TranslateText
                 w = TranslateTextCard(text=text)
                 w.setup(text.originalText, text.translatedText)
                 w.update.connect(self.updateProjectText)
@@ -526,7 +552,7 @@ class TranslateMultiPage(TranslateWindow):
             if end > self.n:
                 end = self.n
             for text in self.project.textList[start:end]:
-                text: TranslateText
+                text: funcT.TranslateText
                 w = TranslateTextCard(text=text)
                 w.setup(text.originalText, text.translatedText)
                 w.update.connect(self.updateProjectText)
@@ -630,7 +656,7 @@ class GlossaryWindow(TranslateWindow):
         self.ui.PopUpAniStackedWidget.setMinimumSize(800, 600)
         self.centerWindow()
         self.ui.ListWidget.setCurrentItem(self.ListItemGlobal)
-        for api in TranslateAPI.apiList:
+        for api in funcT.TranslateAPI.apiList:
             self.addSubAPIPage(api)
 
         self.ui.ListWidget.itemSelectionChanged.connect(lambda: self.changedBySelection(self.ui.ListWidget.currentRow() + 1))
@@ -639,7 +665,26 @@ class GlossaryWindow(TranslateWindow):
 
     def setProjectFile(self, projectFile: str):
         self.projectFile = projectFile
-        self.logger.debug(f"已经启动翻译工程文件 {self.projectFile} 的术语表。")
+        self.logger.debug(f"已经启动翻译术语表工程文件 {self.projectFile} .")
+        return None
+
+    def loadProjectFile(self):
+        path = Path(self.projectFile)
+        if not path.exists():
+            return None
+
+        Glossary_Global = funcT.GlossaryTable(self.projectFile)
+        Glossary_Global.load(self.projectFile)
+        TableWidget_Global: GlossaryTableWidget = self.APIDirectory["global"]
+        TableWidget_Global.setRowCount(len(Glossary_Global.lineList))
+        i = 0
+        for line in Glossary_Global.lineList:
+            item_1 = QTableWidgetItem(line[0])
+            item_2 = QTableWidgetItem(line[1])
+            TableWidget_Global.setItem(i, 0, item_1)
+            TableWidget_Global.setItem(i, 1, item_2)
+            i += 1
+        self.logger.debug(f"加载了{i}个术语表词条。")
         return None
 
     def changedBySelection(self, current):
@@ -671,7 +716,7 @@ class GlossaryWindow(TranslateWindow):
         self.APIDirectory["global"] = table
         self.addSubPage(page, "全局术语表")
 
-    def addSubAPIPage(self, api: TranslateAPI.Api):
+    def addSubAPIPage(self, api: funcT.TranslateAPI.Api):
         page = QWidget()
         layout = QVBoxLayout()
         page.setLayout(layout)
@@ -685,8 +730,8 @@ class GlossaryWindow(TranslateWindow):
 
     def saveGlossaryTable(self):
         Table_Global: GlossaryTableWidget = self.APIDirectory["global"]
-        Glossary_Global = GlossaryTable(self.projectFile)
+        Glossary_Global = funcT.GlossaryTable(self.projectFile)
         for i in range(Table_Global.rowCount()):
             Glossary_Global.add(Table_Global.item(i, 0).text(), Table_Global.item(i, 1).text())
-        Glossary_Global.save(basicFunc.getHerePath() + "/file/testAAA.ft-translateGlossary.txt")
+        Glossary_Global.save()
 
