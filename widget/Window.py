@@ -126,6 +126,7 @@ class TranslateWindow(BackgroundAnimationWidget, FramelessWindow):
 class GlossaryTableWidget(TableWidget):
     def __init__(self, parent):
         super().__init__(parent=parent)
+        self.logger = logging.getLogger("FanTools.GlossaryTable")
 
         # 右键菜单设置
         self.RightMenu = RoundMenu()
@@ -149,6 +150,7 @@ class GlossaryTableWidget(TableWidget):
 
     def addLine(self):
         self.insertRow(self.rowCount())
+        self.logger.debug("在术语表表格中添加一个新行。")
         return None
 
     def deleteBlank(self):
@@ -158,9 +160,7 @@ class GlossaryTableWidget(TableWidget):
             if not self.item(i, 0) and not self.item(i, 1):
                 self.removeRow(i)
                 continue
-            if not self.item(i, 0).text() and not self.item(i, 1).text():
-                self.removeRow(i)
-                continue
+        self.logger.debug("在术语表表格中删除所有空行。")
         return None
 
 

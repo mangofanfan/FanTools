@@ -214,8 +214,8 @@ class TranslateAPI:
 
 
 class GlossaryTable:
-    def __init__(self, project: TranslateProject, file: str = None):
-        self.project = project
+    def __init__(self, projectFile: str, file: str = None):
+        self.projectFile = projectFile
         self.file = file
         self.logger = logging.getLogger("FanTools.GlossaryTable")
         self.lineList = []
@@ -229,7 +229,7 @@ class GlossaryTable:
         for line in data:
             self.lineList.append(line.split("|!|"))
 
-        self.logger.debug(f"成功加载 {self.project.file} 的术语表于 {self.file} 。")
+        self.logger.debug(f"成功加载 {self.projectFile} 的术语表于 {self.file} 。")
 
     def save(self, file: str = None):
         self.file = file
@@ -241,7 +241,7 @@ class GlossaryTable:
             lineList.append(text)
         fileText = "\n".join(lineList)
         basicFunc.saveFile(self.file, fileText, True)
-        self.logger.debug(f"成功保存 {self.project.file} 的术语表至 {self.file} 。")
+        self.logger.debug(f"成功保存 {self.projectFile} 的术语表至 {self.file} 。")
         return None
 
     def add(self, originalText: str, targetText: str):

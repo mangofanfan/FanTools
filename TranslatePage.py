@@ -19,7 +19,7 @@ from widget.TranslateToolPage import Ui_Form as TranslateToolPageUi
 from widget.Window import TranslateWindow, GlossaryTableWidget
 from widget.function import basicFunc
 from widget import function_setting as funcS
-from widget.function_translate import TranslateText, TranslateAPI
+from widget.function_translate import TranslateText, TranslateAPI, GlossaryTable, TranslateProject
 
 logger = logging.getLogger("FanTools.TranslatePage")
 
@@ -199,6 +199,11 @@ class TranslatePage(QObject):
         return None
 
     def launchGlossary(self):
+        if not self.LineEdit_ImportProject.text():
+            IB.msgNotImportProject(self.widget)
+            logger.warning("未选择项目工程文件；已经阻止操作并警告。")
+            return None
+        self.Glossary.setProjectFile(self.LineEdit_ImportProject.text())
         logger.info("术语表窗口启动。")
         self.Glossary.show()
 
@@ -584,12 +589,13 @@ class TranslateMultiPage(TranslateWindow):
 
 
 class GlossaryWindow(TranslateWindow):
-    def __init__(self, parent=None):
+    def __init__(self, projectFile: str = None, parent=None):
         super().__init__(parent=parent)
         self.ui = TranslateGlossaryUi()
         self.ui.setupUi(self)
         self.setWindowTitle("术语表设置")
         self.logger = logging.getLogger("FanTools.TranslateGlossary")
+        self.projectFile = projectFile
 
         self.Page_Global = SingleDirectionScrollArea()
         self.Page_Global_Widget = QWidget()
@@ -607,6 +613,8 @@ class GlossaryWindow(TranslateWindow):
         TextEdit_Tip.setFixedHeight(200)
         TextEdit_Tip.setEnabled(False)
         self.Page_Global_Layout.addWidget(TextEdit_Tip)
+
+        self.ui.PrimaryPushButton_Save.clicked.connect(self.saveGlossaryTable)
 
         GlobalEnableGlossary = SwitchSettingCard(configItem=funcS.cfg.GlossaryEnable,
                                                  title="启用术语表",
@@ -628,6 +636,11 @@ class GlossaryWindow(TranslateWindow):
         self.ui.ListWidget.itemSelectionChanged.connect(lambda: self.changedBySelection(self.ui.ListWidget.currentRow() + 1))
 
         self.logger.debug("翻译术语表初始化完毕")
+
+    def setProjectFile(self, projectFile: str):
+        self.projectFile = projectFile
+        self.logger.debug(f"已经启动翻译工程文件 {self.projectFile} 的术语表。")
+        return None
 
     def changedBySelection(self, current):
         self.logger.debug(f"切换到 {current} 。")
@@ -655,6 +668,7 @@ class GlossaryWindow(TranslateWindow):
         table = GlossaryTableWidget(self)
 
         layout.addWidget(table)
+        self.APIDirectory["global"] = table
         self.addSubPage(page, "全局术语表")
 
     def addSubAPIPage(self, api: TranslateAPI.Api):
@@ -668,4 +682,11 @@ class GlossaryWindow(TranslateWindow):
 
         self.APIDirectory[api.name] = table
         self.addSubPage(page, api.displayName)
+
+    def saveGlossaryTable(self):
+        Table_Global: GlossaryTableWidget = self.APIDirectory["global"]
+        Glossary_Global = GlossaryTable(self.projectFile)
+        for i in range(Table_Global.rowCount()):
+            Glossary_Global.add(Table_Global.item(i, 0).text(), Table_Global.item(i, 1).text())
+        Glossary_Global.save(basicFunc.getHerePath() + "/file/testAAA.ft-translateGlossary.txt")
 
