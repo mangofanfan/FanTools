@@ -1,18 +1,15 @@
-from lib2to3.fixes.fix_input import context
+import logging
 
 from PySide2 import QtCore
-from adodbapi import connect
-from qfluentwidgets import ComboBoxSettingCard, ColorSettingCard, SettingCardGroup, SwitchSettingCard, ExpandGroupSettingCard, LineEdit, \
-    PasswordLineEdit, VBoxLayout, TitleLabel, BodyLabel, SingleDirectionScrollArea, ExpandLayout, qconfig
-from qfluentwidgets import Theme, setTheme, ThemeColor, setThemeColor
-from qfluentwidgets import FluentIcon as FIC
-from PySide2.QtGui import Qt
 from PySide2.QtWidgets import QWidget, QSpacerItem, QSizePolicy, QHBoxLayout, QFrame
+from qfluentwidgets import ComboBoxSettingCard, ColorSettingCard, SettingCardGroup, SwitchSettingCard, \
+    ExpandGroupSettingCard, LineEdit, \
+    PasswordLineEdit, VBoxLayout, TitleLabel, BodyLabel, SingleDirectionScrollArea, qconfig
+from qfluentwidgets import FluentIcon as FIC
+from qfluentwidgets import Theme, setTheme, setThemeColor
 
 import widget.function_setting as funcS
 from widget.function import PIC
-
-import logging
 
 logger = logging.getLogger("FanTools.ConfigPage")
 

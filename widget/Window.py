@@ -1,8 +1,10 @@
 import logging
 
 from PySide2.QtCore import Signal
-from PySide2.QtWidgets import QDesktopWidget
-from qfluentwidgets import MessageBox
+from PySide2.QtGui import QCursor
+from PySide2.QtWidgets import QDesktopWidget, QTableWidgetItem, QHeaderView
+from qfluentwidgets import MessageBox, TableWidget, RoundMenu, Action
+from qfluentwidgets import FluentIcon as FIC
 
 from widget.WindowBase import *
 from widget import function_setting as funcS
@@ -119,3 +121,34 @@ class TranslateWindow(BackgroundAnimationWidget, FramelessWindow):
             self.windowEffect.setMicaEffect(self.winId(), isDarkTheme())
         if self.isAcrylicEffectEnabled():
             self.windowEffect.setAcrylicEffect(self.winId(), self.getBackgroundColor(True))
+
+
+class GlossaryTableWidget(TableWidget):
+    def __init__(self, parent):
+        super().__init__(parent=parent)
+
+        # 右键菜单设置
+        self.RightMenu = RoundMenu()
+        self.RightMenu.addAction(Action(FIC.ADD, "增加新术语词条", triggered=self.addLine))
+        self.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.customContextMenuRequested.connect(self.RightClickMenu)
+
+        # 表格外观设置
+        self.setBorderVisible(True)
+        self.setBorderRadius(8)
+        self.setWordWrap(True)
+        self.setColumnCount(2)
+        header_1 = QTableWidgetItem()
+        header_1.setText("原文本")
+        header_2 = QTableWidgetItem()
+        header_2.setText("翻译文本")
+        self.setHorizontalHeaderItem(0, header_1)
+        self.setHorizontalHeaderItem(1, header_2)
+        self.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+
+    def addLine(self):
+        self.insertRow(self.rowCount())
+
+    def RightClickMenu(self):
+        self.RightMenu.popup(QCursor.pos())
+

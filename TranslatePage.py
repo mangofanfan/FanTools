@@ -3,7 +3,7 @@ import logging
 from PySide2 import QtCore
 from PySide2.QtCore import QObject, Signal, QThread
 from PySide2.QtWidgets import QWidget, QSpacerItem, QSizePolicy, QHBoxLayout, QVBoxLayout, QButtonGroup, QApplication, \
-    QFrame, QListWidgetItem, QListWidget
+    QFrame, QListWidgetItem, QTableWidgetItem, QHeaderView
 from qfluentwidgets import FluentIcon as FIC, RadioButton, ToolTipFilter, TableWidget, TextEdit, SwitchSettingCard
 from qfluentwidgets import VBoxLayout, PushButton, RoundMenu, Action, TitleLabel, BodyLabel, SingleDirectionScrollArea, \
     HeaderCardWidget, LineEdit, StrongBodyLabel
@@ -16,9 +16,9 @@ from widget.TranslateGlossary import Ui_Form as TranslateGlossaryUi
 from widget.TranslateMultiPage import Ui_Form as TranslateMultiPageUi
 from widget.TranslateTextCard import Card as TranslateTextCard
 from widget.TranslateToolPage import Ui_Form as TranslateToolPageUi
-from widget.Window import TranslateWindow
+from widget.Window import TranslateWindow, GlossaryTableWidget
 from widget.function import basicFunc
-from widget.function_setting import cfg
+from widget import function_setting as funcS
 from widget.function_translate import TranslateText, TranslateAPI
 
 logger = logging.getLogger("FanTools.TranslatePage")
@@ -600,17 +600,24 @@ class GlossaryWindow(TranslateWindow):
 
         self.ListItemGlobal = None
 
+        self.APIDirectory = {}
+
         TextEdit_Tip = TextEdit()
         TextEdit_Tip.setMarkdown(basicFunc.readFile("data/glossary_tip.md"))
+        TextEdit_Tip.setFixedHeight(200)
+        TextEdit_Tip.setEnabled(False)
         self.Page_Global_Layout.addWidget(TextEdit_Tip)
 
-        GlobalEnableGlossary = SwitchSettingCard(configItem=cfg.GlossaryEnable,
+        GlobalEnableGlossary = SwitchSettingCard(configItem=funcS.cfg.GlossaryEnable,
                                                  title="启用术语表",
                                                  content="全局启用术语表，在各翻译工具中均支持。也可以在工具箱设置中设置本项目。",
                                                  icon=FIC.ERASE_TOOL)
         self.Page_Global_Layout.addWidget(GlobalEnableGlossary)
 
-        self.addSubPage(self.Page_Global, "全局设置")
+        self.addSubPage(self.Page_Global, "术语表设置")
+
+        self.addSecondPage()
+
         self.ui.PopUpAniStackedWidget.setCurrentWidget(self.Page_Global)
         self.ui.PopUpAniStackedWidget.setMinimumSize(800, 600)
         self.centerWindow()
@@ -634,13 +641,31 @@ class GlossaryWindow(TranslateWindow):
             self.ListItemGlobal = item
         return None
 
-    def addSubAPIPage(self, api: TranslateAPI.Api):
-        table = TableWidget(self)
+    def addSecondPage(self):
+        page = QWidget()
+        layout = QVBoxLayout()
+        page.setLayout(layout)
 
-        table.setBorderVisible(True)
-        table.setBorderRadius(8)
-        table.setWordWrap(True)
-        table.setRowCount(3)
-        table.setColumnCount(2)
-        self.addSubPage(table, api.displayName)
+        TextEdit_GlobalGlossary = TextEdit()
+        TextEdit_GlobalGlossary.setMarkdown(basicFunc.readFile("data/glossary_global_tip.md"))
+        TextEdit_GlobalGlossary.setFixedHeight(50)
+        TextEdit_GlobalGlossary.setEnabled(False)
+        layout.addWidget(TextEdit_GlobalGlossary)
+
+        table = GlossaryTableWidget(self)
+
+        layout.addWidget(table)
+        self.addSubPage(page, "全局术语表")
+
+    def addSubAPIPage(self, api: TranslateAPI.Api):
+        page = QWidget()
+        layout = QVBoxLayout()
+        page.setLayout(layout)
+
+        table = GlossaryTableWidget(self)
+
+        layout.addWidget(table)
+
+        self.APIDirectory[api.name] = table
+        self.addSubPage(page, api.displayName)
 

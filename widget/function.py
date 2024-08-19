@@ -1,6 +1,5 @@
 from os import getcwd
 
-from PySide2.QtGui import QIcon
 from PySide2.QtWidgets import QFileDialog
 
 
