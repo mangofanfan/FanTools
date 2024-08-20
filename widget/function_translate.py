@@ -139,6 +139,7 @@ class TranslateProject:
         :param file: 文件保存路径
         :return: None
         """
+        self.projectFile: str
         if fileType == FileType.JSON:
             result = {}
             for text in self.textList:
@@ -147,13 +148,13 @@ class TranslateProject:
                     result[text.originalText] = text.translatedText
                 else:
                     result[text.originalText] = ""
-            with open(r"C:\Users\mango\Downloads\Noxcrew-Terra_Swoop_Force_ResourcePack_v1.1.0_Java\en_us.json", "r") as f:
+            with open(file=self.projectFile.replace("ft-translateProject.txt", f"ft-originalFile.{fileType.name}"), mode="r") as f:
                 data: dict = json.load(f)
             for i in data.keys():
                 for r in result.keys():
                     if data[i] == r:
                         data[i] = result[r]
-            temp = json.dumps(data, ensure_ascii=False)
+            temp = json.dumps(data, ensure_ascii=False, indent=4)
             basicFunc.saveFile(file, temp)
             return None
 

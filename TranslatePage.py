@@ -3,7 +3,7 @@ from functools import partial
 from pathlib import Path
 
 from PySide2 import QtCore
-from PySide2.QtCore import QObject, Signal, QThread
+from PySide2.QtCore import QObject, Signal, QThread, QSize
 from PySide2.QtGui import QCursor
 from PySide2.QtWidgets import QWidget, QSpacerItem, QSizePolicy, QHBoxLayout, QVBoxLayout, QButtonGroup, QApplication, \
     QFrame, QListWidgetItem, QTableWidgetItem
@@ -314,7 +314,7 @@ class TranslateToolPage(TranslateWindow):
         ButtonMenu_Quick = RoundMenu(parent=self.ui.SplitPushButton)
         ButtonMenu_Quick.addAction(
             Action(icon=FIC.PLAY, text="从最靠前的未翻译词条开始", triggered=lambda: self.continueLastText()))
-        ButtonMenu_Quick.addAction(Action(icon=FIC.ZOOM_OUT, text="格式化并导出翻译文本",
+        ButtonMenu_Quick.addAction(Action(icon=FIC.ZOOM_OUT, text="导出翻译文本",
                                           triggered=lambda: self.project.dumpProject(funcT.FileType.JSON,
                                                                                      "output.json")))
         self.ui.SplitPushButton.setFlyout(ButtonMenu_Quick)
@@ -774,9 +774,11 @@ class CreateProjectWindow(TranslateWindow):
         self.ui = TranslateCreateProjectUi()
         self.ui.setupUi(self)
         self.setResizeEnabled(False)
+        self.setFixedSize(QSize(600, 600))
         self.titleBar.maxBtn.hide()
         self.titleBar.setDoubleClickEnabled(False)
         self.setWindowTitle("创建翻译项目")
+        self.update()
 
         self.history = history
         self.logger = logging.getLogger("FanTools.TranslateCreateProjectWindow")
