@@ -21,9 +21,28 @@ class TranslateTag:
     repeat = "重复词条复制"
 
 
-class FileType:
-    JSON = "json"
+def readJson(file: str):
+    with open(file, mode="r") as f:
+        data: dict = json.load(f)
+    return list(data.values())
 
+
+class FileType:
+
+    class Suffix:
+        def __init__(self, name: str, readFunc: staticmethod):
+            self.name = name.lower()
+            self.readFunc = readFunc
+
+    @staticmethod
+    def checkFileType(fileType: Suffix, filePath: str):
+        path = Path(filePath)
+        if path.suffix != fileType.name:
+            return False
+        else:
+            return True
+
+    JSON = Suffix("json", readJson)
 
 class TranslateText:
     def __init__(self, originalText: str = None, translatedText: str = None, translateTag: str = None, id: int = None):
@@ -37,29 +56,54 @@ class TranslateText:
 
 
 class TranslateProject:
+    """
+    翻译项目类
+    """
     def __init__(self):
         self.textList = []
         self.n = 0
-        self.file = None
+        self.projectFile = None
+        self.name = None
 
-    def startProject(self, mode: staticmethod, file: str):
+    def startProject(self, fileType: FileType.Suffix, file: str, name: str):
+        """
+        创建一个新的翻译工程项目。
+        :param fileType:
+        :param file: 源语言文件路径。
+        :param name: 翻译工程文件的保存名前缀。
+        :return:
+        """
         if self.textList:
             logger.error("将要启动的 TranslateProject 中已经存在数据。")
             raise  # 如果已经有翻译数据则直接报错
-        self.file = file
-        result: list = mode(file)
+        result: list = fileType.readFunc(file)
         n = 0
         for text in result:
             text: str
             n += 1
             item = TranslateText(originalText=text, id=n)
             self.textList.append(item)
-        logger.info(f"启动了一个包含 {n} 个词条的翻译项目。（模式为 {mode} | 待翻译文件路径为 {file}）")
+        logger.info(f"启动了一个包含 {n} 个词条的翻译项目。（模式为 {fileType.name} | 待翻译文件路径为 {file}）")
         self.n = n
+
+        backupFile = basicFunc.getHerePath() + f"/file/{name}.ft-originalFile.{fileType.name}"
+        basicFunc.saveFile(backupFile, basicFunc.readFile(file, True), True)
+
+        self.projectFile = basicFunc.getHerePath() + f"/file/{name}.ft-translateProject.txt"
+        self.saveProject()
+
+        logger.debug(f"已经保存原语言文件的备份至程序目录：{backupFile}")
         return None
 
-    def loadProject(self, file: str):
-        tempList = basicFunc.readFile(file, True).split("\n")
+    def loadProject(self, projectFile: str = None):
+        """
+        根据项目工程文件加载项目。
+        :param projectFile: 项目工程文件路径。
+        :return: None
+        """
+        if not self.projectFile:
+            self.projectFile = projectFile
+        tempList = basicFunc.readFile(self.projectFile, True).split("\n")
         n = 0
         for item in tempList:
             n += 1
@@ -68,11 +112,13 @@ class TranslateProject:
                               item.split("|!|")[2])
             t.id = n
             self.textList.append(t)
-        logger.info(f"加载了一个包含 {n} 个词条的翻译项目。（工程文件路径为 {file}）")
+        logger.info(f"加载了一个包含 {n} 个词条的翻译项目。（工程文件路径为 {self.projectFile}）")
         self.n = n
         return None
 
-    def saveProject(self, file: str):
+    def saveProject(self, projectFile: str = None):
+        if not self.projectFile:
+            self.projectFile = projectFile
         tempList = []
         n = 0
         for text in self.textList:
@@ -80,13 +126,19 @@ class TranslateProject:
             text: TranslateText
             tempList.append(text.print())
         temp = "\n".join(tempList)
-        basicFunc.saveFile(file, temp, True)
-        logger.info(f"保存了一个包含 {n} 个词条的翻译项目。（工程文件路径为{file}）")
+        basicFunc.saveFile(self.projectFile, temp, True)
+        logger.info(f"保存了一个包含 {n} 个词条的翻译项目。（工程文件路径为{self.projectFile}）")
         self.n = n
         return None
 
     # TODO 等待重写
-    def dumpProject(self, fileType: FileType, file: str):
+    def dumpProject(self, fileType: FileType.Suffix, file: str):
+        """
+        将已完成翻译的项目导出为正式的翻译语言文件。
+        :param fileType:
+        :param file: 文件保存路径
+        :return: None
+        """
         if fileType == FileType.JSON:
             result = {}
             for text in self.textList:
@@ -103,13 +155,7 @@ class TranslateProject:
                         data[i] = result[r]
             temp = json.dumps(data, ensure_ascii=False)
             basicFunc.saveFile(file, temp)
-
-
-# TODO 等待重写
-def readJson(file: str):
-    with open(file, mode="r") as f:
-        data: dict = json.load(f)
-    return list(data.values())
+            return None
 
 
 def fanyi_baidu(originalText: str, originalLan: str = "en", targetLan: str = "zh"):
@@ -218,6 +264,9 @@ class GlossaryTable:
     def __init__(self, projectFile: str, file: str = None):
         self.projectFile = projectFile
         self.file = file
+        if not self.file:
+            p = Path(self.projectFile)
+            self.file = p.parent.as_posix() + "/" + p.stem + ".txt"
         self.logger = logging.getLogger("FanTools.GlossaryTable")
         self.lineList = []
 
@@ -276,17 +325,24 @@ class history:
             self.historyList = f.readlines()
         return None
 
-    def add(self, path: str):
-        if path in self.historyList:
-            return None
-        self.historyList.insert(0, path)
+    def add(self, path: str, name: str = None):
+        for i in self.get():
+            if path == i[0]:
+                return None
+        if not name:
+            name = Path(path).stem
+        self.historyList.insert(0, f"{path}|!|{name}")
         self.save()
         return None
+
+    def get(self):
+            _list = []
+            for i in self.historyList:
+                i: str
+                _list.append([i.split("|!|")[0], i.split("|!|")[1]])
+            return _list
 
     def save(self):
         with open(file=self.path, mode="w") as f:
             f.write("\n".join(self.historyList))
         return None
-
-    def get(self):
-        return self.historyList

@@ -6,7 +6,8 @@ from PySide2.QtCore import QObject, Signal, QThread
 from PySide2.QtGui import QCursor
 from PySide2.QtWidgets import QWidget, QSpacerItem, QSizePolicy, QHBoxLayout, QVBoxLayout, QButtonGroup, QApplication, \
     QFrame, QListWidgetItem, QTableWidgetItem
-from qfluentwidgets import FluentIcon as FIC, RadioButton, ToolTipFilter, TextEdit, SwitchSettingCard, ToolButton
+from qfluentwidgets import FluentIcon as FIC, RadioButton, ToolTipFilter, TextEdit, SwitchSettingCard, ToolButton, \
+    MessageBox
 from qfluentwidgets import VBoxLayout, PushButton, RoundMenu, Action, TitleLabel, BodyLabel, SingleDirectionScrollArea, \
     HeaderCardWidget, LineEdit, StrongBodyLabel
 
@@ -19,6 +20,7 @@ from widget.TranslateGlossary import Ui_Form as TranslateGlossaryUi
 from widget.TranslateMultiPage import Ui_Form as TranslateMultiPageUi
 from widget.TranslateTextCard import Card as TranslateTextCard
 from widget.TranslateToolPage import Ui_Form as TranslateToolPageUi
+from widget.TranslateCreateProject import Ui_Form as TranslateCreateProjectUi
 from widget.Window import TranslateWindow, GlossaryTableWidget
 from widget.function import basicFunc
 
@@ -44,15 +46,17 @@ class TranslatePage(QObject):
         self.CardMulti = Card_Multi()
         self.CardGlossary = Card_Glossary()
 
-        self.Tool = TranslateToolPage()
-        self.Multi = TranslateMultiPage()
-        self.Glossary = GlossaryWindow()
-
         self.history = funcT.history()
         self.historyMenu = RoundMenu()
 
+        self.Tool = TranslateToolPage()
+        self.Multi = TranslateMultiPage()
+        self.Glossary = GlossaryWindow()
+        self.Create = CreateProjectWindow(self.history)
+
         self.Tool.glossarySignal.connect(self.launchGlossary)
         self.Multi.glossarySignal.connect(self.launchGlossary)
+        self.Create.newProjectSignal.connect(self.createProject)
 
         self.run()
         logger.debug("页面初始化完毕。")
@@ -79,11 +83,25 @@ class TranslatePage(QObject):
         self.CardStart_vBoxLayout = QVBoxLayout()
         self.CardStart.viewLayout.addLayout(self.CardStart_vBoxLayout)
 
+        StrongBodyLabel_CreateProject = StrongBodyLabel()
+        StrongBodyLabel_CreateProject.setText("创建翻译项目")
+        self.CardStart_vBoxLayout.addWidget(StrongBodyLabel_CreateProject)
+        BodyLabel_CreateProject = BodyLabel()
+        BodyLabel_CreateProject.setText("根据源语言文件创建新的翻译项目。")
+        self.CardStart_vBoxLayout.addWidget(BodyLabel_CreateProject)
+        self.PushButton_CreateProject = PushButton()
+        self.PushButton_CreateProject.setText("根据源语言文件创建项目")
+        self.PushButton_CreateProject.setFixedHeight(30)
+        self.PushButton_CreateProject.clicked.connect(self.launchCreate)
+        self.CardStart_vBoxLayout.addWidget(self.PushButton_CreateProject)
+
+        self.CardStart_vBoxLayout.addSpacing(20)
+
         StrongBodyLabel_ImportProject = StrongBodyLabel()
-        StrongBodyLabel_ImportProject.setText("导入翻译项目")
+        StrongBodyLabel_ImportProject.setText("加载翻译项目")
         self.CardStart_vBoxLayout.addWidget(StrongBodyLabel_ImportProject)
         BodyLabel_ImportProject = BodyLabel()
-        BodyLabel_ImportProject.setText("您需要先将待翻译的工程文件导入此处，才能启动翻译工具哦！")
+        BodyLabel_ImportProject.setText("您需要先将翻译工程文件导入此处，才能启动翻译工具哦！")
         self.CardStart_vBoxLayout.addWidget(BodyLabel_ImportProject)
 
         self.Layout_ImportProject = QHBoxLayout()
@@ -93,7 +111,7 @@ class TranslatePage(QObject):
         self.Layout_ImportProject.addWidget(self.LineEdit_ImportProject)
         self.PushButton_ImportProject = PushButton()
         self.PushButton_ImportProject.setFixedHeight(30)
-        self.PushButton_ImportProject.setFixedWidth(200)
+        self.PushButton_ImportProject.setFixedWidth(100)
         self.PushButton_ImportProject.setText("选择文件")
         self.PushButton_ImportProject.clicked.connect(self.chooseImportProject)
         self.Layout_ImportProject.addWidget(self.PushButton_ImportProject)
@@ -158,6 +176,12 @@ class TranslatePage(QObject):
         self.CardGlossary.button.clicked.connect(self.launchGlossary)
 
         self.layout.addSpacerItem(self.spacer)
+        return None
+
+    def createProject(self, project: funcT.TranslateProject, name: str):
+        self.history.add(project.projectFile, name)
+        self.LineEdit_ImportProject.setText(project.projectFile)
+        return None
 
     def chooseImportProject(self):
         logger.debug("按下按钮，打开翻译项目工程文件选择器。")
@@ -222,6 +246,10 @@ class TranslatePage(QObject):
         self.Glossary.show()
         return None
 
+    def launchCreate(self):
+        logger.info("创建翻译工程窗口启动。")
+        self.Create.show()
+
     def viewHistory(self):
         hList = self.history.get()
         self.historyMenu.clear()
@@ -229,7 +257,7 @@ class TranslatePage(QObject):
             self.historyMenu.addAction(Action(icon=FIC.CLOSE, text="还没有保存的历史记录……"))
         else:
             for h in hList:
-                self.historyMenu.addAction(Action(icon=FIC.PLAY, text=h, triggered=lambda: self.LineEdit_ImportProject.setText(h)))
+                self.historyMenu.addAction(Action(icon=FIC.PLAY, text=f"{h[1]}（{h[0]}）", triggered=lambda: self.LineEdit_ImportProject.setText(h[0])))
 
         self.historyMenu.popup(QCursor.pos())
 
@@ -615,13 +643,14 @@ class TranslateMultiPage(TranslateWindow):
 
 
 class GlossaryWindow(TranslateWindow):
-    def __init__(self, projectFile: str = None, parent=None):
+    def __init__(self, projectFile: str = None, name: str = None, parent=None):
         super().__init__(parent=parent)
         self.ui = TranslateGlossaryUi()
         self.ui.setupUi(self)
         self.setWindowTitle("术语表设置")
         self.logger = logging.getLogger("FanTools.TranslateGlossary")
         self.projectFile = projectFile
+        self.name = name
 
         self.Page_Global = SingleDirectionScrollArea()
         self.Page_Global_Widget = QWidget()
@@ -734,4 +763,80 @@ class GlossaryWindow(TranslateWindow):
         for i in range(Table_Global.rowCount()):
             Glossary_Global.add(Table_Global.item(i, 0).text(), Table_Global.item(i, 1).text())
         Glossary_Global.save()
+
+class CreateProjectWindow(TranslateWindow):
+    newProjectSignal = Signal(funcT.TranslateProject, str)
+
+    def __init__(self, history: funcT.history, parent=None):
+        super().__init__(parent=parent)
+        self.ui = TranslateCreateProjectUi()
+        self.ui.setupUi(self)
+        self.setResizeEnabled(False)
+        self.titleBar.maxBtn.hide()
+        self.titleBar.setDoubleClickEnabled(False)
+        self.setWindowTitle("创建翻译项目")
+
+        self.history = history
+        self.logger = logging.getLogger("FanTools.TranslateCreateProjectWindow")
+
+        self.ui.SimpleCardWidget_Json.clicked.connect(lambda: self.ui.PopUpAniStackedWidget.setCurrentIndex(0))
+        self.ui.SimpleCardWidget_Copy.clicked.connect(lambda: self.ui.PopUpAniStackedWidget.setCurrentIndex(1))
+
+        self.ui.PopUpAniStackedWidget.setCurrentIndex(0)
+
+        self.setUp()
+
+    def setUp(self):
+        self.ui.PlainTextEdit_Json_Example.setPlainText(basicFunc.readFile("/data/example/en_us.json"))
+        self.ui.PushButton_Json_ImportFile.clicked.connect(self.chooseImportJson)
+        self.ui.LineEdit_Json_ImportFile.setPlaceholderText("输入或从右侧按钮打开文件选择器……")
+        self.ui.PrimaryPushButton_Json_Create.clicked.connect(lambda: self.createProject(funcT.FileType.JSON, self.ui.LineEdit_Json_ImportFile.text()))
+
+    def chooseImportJson(self):
+        self.logger.debug("按下按钮，打开Json文件选择器。")
+        filePath, fileType = basicFunc.openFileDialog("请选择Json文件（*.json）",
+                                                      basedPath=basicFunc.getHerePath() + "/file",
+                                                      filter="*.json")
+        if not filePath or not fileType:
+            return None
+        self.logger.debug(f"用户选中下列文件作为Json导入：{filePath} | {fileType}")
+        self.ui.LineEdit_Json_ImportFile.setText(filePath)
+        return None
+
+    def createProject(self, fileType: funcT.FileType.Suffix, filePath: str):
+        def create():
+            name = w.LineEdit_InputProjectName.text()
+            if not name:
+                IB.msgNoInputName(self)
+                return None
+            for h in self.history.get():
+                if name == h[1]:
+                    IB.msgNameNotAllowed(self)
+                    return None
+            project = funcT.TranslateProject()
+            project.startProject(fileType, filePath, name)
+            self.newProjectSignal.emit(project, name)
+            w.close()
+            self.close()
+            return None
+
+        def cancel():
+            w.close()
+
+        w = MessageBox(title="为新的翻译项目取个名字吧！",
+                       content="您需要为此新翻译项目取个独一无二的名字，翻译工具会将其作为项目工程文件的前缀名。",
+                       parent=self)
+
+        w.LineEdit_InputProjectName = LineEdit()
+        w.LineEdit_InputProjectName.setPlaceholderText("请输入项目名称……")
+        w.textLayout.addWidget(w.LineEdit_InputProjectName)
+        w.yesButton.setText("确认创建项目")
+        w.yesSignal.connect(create)
+        w.cancelButton.setText("取消创建并返回")
+        w.cancelSignal.connect(cancel)
+
+        w.show()
+
+
+        return None
 

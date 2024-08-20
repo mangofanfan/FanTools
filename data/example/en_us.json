@@ -1,0 +1,14 @@
+{
+    "pack.name": "Terra Swoop Force RP",
+    "pack.description": "by Noxcrew",
+    "txt.sub.sc1.ln1": "<§bSasha§r> Oh welcome! Welcome!",
+    "txt.sub.sc1.ln2": "<§bSasha§r> We were expecting you almost half an hour ago, but being a tad late is far better than being melted to death and never showing up.",
+    "txt.sub.sc1.ln3": "<§bSasha§r> Am I right?",
+    "txt.sub.sc1.ln4": "<§bSasha§r> §o§7*giggles*§r",
+    "txt.sub.sc1.ln5": "<§bSasha§r> Okay, we are already running late, so you should probably §ahead upstairs to begin Alan's briefing on the mission.",
+    "txt.sub.sc1.ln6": "<§bSasha§r> Good luck!",
+    "txt.sub.sc1.ln7": "<§bSasha§r> Have fun!",
+    "txt.sub.sc1.ln8": "<§bSasha§r> See you soon!",
+    "txt.sub.sc1.ln9": "<§bSasha§r> Have a nice trip!",
+    "mount.onboard": "Tap %1$s to exit"
+}

@@ -13,7 +13,7 @@ class basicFunc:
         return p
 
     @staticmethod
-    def readFile(file: str, realPath: bool = False):
+    def readFile(file: str, realPath: bool = False) -> str:
         if realPath:
             with open(file=file, mode="r") as f:
                 r = f.read()

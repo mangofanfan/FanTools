@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="SmartInputSourcePythonSceneConfigState">
-    <option name="customChineseScenes" value="{&quot;capsLockState&quot;:false,&quot;code&quot;:&quot;context;error(self);info(msg,self);print(values);__init__(iconPath,text_1,text_2);setText(self);addSubPage(page);Action(kwargs);debug(self)&quot;,&quot;enable&quot;:true,&quot;languageType&quot;:&quot;CHINESE&quot;,&quot;name&quot;:&quot;自定义中文切换&quot;,&quot;tip&quot;:&quot;&quot;}" />
+    <option name="customChineseScenes" value="{&quot;capsLockState&quot;:false,&quot;code&quot;:&quot;context;error(self);info(msg,self);print(values);__init__(iconPath,text_1,text_2);setText(self);addSubPage(page);Action(kwargs);debug(self);setPlaceholderText(self)&quot;,&quot;enable&quot;:true,&quot;languageType&quot;:&quot;CHINESE&quot;,&quot;name&quot;:&quot;自定义中文切换&quot;,&quot;tip&quot;:&quot;&quot;}" />
   </component>
 </project>

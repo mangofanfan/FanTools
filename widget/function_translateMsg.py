@@ -93,3 +93,21 @@ def msgNoAPIChosen(self):
                     position=InfoBarPosition.TOP_RIGHT,
                     parent=self)
 
+def msgNoInputName(self):
+    InfoBar.error(title="未输入项目名称",
+                  content="您需要指定一个项目名称，该名称将作为项目工程文件的命名元素。\n"
+                          "再给你一次机会创建项目，记得输入名称哈。",
+                  isClosable=False,
+                  duration=4000,
+                  position=InfoBarPosition.BOTTOM_RIGHT,
+                  parent=self)
+
+def msgNameNotAllowed(self):
+    InfoBar.error(title="未输入有效项目名称",
+                  content="您需要指定一个有效项目名称，请重新输入。\n"
+                          "项目名中可能包含非法字符，或名称与已存在项目重复。",
+                  isClosable=False,
+                  duration=4000,
+                  position=InfoBarPosition.BOTTOM_RIGHT,
+                  parent=self)
+
