@@ -346,3 +346,8 @@ class history:
         with open(file=self.path, mode="w") as f:
             f.write("\n".join(self.historyList))
         return None
+
+    def clear(self):
+        self.historyList.clear()
+        self.save()
+        return None

@@ -95,7 +95,7 @@ def msgNoAPIChosen(self):
 
 def msgNoInputName(self):
     InfoBar.error(title="未输入项目名称",
-                  content="您需要指定一个项目名称，该名称将作为项目工程文件的命名元素。\n"
+                  content="您需要指定一个项目名称，刚刚您什么都没输入。\n"
                           "再给你一次机会创建项目，记得输入名称哈。",
                   isClosable=False,
                   duration=4000,

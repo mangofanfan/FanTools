@@ -1,4 +1,5 @@
 import logging
+from functools import partial
 from pathlib import Path
 
 from PySide2 import QtCore
@@ -257,7 +258,8 @@ class TranslatePage(QObject):
             self.historyMenu.addAction(Action(icon=FIC.CLOSE, text="还没有保存的历史记录……"))
         else:
             for h in hList:
-                self.historyMenu.addAction(Action(icon=FIC.PLAY, text=f"{h[1]}（{h[0]}）", triggered=lambda: self.LineEdit_ImportProject.setText(h[0])))
+                self.historyMenu.addAction(Action(icon=FIC.PLAY, text=f"{h[1]} - {h[0]}", triggered=partial(self.LineEdit_ImportProject.setText, h[0])))
+            self.historyMenu.addAction(Action(icon=FIC.DELETE, text="清空历史记录", triggered=self.history.clear))
 
         self.historyMenu.popup(QCursor.pos())
 
