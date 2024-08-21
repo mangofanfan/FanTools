@@ -457,6 +457,11 @@ class TranslateToolPage(TranslateWindow):
             self.logger.debug("AT 线程已退出。")
         return None
 
+    def closeEvent(self, event):
+        self.project = funcT.TranslateProject()
+        self.logger.info("关闭翻译器窗口，卸载翻译项目。")
+        event.accept()
+
 
 class Worker_AutoTranslate(QObject):
     targetIdSignal = Signal(int)
@@ -523,6 +528,16 @@ class TranslateMultiPage(TranslateWindow):
         self.ui.SingleDirectionScrollArea.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
         self.ui.SingleDirectionScrollArea.setWidget(self.List)
         self.ui.SingleDirectionScrollArea.setWidgetResizable(True)
+
+        self.ui.SplitPushButton.setFixedHeight(30)
+        self.ui.SplitPushButton.button.setFixedHeight(30)
+        self.ui.ToolButton_Guide.setFixedHeight(30)
+        self.ui.ToolButton_Guide.setIcon(FIC.HELP)
+
+        ButtonMenu_Quick = RoundMenu(parent=self.ui.SplitPushButton)
+        ButtonMenu_Quick.addAction(Action(icon=FIC.ZOOM_OUT, text="导出翻译语言文件",
+                                          triggered=lambda: self.project.dumpProject(funcT.FileType.JSON,"output.json")))
+        self.ui.SplitPushButton.setFlyout(ButtonMenu_Quick)
 
         self.ui.PushButton_PageBefore.clicked.connect(lambda: self.displayTextList(self.start - self.limit))
         self.ui.PushButton_PageAfter.clicked.connect(lambda: self.displayTextList(self.start + self.limit))
@@ -625,7 +640,6 @@ class TranslateMultiPage(TranslateWindow):
             if int(card.text.id) == id:
                 break
         if not card:
-            # TODO：消息条预备
             logger.error("未找到发送翻译信号的词条，这可能是程序内部存在的bug，请考虑将其提交给开发者！")
             return None
 
@@ -642,6 +656,11 @@ class TranslateMultiPage(TranslateWindow):
         card.updateText(targetText)
         logger.info(f"成功执行一次API翻译。（ID {id} | 原文 {originalText} | 译文 {targetText}）")
         return None
+
+    def closeEvent(self, event):
+        self.project = funcT.TranslateProject()
+        self.logger.info("关闭翻译器窗口，卸载翻译项目。")
+        event.accept()
 
 
 class GlossaryWindow(TranslateWindow):
@@ -719,7 +738,7 @@ class GlossaryWindow(TranslateWindow):
         return None
 
     def changedBySelection(self, current):
-        self.logger.debug(f"切换到 {current} 。")
+        self.logger.debug(f"术语表页面切换到 {current} 。")
         self.ui.PopUpAniStackedWidget.setCurrentIndex(current)
 
     def addSubPage(self, page: QWidget, name: str):
@@ -808,6 +827,8 @@ class CreateProjectWindow(TranslateWindow):
         return None
 
     def createProject(self, fileType: funcT.FileType.Suffix, filePath: str):
+        if not filePath:
+            return None
         def create():
             name = w.LineEdit_InputProjectName.text()
             if not name:
@@ -828,7 +849,10 @@ class CreateProjectWindow(TranslateWindow):
             w.close()
 
         w = MessageBox(title="为新的翻译项目取个名字吧！",
-                       content="您需要为此新翻译项目取个独一无二的名字，翻译工具会将其作为项目工程文件的前缀名。",
+                       content="您需要为此新翻译项目取个独一无二的名字，翻译工具会将其作为项目工程文件的前缀名。\n"
+                               "项目主工程文件：NAME.ft-translateProject.txt\n"
+                               "项目术语表文件：NAME.ft-translateGlossary.txt\n"
+                               "项目源语言文件：NAME.ft-originalFile.json/...",
                        parent=self)
 
         w.LineEdit_InputProjectName = LineEdit()

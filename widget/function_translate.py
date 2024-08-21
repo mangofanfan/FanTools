@@ -131,7 +131,6 @@ class TranslateProject:
         self.n = n
         return None
 
-    # TODO 等待重写
     def dumpProject(self, fileType: FileType.Suffix, file: str):
         """
         将已完成翻译的项目导出为正式的翻译语言文件。

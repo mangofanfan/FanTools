@@ -1,11 +1,17 @@
+from pathlib import Path
+
 from PySide2 import QtCore
+from PySide2.QtCore import QSize
 from PySide2.QtGui import Qt
-from PySide2.QtWidgets import QSpacerItem, QSizePolicy, QHBoxLayout, QFrame
+from PySide2.QtWidgets import QSpacerItem, QSizePolicy, QHBoxLayout, QFrame, QVBoxLayout
 from qfluentwidgets import MessageBox, VBoxLayout, PushButton, PrimaryPushButton, TitleLabel, BodyLabel, \
-    SingleDirectionScrollArea, ToolTipFilter
+    SingleDirectionScrollArea, ToolTipFilter, ImageLabel, FlipView, HorizontalFlipView, SimpleCardWidget, SubtitleLabel, \
+    DisplayLabel
 
 import webbrowser
 import logging
+
+from widget.function import basicFunc
 
 logger = logging.getLogger("FanTools.MainPage")
 
@@ -15,8 +21,6 @@ class MainPage:
         self.widget.setObjectName("MainPage")
         self.layout = VBoxLayout(self.widget)
         self.widget.setLayout(self.layout)
-        self.buttonLayout = QHBoxLayout()
-        self.spacer = QSpacerItem(20, 40, hData=QSizePolicy.Expanding, vData=QSizePolicy.Expanding)
 
         self.scrollArea = SingleDirectionScrollArea()
         self.scrollArea.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
@@ -26,13 +30,21 @@ class MainPage:
         self.run()
         logger.debug("页面初始化完毕。")
 
-    def addTextLine(self, text: str, labelType: str = "Body"):
-        if labelType == "Title":
+    def addTextLine(self, text: str, labelType: str = "Body", layout: QVBoxLayout = None):
+        if labelType == "Display":
+            label = DisplayLabel()
+        elif labelType == "Title":
             label = TitleLabel()
+        elif labelType == "Subtitle":
+            label = SubtitleLabel()
         else:
             label = BodyLabel()
         label.setText(text)
-        self.layout.addWidget(label)
+        label.setWordWrap(True)
+        if not layout:
+            self.layout.addWidget(label)
+        else:
+            layout.addWidget(label)
 
     def showMessageBox(self):
         w = MessageBox("支持作者🙏",
@@ -50,19 +62,58 @@ class MainPage:
             logger.info("在「芒果帆帆」消息框中打开了芒果的网站。")
 
     def run(self):
-        self.addTextLine("欢迎使用芒果工具箱（FanTools）！", "Title")
-        self.addTextLine("本工具箱中包含的功能可从程序左侧边栏快速访问~")
-        self.addTextLine("作者：芒果帆帆w🥭")
+        TitleLayout = QHBoxLayout()
+        self.layout.addLayout(TitleLayout)
+        self.addTextLine("芒果工具箱", "Display", TitleLayout)
+        self.addTextLine("FanTools v-0.0.0", "Title", TitleLayout)
+        TitleLayout.addStretch()
 
+        self.flipView = HorizontalFlipView()
+        # 按序读取所有图片
+        i = 1
+        while True:
+            fileName = basicFunc.getHerePath() + f"/data/image/myPicture ({i}).png"
+            if Path(fileName).exists():
+                self.flipView.addImage(fileName)
+                i += 1
+                continue
+            else:
+                logger.debug(f"加载了{i-1}张图片作为首页轮播图。")
+                break
+        self.flipView.setFixedHeight(162)
+        self.flipView.setItemSize(QSize(288, 162))
+        self.flipView.setItemAlignment(Qt.AlignCenter)
+        self.flipView.setBorderRadius(10)
+        self.layout.addWidget(self.flipView)
+
+        CardViewLayout = QHBoxLayout()
+        Card_Version = SimpleCardWidget()
+        Card_Version_Layout = QVBoxLayout()
+        Card_Version.setLayout(Card_Version_Layout)
+        self.addTextLine("技术信息", "Subtitle", Card_Version_Layout)
+        self.addTextLine("目前版本：0.0.0 早期技术验证", layout=Card_Version_Layout)
+        self.addTextLine("现在不保证任何意义上的稳定性与实用性。", layout=Card_Version_Layout)
+        CardViewLayout.addWidget(Card_Version)
+        Card_Author = SimpleCardWidget()
+        Card_Author_Layout = QVBoxLayout()
+        Card_Author.setLayout(Card_Author_Layout)
+        self.addTextLine("作者信息", "Subtitle", Card_Author_Layout)
+        self.addTextLine("芒果帆帆w🥭", layout=Card_Author_Layout)
+        buttonLayout = QHBoxLayout()
         pushButton_about = PushButton()
         pushButton_about.setText("关于本程序")
         pushButton_about.clicked.connect(self.showMessageBox)
-        self.buttonLayout.addWidget(pushButton_about, alignment=Qt.AlignLeft)
+        buttonLayout.addWidget(pushButton_about, alignment=Qt.AlignLeft)
         pushButton_author = PrimaryPushButton()
         pushButton_author.setText("关于芒果帆帆")
         pushButton_author.clicked.connect(lambda: webbrowser.open("https://mangofanfan.cn/"))
-        self.buttonLayout.addWidget(pushButton_author, alignment=Qt.AlignLeft)
-        self.layout.addLayout(self.buttonLayout)
+        buttonLayout.addWidget(pushButton_author, alignment=Qt.AlignLeft)
+        buttonLayout.addStretch()
+        Card_Author_Layout.addLayout(buttonLayout)
+        CardViewLayout.addWidget(Card_Author)
+        CardViewLayout.setStretch(0, 1)
+        CardViewLayout.setStretch(1, 1)
+        self.layout.addLayout(CardViewLayout)
 
-        self.layout.addSpacerItem(self.spacer)
+        self.layout.addStretch()
 

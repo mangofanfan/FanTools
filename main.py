@@ -57,7 +57,8 @@ logger.debug("各前置模块加载完毕，开始实现窗口。")
 class Main:
     def __init__(self):
         self.mainWindow = MainWindow()
-        self.mainWindow.setMinimumSize(QC.QSize(900, 700))
+        self.mainWindow.setMinimumSize(QC.QSize(500, 400))
+        self.mainWindow.resize(QC.QSize(900, 700))
         self.mainWindow.setWindowTitle("🥭 芒果工具箱 🥭 FanTools  🥭")
         self.mainWindow.setWindowIcon(QIcon(basicFunc.getHerePath() + "\\data\\two_mango_es.png"))
         self.mainWindow.centerWindow()
@@ -131,6 +132,7 @@ if __name__ == "__main__":
         logger.debug("加载结束，开始事件循环。")
         returnCode = app.exec_()
         logger.debug("事件循环已经结束，准备终止程序。")
+        logger.info("工具箱运行已退出，芒果帆帆感谢您的使用。😆")
         sys.exit(returnCode)
     except Exception as e:
         def closeWindowAndLog():
