@@ -55,3 +55,49 @@
 **没错！我们需要把`range`得到的列表倒序翻转一下，相当于从最后一行向前枚举！** 这是由于如果从前往后枚举，比如我们删除了空的第一行，那么下一步我们枚举得到的第二行则是原表格的第三行，原表格的第二行现在成为了第一行，我们就把这一行跳过了。
 
 嗯，就酱。
+
+## lambda: 与 partial()
+
+如何在为信号绑定函数、为Action绑定triggered函数的同时传递参数呢？我们拥有lambda方法来创建一个零碎函数。这里我们不深究lambda关键字究竟是如何运作的，只谈使用lambda时可能会遇到的一个典型问题，以下是问题复现：
+
+我们有一个列表`hList`，其中的每一个对象`h`都有`h.name`和`h.apiFunc`两个属性，我们需要实现为每一个`h`创建一个Action，然后把Action添加到窗口的右键弹出菜单中。
+
+<code-block lang="python">
+for h in hList:
+    RightClickMenu.addAction(Action(icon=FIC.ADD, text=h.name, triggered=h.apiFunc(a=..., b=...)))
+</code-block>
+
+如此写是不可以的，因为在绑定函数中传参的话，我们需要使用lambda关键字来创建临时函数，本意就是说triggered绑定的函数是不可以写成函数调用的形式，只能写成函数名称（就是不能带括号`()`否则就是调用形式），而为了传参我们就必须写成调用形式。
+
+因此我们要写成下面形式：
+
+<code-block lang="python">
+for h in hList:
+    RightClickMenu.addAction(Action(icon=FIC.ADD, text=h.name, triggered=lambda: h.apiFunc(a=..., b=...)))
+</code-block>
+
+这样的写法等价于：
+
+<code-block lang="python">
+for h in hList:
+    RightClickMenu.addAction(Action(icon=FIC.ADD, text=h.name, triggered=tempFunc))
+def tempFunc(x=..., y=...):
+    h.apiFunc(a=x, b=y)
+</code-block>
+
+在`hList`中只有一个`h`时，这样写是完全没有问题的；但是当`hList`中的项目多起来后，问题开始显现。我们发现菜单中所有Action的显示文本都是正确的，但是点击每个Action时，调用的都是同一个`h`的`h.apiFunc`，而不是我们预想中的各自的`h.apiFunc`。
+
+这是lambda关键字的问题。lambda的临时函数会缓存每次创建的函数参数，这在我们创建按钮或信号的绑定函数时（`Signal.connect(lambda: func(a=..., b=...))`）并没有什么问题，因为按钮、信号重复的可能性是很小的。
+
+但一旦我们要在循环体中使用lambda，它的缓存机制就会导致临时函数只能记住最后一次传入的参数，从而导致所有在循环体中绑定的相同函数都共用了最后一次传入的参数。
+
+解决方案也很简单：
+* 惹不起就跑：不在循环体中的绑定函数中传参；
+* 更好的方案：使用`partial()`方法而不是lambda关键字传参。
+
+<code-block lang="python">
+for h in hList:
+    RightClickMenu.addAction(Action(icon=FIC.ADD, text=h.name, triggered=partial(h.apiFunc, (..., ...))))
+</code-block>
+
+如此，问题解决。原理我不知道别来问我，反正循环体里用`partial()`经过我测试是有效的，不信你去看我仓库代码（）
