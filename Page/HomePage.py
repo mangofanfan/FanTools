@@ -7,25 +7,28 @@ from PySide2.QtWidgets import QSpacerItem, QSizePolicy, QHBoxLayout, QFrame, QVB
 from qfluentwidgets import MessageBox, VBoxLayout, PushButton, PrimaryPushButton, TitleLabel, BodyLabel, \
     SingleDirectionScrollArea, ToolTipFilter, ImageLabel, FlipView, HorizontalFlipView, SimpleCardWidget, SubtitleLabel, \
     DisplayLabel
+from qfluentwidgets import FluentIcon as FIC
 
 import webbrowser
 import logging
 
-from widget.function import basicFunc
+from widget.SimpleCard import ToolCard
+from widget.function import basicFunc, PIC
 
-logger = logging.getLogger("FanTools.MainPage")
+logger = logging.getLogger("FanTools.HomePage")
 
-class MainPage:
+class HomePage:
+
     def __init__(self):
         self.widget = QFrame()
-        self.widget.setObjectName("MainPage")
+        self.widget.setObjectName("HomePage")
         self.layout = VBoxLayout(self.widget)
         self.widget.setLayout(self.layout)
 
         self.scrollArea = SingleDirectionScrollArea()
         self.scrollArea.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
         self.scrollArea.setWidget(self.widget)
-        self.scrollArea.setObjectName("MainPage")
+        self.scrollArea.setObjectName("HomePage")
         self.scrollArea.setWidgetResizable(True)
         self.run()
         logger.debug("页面初始化完毕。")
@@ -114,6 +117,15 @@ class MainPage:
         CardViewLayout.setStretch(0, 1)
         CardViewLayout.setStretch(1, 1)
         self.layout.addLayout(CardViewLayout)
+
+        CardToolLayout = QHBoxLayout()
+        self.ToolCard_Download = ToolCard(PIC.IconDownload, "下载工具", "基于 Aria2c 的简易下载器")
+        self.ToolCard_Hash = ToolCard(PIC.IconHash, "文件工具", "文件哈希值校验与多种工具")
+        self.ToolCard_Translate = ToolCard(PIC.IconTranslate, "翻译工具", "基于文本的自研简陋翻译器")
+        CardToolLayout.addWidget(self.ToolCard_Download)
+        CardToolLayout.addWidget(self.ToolCard_Hash)
+        CardToolLayout.addWidget(self.ToolCard_Translate)
+        self.layout.addLayout(CardToolLayout)
 
         self.layout.addStretch()
 

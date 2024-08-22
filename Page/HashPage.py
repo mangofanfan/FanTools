@@ -40,7 +40,7 @@ class HashPage:
     def run(self):
         self.addTextLine("哈希值校验工具", "Title")
         textEdit_tip = TextEdit(self.widget)
-        textEdit_tip.setMarkdown(basicFunc.readFile("data\\hash_tip.md"))
+        textEdit_tip.setMarkdown(basicFunc.readFile("/data/hash_tip.md"))
         textEdit_tip.setEnabled(False)
         textEdit_tip.setMinimumHeight(120)
         self.layout.addWidget(textEdit_tip)

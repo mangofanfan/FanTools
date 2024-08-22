@@ -73,18 +73,20 @@ class Main:
         self.mainWindow.closeWindow.connect(self.closeWindow)
 
     def addSubWindow(self):
-        from MainPage import MainPage
-        from DownloadPage import DownloadPage
-        from HashPage import HashPage
-        from TranslatePage import TranslatePage
-        from ConfigPage import ConfigPage
-        self.window_MainPage = MainPage()
+        from Page.HomePage import HomePage
+        from Page.DownloadPage import DownloadPage
+        from Page.HashPage import HashPage
+        from Page.TranslatePage import TranslatePage
+        from Page.ConfigPage import ConfigPage
+        from Page.AboutPage import AboutPage
+        self.window_HomePage = HomePage()
         self.window_DownloadPage = DownloadPage()
         self.window_HashPage = HashPage()
         self.window_TranslatePage = TranslatePage()
         self.window_ConfigPage = ConfigPage()
+        self.window_AboutPage = AboutPage()
 
-        self.mainWindow.addSubInterface(interface=self.window_MainPage.scrollArea,
+        self.mainWindow.addSubInterface(interface=self.window_HomePage.scrollArea,
                                         icon=FIC.HOME,
                                         text="主页")
         self.mainWindow.navigationInterface.addSeparator(position=NavigationItemPosition.TOP)
@@ -102,6 +104,18 @@ class Main:
                                         icon=FIC.SETTING,
                                         position=NavigationItemPosition.BOTTOM,
                                         text="设置")
+        self.mainWindow.addSubInterface(interface=self.window_AboutPage.scrollArea,
+                                        icon=FIC.DEVELOPER_TOOLS,
+                                        position=NavigationItemPosition.BOTTOM,
+                                        text="关于芒果工具箱")
+
+        self.window_HomePage.ToolCard_Download.clicked.connect(
+            lambda: self.mainWindow.switchTo(self.window_DownloadPage.scrollArea))
+        self.window_HomePage.ToolCard_Hash.clicked.connect(
+            lambda: self.mainWindow.switchTo(self.window_HashPage.scrollArea))
+        self.window_HomePage.ToolCard_Translate.clicked.connect(
+            lambda: self.mainWindow.switchTo(self.window_TranslatePage.scrollArea))
+
         logger.debug("窗口子页面全部添加。")
 
     def run(self):
@@ -110,12 +124,12 @@ class Main:
         logger.info("启动页面隐藏，窗口已经实现。")
 
     def closeWindow(self):
-        self.window_MainPage.scrollArea.destroy()
+        self.window_HomePage.scrollArea.destroy()
         self.window_DownloadPage.scrollArea.destroy()
         self.window_HashPage.scrollArea.destroy()
         self.window_TranslatePage.scrollArea.destroy()
         self.window_ConfigPage.scrollArea.destroy()
-        del self.window_MainPage
+        del self.window_HomePage
         del self.window_DownloadPage
         del self.window_HashPage
         del self.window_TranslatePage

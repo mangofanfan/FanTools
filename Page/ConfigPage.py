@@ -1,10 +1,10 @@
 import logging
 
 from PySide2 import QtCore
-from PySide2.QtWidgets import QWidget, QSpacerItem, QSizePolicy, QHBoxLayout, QFrame
+from PySide2.QtWidgets import QWidget, QHBoxLayout, QFrame
 from qfluentwidgets import ComboBoxSettingCard, ColorSettingCard, SettingCardGroup, SwitchSettingCard, \
     ExpandGroupSettingCard, LineEdit, \
-    PasswordLineEdit, VBoxLayout, TitleLabel, BodyLabel, SingleDirectionScrollArea, qconfig
+    PasswordLineEdit, VBoxLayout, TitleLabel, BodyLabel, SingleDirectionScrollArea, qconfig, ToolTipFilter
 from qfluentwidgets import FluentIcon as FIC
 from qfluentwidgets import Theme, setTheme, setThemeColor
 
@@ -20,7 +20,6 @@ class ConfigPage:
         self.widget.setObjectName("ConfigPage")
         self.layout = VBoxLayout(self.widget)
         self.widget.setLayout(self.layout)
-        self.spacer = QSpacerItem(20, 200, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
         self.scrollArea = SingleDirectionScrollArea()
         self.scrollArea.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
@@ -60,7 +59,7 @@ class ConfigPage:
                                                 enableAlpha=False)
         self.CardGroup_Theme.addSettingCard(self.Card_ThemeColor)
         funcS.cfg.ThemeColor.valueChanged.connect(self.themeColorChange)
-        self.Card_WindowAcrylicEnable = SwitchSettingCard(title="启用亚克力效果（重启后生效，需要先启用云母效果）",
+        self.Card_WindowAcrylicEnable = SwitchSettingCard(title="启用亚克力效果（重启程序后生效，不稳定）",
                                                           content="为工具箱的所有窗口启用亚克力效果（实时计算的半透明虚化窗口背景，深色模式显示可能存在异常）",
                                                           configItem=funcS.cfg.WindowAcrylicEnable,
                                                           icon=FIC.FIT_PAGE)
@@ -83,6 +82,9 @@ class ConfigPage:
                                             title="启用代理服务",
                                             content="在通过request调用外部API时添加代理配置。",
                                             configItem=funcS.cfg.ProxyEnable)
+        self.Card_Proxy.setToolTip("如果明明已经联网，程序在调用 Web API 时却屡屡无法成功，您可能需要开启此项。\n"
+                                           "若为本机代理，只需要修改冒号后的端口号即可。")
+        self.Card_Proxy.installEventFilter(ToolTipFilter(self.Card_Proxy))
         self.CardGroup_Function.addSettingCard(self.Card_Proxy)
         self.ExpandCard_Proxy = ExpandGroupSettingCard(FIC.AIRPLANE,
                                                        "代理服务设置",
@@ -109,10 +111,10 @@ class ConfigPage:
         self.CardGroup_API = SettingCardGroup("API 设置", self.widget)
         self.layout.addWidget(self.CardGroup_API)
 
-        self.ExpandCard_fanyi_baidu = ExpandGroupSettingCard(icon=PIC.BaiDu,
-                                                            title="百度通用文本翻译API",
-                                                            content="设置「百度通用文本翻译」的API参数以调用。",
-                                                            parent=self.widget)
+        self.ExpandCard_fanyi_baidu = ExpandGroupSettingCard(icon=PIC.IconBaiDu,
+                                                             title="百度通用文本翻译API",
+                                                             content="设置「百度通用文本翻译」的API参数以调用。",
+                                                             parent=self.widget)
         self.CardGroup_API.addSettingCard(self.ExpandCard_fanyi_baidu)
 
         BodyLabel_fanyi_baidu_appid = BodyLabel()
@@ -133,10 +135,10 @@ class ConfigPage:
         LineEdit_fanyi_baidu_key.setText(qconfig.get(funcS.cfg.BaiduKey))
         self.ExpandCard_fanyi_baidu.addGroupWidget(self.expandCardAddWidget(BodyLabel_fanyi_baidu_key, LineEdit_fanyi_baidu_key))
 
-        self.ExpandCard_fanyi_youdao = ExpandGroupSettingCard(icon=PIC.YouDao,
-                                                             title="有道文本翻译API",
-                                                             content="设置「有道文本翻译」的API参数以调用。",
-                                                             parent=self.widget)
+        self.ExpandCard_fanyi_youdao = ExpandGroupSettingCard(icon=PIC.IconYouDao,
+                                                              title="有道文本翻译API",
+                                                              content="设置「有道文本翻译」的API参数以调用。",
+                                                              parent=self.widget)
         self.CardGroup_API.addSettingCard(self.ExpandCard_fanyi_youdao)
 
         BodyLabel_fanyi_youdao_appKey = BodyLabel()
@@ -158,8 +160,7 @@ class ConfigPage:
         LineEdit_fanyi_youdao_key.setText(qconfig.get(funcS.cfg.YoudaoKey))
         self.ExpandCard_fanyi_youdao.addGroupWidget(self.expandCardAddWidget(BodyLabel_fanyi_youdao_key, LineEdit_fanyi_youdao_key))
 
-        # 页面底部添加巨大空白
-        self.layout.addSpacerItem(self.spacer)
+        self.layout.addStretch()
 
     @staticmethod
     def expandCardAddWidget(label, widget):

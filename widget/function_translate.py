@@ -237,8 +237,8 @@ class TranslateAPI:
         def apiFunc(self):
             return self.apiFunc
 
-    BaiDu = Api(name="BaiDu", displayName="百度通用文本翻译API", icon=PIC.BaiDu, apiFunc=fanyi_baidu)
-    YouDao = Api(name="YouDao", displayName="有道文本翻译API",icon=PIC.YouDao, apiFunc=fanyi_youdao)
+    BaiDu = Api(name="BaiDu", displayName="百度通用文本翻译API", icon=PIC.IconBaiDu, apiFunc=fanyi_baidu)
+    YouDao = Api(name="YouDao", displayName="有道文本翻译API", icon=PIC.IconYouDao, apiFunc=fanyi_youdao)
 
     apiList = [BaiDu, YouDao]
 

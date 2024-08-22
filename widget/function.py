@@ -59,7 +59,21 @@ class basicFunc:
         return hex_string
 
 
+
+def _path(fileName: str):
+    return basicFunc.getHerePath() + f"/data/icon/Icon{fileName}"
+
+
 class PIC:
-    BaiDu = basicFunc.getHerePath() + "/data/baidu.png"
-    YouDao = basicFunc.getHerePath() + "/data/youdao.png"
+    IconBaiDu = _path("BaiDu.png")
+    IconYouDao = _path("YouDao.png")
+    IconDownload = _path("Download.png")
+    IconHash = _path("Hash.png")
+    IconTranslate = _path("Translate.png")
+
+    IconPython = _path("Python.svg")
+    IconQt = _path("Qt.png")
+    IconQFluentWidgets = _path("QFluentWidgets.png")
+    IconGitHub = _path("GitHub.svg")
+    IconWriterSide = _path("Writerside.svg")
 

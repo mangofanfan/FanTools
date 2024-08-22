@@ -685,7 +685,7 @@ class GlossaryWindow(TranslateWindow):
         self.APIDirectory = {}
 
         TextEdit_Tip = TextEdit()
-        TextEdit_Tip.setMarkdown(basicFunc.readFile("data/glossary_tip.md"))
+        TextEdit_Tip.setMarkdown(basicFunc.readFile("/data/glossary_tip.md"))
         TextEdit_Tip.setFixedHeight(200)
         TextEdit_Tip.setEnabled(False)
         self.Page_Global_Layout.addWidget(TextEdit_Tip)
@@ -755,7 +755,7 @@ class GlossaryWindow(TranslateWindow):
         page.setLayout(layout)
 
         TextEdit_GlobalGlossary = TextEdit()
-        TextEdit_GlobalGlossary.setMarkdown(basicFunc.readFile("data/glossary_global_tip.md"))
+        TextEdit_GlobalGlossary.setMarkdown(basicFunc.readFile("/data/glossary_global_tip.md"))
         TextEdit_GlobalGlossary.setFixedHeight(50)
         TextEdit_GlobalGlossary.setEnabled(False)
         layout.addWidget(TextEdit_GlobalGlossary)
