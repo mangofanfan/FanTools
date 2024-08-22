@@ -1,13 +1,14 @@
+import logging
+import subprocess
+
 from PySide2 import QtCore
-from PySide2.QtGui import Qt
-from PySide2.QtWidgets import QWidget, QLabel, QSpacerItem, QSizePolicy, QFrame
+from PySide2.QtCore import QObject, QThread, Signal
+from PySide2.QtWidgets import QFrame
 from PySide2.QtWidgets import QVBoxLayout as VBoxLayout
 from qfluentwidgets import TitleLabel, BodyLabel, SingleDirectionScrollArea, InfoBar, InfoBarPosition
 
 from widget.DownloadCard import Card as DownloadCard
-
-import webbrowser
-import logging
+from widget.function import basicFunc
 
 logger = logging.getLogger("FanTools.DownloadPage")
 
@@ -17,7 +18,6 @@ class DownloadPage:
         self.widget = QFrame()
         self.layout = VBoxLayout(self.widget)
         self.widget.setLayout(self.layout)
-        self.spacer = QSpacerItem(20, 400, QSizePolicy.Minimum, QSizePolicy.Expanding)
         self.downloadCard = DownloadCard(self.widget)
 
         self.scrollArea = SingleDirectionScrollArea()
@@ -35,7 +35,7 @@ class DownloadPage:
             label = BodyLabel()
         label.setText(text)
         label.setWordWrap(True)
-        self.layout.addWidget(label, 1)
+        self.layout.addWidget(label)
 
     def run(self):
         self.addTextLine("下载工具", labelType="Title")
@@ -44,16 +44,32 @@ class DownloadPage:
         self.addTextLine("提示：本工具仅支持单个文件下载，如有大量文件下载需求……我也不知道 TT 😱")
 
         self.layout.addWidget(self.downloadCard.widget)
+        self.downloadCard.PrimaryToolButton_Download.clicked.connect(lambda: self.downloadSingleFile(self.downloadCard.LineEdit_DownloadUrl.text(), self.downloadCard.LineEdit_SavePath.text()))
 
-        self.layout.addSpacerItem(self.spacer)
+        self.layout.addStretch()
 
-        self.tipMsg = InfoBar.warning(title="工具等待重构",
-                                      content="本工具正在等待大规模重构，已修复目前存在的种种问题。",
-                                      isClosable=False,
-                                      position=InfoBarPosition.TOP,
-                                      duration=-1,
-                                      parent=self.widget)
-        self.tipMsg.show()
+        return None
+
+    def downloadSingleFile(self, url: str, path: str):
+        Thread = QThread(self.widget)
+        Worker = Worker_SingleDownload(url, path)
+        Worker.moveToThread(Thread)
+        Thread.start()
+        Worker.run()
+        return None
+
+
+class Worker_SingleDownload(QObject):
+    def __init__(self, url: str, path: str):
+        super().__init__()
+        self.url = url
+        self.path = path
+
+    def run(self):
+        p = basicFunc.getAria2cPath()
+        command = f"{p} {self.url} --dir={self.path}"
+        result = subprocess.Popen(command)
+        return result
 
 
 

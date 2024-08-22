@@ -5,7 +5,7 @@ from pathlib import Path
 from PySide2 import QtCore
 from PySide2.QtCore import QObject, Signal, QThread, QSize
 from PySide2.QtGui import QCursor
-from PySide2.QtWidgets import QWidget, QSpacerItem, QSizePolicy, QHBoxLayout, QVBoxLayout, QButtonGroup, QApplication, \
+from PySide2.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QButtonGroup, QApplication, \
     QFrame, QListWidgetItem, QTableWidgetItem
 from qfluentwidgets import FluentIcon as FIC, RadioButton, ToolTipFilter, TextEdit, SwitchSettingCard, ToolButton, \
     MessageBox
@@ -17,11 +17,11 @@ import widget.function_translateMsg as IB
 from script.translate_rule import Rule
 from widget import function_setting as funcS
 from widget.TranslateButtonCard import Card_Single, Card_Multi, Card_Glossary
+from widget.TranslateCreateProject import Ui_Form as TranslateCreateProjectUi
 from widget.TranslateGlossary import Ui_Form as TranslateGlossaryUi
 from widget.TranslateMultiPage import Ui_Form as TranslateMultiPageUi
 from widget.TranslateTextCard import Card as TranslateTextCard
 from widget.TranslateToolPage import Ui_Form as TranslateToolPageUi
-from widget.TranslateCreateProject import Ui_Form as TranslateCreateProjectUi
 from widget.Window import TranslateWindow, GlossaryTableWidget
 from widget.function import basicFunc
 
@@ -35,7 +35,6 @@ class TranslatePage(QObject):
         self.widget = QFrame()
         self.layout = VBoxLayout(self.widget)
         self.widget.setLayout(self.layout)
-        self.spacer = QSpacerItem(20, 200, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
         self.scrollArea = SingleDirectionScrollArea()
         self.scrollArea.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
@@ -69,7 +68,7 @@ class TranslatePage(QObject):
             label = BodyLabel()
         label.setText(text)
         label.setWordWrap(True)
-        self.layout.addWidget(label, 1)
+        self.layout.addWidget(label)
 
     def run(self):
         self.addTextLine("翻译工具", "Title")
@@ -176,7 +175,7 @@ class TranslatePage(QObject):
         self.CardMulti.button.clicked.connect(self.launchMulti)
         self.CardGlossary.button.clicked.connect(self.launchGlossary)
 
-        self.layout.addSpacerItem(self.spacer)
+        self.layout.addStretch()
         return None
 
     def createProject(self, project: funcT.TranslateProject, name: str):
@@ -430,7 +429,7 @@ class TranslateToolPage(TranslateWindow):
             targetText = rule.reborn_rule(targetText)
             self.ui.TextEdit_API.setText(targetText)
             self.logger.info("完成一次API调用翻译。")
-
+        return None
 
     def autoTranslate(self, originalLan: str = "en", targetLan: str = "zh", apiFunc: staticmethod = funcT.fanyi_baidu):
         self.Thread_AT = QThread(self)
@@ -501,6 +500,7 @@ class Worker_AutoTranslate(QObject):
             self.logger.info(f"已完成一次自动翻译（{n}）。")
             sleep(1)
             n += 1
+        return None
 
 
 class TranslateMultiPage(TranslateWindow):
