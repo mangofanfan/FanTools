@@ -1,6 +1,6 @@
 from PySide2.QtWidgets import QVBoxLayout, QHBoxLayout
 from qfluentwidgets import FluentIcon as FIC
-from qfluentwidgets import CardWidget, BodyLabel, CaptionLabel, PushButton, ProgressBar, IconWidget
+from qfluentwidgets import CardWidget, BodyLabel, CaptionLabel, PushButton, IconWidget
 
 
 class baseCard:

@@ -13,7 +13,7 @@ from qfluentwidgets import VBoxLayout, PushButton, RoundMenu, Action, TitleLabel
     HeaderCardWidget, LineEdit, StrongBodyLabel
 
 import widget.function_translate as funcT
-import widget.function_translateMsg as IB
+from widget.function_message import TranslateIB as IB
 from script.translate_rule import Rule
 from widget import function_setting as funcS
 from widget.TranslateButtonCard import Card_Single, Card_Multi, Card_Glossary
