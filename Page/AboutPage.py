@@ -66,6 +66,7 @@ class AboutPage:
         ContributorCard = EndlessCard("鸣谢名单", "对芒果工具箱项目做出贡献的人们！")
         self.layout.addWidget(ContributorCard)
         ContributorCard.add("MangoFanFan_", "主要开发者与负责人", "https://mangofanfan.cn/")
+        ContributorCard.add("芒果的同学们", "每天被芒果摁着听他发牢骚（不我没有）")
 
         ModuleCard = EndlessCard("依赖项目", "芒果工具箱的今天还离不开下列项目提供的轮子！（下方卡片可以点击）")
         self.layout.addWidget(ModuleCard)
