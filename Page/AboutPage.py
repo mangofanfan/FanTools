@@ -3,8 +3,8 @@ from functools import partial
 
 from PySide2 import QtCore
 from PySide2.QtCore import QUrl
-from PySide2.QtGui import QDesktopServices
-from PySide2.QtWidgets import QFrame, QGridLayout
+from PySide2.QtGui import QDesktopServices, Qt
+from PySide2.QtWidgets import QFrame, QGridLayout, QWidget, QVBoxLayout, QBoxLayout
 from qfluentwidgets import VBoxLayout, TitleLabel, BodyLabel, SingleDirectionScrollArea, SubtitleLabel
 
 from widget.SimpleCard import LinkCard, ToolCard, EndlessCard
@@ -15,34 +15,43 @@ logger = logging.getLogger("FanTools.AboutPage")
 
 class AboutPage:
     def __init__(self):
+        self.bodyWidget = QWidget()
+        self.bodyWidget.setObjectName("AboutPage")
+        self._layout = QVBoxLayout()
+        self.bodyWidget.setLayout(self._layout)
+        self._layout.setContentsMargins(0, 5, 0, 0)
+
         self.widget = QFrame()
-        self.widget.setObjectName("AboutPage")
         self.layout = VBoxLayout(self.widget)
         self.widget.setLayout(self.layout)
 
         self.scrollArea = SingleDirectionScrollArea()
         self.scrollArea.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
         self.scrollArea.setWidget(self.widget)
-        self.scrollArea.setObjectName("AboutPage")
         self.scrollArea.setWidgetResizable(True)
+
+        self.addTextLine("关于芒果工具箱", "Title", self._layout)
+        self._layout.addWidget(self.scrollArea)
 
         self.run()
         logger.debug("页面初始化完毕。")
 
-    def addTextLine(self, text: str, labelType: str = "Body"):
+    def addTextLine(self, text: str, labelType: str = "Body", layout: QBoxLayout = None):
         if labelType == "Title":
             label = TitleLabel()
+            label.setAlignment(Qt.AlignCenter)
         elif labelType == "Subtitle":
             label = SubtitleLabel()
         else:
             label = BodyLabel()
         label.setText(text)
-        self.layout.addWidget(label)
+        if layout:
+            layout.addWidget(label)
+        else:
+            self.layout.addWidget(label)
         return None
 
     def run(self):
-        self.addTextLine("关于芒果工具箱", "Title")
-
         self.addTextLine("前置科技树", "Subtitle")
         self.layout.addWidget(LinkCard(PIC.IconPython, "Python", "我从小学到大（？）的高级语言", "https://www.python.org/", "官网"))
         self.layout.addWidget(LinkCard(PIC.IconQt, "PySide", "Qt库的Python版本，可以用Python创建高级的窗口应用程序", "https://www.qt.io/zh-cn/qt-for-python", "官网"))

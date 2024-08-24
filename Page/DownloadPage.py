@@ -4,7 +4,8 @@ import subprocess
 import aria2p
 from PySide2 import QtCore
 from PySide2.QtCore import QObject, QThread, Signal
-from PySide2.QtWidgets import QFrame
+from PySide2.QtGui import Qt
+from PySide2.QtWidgets import QFrame, QWidget, QVBoxLayout, QBoxLayout
 from PySide2.QtWidgets import QVBoxLayout as VBoxLayout
 from qfluentwidgets import TitleLabel, BodyLabel, SingleDirectionScrollArea, TextEdit, SubtitleLabel
 
@@ -12,13 +13,19 @@ from widget.DownloadCard import Aria2cManageCard, SingleDownloadCard, StatsCard
 from widget.function import basicFunc
 from widget.function_message import DownloadIB as IB
 from widget.function_download import Manager
+import widget.function_setting as funcS
 
 logger = logging.getLogger("FanTools.DownloadPage")
 
 
-# noinspection PyUnresolvedReferences
 class DownloadPage:
     def __init__(self):
+        self.bodyWidget = QWidget()
+        self.bodyWidget.setObjectName("DownloadPage")
+        self._layout = QVBoxLayout()
+        self.bodyWidget.setLayout(self._layout)
+        self._layout.setContentsMargins(0, 5, 0, 0)
+
         self.widget = QFrame()
         self.layout = VBoxLayout(self.widget)
         self.widget.setLayout(self.layout)
@@ -29,8 +36,11 @@ class DownloadPage:
         self.scrollArea = SingleDirectionScrollArea()
         self.scrollArea.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
         self.scrollArea.setWidget(self.widget)
-        self.scrollArea.setObjectName("DownloadPage")
         self.scrollArea.setWidgetResizable(True)
+
+        self.addTextLine("下载工具", "Title", self._layout)
+        self._layout.addWidget(self.scrollArea)
+
         self.run()
 
         self.manager = Manager()
@@ -40,19 +50,23 @@ class DownloadPage:
 
         logger.debug("页面初始化完毕。")
 
-    def addTextLine(self, text: str, labelType: str = "Body"):
+    def addTextLine(self, text: str, labelType: str = "Body", layout: QBoxLayout = None):
         if labelType == "Title":
             label = TitleLabel()
+            label.setAlignment(Qt.AlignCenter)
         elif labelType == "Subtitle":
             label = SubtitleLabel()
         else:
             label = BodyLabel()
         label.setText(text)
         label.setWordWrap(True)
-        self.layout.addWidget(label)
+        if layout:
+            layout.addWidget(label)
+        else:
+            self.layout.addWidget(label)
+        return None
 
     def run(self):
-        self.addTextLine("下载工具", labelType="Title")
         self.addTextLine("本工具将使用开源工具 aria2c 执行下载任务，aria2c 已经放置在程序目录中。")
         self.addTextLine("在下方粘贴待下载文件的链接，点击按钮后 aria2c 将立即开始下载。")
         self.addTextLine("提示：本工具仅支持单个文件下载，如有大量文件下载需求……我也不知道 TT 😱")
@@ -78,6 +92,7 @@ class DownloadPage:
         self.popen = subprocess.Popen(command)
         self.manager.aria2_run()
         self.aric2cManageCard.setOn()
+        IB.msgAria2cStart(self.bodyWidget)
         logger.debug("Aria2 进程已经启动。")
 
         self.Thread_Time = QThread()
@@ -102,6 +117,7 @@ class DownloadPage:
 
         self.statsCard.TextEdit_std.clear()
         self.aric2cManageCard.setOff()
+        IB.msgAria2cKill(self.bodyWidget)
         logger.info("Aria2c 已经结束运行。")
         return None
 
@@ -118,26 +134,29 @@ class DownloadPage:
 
     def downloadSingleFileStart(self, url: str, path: str):
         sDownload = self.manager.addUrls([url], path)
+        self.singleDownloadCard.setOff()
 
         self.Thread_sDownloadUpdate = QThread()
-        self.Worker_sDownloadUpdate = Worker_sDownloadUpdate(sDownload)
+        self.Worker_sDownloadUpdate = Worker_sDownloadUpdate(self.manager.get_download(sDownload.gid))
         self.Worker_sDownloadUpdate.moveToThread(self.Thread_sDownloadUpdate)
         self.Worker_sDownloadUpdate.progressIntSignal.connect(self.singleDownloadCard.ProgressBar.setValue)
         self.Worker_sDownloadUpdate.successSignal.connect(self.downloadSingleFileSuccess)
         self.Thread_sDownloadUpdate.start()
         self.Worker_sDownloadUpdate.runSignal.emit()
 
+        IB.msgDownloadStart(self.bodyWidget)
+
         return None
 
     def downloadSingleFileSuccess(self, is_success: bool):
         if is_success:
-            IB.msgDownloadSuccess(self.widget)
+            IB.msgDownloadSuccess(self.bodyWidget)
         else:
-            IB.msgDownloadFail(self.widget)
+            IB.msgDownloadFail(self.bodyWidget)
+        self.singleDownloadCard.setOn()
         return None
 
 
-# noinspection PyUnresolvedReferences
 class Worker_Time(QObject):
     """定时发送更新信号，提醒主线程更新下载进度"""
     updateStats = Signal()
@@ -153,10 +172,9 @@ class Worker_Time(QObject):
         while True:
             self.updateStats.emit()
             logger.debug("更新一次下载状态面板。")
-            sleep(1)
+            sleep(funcS.qconfig.get(funcS.cfg.DownloadStatsTimeSleep) * 0.1)
 
 
-# noinspection PyUnresolvedReferences
 class Worker_sDownloadUpdate(QObject):
     runSignal = Signal()
     progressIntSignal = Signal(int)
@@ -170,8 +188,11 @@ class Worker_sDownloadUpdate(QObject):
     def run(self):
         from time import sleep
         while True:
-            self.progressIntSignal.emit(self.download.progress)
-            logger.debug("更新一次单文件下载进度条。")
+            self.download.update()
+            progress = self.download.progress
+            gid = self.download.gid
+            self.progressIntSignal.emit(progress)
+            logger.debug(f"更新一次单文件下载进度条：[{gid}] {progress}%")
             if self.download.is_complete:
                 logger.info("一个单独的文件已经下载完成。")
                 if self.download.has_failed:
@@ -180,5 +201,5 @@ class Worker_sDownloadUpdate(QObject):
                 else:
                     self.successSignal.emit(True)
                 return None
-            sleep(1)
+            sleep(funcS.qconfig.get(funcS.cfg.DownloadStatsTimeSleep) * 0.1)
 

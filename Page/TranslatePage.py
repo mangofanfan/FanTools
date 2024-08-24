@@ -4,9 +4,9 @@ from pathlib import Path
 
 from PySide2 import QtCore
 from PySide2.QtCore import QObject, Signal, QThread, QSize
-from PySide2.QtGui import QCursor
+from PySide2.QtGui import QCursor, Qt
 from PySide2.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QButtonGroup, QApplication, \
-    QFrame, QListWidgetItem, QTableWidgetItem
+    QFrame, QListWidgetItem, QTableWidgetItem, QBoxLayout
 from qfluentwidgets import FluentIcon as FIC, RadioButton, ToolTipFilter, TextEdit, SwitchSettingCard, ToolButton, \
     MessageBox
 from qfluentwidgets import VBoxLayout, PushButton, RoundMenu, Action, TitleLabel, BodyLabel, SingleDirectionScrollArea, \
@@ -31,6 +31,12 @@ logger = logging.getLogger("FanTools.TranslatePage")
 class TranslatePage(QObject):
 
     def __init__(self):
+        self.bodyWidget = QWidget()
+        self.bodyWidget.setObjectName("TranslatePage")
+        self._layout = QVBoxLayout()
+        self.bodyWidget.setLayout(self._layout)
+        self._layout.setContentsMargins(0, 5, 0, 0)
+
         super().__init__()
         self.widget = QFrame()
         self.layout = VBoxLayout(self.widget)
@@ -39,7 +45,6 @@ class TranslatePage(QObject):
         self.scrollArea = SingleDirectionScrollArea()
         self.scrollArea.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
         self.scrollArea.setWidget(self.widget)
-        self.scrollArea.setObjectName("TranslatePage")
         self.scrollArea.setWidgetResizable(True)
 
         self.CardSingle = Card_Single()
@@ -58,20 +63,27 @@ class TranslatePage(QObject):
         self.Multi.glossarySignal.connect(self.launchGlossary)
         self.Create.newProjectSignal.connect(self.createProject)
 
+        self.addTextLine("翻译工具", "Title", self._layout)
+        self._layout.addWidget(self.scrollArea)
+
         self.run()
         logger.debug("页面初始化完毕。")
 
-    def addTextLine(self, text: str, labelType: str = "Body"):
+    def addTextLine(self, text: str, labelType: str = "Body", layout: QBoxLayout = None):
         if labelType == "Title":
             label = TitleLabel()
+            label.setAlignment(Qt.AlignCenter)
         else:
             label = BodyLabel()
         label.setText(text)
         label.setWordWrap(True)
-        self.layout.addWidget(label)
+        if not layout:
+            self.layout.addWidget(label)
+        else:
+            layout.addWidget(label)
+        return None
 
     def run(self):
-        self.addTextLine("翻译工具", "Title")
         self.addTextLine("工具箱提供两种翻译器可供选择，均支持调用外部API进行翻译（例如：百度通用文本翻译、有道文本翻译）（俗称机器翻译）。")
         self.addTextLine("请先在工具箱设置中配置对应的凭证，然后再尝试机器翻译。")
 

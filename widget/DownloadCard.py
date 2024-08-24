@@ -3,10 +3,11 @@ import logging
 from PySide2.QtGui import Qt
 from PySide2.QtWidgets import QGridLayout, QWidget, QVBoxLayout, QHBoxLayout
 from qfluentwidgets import CardWidget, LineEdit, ToolButton, PrimaryToolButton, BodyLabel, ProgressBar, PushButton, \
-    ToolTipFilter, SubtitleLabel, IconInfoBadge, TextEdit
+    ToolTipFilter, SubtitleLabel, IconInfoBadge, TextEdit, RangeSettingCard
 from qfluentwidgets import FluentIcon as FIC
 
 from widget.function import basicFunc
+import widget.function_setting as funcS
 
 logger = logging.getLogger("FanTools.DownloadCard")
 
@@ -42,25 +43,21 @@ class Aria2cManageCard(CardWidget):
 
         self._hLayout.addStretch()
 
-        self.IconInfoBadge_ON = None
-        self.IconInfoBadge_OFF = None
+        self.IconInfoBadge_ON = IconInfoBadge.success(FIC.APPLICATION, self._parent, self)
+        self.IconInfoBadge_OFF = IconInfoBadge.error(FIC.CLOSE, self._parent, self)
 
 
     def setOn(self):
-        if self.IconInfoBadge_OFF:
-            self.IconInfoBadge_OFF.deleteLater()
-        if not self.IconInfoBadge_ON:
-            self.IconInfoBadge_ON = IconInfoBadge.success(FIC.APPLICATION, self._parent, self)
-            self.IconInfoBadge_ON.show()
+        self.IconInfoBadge_OFF.setVisible(False)
+        self.IconInfoBadge_ON.show()
+        self.update()
         logger.info("Aria2 进程已经启动。")
         return None
 
     def setOff(self):
-        if self.IconInfoBadge_ON:
-            self.IconInfoBadge_ON.deleteLater()
-        if not self.IconInfoBadge_OFF:
-            self.IconInfoBadge_OFF = IconInfoBadge.error(FIC.CLOSE, self._parent, self)
-            self.IconInfoBadge_OFF.show()
+        self.IconInfoBadge_ON.setVisible(False)
+        self.IconInfoBadge_OFF.show()
+        self.update()
         logger.info("Aria2 进程已经结束。")
         return None
 
@@ -69,8 +66,16 @@ class SingleDownloadCard:
     def __init__(self, parent: QWidget):
         self.parent = parent
         self.widget = CardWidget()
+
+        self._layout = QVBoxLayout()
+        self.widget.setLayout(self._layout)
+
+        Subtitle = SubtitleLabel()
+        Subtitle.setText("单文件下载任务提交")
+        self._layout.addWidget(Subtitle)
+
         self.layout = QGridLayout()
-        self.widget.setLayout(self.layout)
+        self._layout.addLayout(self.layout)
 
         BodyLabel_1 = BodyLabel()
         BodyLabel_1.setText("下载链接🔗：")
@@ -87,13 +92,13 @@ class SingleDownloadCard:
 
         self.ToolButton_SavePath = ToolButton()
         self.ToolButton_SavePath.setIcon(FIC.EDIT)
-        self.ToolButton_SavePath.clicked.connect(self.getPath)
+        self.ToolButton_SavePath.clicked.connect(self._getPath)
         self.layout.addWidget(self.ToolButton_SavePath, 1, 2)
 
         BodyLabel_3 = BodyLabel()
         BodyLabel_3.setText("注意您无法指定下载所得的文件名///准备妥当后点击右边按钮立即开始下载！👉")
         BodyLabel_4 = BodyLabel()
-        BodyLabel_4.setText("下载过程中本程序进程可能被阻塞，如下载文件较大可能导致无响应，系正常现象，请勿惊慌😊")
+        BodyLabel_4.setText("下载过程中无法重复提交更多下载，具体下载时长由很多因素决定，您可以稍作休息😊")
         self.layout.addWidget(BodyLabel_3, 2, 0, 1, 2, alignment=Qt.AlignRight)
         self.layout.addWidget(BodyLabel_4, 3, 0, 1, 3)
 
@@ -106,7 +111,7 @@ class SingleDownloadCard:
         self.ProgressBar.setValue(100)
         self.layout.addWidget(self.ProgressBar, 4, 0, 1, 3)
 
-    def getPath(self):
+    def _getPath(self):
         logger.debug("打开单个文件下载保存路径的选择对话框。")
         p = basicFunc.openDirDialog(caption="选择一个文件夹用来存放下载的文件叭😊", basedPath=basicFunc.getHerePath())
         if p:
@@ -114,6 +119,22 @@ class SingleDownloadCard:
             logger.info(f"选择路径 {p} 作为下载单个文件的保存路径。")
         else:
             logger.debug("未选择有效路径。")
+        return None
+
+    def setOff(self):
+        self.PrimaryToolButton_Download.setDisabled(True)
+        self.ToolButton_SavePath.setDisabled(True)
+        self.LineEdit_DownloadUrl.setDisabled(True)
+        self.LineEdit_SavePath.setDisabled(True)
+        logger.debug("已禁用单文件下载卡片。")
+        return None
+
+    def setOn(self):
+        self.PrimaryToolButton_Download.setEnabled(True)
+        self.ToolButton_SavePath.setEnabled(True)
+        self.LineEdit_DownloadUrl.setEnabled(True)
+        self.LineEdit_SavePath.setEnabled(True)
+        logger.debug("已启用单文件下载卡片。")
         return None
 
 
@@ -140,5 +161,11 @@ class StatsCard(CardWidget):
 
         label_1 = BodyLabel()
         label_1.setText("此处可以管理状态面板的显示信息。")
-        self._hLayout.addWidget(label_1)
-        self._hLayout.addStretch()
+        self._vLayout.addWidget(label_1)
+        self._vLayout.addStretch()
+
+        Card_TimeSleep = RangeSettingCard(configItem=funcS.cfg.DownloadStatsTimeSleep,
+                                          title="数据刷新间隔时间（数值单位：0.1s）",
+                                          content="控制状态面板与下载进度条的刷新间隔",
+                                          icon=FIC.TILES)
+        self.viewLayout.addWidget(Card_TimeSleep)

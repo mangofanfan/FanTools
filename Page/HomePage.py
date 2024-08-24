@@ -3,7 +3,7 @@ from pathlib import Path
 from PySide2 import QtCore
 from PySide2.QtCore import QSize
 from PySide2.QtGui import Qt
-from PySide2.QtWidgets import QSpacerItem, QSizePolicy, QHBoxLayout, QFrame, QVBoxLayout
+from PySide2.QtWidgets import QSpacerItem, QSizePolicy, QHBoxLayout, QFrame, QVBoxLayout, QWidget, QBoxLayout
 from qfluentwidgets import MessageBox, VBoxLayout, PushButton, PrimaryPushButton, TitleLabel, BodyLabel, \
     SingleDirectionScrollArea, ToolTipFilter, ImageLabel, FlipView, HorizontalFlipView, SimpleCardWidget, SubtitleLabel, \
     DisplayLabel
@@ -20,24 +20,38 @@ logger = logging.getLogger("FanTools.HomePage")
 class HomePage:
 
     def __init__(self):
+        self.bodyWidget = QWidget()
+        self.bodyWidget.setObjectName("HomePage")
+        self._layout = QVBoxLayout()
+        self.bodyWidget.setLayout(self._layout)
+        self._layout.setContentsMargins(0, 5, 0, 0)
+
         self.widget = QFrame()
-        self.widget.setObjectName("HomePage")
         self.layout = VBoxLayout(self.widget)
         self.widget.setLayout(self.layout)
 
         self.scrollArea = SingleDirectionScrollArea()
         self.scrollArea.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
         self.scrollArea.setWidget(self.widget)
-        self.scrollArea.setObjectName("HomePage")
         self.scrollArea.setWidgetResizable(True)
+
+        TitleLayout = QHBoxLayout()
+        self._layout.addLayout(TitleLayout)
+        self.addTextLine("芒果工具箱", "Display", TitleLayout)
+        self.addTextLine("FanTools v-0.0.0", "Title", TitleLayout)
+        TitleLayout.addStretch()
+        self._layout.addWidget(self.scrollArea)
+
         self.run()
         logger.debug("页面初始化完毕。")
 
-    def addTextLine(self, text: str, labelType: str = "Body", layout: QVBoxLayout = None):
+    def addTextLine(self, text: str, labelType: str = "Body", layout: QBoxLayout = None):
         if labelType == "Display":
             label = DisplayLabel()
+            label.setAlignment(Qt.AlignCenter)
         elif labelType == "Title":
             label = TitleLabel()
+            label.setAlignment(Qt.AlignCenter)
         elif labelType == "Subtitle":
             label = SubtitleLabel()
         else:
@@ -48,6 +62,7 @@ class HomePage:
             self.layout.addWidget(label)
         else:
             layout.addWidget(label)
+        return None
 
     def showMessageBox(self):
         w = MessageBox("支持作者🙏",
@@ -65,12 +80,6 @@ class HomePage:
             logger.info("在「芒果帆帆」消息框中打开了芒果的网站。")
 
     def run(self):
-        TitleLayout = QHBoxLayout()
-        self.layout.addLayout(TitleLayout)
-        self.addTextLine("芒果工具箱", "Display", TitleLayout)
-        self.addTextLine("FanTools v-0.0.0", "Title", TitleLayout)
-        TitleLayout.addStretch()
-
         self.flipView = HorizontalFlipView()
         # 按序读取所有图片
         i = 1

@@ -17,11 +17,15 @@ class Manager:
             )
         )
         self.aria2.set_global_options({"dir": basicFunc.getHerePath() + "/file"})
+
         return None
 
     def aria2_exit(self):
         self.aria2.stop_listening()
         return None
+
+    def get_download(self, gid: str):
+        return self.aria2.get_download(gid)
 
     def getStatus(self):
         return self.aria2.get_stats()

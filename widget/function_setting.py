@@ -1,7 +1,7 @@
 from qfluentwidgets import (ConfigItem, ConfigValidator, BoolValidator,
                             ColorConfigItem, ColorValidator,
                             OptionsConfigItem, OptionsValidator,
-                            QConfig, qconfig)
+                            QConfig, qconfig, RangeConfigItem, RangeValidator)
 
 try:
     from function import basicFunc
@@ -28,6 +28,11 @@ class appConfig(QConfig):
     BaiduKey = ConfigItem("API", "BaiduKey", "")
     YoudaoAPPKey = ConfigItem("API", "YoudaoAPPKey", "")
     YoudaoKey = ConfigItem("API", "YoudaoKey", "")
+
+    # 翻译术语表独家设置
+
+    # 下载工具独家设置
+    DownloadStatsTimeSleep = RangeConfigItem("Download", "TimeSleep", 10, RangeValidator(2, 50))
 
 
 cfg = appConfig()
