@@ -3,7 +3,7 @@ import logging
 from PySide2.QtGui import Qt
 from PySide2.QtWidgets import QGridLayout, QWidget, QVBoxLayout, QHBoxLayout
 from qfluentwidgets import CardWidget, LineEdit, ToolButton, PrimaryToolButton, BodyLabel, ProgressBar, PushButton, \
-    ToolTipFilter, SubtitleLabel, IconInfoBadge, TextEdit, RangeSettingCard
+    ToolTipFilter, SubtitleLabel, IconInfoBadge, TextEdit, RangeSettingCard, SimpleCardWidget
 from qfluentwidgets import FluentIcon as FIC
 
 from widget.function import basicFunc
@@ -12,7 +12,7 @@ import widget.function_setting as funcS
 logger = logging.getLogger("FanTools.DownloadCard")
 
 
-class Aria2cManageCard(CardWidget):
+class Aria2cManageCard(SimpleCardWidget):
     def __init__(self, parent=None):
         super().__init__(parent=parent)
         self._parent = parent
@@ -25,14 +25,16 @@ class Aria2cManageCard(CardWidget):
         self._layout.addWidget(Label_1)
 
         Label_2 = BodyLabel()
-        Label_2.setText("此处管理 Aria2c 下载工具的状态，需要在工具启用时才能执行下载任务。")
+        Label_2.setText("此处管理 Aria2c 下载工具的状态，需要在工具启用时才能执行下载任务。"
+                        "注意，您无法在此管理非工具箱内置的 Aria2c 实例。")
+        Label_2.setWordWrap(True)
         self._layout.addWidget(Label_2)
 
         self._hLayout = QHBoxLayout()
         self._layout.addLayout(self._hLayout)
         self.PushButton_ON = PushButton()
         self.PushButton_ON.setText("启动 Aria2c")
-        self.PushButton_ON.setToolTip("启动程序目录下绑定的 Aria2c 程序")
+        self.PushButton_ON.setToolTip("启动程序目录下绑定的 Aria2c 实例")
         self.PushButton_ON.installEventFilter(ToolTipFilter(self.PushButton_ON))
         self._hLayout.addWidget(self.PushButton_ON)
         self.PushButton_OFF = PushButton()
@@ -65,7 +67,7 @@ class Aria2cManageCard(CardWidget):
 class SingleDownloadCard:
     def __init__(self, parent: QWidget):
         self.parent = parent
-        self.widget = CardWidget()
+        self.widget = SimpleCardWidget()
 
         self._layout = QVBoxLayout()
         self.widget.setLayout(self._layout)
@@ -138,7 +140,7 @@ class SingleDownloadCard:
         return None
 
 
-class StatsCard(CardWidget):
+class StatsCard(SimpleCardWidget):
     def __init__(self, parent=None):
         super().__init__(parent=parent)
         self.viewLayout = QVBoxLayout()

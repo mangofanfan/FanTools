@@ -44,6 +44,7 @@ class DownloadPage:
         self.run()
 
         self.manager = Manager()
+        self.popen: subprocess.Popen = None
 
         self.Thread_Time = None
         self.Thread_sDownloadUpdate = None
@@ -87,6 +88,12 @@ class DownloadPage:
         return None
 
     def startAria2c(self):
+        if self.popen:
+            if self.popen.poll() is None:
+                IB.msgAria2cAlreadyStart(self.bodyWidget)
+                logger.warning("尝试启动 aria2c 实例，但是其已经在运行中。")
+                return None
+
         p = basicFunc.getAria2cPath()
         command = f"{p} --enable-rpc"
         self.popen = subprocess.Popen(command)
@@ -105,6 +112,11 @@ class DownloadPage:
         return None
 
     def killAria2c(self):
+        if self.popen is None or self.popen.poll() is not None:
+            IB.msgAria2cAlreadyKill(self.bodyWidget)
+            logger.warning("尝试结束 aria2c 实例，但是其已经结束。")
+            return None
+
         if self.Thread_Time:
             self.Thread_Time.terminate()
         if self.Thread_sDownloadUpdate:
@@ -112,7 +124,7 @@ class DownloadPage:
         self.manager.aria2_exit()
         logger.debug("已经停止对 aria2c 的一切监听。")
 
-        self.popen.kill()
+        self.popen.terminate()
         logger.debug("已经终止 aria2c 程序进程，")
 
         self.statsCard.TextEdit_std.clear()

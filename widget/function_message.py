@@ -131,6 +131,22 @@ class DownloadIB:
                      position=InfoBarPosition.TOP_RIGHT,
                      parent=self)
 
+    def msgAria2cAlreadyStart(self):
+        InfoBar.warning(title="Aria2c已经在运行中",
+                        content="禁止重复启动",
+                        isClosable=False,
+                        duration=4000,
+                        position=InfoBarPosition.TOP_RIGHT,
+                        parent=self)
+
+    def msgAria2cAlreadyKill(self):
+        InfoBar.warning(title="Aria2c并未在运行中",
+                        content="无法再次结束已结束的程序",
+                        isClosable=False,
+                        duration=4000,
+                        position=InfoBarPosition.TOP_RIGHT,
+                        parent=self)
+
     def msgDownloadStart(self):
         InfoBar.success(title="下载已经开始",
                         content="下载任务已经发送至 Aria2c，请耐心等待……",

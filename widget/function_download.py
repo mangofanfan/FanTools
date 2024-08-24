@@ -6,7 +6,7 @@ from widget.function import basicFunc
 
 class Manager:
     def __init__(self):
-        self.aria2: aria2p.API
+        self.aria2: aria2p.API = None
 
     def aria2_run(self):
         self.aria2 = aria2p.API(
@@ -21,7 +21,8 @@ class Manager:
         return None
 
     def aria2_exit(self):
-        self.aria2.stop_listening()
+        if self.aria2:
+            self.aria2.stop_listening()
         return None
 
     def get_download(self, gid: str):
