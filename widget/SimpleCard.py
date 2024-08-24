@@ -1,7 +1,7 @@
 from typing import Union
 
-from PySide2.QtCore import QSize, QEasingCurve, Qt
-from PySide2.QtGui import QPixmap, QImage
+from PySide2.QtCore import QSize, QEasingCurve, Qt, QUrl
+from PySide2.QtGui import QPixmap, QImage, QDesktopServices
 from PySide2.QtWidgets import QGridLayout, QVBoxLayout
 from qfluentwidgets import CardWidget, ImageLabel, SubtitleLabel, BodyLabel, HyperlinkButton, HeaderCardWidget, \
     StrongBodyLabel, FlowLayout, CaptionLabel
@@ -73,9 +73,9 @@ class EndlessCard(HeaderCardWidget):
         self.FlowLayout.setVerticalSpacing(20)
         self.FlowLayout.setHorizontalSpacing(10)
 
-    def add(self, item: str, desc: str = None):
+    def add(self, item: str, desc: str = None, url: str = None):
         card = CardWidget()
-        card.setMinimumSize(QSize(120, 50))
+        card.setFixedHeight(50)
         layout = QVBoxLayout()
         card.setLayout(layout)
 
@@ -89,5 +89,8 @@ class EndlessCard(HeaderCardWidget):
             label_2.setText(desc)
             label_2.setAlignment(Qt.AlignCenter)
             layout.addWidget(label_2)
+
+        if url:
+            card.clicked.connect(lambda: QDesktopServices.openUrl(QUrl(url)))
 
         self.FlowLayout.addWidget(card)

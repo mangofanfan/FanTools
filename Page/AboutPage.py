@@ -61,11 +61,17 @@ class AboutPage:
         ToolCardLayout = QGridLayout()
         self.layout.addLayout(ToolCardLayout)
         ToolCardLayout.addWidget(ToolCard(PIC.IconGitHub, "代码仓库", "芒果工具箱是开源项目\n您随时可以查看最新的源码以学习或进行改进", partial(QDesktopServices.openUrl, (QUrl("https://github.com/mangofanfan/FanTools")))), 0, 0)
-        ToolCardLayout.addWidget(ToolCard(PIC.IconWriterSide, "在线文档", "在线文档包含用户文档和开发文档\n为什么不来看看呢？", partial(QDesktopServices.openUrl, ("https://docs.mangofanfan.cn/fantools/"))), 0, 1)
+        ToolCardLayout.addWidget(ToolCard(PIC.IconWriterSide, "在线文档", "在线文档包含用户文档和开发文档\n为什么不来看看呢？", partial(QDesktopServices.openUrl, QUrl("https://docs.mangofanfan.cn/fantools/"))), 0, 1)
 
         ContributorCard = EndlessCard("鸣谢名单", "对芒果工具箱项目做出贡献的人们！")
         self.layout.addWidget(ContributorCard)
-        ContributorCard.add("MangoFanFan_", "主要开发者与负责人")
+        ContributorCard.add("MangoFanFan_", "主要开发者与负责人", "https://mangofanfan.cn/")
+
+        ModuleCard = EndlessCard("依赖项目", "芒果工具箱的今天还离不开下列项目提供的轮子！（下方卡片可以点击）")
+        self.layout.addWidget(ModuleCard)
+        ModuleCard.add("aria2", "开源的高速下载器", "https://github.com/aria2/aria2")
+        ModuleCard.add("aria2p", "提供通过Python+JsonRPC操作aria2的方法", "https://github.com/pawamoy/aria2p")
+        ModuleCard.add("requests", "非转基因高级网络库（？）", "https://requests.readthedocs.io/projects/cn/zh-cn/latest/")
 
         self.layout.addStretch()
         return None

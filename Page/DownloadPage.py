@@ -7,13 +7,13 @@ from PySide2.QtCore import QObject, QThread, Signal
 from PySide2.QtGui import Qt
 from PySide2.QtWidgets import QFrame, QWidget, QVBoxLayout, QBoxLayout
 from PySide2.QtWidgets import QVBoxLayout as VBoxLayout
-from qfluentwidgets import TitleLabel, BodyLabel, SingleDirectionScrollArea, TextEdit, SubtitleLabel
+from qfluentwidgets import TitleLabel, BodyLabel, SingleDirectionScrollArea, SubtitleLabel
 
+import widget.function_setting as funcS
 from widget.DownloadCard import Aria2cManageCard, SingleDownloadCard, StatsCard
 from widget.function import basicFunc
-from widget.function_message import DownloadIB as IB
 from widget.function_download import Manager
-import widget.function_setting as funcS
+from widget.function_message import DownloadIB as IB
 
 logger = logging.getLogger("FanTools.DownloadPage")
 
