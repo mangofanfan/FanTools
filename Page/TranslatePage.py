@@ -202,27 +202,27 @@ class TranslatePage(QObject):
                                                      filter="*.ft-translateProject.txt;;*.txt;;*")
         logger.debug(f"用户选中下列文件作为翻译工程文件：{filePath} | {fileType}")
         if fileType == "*":
-            IB.msgChooseImportProjectWarning_2(self.widget)
+            IB.msgChooseImportProjectWarning_2(self.bodyWidget)
             logger.debug(f"由于文件类型选择为 {fileType}，已经展示严重错误警告。")
         elif fileType == "*.txt":
-            IB.msgChooseImportProjectWarning_1(self.widget)
+            IB.msgChooseImportProjectWarning_1(self.bodyWidget)
             logger.debug(f"由于文件类型选择为 {fileType}，已经展示潜在错误警告。")
         elif fileType == "*.ft-translateProject.txt":
-            IB.msgChooseImportProjectSuccess(self.widget)
+            IB.msgChooseImportProjectSuccess(self.bodyWidget)
             logger.debug(f"由于文件类型选择为 {fileType}，已经展示鼓励信息。")
         else:
-            IB.msgNoFileChosen(self.widget)
+            IB.msgNoFileChosen(self.bodyWidget)
             logger.debug("由于未选中文件，已经展示错误提示信息。")
         self.LineEdit_ImportProject.setText(filePath)
         logger.info(f"选中文件 {filePath} 作为翻译工程文件。")
 
     def launchTool(self):
         if not self.Tool.isHidden() or not self.Multi.isHidden():
-            IB.msgMultiSameWindowWarning(self.widget)
+            IB.msgMultiSameWindowWarning(self.bodyWidget)
             logger.warning("尝试多开翻译器窗口，已经阻止操作并警告。")
             return None
         if not self.LineEdit_ImportProject.text():
-            IB.msgNotImportProject(self.widget)
+            IB.msgNotImportProject(self.bodyWidget)
             logger.warning("未选择项目工程文件；已经阻止操作并警告。")
             return None
         self.Tool.show()
@@ -232,11 +232,11 @@ class TranslatePage(QObject):
 
     def launchMulti(self):
         if not self.Tool.isHidden() or not self.Multi.isHidden():
-            IB.msgMultiSameWindowWarning(self.widget)
+            IB.msgMultiSameWindowWarning(self.bodyWidget)
             logger.warning("尝试多开翻译器窗口，已经阻止操作并警告。")
             return None
         if not self.LineEdit_ImportProject.text():
-            IB.msgNotImportProject(self.widget)
+            IB.msgNotImportProject(self.bodyWidget)
             logger.warning("未选择项目工程文件；已经阻止操作并警告。")
             return None
         self.Multi.setProject(self.LineEdit_ImportProject.text(), self.ButtonGroup.checkedId())
@@ -248,7 +248,7 @@ class TranslatePage(QObject):
 
     def launchGlossary(self):
         if not self.LineEdit_ImportProject.text():
-            IB.msgNotImportProject(self.widget)
+            IB.msgNotImportProject(self.bodyWidget)
             logger.warning("未选择项目工程文件；已经阻止操作并警告。")
             return None
         self.Glossary.setProjectFile(self.LineEdit_ImportProject.text().replace("ft-translateProject.txt", "ft-translateGlossary.txt"))

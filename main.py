@@ -38,6 +38,7 @@ fh_2.setLevel(logging.DEBUG)
 fh_2.setFormatter(formatter)
 logger.addHandler(fh_2)
 
+logger.info(f"芒果工具箱🥭正在启动 | 当前版本 {basicFunc.getInfo()['v']}")
 logger.info("日志模块加载完毕，开始记录日志。")
 
 locale.setlocale(locale.LC_ALL, "zh_CN.UTF-8")
@@ -145,7 +146,7 @@ if __name__ == "__main__":
         main.run()
         logger.debug("加载结束，开始事件循环。")
         returnCode = app.exec_()
-        logger.debug("事件循环已经结束，准备终止程序。")
+        logger.debug(f"事件循环已经结束，准备终止程序。|获得退出代码 {returnCode}")
         logger.info("工具箱运行已退出，芒果帆帆感谢您的使用。😆")
         sys.exit(returnCode)
     except Exception as e:

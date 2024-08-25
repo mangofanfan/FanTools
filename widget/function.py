@@ -8,6 +8,13 @@ class basicFunc:
         pass
 
     @staticmethod
+    def getInfo():
+        info = {"v": "0.0.0",
+                "a": "MangoFanFan_",
+                "au": "https://mangofanfan.cn/"}
+        return info
+
+    @staticmethod
     def getHerePath():
         p = getcwd()
         return p

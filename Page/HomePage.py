@@ -38,7 +38,7 @@ class HomePage:
         TitleLayout = QHBoxLayout()
         self._layout.addLayout(TitleLayout)
         self.addTextLine("芒果工具箱", "Display", TitleLayout)
-        self.addTextLine("FanTools v-0.0.0", "Title", TitleLayout)
+        self.addTextLine(f"FanTools v-{basicFunc.getInfo()['v']}", "Title", TitleLayout)
         TitleLayout.addStretch()
         self._layout.addWidget(self.scrollArea)
 
@@ -103,7 +103,7 @@ class HomePage:
         Card_Version_Layout = QVBoxLayout()
         Card_Version.setLayout(Card_Version_Layout)
         self.addTextLine("技术信息", "Subtitle", Card_Version_Layout)
-        self.addTextLine("目前版本：0.0.0 早期技术验证", layout=Card_Version_Layout)
+        self.addTextLine(f"目前版本：{basicFunc.getInfo()['v']} 早期技术验证", layout=Card_Version_Layout)
         self.addTextLine("现在不保证任何意义上的稳定性与实用性。", layout=Card_Version_Layout)
         CardViewLayout.addWidget(Card_Version)
         Card_Author = SimpleCardWidget()

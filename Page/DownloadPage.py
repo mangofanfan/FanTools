@@ -96,7 +96,8 @@ class DownloadPage:
 
         p = basicFunc.getAria2cPath()
         command = f"{p} --enable-rpc"
-        self.popen = subprocess.Popen(command)
+        self.popen = subprocess.Popen(command, shell=True)
+        print(self.popen.pid)
         self.manager.aria2_run()
         self.aric2cManageCard.setOn()
         IB.msgAria2cStart(self.bodyWidget)
@@ -124,7 +125,9 @@ class DownloadPage:
         self.manager.aria2_exit()
         logger.debug("已经停止对 aria2c 的一切监听。")
 
+        subprocess.run(f"taskkill /t /f /pid {self.popen.pid}")
         self.popen.terminate()
+        self.popen.wait()
         logger.debug("已经终止 aria2c 程序进程，")
 
         self.statsCard.TextEdit_std.clear()

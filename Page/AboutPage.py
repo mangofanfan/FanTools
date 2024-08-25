@@ -2,13 +2,14 @@ import logging
 from functools import partial
 
 from PySide2 import QtCore
-from PySide2.QtCore import QUrl
+from PySide2.QtCore import QUrl, QSize
 from PySide2.QtGui import QDesktopServices, Qt
-from PySide2.QtWidgets import QFrame, QGridLayout, QWidget, QVBoxLayout, QBoxLayout
-from qfluentwidgets import VBoxLayout, TitleLabel, BodyLabel, SingleDirectionScrollArea, SubtitleLabel
+from PySide2.QtWidgets import QFrame, QGridLayout, QWidget, QVBoxLayout, QBoxLayout, QHBoxLayout
+from qfluentwidgets import VBoxLayout, TitleLabel, BodyLabel, SingleDirectionScrollArea, SubtitleLabel, \
+    SimpleCardWidget, ImageLabel
 
 from widget.SimpleCard import LinkCard, ToolCard, EndlessCard
-from widget.function import PIC
+from widget.function import PIC, basicFunc
 
 logger = logging.getLogger("FanTools.AboutPage")
 
@@ -45,6 +46,7 @@ class AboutPage:
         else:
             label = BodyLabel()
         label.setText(text)
+        label.setWordWrap(True)
         if layout:
             layout.addWidget(label)
         else:
@@ -52,6 +54,21 @@ class AboutPage:
         return None
 
     def run(self):
+        ProgramCard = SimpleCardWidget()
+        self.layout.addWidget(ProgramCard)
+        pcLayout = QHBoxLayout()
+        ProgramCard.setLayout(pcLayout)
+        pcContentLayout = QVBoxLayout()
+        pcLayout.addLayout(pcContentLayout)
+        self.addTextLine("工具箱信息", "Subtitle", pcContentLayout)
+        self.addTextLine("芒果工具箱是一个很无厘头的项目……工具箱能从芒果的垃圾桶里死而复生，很大的因素是因为芒果需要在两天的时间内搞出一个能用的翻译工具……", layout=pcContentLayout)
+        self.addTextLine("但是工具箱的使命还没有完成：我又花了超过三个星期的时间来让翻译工具变得真正可用，然后继续编写下载工具……", layout=pcContentLayout)
+        self.addTextLine("总之，希望工具箱的存在对您有所帮助，那样的话我就满意辽！awa", layout=pcContentLayout)
+        imageLabel = ImageLabel()
+        imageLabel.setImage(basicFunc.getHerePath() + "/data/two_mango_es.png")
+        imageLabel.setFixedSize(QSize(120, 120))
+        pcLayout.addWidget(imageLabel)
+
         self.addTextLine("前置科技树", "Subtitle")
         self.layout.addWidget(LinkCard(PIC.IconPython, "Python", "我从小学到大（？）的高级语言", "https://www.python.org/", "官网"))
         self.layout.addWidget(LinkCard(PIC.IconQt, "PySide", "Qt库的Python版本，可以用Python创建高级的窗口应用程序", "https://www.qt.io/zh-cn/qt-for-python", "官网"))
