@@ -43,7 +43,7 @@ class MainWindow(FanFluentWindow):
             return None
 
         w = MessageBox(title="确认退出程序？",
-                       content="如确认，所有正在执行的线程将被立刻中断，所有子窗口将被关闭，然后完成退出。\n"
+                       content="如确认，所有正在执行的线程、进程将被立刻中断，所有子窗口将被关闭，然后完成退出。\n"
                                "如果程序正在执行负担较大的任务，此时退出程序可能导致程序窗口崩溃，但最终可以退出。\n"
                                "PS：您可以在设置中启用或关闭退出确认功能。",
                        parent=self)

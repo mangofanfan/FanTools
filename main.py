@@ -125,17 +125,18 @@ class Main:
         logger.info("启动页面隐藏，窗口已经实现。")
 
     def closeWindow(self):
-        self.window_HomePage.scrollArea.destroy()
-        self.window_DownloadPage.scrollArea.destroy()
-        self.window_HashPage.scrollArea.destroy()
-        self.window_TranslatePage.scrollArea.destroy()
-        self.window_ConfigPage.scrollArea.destroy()
-        del self.window_HomePage
-        del self.window_DownloadPage
-        del self.window_HashPage
-        del self.window_TranslatePage
-        del self.window_ConfigPage
-        logger.debug("已删除所有子页面。")
+        """
+        关闭所有线程和进程，然后执行退出。
+        :return: None
+        """
+        # 退出一言定时线程
+        if self.window_HomePage.YiYanCard.YiYan.Thread_Timer.isRunning():
+            self.window_HomePage.YiYanCard.YiYan.Thread_Timer.terminate()
+            self.window_HomePage.YiYanCard.YiYan.Thread_Timer.wait()
+
+        # 确保下载工具 aria2c 已经退出
+        self.window_DownloadPage.manager.aria2_exit()
+
         QApplication.quit()
         return None
 

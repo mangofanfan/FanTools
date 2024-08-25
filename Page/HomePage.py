@@ -12,7 +12,7 @@ from qfluentwidgets import FluentIcon as FIC
 import webbrowser
 import logging
 
-from widget.SimpleCard import ToolCard
+from widget.SimpleCard import ToolCard, YiYanCard
 from widget.function import basicFunc, PIC
 
 logger = logging.getLogger("FanTools.HomePage")
@@ -135,6 +135,9 @@ class HomePage:
         CardToolLayout.addWidget(self.ToolCard_Hash)
         CardToolLayout.addWidget(self.ToolCard_Translate)
         self.layout.addLayout(CardToolLayout)
+
+        self.YiYanCard = YiYanCard()
+        self.layout.addWidget(self.YiYanCard)
 
         self.layout.addStretch()
 

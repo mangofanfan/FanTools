@@ -1,3 +1,5 @@
+import logging
+
 from typing import Union
 
 from PySide2.QtCore import QSize, QEasingCurve, Qt, QUrl
@@ -5,6 +7,11 @@ from PySide2.QtGui import QPixmap, QImage, QDesktopServices
 from PySide2.QtWidgets import QGridLayout, QVBoxLayout
 from qfluentwidgets import CardWidget, ImageLabel, SubtitleLabel, BodyLabel, HyperlinkButton, HeaderCardWidget, \
     StrongBodyLabel, FlowLayout, CaptionLabel
+
+from widget.function import basicFunc
+from widget.function_hitokoto import yi_yan
+
+logger = logging.getLogger("FanTools.SimpleCard")
 
 
 class ToolCard(CardWidget):
@@ -94,3 +101,51 @@ class EndlessCard(HeaderCardWidget):
             card.clicked.connect(lambda: QDesktopServices.openUrl(QUrl(url)))
 
         self.FlowLayout.addWidget(card)
+        return None
+
+
+class YiYanCard(CardWidget):
+    """
+    一言卡片，创建后自动定时更新一言。
+    """
+    def __init__(self, parent = None):
+        super().__init__(parent=parent)
+
+        self._layout = QVBoxLayout()
+        self.setLayout(self._layout)
+
+        self.BodyLabel = BodyLabel()
+        self.BodyLabel.setText("生命因何而沉睡，因为我们终将从梦中醒来。")
+        self.BodyLabel.setWordWrap(True)
+        self._layout.addWidget(self.BodyLabel)
+
+        self.CaptionLabel = CaptionLabel()
+        self.CaptionLabel.setText("流萤 - 崩坏·星穹铁道")
+        self.CaptionLabel.setAlignment(Qt.AlignRight)
+        self._layout.addWidget(self.CaptionLabel)
+
+        self.url = basicFunc.getInfo()["au"]
+        self.clicked.connect(lambda: QDesktopServices.openUrl(QUrl(self.url)))
+
+        self.YiYan = yi_yan()
+        self.YiYan.GUIUpdateSignal.connect(self._getSignal)
+        self.setup()
+
+    def setup(self):
+        self.YiYan.start()
+        return None
+
+    def _getSignal(self, data: dict):
+        content = data["content"]
+        origin = data["origin"]
+        url = self.YiYan.api + "?id=" + data["id"]
+        self._setText(content, origin, url)
+        return None
+
+    def _setText(self, content: str, caption: str, url: str):
+        self.BodyLabel.setText(content)
+        self.CaptionLabel.setText(caption)
+        self.url = url
+        self.update()
+        logger.info(f"一言卡片更新：{content} ——{caption} | {url}")
+        return None

@@ -5,7 +5,8 @@ from PySide2.QtGui import Qt
 from PySide2.QtWidgets import QWidget, QHBoxLayout, QFrame, QVBoxLayout, QBoxLayout
 from qfluentwidgets import ComboBoxSettingCard, ColorSettingCard, SettingCardGroup, SwitchSettingCard, \
     ExpandGroupSettingCard, LineEdit, \
-    PasswordLineEdit, VBoxLayout, TitleLabel, BodyLabel, SingleDirectionScrollArea, qconfig, ToolTipFilter
+    PasswordLineEdit, VBoxLayout, TitleLabel, BodyLabel, SingleDirectionScrollArea, qconfig, ToolTipFilter, \
+    OptionsSettingCard, RangeSettingCard
 from qfluentwidgets import FluentIcon as FIC
 from qfluentwidgets import Theme, setTheme, setThemeColor
 
@@ -74,6 +75,12 @@ class ConfigPage:
                                                           configItem=funcS.cfg.WindowAcrylicEnable,
                                                           icon=FIC.FIT_PAGE)
         self.CardGroup_Theme.addSettingCard(self.Card_WindowAcrylicEnable)
+        self.Card_YiYanAPI = OptionsSettingCard(configItem=funcS.cfg.YiYanAPI,
+                                                icon=FIC.APPLICATION,
+                                                title="一言API接口",
+                                                content="选择「一言」功能的调用接口，芒果自建了一个镜像接口以便在官方接口失效时使用",
+                                                texts=["官方接口 - hitokoto.cn", "帆域接口 - mangofanfan.cn"])
+        self.CardGroup_Theme.addSettingCard(self.Card_YiYanAPI)
         self.layout.addWidget(self.CardGroup_Theme)
 
         # 程序的全局功能设置
@@ -83,11 +90,6 @@ class ConfigPage:
                                                   content="在用户退出程序时弹出窗口确认，提供取消的机会。",
                                                   configItem=funcS.cfg.ExitConfirm)
         self.CardGroup_Function.addSettingCard(self.Card_EditConfirm)
-        self.GlobalEnableGlossary = SwitchSettingCard(configItem=funcS.cfg.GlossaryEnable,
-                                                      title="启用术语表",
-                                                      content="翻译工具全局启用术语表，术语表的详细设置需要在术语表窗口中设置。",
-                                                      icon=FIC.ERASE_TOOL)
-        self.CardGroup_Function.addSettingCard(self.GlobalEnableGlossary)
         self.Card_Proxy = SwitchSettingCard(icon=FIC.AIRPLANE,
                                             title="启用代理服务",
                                             content="在通过request调用外部API时添加代理配置。",
@@ -115,12 +117,22 @@ class ConfigPage:
         LineEdit_ProxyHttps.setText(qconfig.get(funcS.cfg.ProxyHttps))
         self.ExpandCard_Proxy.addGroupWidget(self.expandCardAddWidget(BodyLabel_ProxyHttp, LineEdit_ProxyHttp))
         self.ExpandCard_Proxy.addGroupWidget(self.expandCardAddWidget(BodyLabel_ProxyHttps, LineEdit_ProxyHttps))
+        self.Card_TimeSleep = RangeSettingCard(configItem=funcS.cfg.TimeSleep,
+                                               title="在线资源刷新间隔（数值单位1s）",
+                                               content="控制「一言」等模块的刷新间隔",
+                                               icon=FIC.SEND)
+        self.CardGroup_Function.addSettingCard(self.Card_TimeSleep)
         self.layout.addWidget(self.CardGroup_Function)
 
-        # 翻译 API 设置，这些设置需要另外编写保存逻辑。
+        # 翻译 API 设置
         self.CardGroup_API = SettingCardGroup("API 设置", self.widget)
         self.layout.addWidget(self.CardGroup_API)
 
+        self.GlobalEnableGlossary = SwitchSettingCard(configItem=funcS.cfg.GlossaryEnable,
+                                                      title="启用术语表",
+                                                      content="翻译工具全局启用术语表，术语表的详细设置需要在术语表窗口中设置。",
+                                                      icon=FIC.ERASE_TOOL)
+        self.CardGroup_API.addSettingCard(self.GlobalEnableGlossary)
         self.ExpandCard_fanyi_baidu = ExpandGroupSettingCard(icon=PIC.IconBaiDu,
                                                              title="百度通用文本翻译API",
                                                              content="设置「百度通用文本翻译」的API参数以调用。",
