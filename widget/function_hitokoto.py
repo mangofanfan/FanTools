@@ -19,7 +19,7 @@ class yi_yan(QObject):
         """
         super().__init__()
         self.dict = {"official": "https://v1.hitokoto.cn/",
-                      "hitokoto": "https://v1.hitokoto.cn/",
+                      "hitokoto": "https://hitokoto.cn/",
                       "fan_mirror": "https://api-hitokoto.mangofanfan.cn/"}
         self.api: str = None
         self._name: str = None
@@ -67,7 +67,30 @@ class yi_yan(QObject):
         else:
             proxies = {}
 
-        res = requests.get(self.api, proxies=proxies)
+        cfgItems = [cfg.YiYanTypeA, cfg.YiYanTypeB, cfg.YiYanTypeC, cfg.YiYanTypeD, cfg.YiYanTypeE, cfg.YiYanTypeF,
+                    cfg.YiYanTypeG, cfg.YiYanTypeH, cfg.YiYanTypeI, cfg.YiYanTypeJ, cfg.YiYanTypeK, cfg.YiYanTypeL]
+        types = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l"]
+
+        n = 0
+        i = 0
+        typeList = []
+        for cfgItem in cfgItems:
+            if cfg.get(cfgItem) is True:
+                n += 1
+                typeList.append(types[i])
+            i += 1
+
+        if n == 0:
+            _api = self.api
+        elif n == 1:
+            _api = self.api + "?c=" + typeList[0]
+        elif n >= 2:
+            _api = self.api + "?c=" + "&c=".join(typeList)
+        else:
+            raise
+
+        logger.debug(f"调用一次一言 API： {_api}")
+        res = requests.get(_api, proxies=proxies)
         data = json.loads(res.content)
 
         _from = data["from"]

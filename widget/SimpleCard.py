@@ -138,7 +138,7 @@ class YiYanCard(CardWidget):
     def _getSignal(self, data: dict):
         content = data["content"]
         origin = data["origin"]
-        url = self.YiYan.dict["official"] + "?id=" + data["id"]
+        url = self.YiYan.dict["hitokoto"] + "?id=" + data["id"]
         self._setText(content, origin, url)
         return None
 

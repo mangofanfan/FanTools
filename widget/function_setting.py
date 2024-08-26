@@ -19,15 +19,25 @@ class appConfig(QConfig):
     ProxyHttp = ConfigItem("Function", "ProxyHttp", "http://127.0.0.1:7890")
     ProxyHttps = ConfigItem("Function", "ProxyHttps", "http://127.0.0.1:7890")
     YiYanAPI = OptionsConfigItem("Function", "YiYanAPI", "fan_mirror", OptionsValidator(["official", "fan_mirror"]))
+    YiYanTypeA = OptionsConfigItem("Function", "YiYanTypeA", True, BoolValidator())
+    YiYanTypeB = OptionsConfigItem("Function", "YiYanTypeB", True, BoolValidator())
+    YiYanTypeC = OptionsConfigItem("Function", "YiYanTypeC", True, BoolValidator())
+    YiYanTypeD = OptionsConfigItem("Function", "YiYanTypeD", True, BoolValidator())
+    YiYanTypeE = OptionsConfigItem("Function", "YiYanTypeE", True, BoolValidator())
+    YiYanTypeF = OptionsConfigItem("Function", "YiYanTypeF", True, BoolValidator())
+    YiYanTypeG = OptionsConfigItem("Function", "YiYanTypeG", True, BoolValidator())
+    YiYanTypeH = OptionsConfigItem("Function", "YiYanTypeH", True, BoolValidator())
+    YiYanTypeI = OptionsConfigItem("Function", "YiYanTypeI", True, BoolValidator())
+    YiYanTypeJ = OptionsConfigItem("Function", "YiYanTypeJ", True, BoolValidator())
+    YiYanTypeK = OptionsConfigItem("Function", "YiYanTypeK", True, BoolValidator())
+    YiYanTypeL = OptionsConfigItem("Function", "YiYanTypeL", True, BoolValidator())
     TimeSleep = RangeConfigItem("Function", "TimeSleep", 20, RangeValidator(5, 60))
 
-    # API设置 API
-    BaiduAPPID = ConfigItem("API", "BaiduAPPID", "")
-    BaiduKey = ConfigItem("API", "BaiduKey", "")
-    YoudaoAPPKey = ConfigItem("API", "YoudaoAPPKey", "")
-    YoudaoKey = ConfigItem("API", "YoudaoKey", "")
-
-    # 翻译术语表独家设置
+    # 翻译工具独家设置
+    BaiduAPPID = ConfigItem("Translate", "BaiduAPPID", "")
+    BaiduKey = ConfigItem("Translate", "BaiduKey", "")
+    YoudaoAPPKey = ConfigItem("Translate", "YoudaoAPPKey", "")
+    YoudaoKey = ConfigItem("Translate", "YoudaoKey", "")
     GlossaryEnable = ConfigItem("Translate", "GlossaryEnable", False, BoolValidator())
 
     # 下载工具独家设置
