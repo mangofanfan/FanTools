@@ -22,4 +22,8 @@
         <description>Created after removal of "右键菜单 | RightClickMenu" from FanTools</description>
         <accepts>右键菜单-RightClickMenu.html</accepts>
     </rule>
+    <rule id="57ede926">
+        <description>Created after removal of "全局字体 | Global FontFamily" from FanTools</description>
+        <accepts>全局字体-Global-FontFamily.html</accepts>
+    </rule>
 </rules>

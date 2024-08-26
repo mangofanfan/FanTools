@@ -3,11 +3,24 @@
 <buildprofiles xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/build-profiles.xsd"
                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
-    <variables></variables>
+    <variables/>
     <build-profile instance="f">
         <variables>
             <noindex-content>false</noindex-content>
+            <showDownloadButton>true</showDownloadButton>
+            <download-page>https://github.com/mangofanfan/FanTools</download-page>
+            <download-title>前往仓库</download-title>
+            <enable-browser-edits>true</enable-browser-edits>
+            <browser-edits-url>https://github.com/mangofanfan/FanTools/tree/master/Writerside/</browser-edits-url>
         </variables>
     </build-profile>
+    <sitemap priority="0.35" change-frequency="monthly"/>
+    <footer>
+        <social type="bilibili" href="https://space.bilibili.com/354535460">在小破站上关注芒果</social>
+        <social type="blog" href="https://mangofanfan.cn/">芒果的破博客站</social>
+        <social type="rss" href="https://ifanspace.top/">帆域中心站</social>
+        <icp>苏ICP备2024110906</icp>
+        <copyright>芒果帆帆</copyright>
+    </footer>
 
 </buildprofiles>
