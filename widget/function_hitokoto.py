@@ -18,7 +18,11 @@ class yi_yan(QObject):
         或直接调用get方法。
         """
         super().__init__()
+        self.dict = {"official": "https://v1.hitokoto.cn/",
+                      "hitokoto": "https://v1.hitokoto.cn/",
+                      "fan_mirror": "https://api-hitokoto.mangofanfan.cn/"}
         self.api: str = None
+        self._name: str = None
         self.Thread_Timer = QThread()
         self.Worker_Timer = Worker_Timer()
         self.Worker_Timer.updateSignal.connect(self.get)
@@ -41,11 +45,8 @@ class yi_yan(QObject):
         :param name: API名称，多个单词之间需要用下划线连接，所有字母不区分大小写。
         :return: None
         """
-        _name = name.lower()
-        _dict = {"official": "https://v1.hitokoto.cn/",
-                 "hitokoto": "https://v1.hitokoto.cn/",
-                 "fan_mirror": "https://api-hitokoto.mangofanfan.cn/"}
-        self.api = _dict[_name]
+        self._name = name.lower()
+        self.api = self.dict[self._name]
         return None
 
     def get(self):
