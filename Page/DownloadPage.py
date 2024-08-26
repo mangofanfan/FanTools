@@ -119,9 +119,13 @@ class DownloadPage:
             return None
 
         if self.Thread_Time:
-            self.Thread_Time.terminate()
+            self.Worker_Time.stopRunning()
+            self.Thread_Time.quit()
         if self.Thread_sDownloadUpdate:
-            self.Thread_sDownloadUpdate.terminate()
+            self.Worker_sDownloadUpdate.stopRunning()
+            self.Thread_sDownloadUpdate.quit()
+        self.Thread_Time.wait()
+        self.Thread_sDownloadUpdate.wait()
         self.manager.aria2_exit()
         logger.debug("已经停止对 aria2c 的一切监听。")
 
@@ -181,10 +185,15 @@ class Worker_Time(QObject):
     def __init__(self):
         super().__init__()
         self.runSignal.connect(self.run)
+        self.keepRunning = True
+
+    def stopRunning(self):
+        self.keepRunning = False
+        return None
 
     def run(self):
         from time import sleep
-        while True:
+        while self.keepRunning is True:
             self.updateStats.emit()
             logger.debug("更新一次下载状态面板。")
             sleep(funcS.qconfig.get(funcS.cfg.DownloadStatsTimeSleep) * 0.1)
@@ -199,10 +208,15 @@ class Worker_sDownloadUpdate(QObject):
         super().__init__()
         self.runSignal.connect(self.run)
         self.download = download
+        self.keepRunning = True
+
+    def stopRunning(self):
+        self.keepRunning = False
+        return None
 
     def run(self):
         from time import sleep
-        while True:
+        while self.keepRunning is True:
             self.download.update()
             progress = self.download.progress
             gid = self.download.gid

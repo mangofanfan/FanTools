@@ -92,10 +92,15 @@ class Worker_Timer(QObject):
         super().__init__()
 
         self.runSignal.connect(self.run)
+        self.keepRunning = True
+
+    def stopRunning(self):
+        self.keepRunning = False
+        return None
 
     def run(self):
         from time import sleep
-        while True:
+        while self.keepRunning:
             self.updateSignal.emit()
             logger.debug("发送一次一言更新信号。")
             _time = cfg.get(cfg.TimeSleep)

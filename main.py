@@ -2,6 +2,7 @@ import os
 import sys, locale
 import traceback
 import pathlib
+import time
 
 from PySide2.QtGui import QGuiApplication, Qt, QIcon
 from PySide2.QtWidgets import QApplication
@@ -129,13 +130,23 @@ class Main:
         关闭所有线程和进程，然后执行退出。
         :return: None
         """
+        self.mainWindow.destroy()
+        self.window_TranslatePage.Tool.destroy()
+        self.window_TranslatePage.Multi.destroy()
+        self.window_TranslatePage.Glossary.destroy()
+        logger.info("已关闭所有程序窗口。")
+        time.sleep(1)
+
         # 退出一言定时线程
         if self.window_HomePage.YiYanCard.YiYan.Thread_Timer.isRunning():
-            self.window_HomePage.YiYanCard.YiYan.Thread_Timer.terminate()
+            self.window_HomePage.YiYanCard.YiYan.Worker_Timer.stopRunning()
+            self.window_HomePage.YiYanCard.YiYan.Thread_Timer.quit()
             self.window_HomePage.YiYanCard.YiYan.Thread_Timer.wait()
+        logger.info("一言定时线程已经退出。")
 
         # 确保下载工具 aria2c 已经退出
-        self.window_DownloadPage.manager.aria2_exit()
+        self.window_DownloadPage.killAria2c()
+        logger.info("Aria2c 下载工具已经退出。")
 
         QApplication.quit()
         return None
