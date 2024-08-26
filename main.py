@@ -1,19 +1,30 @@
-import os
-import sys, locale
-import traceback
-import pathlib
-import time
-
-from PySide2.QtGui import QGuiApplication, Qt, QIcon
-from PySide2.QtWidgets import QApplication
-import PySide2.QtCore as QC
-from qfluentwidgets import NavigationItemPosition, FluentTranslator, MessageBox, SplashScreen
-from qfluentwidgets import FluentIcon as FIC
-
-from widget.function import basicFunc
-from widget.Window import MainWindow
-
+import locale
 import logging
+import os
+import pathlib
+import sys
+import time
+import traceback
+
+import PySide2.QtCore as QC
+from PySide2.QtGui import QGuiApplication, Qt, QIcon, QFontDatabase
+from PySide2.QtWidgets import QApplication
+from qfluentwidgets import FluentIcon as FIC
+from qfluentwidgets import NavigationItemPosition, FluentTranslator, MessageBox, SplashScreen
+
+locale.setlocale(locale.LC_ALL, "zh_CN.UTF-8")
+
+QGuiApplication.setAttribute(QC.Qt.AA_EnableHighDpiScaling, True)
+QGuiApplication.setAttribute(QC.Qt.AA_UseHighDpiPixmaps, True)
+QGuiApplication.setHighDpiScaleFactorRoundingPolicy(Qt.HighDpiScaleFactorRoundingPolicy.PassThrough)
+
+app = QApplication(sys.argv)
+translator = FluentTranslator()
+app.installTranslator(translator)
+
+from widget.Window import MainWindow
+from widget.function import basicFunc, fanFont
+from widget.function_font import getFontStyleSheet
 
 # 首先加载日志模块
 log_dir = pathlib.Path(basicFunc.getHerePath() + "/log")
@@ -42,16 +53,8 @@ logger.addHandler(fh_2)
 logger.info(f"芒果工具箱🥭正在启动 | 当前版本 {basicFunc.getInfo()['v']}")
 logger.info("日志模块加载完毕，开始记录日志。")
 
-locale.setlocale(locale.LC_ALL, "zh_CN.UTF-8")
-
-QGuiApplication.setAttribute(QC.Qt.AA_EnableHighDpiScaling, True)
-QGuiApplication.setAttribute(QC.Qt.AA_UseHighDpiPixmaps, True)
-QGuiApplication.setHighDpiScaleFactorRoundingPolicy(Qt.HighDpiScaleFactorRoundingPolicy.PassThrough)
-
-app = QApplication(sys.argv)
-app.setStyleSheet(basicFunc.readFile(file="/data/global.qss"))
-translator = FluentTranslator()
-app.installTranslator(translator)
+app.setStyleSheet("QScrollArea { background: transparent; border: none; }" +
+                  getFontStyleSheet())
 
 logger.debug("各前置模块加载完毕，开始实现窗口。")
 

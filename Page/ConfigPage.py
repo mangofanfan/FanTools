@@ -6,7 +6,7 @@ from PySide2.QtWidgets import QWidget, QHBoxLayout, QFrame, QVBoxLayout, QBoxLay
 from qfluentwidgets import ComboBoxSettingCard, ColorSettingCard, SettingCardGroup, SwitchSettingCard, \
     ExpandGroupSettingCard, LineEdit, \
     PasswordLineEdit, VBoxLayout, TitleLabel, BodyLabel, SingleDirectionScrollArea, qconfig, ToolTipFilter, \
-    OptionsSettingCard, RangeSettingCard
+    OptionsSettingCard, RangeSettingCard, setCustomStyleSheet
 from qfluentwidgets import FluentIcon as FIC
 from qfluentwidgets import Theme, setTheme, setThemeColor
 
@@ -70,17 +70,17 @@ class ConfigPage:
                                                 enableAlpha=False)
         self.CardGroup_Theme.addSettingCard(self.Card_ThemeColor)
         funcS.cfg.ThemeColor.valueChanged.connect(self.themeColorChange)
-        self.Card_WindowAcrylicEnable = SwitchSettingCard(title="启用亚克力效果（重启程序后生效，不稳定）",
+        self.Card_WindowAcrylicEnable = SwitchSettingCard(title="启用亚克力效果（重启后生效，不稳定）",
                                                           content="为工具箱的所有窗口启用亚克力效果（实时计算的半透明虚化窗口背景，深色模式显示可能存在异常）",
                                                           configItem=funcS.cfg.WindowAcrylicEnable,
                                                           icon=FIC.FIT_PAGE)
         self.CardGroup_Theme.addSettingCard(self.Card_WindowAcrylicEnable)
-        self.Card_YiYanAPI = OptionsSettingCard(configItem=funcS.cfg.YiYanAPI,
-                                                icon=FIC.APPLICATION,
-                                                title="一言API接口",
-                                                content="选择「一言」功能的调用接口，芒果自建了一个镜像接口以便在官方接口失效时使用",
-                                                texts=["官方接口 - hitokoto.cn", "帆域接口 - mangofanfan.cn"])
-        self.CardGroup_Theme.addSettingCard(self.Card_YiYanAPI)
+        self.Card_FontFamily = ComboBoxSettingCard(configItem=funcS.cfg.FontFamily,
+                                                   title="应用程序字体（重启后生效）",
+                                                   content="除设置卡片与弹出窗口外，字体在程序内全局生效",
+                                                   icon=FIC.FONT,
+                                                   texts=["默认黑体", "中文像素体", "清松手写体"])
+        self.CardGroup_Theme.addSettingCard(self.Card_FontFamily)
         self.layout.addWidget(self.CardGroup_Theme)
 
         # 程序的全局功能设置
@@ -117,6 +117,12 @@ class ConfigPage:
         LineEdit_ProxyHttps.setText(qconfig.get(funcS.cfg.ProxyHttps))
         self.ExpandCard_Proxy.addGroupWidget(self.expandCardAddWidget(BodyLabel_ProxyHttp, LineEdit_ProxyHttp))
         self.ExpandCard_Proxy.addGroupWidget(self.expandCardAddWidget(BodyLabel_ProxyHttps, LineEdit_ProxyHttps))
+        self.Card_YiYanAPI = OptionsSettingCard(configItem=funcS.cfg.YiYanAPI,
+                                                icon=FIC.APPLICATION,
+                                                title="一言API接口",
+                                                content="选择「一言」功能的调用接口，芒果自建了一个镜像接口以便在官方接口失效时使用",
+                                                texts=["官方接口 - hitokoto.cn", "帆域接口 - mangofanfan.cn"])
+        self.CardGroup_Function.addSettingCard(self.Card_YiYanAPI)
         self.Card_TimeSleep = RangeSettingCard(configItem=funcS.cfg.TimeSleep,
                                                title="在线资源刷新间隔（数值单位1s）",
                                                content="控制「一言」等模块的刷新间隔",

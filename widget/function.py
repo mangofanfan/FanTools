@@ -1,5 +1,6 @@
 from os import getcwd
 
+from PySide2.QtGui import QFontDatabase
 from PySide2.QtWidgets import QFileDialog
 
 
@@ -67,20 +68,41 @@ class basicFunc:
 
 
 
-def _path(fileName: str):
+def _iconPath(fileName: str):
     return basicFunc.getHerePath() + f"/data/icon/Icon{fileName}"
 
 
 class PIC:
-    IconBaiDu = _path("BaiDu.png")
-    IconYouDao = _path("YouDao.png")
-    IconDownload = _path("Download.png")
-    IconHash = _path("Hash.png")
-    IconTranslate = _path("Translate.png")
+    IconBaiDu = _iconPath("BaiDu.png")
+    IconYouDao = _iconPath("YouDao.png")
+    IconDownload = _iconPath("Download.png")
+    IconHash = _iconPath("Hash.png")
+    IconTranslate = _iconPath("Translate.png")
 
-    IconPython = _path("Python.svg")
-    IconQt = _path("Qt.png")
-    IconQFluentWidgets = _path("QFluentWidgets.png")
-    IconGitHub = _path("GitHub.svg")
-    IconWriterSide = _path("Writerside.svg")
+    IconPython = _iconPath("Python.svg")
+    IconQt = _iconPath("Qt.png")
+    IconQFluentWidgets = _iconPath("QFluentWidgets.png")
+    IconGitHub = _iconPath("GitHub.svg")
+    IconWriterSide = _iconPath("Writerside.svg")
+
+
+
+def _fontPath(fileName: str):
+    return basicFunc.getHerePath() + f"/data/font/{fileName}"
+
+
+class fanFont:
+    class font:
+        def __init__(self, fileName: str, displayName: str, is_file: bool = True):
+            self.fileName = fileName
+            self.displayName = displayName
+            self.is_file = is_file
+
+        @property
+        def path(self):
+            return _fontPath(self.fileName)
+
+    Hei = font("sans-serif", "默认黑体", is_file = False)
+    QingSong = font("清松手写体.ttf", "清松手写体")
+    XiangSu = font("中文像素体.ttf", "中文像素体")
 

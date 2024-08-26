@@ -1,7 +1,0 @@
-* { font-family: "Source Sans Pro"; }
-
-QScrollArea { background: transparent; border: none; }
-
-/* QWidget { background: transparent; }
-
-#Title { font-size: 20px; }

@@ -71,7 +71,7 @@ class yi_yan(QObject):
 
         _from = data["from"]
         _from_who = data["from_who"]
-        if _from_who != "null" or _from_who is None:
+        if _from_who != "null" and _from_who is not None and _from_who != "None":
             origin = f"{_from_who} - {_from}"
         else:
             origin = _from

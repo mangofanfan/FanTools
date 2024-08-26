@@ -11,13 +11,14 @@ class appConfig(QConfig):
                                   OptionsValidator(["light", "dark", "auto"]), restart=True)
     ThemeColor = ColorConfigItem("Appearance", "ThemeColor", "#006DCC")
     WindowAcrylicEnable = ConfigItem("Appearance", "WindowAcrylicEnable", False, BoolValidator())
-    YiYanAPI = OptionsConfigItem("Appearance", "YiYanAPI", "fan_mirror", OptionsValidator(["official", "fan_mirror"]))
+    FontFamily = OptionsConfigItem("Appearance", "FontFamily", "Hei", OptionsValidator(["Hei", "XiangSu", "QingSong"]))
 
     # 功能设置 Function
     ExitConfirm = ConfigItem("Function", "ExitConfirm", True, BoolValidator())
     ProxyEnable = ConfigItem("Function", "ProxyEnable", False, BoolValidator())
     ProxyHttp = ConfigItem("Function", "ProxyHttp", "http://127.0.0.1:7890")
     ProxyHttps = ConfigItem("Function", "ProxyHttps", "http://127.0.0.1:7890")
+    YiYanAPI = OptionsConfigItem("Function", "YiYanAPI", "fan_mirror", OptionsValidator(["official", "fan_mirror"]))
     TimeSleep = RangeConfigItem("Function", "TimeSleep", 20, RangeValidator(5, 60))
 
     # API设置 API
