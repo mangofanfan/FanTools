@@ -56,14 +56,6 @@
   {
    "optionDest": "bootloader_ignore_signals",
    "value": false
-  },
-  {
-   "optionDest": "datas",
-   "value": "C:/Users/mango/PycharmProjects/FanTools/data;data/"
-  },
-  {
-   "optionDest": "datas",
-   "value": "C:/Users/mango/PycharmProjects/FanTools/aria2c;aria2c/"
   }
  ],
  "nonPyinstallerOptions": {

@@ -1,4 +1,5 @@
-from os import getcwd
+from os import getcwd, getenv
+from pathlib import Path
 
 from PySide2.QtWidgets import QFileDialog
 
@@ -18,8 +19,10 @@ class basicFunc:
 
     @staticmethod
     def getHerePath():
-        p = getcwd()
-        return p
+        if Path(getcwd() + "/data").is_dir():
+            return getcwd()
+        else:
+            return getenv("LOCALAPPDATA") + "/FanTools"
 
     @staticmethod
     def readFile(file: str, realPath: bool = False) -> str:
@@ -72,6 +75,9 @@ class basicFunc:
 def _iconPath(fileName: str):
     return basicFunc.getHerePath() + f"/data/icon/Icon{fileName}"
 
+def _fontPath(fileName: str):
+    return basicFunc.getHerePath() + f"/data/font/{fileName}"
+
 
 class PIC:
     IconBaiDu = _iconPath("BaiDu.png")
@@ -86,10 +92,6 @@ class PIC:
     IconGitHub = _iconPath("GitHub.svg")
     IconWriterSide = _iconPath("Writerside.svg")
 
-
-
-def _fontPath(fileName: str):
-    return basicFunc.getHerePath() + f"/data/font/{fileName}"
 
 
 class fanFont:
