@@ -4,6 +4,8 @@
 
 本程序的文档使用 Writerside 编写维护，请访问 **[这个页面](https://docs.mangofanfan.cn/fantools)** 查看文档。
 
+**早期技术测试版本0.0.0已经发布！** | **命令行安装工具[在此](https://github.com/mangofanfan/FanToolsInstaller)！**
+
 **芒果工具箱是一个开源项目，旨在通过一个应用程序来提供许多并非很重要、但突然需要时却又难以找到的功能。**
 
 ## 工具箱功能举例
