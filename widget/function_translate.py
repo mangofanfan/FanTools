@@ -7,12 +7,8 @@ from PySide2.QtGui import QIcon
 
 logger = logging.getLogger("FanTools.funcT")
 
-try:
-    from function import basicFunc, PIC
-    from function_setting import cfg, qconfig
-except ModuleNotFoundError:
-    from widget.function import basicFunc, PIC
-    from widget.function_setting import cfg, qconfig
+from widget.function import basicFunc, PIC
+from widget.function_setting import cfg, qconfig
 
 
 class TranslateTag:
@@ -53,6 +49,25 @@ class TranslateText:
 
     def print(self):
         return f"{self.originalText}|!|{self.translatedText}|!|{self.translateTag}"
+
+    def set(self, translatedText: str = None, translateTag: str = None):
+        """
+        用来标准化设置一个词条的翻译结果的方法。
+        :param translatedText: 翻译目标文本。
+        :param translateTag: 词条的翻译标签。
+        :return: None
+        """
+        if translatedText != "" and translatedText is not None:
+            self.translatedText = translatedText
+        else:
+            self.translatedText = "None"
+        if self.translateTag == "None" or self.translateTag is None:
+            self.translateTag = f";{translateTag}"
+        elif translateTag in self.translateTag:
+            pass
+        else:
+            self.translateTag += f";{translateTag}"
+        return None
 
 
 class TranslateProject:

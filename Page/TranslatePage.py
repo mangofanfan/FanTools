@@ -405,16 +405,7 @@ class TranslateToolPage(TranslateWindow):
         return None
 
     def saveText(self, text: funcT.TranslateText, translatedText: str, translateTag: str, oneNext: bool = True):
-        if translatedText != "":
-            text.translatedText = translatedText
-        else:
-            text.translatedText = "None"
-        if text.translateTag == "None":
-            text.translateTag = f";{translateTag}"
-        elif translateTag in text.translateTag:
-            pass
-        else:
-            text.translateTag += f";{translateTag}"
+        text.set(translatedText, translateTag)
         if oneNext:
             self.displayText(self.getIdText(self.currentId + 1))
         else:
@@ -600,8 +591,8 @@ class TranslateMultiPage(TranslateWindow):
                 text: funcT.TranslateText
                 w = TranslateTextCard(text=text)
                 w.setup(text.originalText, text.translatedText)
-                w.update.connect(self.updateProjectText)
-                w.translateWithAPI.connect(self.translateWithAPI)
+                w.updateSignal.connect(self.updateProjectText)
+                w.translateWithAPISignal.connect(self.translateWithAPI)
                 self.layout.addWidget(w.widget)
                 self.cardList.append(w)
                 QApplication.processEvents()
@@ -617,8 +608,8 @@ class TranslateMultiPage(TranslateWindow):
                 text: funcT.TranslateText
                 w = TranslateTextCard(text=text)
                 w.setup(text.originalText, text.translatedText)
-                w.update.connect(self.updateProjectText)
-                w.translateWithAPI.connect(self.translateWithAPI)
+                w.updateSignal.connect(self.updateProjectText)
+                w.translateWithAPISignal.connect(self.translateWithAPI)
                 self.layout.addWidget(w.widget)
                 self.cardList.append(w)
                 QApplication.processEvents()
@@ -671,7 +662,7 @@ class TranslateMultiPage(TranslateWindow):
 
         targetText = apiFunc(originalText)
         card.text.translatedText = targetText
-        card.updateText(targetText)
+        card.updateText(targetText, funcT.TranslateTag.use_API)
         self.logger.info(f"成功执行一次API翻译。（ID {id} | 原文 {originalText} | 译文 {targetText}）")
         return None
 
@@ -723,8 +714,8 @@ class Worker_MultiTranslator(QObject):
             card: TranslateTextCard
             originalText = card.OriginalText_LineEdit.text()
             targetText = self.apiFunc(originalText)
-            card.text.translatedText = targetText
-            card.updateText(targetText)
+            card.text.set(targetText, funcT.TranslateTag.use_API)
+            card.updateText(targetText, funcT.TranslateTag.use_API)
 
             sleep(1)
         self.finishSignal.emit()
