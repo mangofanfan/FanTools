@@ -1,6 +1,7 @@
 import logging
 from functools import partial
 from pathlib import Path
+from time import sleep
 
 from PySide2 import QtCore
 from PySide2.QtCore import QObject, Signal, QThread, QSize
@@ -546,6 +547,8 @@ class TranslateMultiPage(TranslateWindow):
         self.ui.ToolButton_Guide.setFixedHeight(30)
         self.ui.ToolButton_Guide.setIcon(FIC.HELP)
 
+        self.ui.SubtitleLabel.setText("列表多项翻译工具 | 加载中")
+
         ButtonMenu_Quick = RoundMenu(parent=self.ui.SplitPushButton)
         ButtonMenu_Quick.addAction(Action(icon=FIC.ZOOM_OUT, text="导出翻译语言文件",
                                           triggered=lambda: self.project.dumpProject(funcT.FileType.JSON,"output.json")))
@@ -561,6 +564,7 @@ class TranslateMultiPage(TranslateWindow):
         self.ui.ComboBox_API.setCurrentIndex(-1)
 
         self.ui.PushButton_Glossary.clicked.connect(self.glossarySignal.emit)
+        self.ui.PrimaryPushButton_TranslateWithAPI.clicked.connect(self.translateAllText)
 
         self.logger.info("列表多项翻译工具初始化完毕。")
 
@@ -602,6 +606,7 @@ class TranslateMultiPage(TranslateWindow):
                 self.cardList.append(w)
                 QApplication.processEvents()
             self.logger.debug("已在列表中显示全部词条。")
+            self.ui.SubtitleLabel.setText(f"列表多项翻译工具 | 全部词条（{self.n}）已加载")
         elif self.limit > 0:
             self.ui.PushButton_PageBefore.setEnabled(True)
             self.ui.PushButton_PageAfter.setEnabled(True)
@@ -618,6 +623,7 @@ class TranslateMultiPage(TranslateWindow):
                 self.cardList.append(w)
                 QApplication.processEvents()
             self.logger.debug(f"已在列表中显示部分词条：[{start}-{end}]")
+            self.ui.SubtitleLabel.setText(f"列表多项翻译工具 | 部分词条（{start}->{end}）已加载")
         else:
             raise
         bar.close()
@@ -638,11 +644,11 @@ class TranslateMultiPage(TranslateWindow):
     def updateProjectText(self, pack: tuple):
         text = self.getIdText(pack[0])
         text.translatedText = pack[1]
-        logger.debug(f"已经更新ID为 {pack[0]} 的翻译词条为 {pack[1]}。")
+        self.logger.debug(f"已经更新ID为 {pack[0]} 的翻译词条为 {pack[1]}。")
         return None
 
     def saveProject(self):
-        self.project.saveProject(file=self.file)
+        self.project.saveProject(projectFile=self.file)
         return None
 
     def translateWithAPI(self, id: int):
@@ -652,7 +658,7 @@ class TranslateMultiPage(TranslateWindow):
             if int(card.text.id) == id:
                 break
         if not card:
-            logger.error("未找到发送翻译信号的词条，这可能是程序内部存在的bug，请考虑将其提交给开发者！")
+            self.logger.error("未找到发送翻译信号的词条，这可能是程序内部存在的bug，请考虑将其提交给开发者！")
             return None
 
         originalText = card.text.originalText
@@ -660,19 +666,68 @@ class TranslateMultiPage(TranslateWindow):
         apiFunc = self.ui.ComboBox_API.itemData(self.ui.ComboBox_API.currentIndex())
         if not apiFunc:
             IB.msgNoAPIChosen(self)
-            logger.error("尝试执行API翻译，但没有选中任何API接口。")
+            self.logger.error("尝试执行API翻译，但没有选中任何API接口。")
             return None
 
         targetText = apiFunc(originalText)
         card.text.translatedText = targetText
         card.updateText(targetText)
-        logger.info(f"成功执行一次API翻译。（ID {id} | 原文 {originalText} | 译文 {targetText}）")
+        self.logger.info(f"成功执行一次API翻译。（ID {id} | 原文 {originalText} | 译文 {targetText}）")
+        return None
+
+    def translateAllText(self):
+        apiFunc = self.ui.ComboBox_API.itemData(self.ui.ComboBox_API.currentIndex())
+        if not apiFunc:
+            IB.msgNoAPIChosen(self)
+            self.logger.error("尝试执行API翻译，但没有选中任何API接口。")
+            return None
+
+        bar = IB.msgMultiTranslatingNow(self)
+        self.logger.debug("开始进行[整列翻译]（启动MT线程）。")
+
+        self.Thread_MultiTranslator = QThread()
+        self.Worker_MultiTranslator = Worker_MultiTranslator(self.cardList, apiFunc)
+        self.Worker_MultiTranslator.finishSignal.connect(lambda: self.TranslateAllTextFinish(bar))
+        self.Worker_MultiTranslator.moveToThread(self.Thread_MultiTranslator)
+        self.Thread_MultiTranslator.start()
+        self.Worker_MultiTranslator.runSignal.emit()
+
+        self.logger.info("[整列翻译]已开始。")
+        return None
+
+    def TranslateAllTextFinish(self, bar):
+        bar.close()
+        IB.msgMultiTranslateFinish(self)
+        self.logger.info("[整列翻译]已结束。")
         return None
 
     def closeEvent(self, event):
         self.project = funcT.TranslateProject()
         self.logger.info("关闭翻译器窗口，卸载翻译项目。")
         event.accept()
+        return None
+
+
+class Worker_MultiTranslator(QObject):
+    runSignal = Signal()
+    finishSignal = Signal()
+
+    def __init__(self, cardList, apiFunc, parent=None):
+        super().__init__(parent)
+        self.cardList = cardList
+        self.apiFunc = apiFunc
+        self.runSignal.connect(self.run)
+
+    def run(self):
+        for card in self.cardList:
+            card: TranslateTextCard
+            originalText = card.OriginalText_LineEdit.text()
+            targetText = self.apiFunc(originalText)
+            card.text.translatedText = targetText
+            card.updateText(targetText)
+
+            sleep(1)
+        self.finishSignal.emit()
 
 
 class GlossaryWindow(TranslateWindow):

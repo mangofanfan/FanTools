@@ -331,6 +331,7 @@ class history:
                 return None
         if not name:
             name = Path(path).stem
+            name = name.split(".")[0]
         self.historyList.insert(0, f"{path}|!|{name}")
         self.save()
         return None

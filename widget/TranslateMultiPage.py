@@ -14,8 +14,8 @@ from PySide2.QtWidgets import *
 
 from qfluentwidgets import ComboBox
 from qfluentwidgets import PushButton
+from qfluentwidgets import PrimaryPushButton
 from qfluentwidgets import SplitPushButton
-from qfluentwidgets import PrimarySplitPushButton
 from qfluentwidgets import ToolButton
 from qfluentwidgets import SingleDirectionScrollArea
 from qfluentwidgets import CaptionLabel
@@ -81,11 +81,10 @@ class Ui_Form(object):
 
         self.verticalLayout.addWidget(self.ComboBox_API)
 
-        self.PrimarySplitPushButton_TranslateWithAPI = PrimarySplitPushButton(Form)
-        self.PrimarySplitPushButton_TranslateWithAPI.setObjectName(u"PrimarySplitPushButton_TranslateWithAPI")
-        self.PrimarySplitPushButton_TranslateWithAPI.setMaximumSize(QSize(190, 16777215))
+        self.PrimaryPushButton_TranslateWithAPI = PrimaryPushButton(Form)
+        self.PrimaryPushButton_TranslateWithAPI.setObjectName(u"PrimaryPushButton_TranslateWithAPI")
 
-        self.verticalLayout.addWidget(self.PrimarySplitPushButton_TranslateWithAPI)
+        self.verticalLayout.addWidget(self.PrimaryPushButton_TranslateWithAPI)
 
         self.horizontalLayout_3 = QHBoxLayout()
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
@@ -142,10 +141,11 @@ class Ui_Form(object):
         self.PushButton_SaveProject.setText(QCoreApplication.translate("Form", u"\u4fdd\u5b58\u9879\u76ee", None))
         self.PushButton_Glossary.setText(QCoreApplication.translate("Form", u"\u672f\u8bed\u8868", None))
         self.ComboBox_API.setText(QCoreApplication.translate("Form", u"\u9009\u62e9API\u4ee5\u4f9b\u8c03\u7528", None))
-        self.PrimarySplitPushButton_TranslateWithAPI.setProperty("text_", QCoreApplication.translate("Form", u"\u6279\u91cf\u8c03\u7528API\u6267\u884c\u7ffb\u8bd1", None))
+        self.PrimaryPushButton_TranslateWithAPI.setText(QCoreApplication.translate("Form", u"\u6279\u91cf\u8c03\u7528API\u6267\u884c\u7ffb\u8bd1", None))
         self.PushButton_PageBefore.setText(QCoreApplication.translate("Form", u"<<<", None))
         self.PushButton_PageAfter.setText(QCoreApplication.translate("Form", u">>>", None))
-        self.CaptionLabel.setText(QCoreApplication.translate("Form", u"<html><head/><body><p>\u672c\u9875\u9762\u662f\u5217\u8868\u591a\u9879\u8bcd\u6761\u7ffb\u8bd1\u5668\u7684\u9875\u9762\uff0c\u9488\u5bf9\u67d0\u4e00\u8bcd\u6761\u7684\u5de5\u5177\u6309\u94ae\u5747\u653e\u7f6e\u5728\u8be5\u8bcd\u6761\u5361\u7247\u4e0a\uff0c\u6240\u6709\u8bcd\u6761\u5728\u53d1\u751f\u53d8\u5316\u4e4b\u540e\u90fd\u4f1a\u81ea\u52a8\u4fdd\u5b58\uff0c\u4f46\u60a8\u4ecd\u7136\u9700\u8981\u624b\u52a8\u2b06\ufe0f\u4fdd\u5b58\u9879\u76ee\u2b06\ufe0f\u3002</p><p>\u60a8\u9700\u8981\u5148\u5728\u5de5\u5177\u7bb1\u8bbe\u7f6e\u4e2d\u914d\u7f6e\u7ffb\u8bd1API\u7684\u51ed\u8bc1\uff0c\u7136\u540e\u624d\u80fd\u8c03\u7528API\u8fdb\u884c\u7ffb\u8bd1\u3002\u60a8\u70b9\u51fb\u4e0a\u65b9\u8c03\u7528API\u7ffb\u8bd1\u7684\u6309\u94ae\u540e\uff0c\u672c\u9875\u7684\u6240\u6709\u672a\u63d0\u4f9b\u7ffb\u8bd1\u6587\u672c\u7684\u8bcd\u6761\u90fd\u4f1a\u88ab\u63d0\u4ea4\u7ffb\u8bd1\uff0c\u7ffb\u8bd1\u7ed3\u679c\u5c06\u81ea\u52a8\u586b\u5145\u81f3\u8bd1\u6587\u8f93\u5165\u884c\u4e2d\u3002</p></body></html>", None))
+        self.CaptionLabel.setText(QCoreApplication.translate("Form", u"<html><head/><body><p>\u672c\u9875\u9762\u662f\u5217\u8868\u591a\u9879\u8bcd\u6761\u7ffb\u8bd1\u5668\u7684\u9875\u9762\uff0c\u9488\u5bf9\u67d0\u4e00\u8bcd\u6761\u7684\u5de5\u5177\u6309\u94ae\u5747\u653e\u7f6e\u5728\u8be5\u8bcd\u6761\u5361\u7247\u4e0a\uff0c\u6240\u6709\u8bcd\u6761\u5728\u53d1\u751f\u53d8\u5316\u4e4b\u540e\u90fd\u4f1a\u81ea\u52a8\u4fdd\u5b58\uff0c\u4f46\u60a8\u4ecd\u7136\u9700\u8981\u624b\u52a8\u2b06\ufe0f\u4fdd\u5b58\u9879\u76ee\u2b06\ufe0f\u3002</p><p>\u60a8\u9700\u8981\u5148\u5728\u5de5\u5177\u7bb1\u8bbe\u7f6e\u4e2d\u914d\u7f6e\u7ffb\u8bd1API\u7684\u51ed\u8bc1\uff0c\u7136\u540e\u624d\u80fd\u8c03\u7528API\u8fdb\u884c\u7ffb\u8bd1\u3002\u60a8\u70b9\u51fb\u4e0a\u65b9\u8c03\u7528API\u7ffb\u8bd1\u7684\u6309\u94ae\u540e\uff0c\u672c\u9875\u7684\u6240\u6709\u672a\u63d0\u4f9b\u7ffb\u8bd1\u6587\u672c\u7684\u8bcd\u6761\u90fd\u4f1a\u88ab\u63d0\u4ea4\u7ffb\u8bd1\uff0c\u7ffb\u8bd1\u7ed3\u679c\u5c06\u81ea\u52a8\u586b\u5145\u81f3\u8bd1\u6587\u8f93\u5165\u884c\u4e2d\u3002</p><p>\u6279\u91cf\u8c03\u7528API\u7ffb"
+                        "\u8bd1\u5e76\u4e0d\u80fd\u8ba9\u672c\u9875\u7684\u6240\u6709\u5185\u5bb9\u77ac\u95f4\u5b8c\u6210\u7ffb\u8bd1\uff0cAPI\u8c03\u7528\u63a5\u53e3\u4f1a\u5c4f\u853d\u8fc7\u5feb\u7684\u8bbf\u95ee\uff0c\u56e0\u6b64\u4e24\u6b21\u7ffb\u8bd1\u4e4b\u95f4\u5b58\u5728\u4e00\u79d2\u7684\u95f4\u9694\u3002</p></body></html>", None))
         self.BodyLabel.setText(QCoreApplication.translate("Form", u"<html><head/><body><p><span style=\" font-size:9pt;\">\u672c\u7ffb\u8bd1\u5de5\u5177\u4ec5\u5177\u5907\u8c03\u7528\u5916\u90e8 API \u8fdb\u884c\u7ffb\u8bd1\u7684\u80fd\u529b\uff1b\u4efb\u4f55\u5916\u90e8\u7ffb\u8bd1 API \u5747\u4e0e\u672c\u5de5\u5177\u65e0\u4efb\u4f55\u5173\u7cfb\u3002\u672c\u5de5\u5177\u65e0\u6cd5\u4fdd\u8bc1\u5916\u90e8 API \u8c03\u7528\u6240\u5f97\u7ffb\u8bd1\u7ed3\u679c\u7684\u51c6\u786e\u6027\u4e0e\u53ef\u9760\u6027\u3002</span></p></body></html>", None))
     # retranslateUi
 

@@ -84,14 +84,8 @@
         </widget>
        </item>
        <item>
-        <widget class="PrimarySplitPushButton" name="PrimarySplitPushButton_TranslateWithAPI">
-         <property name="maximumSize">
-          <size>
-           <width>190</width>
-           <height>16777215</height>
-          </size>
-         </property>
-         <property name="text_" stdset="0">
+        <widget class="PrimaryPushButton" name="PrimaryPushButton_TranslateWithAPI">
+         <property name="text">
           <string>批量调用API执行翻译</string>
          </property>
         </widget>
@@ -129,7 +123,7 @@
           </size>
          </property>
          <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;本页面是列表多项词条翻译器的页面，针对某一词条的工具按钮均放置在该词条卡片上，所有词条在发生变化之后都会自动保存，但您仍然需要手动⬆️保存项目⬆️。&lt;/p&gt;&lt;p&gt;您需要先在工具箱设置中配置翻译API的凭证，然后才能调用API进行翻译。您点击上方调用API翻译的按钮后，本页的所有未提供翻译文本的词条都会被提交翻译，翻译结果将自动填充至译文输入行中。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;本页面是列表多项词条翻译器的页面，针对某一词条的工具按钮均放置在该词条卡片上，所有词条在发生变化之后都会自动保存，但您仍然需要手动⬆️保存项目⬆️。&lt;/p&gt;&lt;p&gt;您需要先在工具箱设置中配置翻译API的凭证，然后才能调用API进行翻译。您点击上方调用API翻译的按钮后，本页的所有未提供翻译文本的词条都会被提交翻译，翻译结果将自动填充至译文输入行中。&lt;/p&gt;&lt;p&gt;批量调用API翻译并不能让本页的所有内容瞬间完成翻译，API调用接口会屏蔽过快的访问，因此两次翻译之间存在一秒的间隔。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="wordWrap">
           <bool>true</bool>
@@ -174,13 +168,13 @@
    <header>qfluentwidgets</header>
   </customwidget>
   <customwidget>
-   <class>SplitPushButton</class>
-   <extends>QWidget</extends>
+   <class>PrimaryPushButton</class>
+   <extends>PushButton</extends>
    <header>qfluentwidgets</header>
   </customwidget>
   <customwidget>
-   <class>PrimarySplitPushButton</class>
-   <extends>SplitPushButton</extends>
+   <class>SplitPushButton</class>
+   <extends>QWidget</extends>
    <header>qfluentwidgets</header>
   </customwidget>
   <customwidget>

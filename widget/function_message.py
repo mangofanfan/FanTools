@@ -94,6 +94,26 @@ class TranslateIB:
                         position=InfoBarPosition.TOP_RIGHT,
                         parent=self)
 
+    def msgMultiTranslatingNow(self):
+        bar = InfoBar.info(title="正在批量翻译中",
+                           content="请稍作等候……",
+                           isClosable=False,
+                           duration=-1,
+                           position=InfoBarPosition.TOP_RIGHT,
+                           parent=self)
+        ring = IndeterminateProgressRing()
+        ring.setFixedSize(40, 40)
+        bar.addWidget(ring)
+        return bar
+
+    def msgMultiTranslateFinish(self):
+        InfoBar.success(title="整列批量翻译完成",
+                        content="请检查翻译是否确实完整完成~",
+                        isClosable=True,
+                        duration=2000,
+                        position=InfoBarPosition.TOP_RIGHT,
+                        parent=self)
+
     def msgNoInputName(self):
         InfoBar.error(title="未输入项目名称",
                       content="您需要指定一个项目名称，刚刚您什么都没输入。\n"
