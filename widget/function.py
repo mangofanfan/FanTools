@@ -1,6 +1,5 @@
 from os import getcwd
 
-from PySide2.QtGui import QFontDatabase
 from PySide2.QtWidgets import QFileDialog
 
 
@@ -12,7 +11,9 @@ class basicFunc:
     def getInfo():
         info = {"v": "0.0.0",
                 "a": "MangoFanFan_",
-                "au": "https://mangofanfan.cn/"}
+                "au": "https://mangofanfan.cn/",
+                "github": "https://github.com/mangofanfan/FanTools",
+                "docs": "https://docs.mangofanfan.cn/fantools/",}
         return info
 
     @staticmethod
