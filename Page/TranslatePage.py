@@ -1,6 +1,8 @@
 import logging
+import traceback
 from functools import partial
 from pathlib import Path
+from ssl import SSLCertVerificationError
 from time import sleep
 
 from PySide2 import QtCore
@@ -12,6 +14,7 @@ from qfluentwidgets import FluentIcon as FIC, RadioButton, ToolTipFilter, TextEd
     MessageBox
 from qfluentwidgets import VBoxLayout, PushButton, RoundMenu, Action, TitleLabel, BodyLabel, SingleDirectionScrollArea, \
     HeaderCardWidget, LineEdit, StrongBodyLabel
+from urllib3.exceptions import ConnectTimeoutError, SSLError
 
 import widget.function_translate as funcT
 from widget.function_message import TranslateIB as IB
@@ -429,7 +432,7 @@ class TranslateToolPage(TranslateWindow):
         else:
             rule = Rule()
             originalText = rule.translate_rule(originalText)
-            targetText = apiFunc(originalText, originalLan, targetLan)
+            targetText = funcT.translate(originalText, apiFunc, self)
             targetText = rule.reborn_rule(targetText)
             self.ui.TextEdit_API.setText(targetText)
             self.logger.info("完成一次API调用翻译。")
@@ -437,7 +440,7 @@ class TranslateToolPage(TranslateWindow):
 
     def autoTranslate(self, originalLan: str = "en", targetLan: str = "zh", apiFunc: staticmethod = funcT.fanyi_baidu):
         self.Thread_AT = QThread(self)
-        self.Worker_AT = Worker_AutoTranslate(self.project, self.currentId, originalLan, targetLan, apiFunc)
+        self.Worker_AT = Worker_AutoTranslate(self.project, self.currentId, originalLan, targetLan, apiFunc, self)
         self.Worker_AT.moveToThread(self.Thread_AT)
         self.Worker_AT.targetIdSignal.connect(self.displayIDText)
         self.Worker_AT.targetTextSignal.connect(self.updateAPIText)
@@ -471,14 +474,15 @@ class Worker_AutoTranslate(QObject):
     targetTextSignal = Signal(str)
 
     def __init__(self, project: funcT.TranslateProject, startId: int, originalLan: str = "en", targetLan: str = "zh",
-                 apiFunc: staticmethod = funcT.fanyi_baidu):
-        super().__init__()
+                 apiFunc: staticmethod = funcT.fanyi_baidu, parent = None):
+        super().__init__(parent)
 
         self.project = project
         self.originalLan = originalLan
         self.targetLan = targetLan
         self.startId = startId
         self.apiFunc = apiFunc
+        self.parent = parent
 
     def getIdText(self, id: int):
         for text in self.project.textList:
@@ -497,7 +501,7 @@ class Worker_AutoTranslate(QObject):
                 break
             rule = Rule()
             originalText = rule.translate_rule(self.getIdText(n).originalText)
-            targetText = self.apiFunc(originalText, self.originalLan, self.targetLan)
+            targetText = funcT.translate(originalText, self.apiFunc, self.targetLan.parent)
             targetText = rule.reborn_rule(targetText)
             self.targetIdSignal.emit(n)
             self.targetTextSignal.emit(targetText)
@@ -660,7 +664,8 @@ class TranslateMultiPage(TranslateWindow):
             self.logger.error("尝试执行API翻译，但没有选中任何API接口。")
             return None
 
-        targetText = apiFunc(originalText)
+        targetText = funcT.translate(originalText, apiFunc, self)
+
         card.text.translatedText = targetText
         card.updateText(targetText, funcT.TranslateTag.use_API)
         self.logger.info(f"成功执行一次API翻译。（ID {id} | 原文 {originalText} | 译文 {targetText}）")
@@ -708,12 +713,15 @@ class Worker_MultiTranslator(QObject):
         self.cardList = cardList
         self.apiFunc = apiFunc
         self.runSignal.connect(self.run)
+        self.parent = parent
 
     def run(self):
         for card in self.cardList:
             card: TranslateTextCard
             originalText = card.OriginalText_LineEdit.text()
-            targetText = self.apiFunc(originalText)
+
+            targetText = funcT.translate(originalText, self.apiFunc, self.parent)
+
             card.text.set(targetText, funcT.TranslateTag.use_API)
             card.updateText(targetText, funcT.TranslateTag.use_API)
 

@@ -1,14 +1,19 @@
 import json, requests, hashlib, random, time
+import sys
+import traceback
 from pathlib import Path
 from urllib.parse import quote
 import logging
 
+import urllib3
 from PySide2.QtGui import QIcon
+
 
 logger = logging.getLogger("FanTools.funcT")
 
 from widget.function import basicFunc, PIC
 from widget.function_setting import cfg, qconfig
+from widget.function_message import TranslateIB as IB
 
 
 class TranslateTag:
@@ -273,6 +278,29 @@ class TranslateAPI:
             for api in self.apiList:
                 if api.displayName == displayName:
                     return api
+
+
+def translate(originalText: str, apiFunc: staticmethod, self):
+    try:
+        targetText = apiFunc(originalText)
+    except Exception as e:
+        eType = sys.exc_info()[0]
+        if eType == urllib3.exceptions.SSLError or eType == urllib3.exceptions.ProxyError or eType == requests.exceptions.ProxyError:
+            logger.error("调用翻译接口的过程中出现SSL连接错误，请尝试启动工具箱设置中的「代理」配置，或关闭网络代理工具。")
+            logger.error("此错误是Python网络库requests的错误（或者说不完善），与工具箱无关，我们无法从源头修复。")
+            IB.msgSSLError(self)
+            return None
+        elif eType == urllib3.exceptions.ConnectTimeoutError:
+            logger.error("调用翻译接口时出现连接超时问题，请检查网络连接状态与网络设置。")
+            IB.msgTimeoutError(self)
+            return None
+        else:
+            logger.error("调用翻译接口时出现奇怪的错误，请考虑将此错误提交！ | " + str(e))
+            self.logger.error(traceback.format_exc())
+            IB.msgOtherError(self)
+            return None
+    return targetText
+
 
 
 class GlossaryTable:

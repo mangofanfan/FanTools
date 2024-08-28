@@ -131,6 +131,34 @@ class TranslateIB:
                       duration=4000,
                       position=InfoBarPosition.BOTTOM_RIGHT,
                       parent=self)
+
+    def msgSSLError(self):
+        InfoBar.error(title="SSL连接错误",
+                      content="请在工具箱设置中启用「代理」功能，\n"
+                              "或关闭正在运行的代理工具以修复错误。",
+                      isClosable=False,
+                      duration=4000,
+                      position=InfoBarPosition.TOP_RIGHT,
+                      parent=self)
+
+    def msgTimeoutError(self):
+        InfoBar.error(title="连接超时",
+                      content="与目标翻译接口的连接已经超时，\n"
+                              "可能是您的网络不佳，或目标接口暂时无法调用。",
+                      isClosable=False,
+                      duration=4000,
+                      position=InfoBarPosition.TOP_RIGHT,
+                      parent=self)
+
+    def msgOtherError(self):
+        InfoBar.error(title="未定义的异常",
+                      content="调用接口过程中出现了未定义的异常，\n"
+                              "这可能是程序错误，请查看日志并考虑将其提交给开发者。",
+                      isClosable=False,
+                      duration=4000,
+                      position=InfoBarPosition.TOP_RIGHT,
+                      parent=self)
+
 ### 翻译工具结束 ###
 
 ### 下载工具 ###
