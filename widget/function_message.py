@@ -159,6 +159,15 @@ class TranslateIB:
                       position=InfoBarPosition.TOP_RIGHT,
                       parent=self)
 
+    def msgAPIError(self):
+        InfoBar.error(title="API接口返回参数异常",
+                      content="这可能是由于您的API凭证设置存在问题，\n"
+                              "或您的API本身出现问题，请查看程序日志并访问API提供者的控制台……",
+                      isClosable=False,
+                      duration=4000,
+                      position=InfoBarPosition.TOP_RIGHT,
+                      parent=self)
+
 ### 翻译工具结束 ###
 
 ### 下载工具 ###

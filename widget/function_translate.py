@@ -199,6 +199,15 @@ def fanyi_baidu(originalText: str, originalLan: str = "en", targetLan: str = "zh
 
     res: dict = requests.get(url=fanyi_url, proxies=proxies, timeout=3).json()
 
+    # 处理调用错误
+    try:
+        error_code = res.get("error_code")
+        error_msg = res.get("error_msg")
+        logger.error(f"百度翻译API调用错误，错误信息如下：{error_code} | {error_msg}")
+        return None
+    except Exception:
+        pass
+
     trans_result: dict = res.get("trans_result")[0]
     targetText = trans_result["dst"]
 
@@ -234,6 +243,16 @@ def fanyi_youdao(originalText: str, originalLan: str = "en", targetLan: str = "z
     logger.debug(f"正在调用有道文本翻译API执行翻译，目标URL为 {fanyi_url} | 代理设置为 {proxies}")
 
     res: dict = requests.get(url=fanyi_url, proxies=proxies, timeout=3).json()
+
+    # 处理调用错误
+    try:
+        error_code = res.get("errorCode")
+        if error_code == 0:
+            raise
+        logger.error(f"有道翻译API调用错误，错误代码：{error_code} | 请参阅有道提供的文档 [ https://ai.youdao.com/DOCSIRMA/html/trans/api/wbfy/index.html#section-10 ] 查看详情。")
+        return None
+    except Exception:
+        pass
 
     targetText = res["translation"][0]
 
@@ -299,6 +318,9 @@ def translate(originalText: str, apiFunc: staticmethod, self):
             self.logger.error(traceback.format_exc())
             IB.msgOtherError(self)
             return None
+    if targetText is None:
+        logger.error("API返回参数错误，调用失败，这不是芒果工具箱所导致的问题。")
+        IB.msgAPIError(self)
     return targetText
 
 
