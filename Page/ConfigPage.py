@@ -237,7 +237,7 @@ class ConfigPage:
         self.layout.addWidget(self.CardGroup_API)
 
         self.GlobalEnableGlossary = SwitchSettingCard(configItem=cfg.GlossaryEnable,
-                                                      title="启用术语表",
+                                                      title="启用术语表（暂不可用！）",
                                                       content="翻译工具全局启用术语表，术语表的详细设置需要在术语表窗口中设置。",
                                                       icon=FIC.ERASE_TOOL)
         self.CardGroup_API.addSettingCard(self.GlobalEnableGlossary)

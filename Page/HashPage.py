@@ -56,4 +56,6 @@ class HashPage:
         textEdit_tip.setMinimumHeight(120)
         self.layout.addWidget(textEdit_tip)
 
+        self.addTextLine("本工具暂不可用！")
+
         self.layout.addStretch()

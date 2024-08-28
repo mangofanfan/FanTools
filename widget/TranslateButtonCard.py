@@ -49,6 +49,6 @@ class Card_Multi(baseCard):
 class Card_Glossary(baseCard):
     def __init__(self):
         super().__init__(iconPath=FIC.EDIT,
-                         text_1="术语表编辑器",
+                         text_1="术语表编辑器（暂不可用！）",
                          text_2="编辑翻译时加载的术语表，将在人工翻译时弹出提示，在自动翻译时自动应用。",
                          buttonText="启动")
