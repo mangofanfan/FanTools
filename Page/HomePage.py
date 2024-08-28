@@ -1,15 +1,14 @@
 from pathlib import Path
 
 from PySide2 import QtCore
-from PySide2.QtCore import QSize
-from PySide2.QtGui import Qt
+from PySide2.QtCore import QSize, QUrl
+from PySide2.QtGui import Qt, QDesktopServices
 from PySide2.QtWidgets import QHBoxLayout, QFrame, QVBoxLayout, QWidget, QBoxLayout
 from qfluentwidgets import MessageBox, VBoxLayout, PushButton, PrimaryPushButton, TitleLabel, BodyLabel, \
     SingleDirectionScrollArea, ToolTipFilter, HorizontalFlipView, SimpleCardWidget, SubtitleLabel, \
     DisplayLabel
 from qfluentwidgets import FluentIcon as FIC
 
-import webbrowser
 import logging
 
 from widget.SimpleCard import ToolCard, YiYanCard
@@ -19,8 +18,9 @@ logger = logging.getLogger("FanTools.HomePage")
 
 class HomePage:
 
-    def __init__(self):
+    def __init__(self, parent=None):
         self.bodyWidget = QWidget()
+        self.parent = parent
         self.bodyWidget.setObjectName("HomePage")
         self._layout = QVBoxLayout()
         self.bodyWidget.setLayout(self._layout)
@@ -67,17 +67,17 @@ class HomePage:
     def showMessageBox(self):
         w = MessageBox("支持作者🙏",
                        "芒果帆帆的第一个正式作品，希望能得到您的肯定！QAQ🙏🩷😘",
-                       self.widget)
+                       self.parent)
         w.yesButton.setText("帆域网站🛜")
         w.yesButton.setToolTip("前往帆域网站上本程序（芒果工具箱）的发布页😊")
         w.yesButton.installEventFilter(ToolTipFilter(w.yesButton))
+        w.yesSignal.connect(lambda: QDesktopServices.openUrl(QUrl(basicFunc.getInfo()["publish"])))
         w.cancelButton.setText("我知道啦👋")
         w.cancelButton.setToolTip("关闭弹窗并无事发生🤫")
         w.cancelButton.installEventFilter(ToolTipFilter(w.cancelButton))
         logger.info("激活「芒果帆帆」消息框。")
         if w.exec_():
-            webbrowser.open("https://mangofanfan.cn/")
-            logger.info("在「芒果帆帆」消息框中打开了芒果的网站。")
+            logger.info("在「芒果帆帆」消息框中打开了程序发布页面。")
 
     def run(self):
         self.flipView = HorizontalFlipView()
@@ -118,7 +118,7 @@ class HomePage:
         buttonLayout.addWidget(pushButton_about, alignment=Qt.AlignLeft)
         pushButton_author = PrimaryPushButton()
         pushButton_author.setText("关于芒果帆帆")
-        pushButton_author.clicked.connect(lambda: webbrowser.open("https://mangofanfan.cn/"))
+        pushButton_author.clicked.connect(lambda: QDesktopServices.openUrl(QUrl("https://mangofanfan.cn/")))
         buttonLayout.addWidget(pushButton_author, alignment=Qt.AlignLeft)
         buttonLayout.addStretch()
         Card_Author_Layout.addLayout(buttonLayout)

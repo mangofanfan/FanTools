@@ -14,7 +14,8 @@ class basicFunc:
                 "a": "MangoFanFan_",
                 "au": "https://mangofanfan.cn/",
                 "github": "https://github.com/mangofanfan/FanTools",
-                "docs": "https://docs.mangofanfan.cn/fantools/",}
+                "docs": "https://docs.mangofanfan.cn/fantools/",
+                "publish": "https://ifanspace.top/2024/08/27/498.html"}
         return info
 
     @staticmethod

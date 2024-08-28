@@ -85,7 +85,7 @@ class Main:
         from Page.TranslatePage import TranslatePage
         from Page.ConfigPage import ConfigPage
         from Page.AboutPage import AboutPage
-        self.window_HomePage = HomePage()
+        self.window_HomePage = HomePage(parent=self.mainWindow)
         self.window_DownloadPage = DownloadPage()
         self.window_HashPage = HashPage()
         self.window_TranslatePage = TranslatePage()

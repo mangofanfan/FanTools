@@ -77,7 +77,7 @@ class AboutPage:
         self.addTextLine("本程序配套的在线资源或链接", "Subtitle")
         ToolCardLayout = QGridLayout()
         self.layout.addLayout(ToolCardLayout)
-        ToolCardLayout.addWidget(ToolCard(PIC.IconGitHub, "代码仓库", "芒果工具箱是开源项目\n您随时可以查看最新的源码以学习或进行改进", partial(QDesktopServices.openUrl, (QUrl(basicFunc.getInfo()["github"])))), 0, 0)
+        ToolCardLayout.addWidget(ToolCard(PIC.IconGitHub, "代码仓库", "芒果工具箱是开源项目\n您随时可以查看最新的源码以学习或进行改进\n同时这里也是漏洞追踪器！", partial(QDesktopServices.openUrl, (QUrl(basicFunc.getInfo()["github"])))), 0, 0)
         ToolCardLayout.addWidget(ToolCard(PIC.IconWriterSide, "在线文档", "在线文档包含用户文档和开发文档\n为什么不来看看呢？", partial(QDesktopServices.openUrl, QUrl(basicFunc.getInfo()["docs"]))), 0, 1)
 
         ContributorCard = EndlessCard("鸣谢名单", "对芒果工具箱项目做出贡献的人们！")
