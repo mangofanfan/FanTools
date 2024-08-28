@@ -1,4 +1,5 @@
 import logging
+import os
 from functools import partial
 
 from PySide2 import QtCore
@@ -6,7 +7,8 @@ from PySide2.QtCore import QUrl, QSize
 from PySide2.QtGui import QDesktopServices, Qt
 from PySide2.QtWidgets import QFrame, QGridLayout, QWidget, QVBoxLayout, QBoxLayout, QHBoxLayout
 from qfluentwidgets import VBoxLayout, TitleLabel, BodyLabel, SingleDirectionScrollArea, SubtitleLabel, \
-    SimpleCardWidget, ImageLabel
+    SimpleCardWidget, ImageLabel, PushButton
+from qfluentwidgets import FluentIcon as FIC
 
 from widget.SimpleCard import LinkCard, ToolCard, EndlessCard
 from widget.function import PIC, basicFunc
@@ -32,6 +34,10 @@ class AboutPage:
         self.scrollArea.setWidgetResizable(True)
 
         self.addTextLine("关于芒果工具箱", "Title", self._layout)
+
+        self.buttonLayout = QHBoxLayout()
+        self._layout.addLayout(self.buttonLayout)
+
         self._layout.addWidget(self.scrollArea)
 
         self.run()
@@ -54,6 +60,20 @@ class AboutPage:
         return None
 
     def run(self):
+        Button_UpdateLog = PushButton()
+        Button_UpdateLog.setText("在线更新日志")
+        Button_UpdateLog.setIcon(FIC.UPDATE)
+        Button_UpdateLog.clicked.connect(lambda: QDesktopServices.openUrl(QUrl(basicFunc.getInfo()["updateLog"])))
+        self.buttonLayout.addWidget(Button_UpdateLog)
+
+        Button_ViewLog = PushButton()
+        Button_ViewLog.setText("本地运行日志")
+        Button_ViewLog.setIcon(FIC.VIEW)
+        Button_ViewLog.clicked.connect(lambda: os.startfile(basicFunc.getHerePath() + r"\log"))
+        self.buttonLayout.addWidget(Button_ViewLog)
+
+        self.buttonLayout.addStretch()
+
         ProgramCard = SimpleCardWidget()
         self.layout.addWidget(ProgramCard)
         pcLayout = QHBoxLayout()
