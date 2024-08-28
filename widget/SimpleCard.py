@@ -136,6 +136,8 @@ class YiYanCard(CardWidget):
         return None
 
     def _getSignal(self, data: dict):
+        if data is None:
+            return None
         content = data["content"]
         origin = data["origin"]
         url = self.YiYan.dict["hitokoto"] + "?id=" + data["id"]

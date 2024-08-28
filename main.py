@@ -25,6 +25,7 @@ app.installTranslator(translator)
 from widget.Window import MainWindow
 from widget.function import basicFunc
 from widget.function_font import getFontStyleSheet
+from widget.function_message import GlobalIB as IB
 
 # 首先加载日志模块
 log_dir = pathlib.Path(basicFunc.getHerePath() + "/log")
@@ -120,6 +121,8 @@ class Main:
             lambda: self.mainWindow.switchTo(self.window_HashPage.scrollArea))
         self.window_HomePage.ToolCard_Translate.clicked.connect(
             lambda: self.mainWindow.switchTo(self.window_TranslatePage.scrollArea))
+
+        self.window_HomePage.YiYanCard.YiYan.APIError.connect(lambda: IB.msgYiYanError(self.mainWindow))
 
         logger.debug("窗口子页面全部添加。")
 

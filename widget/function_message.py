@@ -2,13 +2,24 @@ import traceback
 
 from qfluentwidgets import InfoBar, InfoBarPosition, IndeterminateProgressRing
 
+
+### 全局 ###
+class GlobalIB:
+    def msgYiYanError(self):
+        InfoBar.error(title="一言API调用异常",
+                      content="请查看程序日志以了解详情。",
+                      duration=4000,
+                      isClosable=False,
+                      position=InfoBarPosition.TOP_RIGHT,
+                      parent=self)
+
 ### 翻译工具 ###
 class TranslateIB:
     def msgTextIdError(self):
         InfoBar.error(title="错误",
                       content="尝试打开不存在的词条。",
                       isClosable=False,
-                      duration=2000,
+                      duration=4000,
                       position=InfoBarPosition.TOP_RIGHT,
                       parent=self)
 

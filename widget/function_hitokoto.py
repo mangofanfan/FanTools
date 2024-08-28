@@ -1,3 +1,5 @@
+import traceback
+
 import requests
 import json
 import logging
@@ -11,6 +13,7 @@ logger = logging.getLogger("FanTools.Hitokoto")
 
 class yi_yan(QObject):
     GUIUpdateSignal = Signal(dict)
+    APIError = Signal()
 
     def __init__(self):
         """
@@ -90,7 +93,14 @@ class yi_yan(QObject):
             raise
 
         logger.debug(f"调用一次一言 API： {_api}")
-        res = requests.get(_api, proxies=proxies)
+        try:
+            res = requests.get(_api, proxies=proxies)
+        except Exception as e:
+            logger.error("一言调用失败，可能是由于网络环境不佳，或者工具箱代理设置不正确。")
+            logger.error(f"以下为报错信息：{e}")
+            logger.error(traceback.format_exc())
+            self.APIError.emit()
+            return None
         data = json.loads(res.content)
 
         _from = data["from"]
