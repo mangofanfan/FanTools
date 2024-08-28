@@ -56,6 +56,22 @@
   {
    "optionDest": "bootloader_ignore_signals",
    "value": false
+  },
+  {
+   "optionDest": "excludes",
+   "value": "tkinter"
+  },
+  {
+   "optionDest": "excludes",
+   "value": "setuptools"
+  },
+  {
+   "optionDest": "excludes",
+   "value": "IPython"
+  },
+  {
+   "optionDest": "excludes",
+   "value": "PIL"
   }
  ],
  "nonPyinstallerOptions": {
