@@ -179,6 +179,14 @@ class TranslateIB:
                       position=InfoBarPosition.TOP_RIGHT,
                       parent=self)
 
+    def msgOutputSuccess(self):
+        InfoBar.success(title="导出成功",
+                        content="翻译项目已经成功导出，您现在可以前往查看~",
+                        isClosable=True,
+                        duration=4000,
+                        position=InfoBarPosition.TOP_RIGHT,
+                        parent=self)
+
 ### 翻译工具结束 ###
 
 ### 下载工具 ###

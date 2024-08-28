@@ -45,6 +45,8 @@ class FileType:
 
     JSON = Suffix("json", readJson)
 
+    SuffixList = [JSON]
+
 class TranslateText:
     def __init__(self, originalText: str = None, translatedText: str = None, translateTag: str = None, id: int = None):
         self.originalText: str = originalText
@@ -155,7 +157,7 @@ class TranslateProject:
         """
         将已完成翻译的项目导出为正式的翻译语言文件。
         :param fileType:
-        :param file: 文件保存路径
+        :param file: 文件保存路径，默认为绝对路径。
         :return: None
         """
         self.projectFile: str
@@ -174,8 +176,11 @@ class TranslateProject:
                     if data[i] == r:
                         data[i] = result[r]
             temp = json.dumps(data, ensure_ascii=False, indent=4)
-            basicFunc.saveFile(file, temp)
-            return None
+            basicFunc.saveFile(file, temp, True)
+        else:
+            raise
+        logger.info(f"已经将翻译项目成功导出至 {file}。")
+        return None
 
 
 def fanyi_baidu(originalText: str, originalLan: str = "en", targetLan: str = "zh"):

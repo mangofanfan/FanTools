@@ -64,6 +64,11 @@ class basicFunc:
         return dirPath
 
     @staticmethod
+    def getSaveFilePath(caption: str, basedPath: str):
+        saveFilePath = QFileDialog.getSaveFileName(caption=caption, dir=basedPath)
+        return saveFilePath[0]
+
+    @staticmethod
     def rgb_to_hex(rgb):
         r, g, b = rgb
         r = max(0, min(255, r))

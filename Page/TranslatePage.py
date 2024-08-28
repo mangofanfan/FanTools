@@ -1,4 +1,5 @@
 import logging
+import os.path
 import traceback
 from functools import partial
 from pathlib import Path
@@ -28,6 +29,7 @@ from widget.TranslateTextCard import Card as TranslateTextCard
 from widget.TranslateToolPage import Ui_Form as TranslateToolPageUi
 from widget.Window import TranslateWindow, GlossaryTableWidget
 from widget.function import basicFunc
+from widget.function_translate import FileType
 
 logger = logging.getLogger("FanTools.TranslatePage")
 
@@ -329,9 +331,7 @@ class TranslateToolPage(TranslateWindow):
         ButtonMenu_Quick = RoundMenu(parent=self.ui.SplitPushButton)
         ButtonMenu_Quick.addAction(
             Action(icon=FIC.PLAY, text="从最靠前的未翻译词条开始", triggered=lambda: self.continueLastText()))
-        ButtonMenu_Quick.addAction(Action(icon=FIC.ZOOM_OUT, text="导出翻译文本",
-                                          triggered=lambda: self.project.dumpProject(funcT.FileType.JSON,
-                                                                                     "output.json")))
+        ButtonMenu_Quick.addAction(Action(icon=FIC.ZOOM_OUT, text="导出翻译文本", triggered=self.outputProject))
         self.ui.SplitPushButton.setFlyout(ButtonMenu_Quick)
 
         # 表格
@@ -463,6 +463,49 @@ class TranslateToolPage(TranslateWindow):
             self.logger.debug("AT 线程已退出。")
         return None
 
+    def outputProject(self):
+
+        def save():
+            p = basicFunc.getSaveFilePath("选择（可能需要输入）目标保存文件", basicFunc.getHerePath())
+            self.LineEdit_OutputFile.setText(p)
+            return None
+
+        def yes():
+            p = self.LineEdit_OutputFile.text()
+            ps = os.path.splitext(p)[1]
+
+            s = None
+            for s in FileType.SuffixList:
+                if s.name == ps:
+                    _s = s
+
+            if s is None:
+                raise
+
+            self.project.dumpProject(s, p)
+            IB.msgOutputSuccess(self)
+            return None
+
+        self.project.saveProject()
+        self.w = MessageBox(title="导出项目语言文件",
+                            content="翻译结束了嘛？好耶！我们已为您自动保存翻译结果~\n"
+                                    "接下来将会导出翻译好的译文语种语言文件，该文件完全依照源语言文件生成。\n"
+                                    "请在下方完整地输入目标语言文件的文件名（包括格式后缀），仿照已经给出的示例，目标文本会被写入此文件。\n"
+                                    "Tip：单行输入框和文件选择器都可以使用，但请务必检查~",
+                            parent=self)
+        self.LineEdit_OutputFile = LineEdit()
+        self.LineEdit_OutputFile.setPlaceholderText("C:\\path\\to\\your/file/zh_CN.json 两种路径分隔符都是可行的！")
+        self.ToolButton_OutputFile = ToolButton()
+        self.ToolButton_OutputFile.setIcon(FIC.EDIT)
+        self.ToolButton_OutputFile.clicked.connect(save)
+        hLayout = QHBoxLayout()
+        hLayout.addWidget(self.LineEdit_OutputFile)
+        hLayout.addWidget(self.ToolButton_OutputFile)
+        self.w.textLayout.addLayout(hLayout)
+        self.w.yesSignal.connect(yes)
+        self.w.show()
+        return None
+
     def closeEvent(self, event):
         self.project = funcT.TranslateProject()
         self.logger.info("关闭翻译器窗口，卸载翻译项目。")
@@ -545,8 +588,7 @@ class TranslateMultiPage(TranslateWindow):
         self.ui.SubtitleLabel.setText("列表多项翻译工具 | 加载中")
 
         ButtonMenu_Quick = RoundMenu(parent=self.ui.SplitPushButton)
-        ButtonMenu_Quick.addAction(Action(icon=FIC.ZOOM_OUT, text="导出翻译语言文件",
-                                          triggered=lambda: self.project.dumpProject(funcT.FileType.JSON,"output.json")))
+        ButtonMenu_Quick.addAction(Action(icon=FIC.ZOOM_OUT, text="导出翻译语言文件", triggered=self.outputProject))
         self.ui.SplitPushButton.setFlyout(ButtonMenu_Quick)
 
         self.ui.PushButton_PageBefore.clicked.connect(lambda: self.displayTextList(self.start - self.limit))
@@ -695,6 +737,49 @@ class TranslateMultiPage(TranslateWindow):
         bar.close()
         IB.msgMultiTranslateFinish(self)
         self.logger.info("[整列翻译]已结束。")
+        return None
+
+    def outputProject(self):
+
+        def save():
+            p = basicFunc.getSaveFilePath("选择（可能需要输入）目标保存文件", basicFunc.getHerePath())
+            self.LineEdit_OutputFile.setText(p)
+            return None
+
+        def yes():
+            p = self.LineEdit_OutputFile.text()
+            ps = os.path.splitext(p)[1]
+
+            s = None
+            for s in FileType.SuffixList:
+                if s.name == ps:
+                    _s = s
+
+            if s is None:
+                raise
+
+            self.project.dumpProject(s, p)
+            IB.msgOutputSuccess(self)
+            return None
+
+        self.project.saveProject()
+        self.w = MessageBox(title="导出项目语言文件",
+                            content="翻译结束了嘛？好耶！我们已为您自动保存翻译结果~\n"
+                                    "接下来将会导出翻译好的译文语种语言文件，该文件完全依照源语言文件生成。\n"
+                                    "请在下方完整地输入目标语言文件的文件名（包括格式后缀），仿照已经给出的示例，目标文本会被写入此文件。\n"
+                                    "Tip：单行输入框和文件选择器都可以使用，但请务必检查~",
+                            parent=self)
+        self.LineEdit_OutputFile = LineEdit()
+        self.LineEdit_OutputFile.setPlaceholderText("C:\\path\\to\\your/file/zh_CN.json 两种路径分隔符都是可行的！")
+        self.ToolButton_OutputFile = ToolButton()
+        self.ToolButton_OutputFile.setIcon(FIC.EDIT)
+        self.ToolButton_OutputFile.clicked.connect(save)
+        hLayout = QHBoxLayout()
+        hLayout.addWidget(self.LineEdit_OutputFile)
+        hLayout.addWidget(self.ToolButton_OutputFile)
+        self.w.textLayout.addLayout(hLayout)
+        self.w.yesSignal.connect(yes)
+        self.w.show()
         return None
 
     def closeEvent(self, event):
