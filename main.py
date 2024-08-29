@@ -9,7 +9,7 @@ import logging
 import PySide2.QtCore as QC
 from PySide2.QtGui import QGuiApplication, Qt, QIcon
 from PySide2.QtWidgets import QApplication
-from qfluentwidgets import FluentIcon as FIC
+from qfluentwidgets import FluentIcon as FIC, PlainTextEdit
 from qfluentwidgets import NavigationItemPosition, FluentTranslator, MessageBox, SplashScreen
 
 locale.setlocale(locale.LC_ALL, "zh_CN.UTF-8")
@@ -180,9 +180,13 @@ if __name__ == "__main__":
         logger.exception("程序启动过程中出现严重异常，异常信息记录如下。")
         w = MessageBox(title="启动过程中捕获到异常",
                        content="安全起见，程序将立即关闭。报错日志始终依照设置生成，您可以通过日志调试检查问题，或将日志与有关信息作为 issue 提交至 GitHub。\n"
-                               f"下面是本次异常的控制台输出信息：{e}" +
-                               traceback.format_exc(),
+                               f"下面是本次异常的控制台输出信息：{e}",
                        parent=main.mainWindow)
+        view = PlainTextEdit()
+        view.setReadOnly(True)
+        view.setPlainText(traceback.format_exc())
+        view.setFixedHeight(300)
+        w.textLayout.addWidget(view)
         w.yesButton.setText("关闭程序并查看日志文件夹")
         w.cancelButton.setText("关闭程序")
         w.yesButton.clicked.connect(closeWindowAndLog)
