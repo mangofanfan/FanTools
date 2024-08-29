@@ -7,7 +7,7 @@ import logging
 
 import urllib3
 from PySide2.QtGui import QIcon
-
+from typing import List
 
 logger = logging.getLogger("FanTools.funcT")
 
@@ -332,11 +332,15 @@ def translate(originalText: str, apiFunc: staticmethod, self):
 
 class GlossaryTable:
     def __init__(self, projectFile: str, file: str = None):
+        """
+        术语表对象。
+        :param projectFile: 翻译项目工程文件路径，ft-translateProject.txt，str
+        :param file: 术语表存储文件路径，ft-translateGlossary.txt，可选，str
+        """
         self.projectFile = projectFile
         self.file = file
         if not self.file:
-            p = Path(self.projectFile)
-            self.file = p.parent.as_posix() + "/" + p.stem + ".txt"
+            self.file = self.projectFile.replace("ft-translateProject.txt", "ft-translateGlossary.txt")
         self.logger = logging.getLogger("FanTools.GlossaryTable")
         self.lineList = []
 
@@ -344,10 +348,11 @@ class GlossaryTable:
         self.file = file
         self.lineList = []
         if not self.file:
-            return None
-        data = basicFunc.readFile(file, True).split("\n")
+            self.file = self.projectFile.replace("ft-translateProject.txt", "ft-translateGlossary.txt")
+        data = basicFunc.readFile(self.file, True).split("\n")
         for line in data:
-            self.lineList.append(line.split("|!|"))
+            if line != "" and line is not None:
+                self.lineList.append(line.split("|!|"))
 
         self.logger.debug(f"成功加载 {self.projectFile} 的术语表于 {self.file} 。")
         return None
@@ -371,12 +376,40 @@ class GlossaryTable:
         self.logger.debug(f"成功在术语表中添加字段 {originalText} ==>> {targetText} 。")
         return None
 
+    def get(self, text: str) -> List[List[str]]:
+        """
+        对传入文本text，在术语表中匹配其中出现的术语。
+        :param text: 传入文本（str）
+        :return: 如果匹配成功，返回List[List[str, str]]结构的列表嵌套；如果匹配失败则返回None
+        """
+        _list = []
+        for line in self.lineList:
+            n = text.find(line[0])
+            if n != -1:
+                self.logger.debug(f"在术语表中查找到对应术语：{line[0]} ==>> {line[1]} (位置：{n})")
+                _list.append(line)
+        if not _list:
+            self.logger.debug(f"查找术语表，但并未找到 {text} 中存在的术语。")
+            return None
+        else:
+            self.logger.debug(f"已经返回文本 {text} 在术语表中的查询结果。")
+            return _list
+
+    def replace(self, text: str, _list: List[List[str]]):
+        _text = text
+        for line in _list:
+            _text = _text.replace(line[0], line[1])
+        self.logger.debug(f"术语表执行替换：{text} ==>> {_text}")
+        return _text
+
     def remove(self, originalText: str):
         for line in self.lineList:
             if line[0] == originalText:
                 self.lineList.remove(line)
+                self.logger.debug(f"成功从术语表中移除字段 {originalText} 。")
                 return None
         self.logger.error(f"未在术语表中查找到需要删除的字段 {originalText} 。")
+        return None
 
 
 class history:

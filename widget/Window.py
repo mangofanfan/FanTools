@@ -157,10 +157,21 @@ class GlossaryTableWidget(TableWidget):
     def deleteBlank(self):
         l = list(range(self.rowCount()))
         l.reverse()
+
+        # 判定空行并清除空行
         for i in l:
-            if not self.item(i, 0) and not self.item(i, 1):
+            b = False
+            if self.item(i, 0) is not None:
+                if self.item(i, 0).text() is not None and self.item(i, 0).text() != "":
+                    b = True
+            if self.item(i, 1) is not None:
+                if self.item(i, 1).text() is not None and self.item(i, 1).text() != "":
+                    b = True
+            if b is False:
                 self.removeRow(i)
+            else:
                 continue
+
         self.logger.debug("在术语表表格中删除所有空行。")
         return None
 

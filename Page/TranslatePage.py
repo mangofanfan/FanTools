@@ -1,21 +1,18 @@
 import logging
 import os.path
-import traceback
 from functools import partial
 from pathlib import Path
-from ssl import SSLCertVerificationError
 from time import sleep
 
 from PySide2 import QtCore
 from PySide2.QtCore import QObject, Signal, QThread, QSize
 from PySide2.QtGui import QCursor, Qt
 from PySide2.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QButtonGroup, QApplication, \
-    QFrame, QListWidgetItem, QTableWidgetItem, QBoxLayout
+    QFrame, QListWidgetItem, QTableWidgetItem, QBoxLayout, QHeaderView
 from qfluentwidgets import FluentIcon as FIC, RadioButton, ToolTipFilter, TextEdit, SwitchSettingCard, ToolButton, \
     MessageBox
 from qfluentwidgets import VBoxLayout, PushButton, RoundMenu, Action, TitleLabel, BodyLabel, SingleDirectionScrollArea, \
     HeaderCardWidget, LineEdit, StrongBodyLabel
-from urllib3.exceptions import ConnectTimeoutError, SSLError
 
 import widget.function_translate as funcT
 from widget.function_message import TranslateIB as IB
@@ -29,7 +26,7 @@ from widget.TranslateTextCard import Card as TranslateTextCard
 from widget.TranslateToolPage import Ui_Form as TranslateToolPageUi
 from widget.Window import TranslateWindow, GlossaryTableWidget
 from widget.function import basicFunc
-from widget.function_translate import FileType
+from widget.function_translate import FileType, GlossaryTable
 
 logger = logging.getLogger("FanTools.TranslatePage")
 
@@ -257,7 +254,7 @@ class TranslatePage(QObject):
             IB.msgNotImportProject(self.bodyWidget)
             logger.warning("未选择项目工程文件；已经阻止操作并警告。")
             return None
-        self.Glossary.setProjectFile(self.LineEdit_ImportProject.text().replace("ft-translateProject.txt", "ft-translateGlossary.txt"))
+        self.Glossary.setProjectFile(self.LineEdit_ImportProject.text())
         self.Glossary.loadProjectFile()
         logger.info("术语表窗口启动。")
         self.history.add(self.LineEdit_ImportProject.text())
@@ -338,6 +335,8 @@ class TranslateToolPage(TranslateWindow):
         self.ui.TableWidget.setBorderVisible(True)
         self.ui.TableWidget.setBorderRadius(8)
         self.ui.TableWidget.setWordWrap(False)
+        self.ui.TableWidget.setColumnCount(2)
+        self.ui.TableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
         # 为每个按钮都装备全新的工具提示
         buttons = [self.ui.PushButton_EditPrompt, self.ui.SplitPushButton, self.ui.PushButton_OneNext, self.ui.PushButton_OneBefore,
@@ -348,11 +347,21 @@ class TranslateToolPage(TranslateWindow):
         for button in buttons:
             button.installEventFilter(ToolTipFilter(button))
 
+        # 术语表初始化
+        self.Glossary: GlossaryTable = None
+        self.ui.TextEdit_TranslatedText.textChanged.connect(self.getGlossaryForText)
+        self.TableWidgetRightMenu = RoundMenu()
+        self.TableWidgetRightMenu.addAction(Action(FIC.RETURN, "刷新术语表", triggered=self.loadGlossary))
+        self.ui.TableWidget.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.ui.TableWidget.customContextMenuRequested.connect(lambda: self.TableWidgetRightMenu.popup(QCursor.pos()))
+
         IB.msgLoadingReady(self)
         self.logger.info("单词条翻译工具初始化完毕。")
 
     def setProject(self, file: str):
         self.project.loadProject(file)
+        self.loadGlossary()
+
         firstText = self.getIdText(1)
         self.displayText(firstText)
         self.file = file
@@ -505,6 +514,43 @@ class TranslateToolPage(TranslateWindow):
         self.w.yesSignal.connect(yes)
         self.w.show()
         return None
+
+    def loadGlossary(self):
+        if funcS.cfg.get(funcS.cfg.GlossaryEnable) is False:
+            return None
+
+        self.Glossary = GlossaryTable(self.project.projectFile)
+        self.logger.info(f"已经加载翻译项目 {self.project.projectFile} 的术语表于 {self.Glossary.file} 。")
+        return None
+
+
+    def getGlossaryForText(self):
+        if funcS.cfg.get(funcS.cfg.GlossaryEnable) is False:
+            return None
+
+        # 清空表格，删除所有行
+        self.ui.TableWidget.clear()
+        for i in range(self.ui.TableWidget.rowCount()):
+            self.ui.TableWidget.removeRow(0)
+
+        originalText = self.ui.TextEdit_OriginalText.toPlainText()
+        lineList = self.Glossary.get(originalText)
+
+        if lineList is None:
+            self.logger.info(f"术语表中没有查询到 {originalText} 包含的术语。")
+            return None
+
+        i = 0
+        n = len(lineList)
+        for line in lineList:
+            self.ui.TableWidget.setRowCount(n)
+            item1 = QTableWidgetItem(line[0])
+            item2 = QTableWidgetItem(line[1])
+            self.ui.TableWidget.setItem(i, 0, item1)
+            self.ui.TableWidget.setItem(i, 1, item2)
+            i += 1
+        self.logger.info(f"已经打印 {originalText} 的术语表查询结果。")
+
 
     def closeEvent(self, event):
         self.project = funcT.TranslateProject()
@@ -821,7 +867,7 @@ class GlossaryWindow(TranslateWindow):
         self.ui.setupUi(self)
         self.setWindowTitle("术语表设置")
         self.logger = logging.getLogger("FanTools.TranslateGlossary")
-        self.projectFile = projectFile
+        self.setProjectFile(projectFile)
         self.name = name
 
         self.Page_Global = SingleDirectionScrollArea()
@@ -848,6 +894,7 @@ class GlossaryWindow(TranslateWindow):
                                                  content="全局启用术语表，在各翻译工具中均支持。也可以在工具箱设置中设置本项目。",
                                                  icon=FIC.ERASE_TOOL)
         self.Page_Global_Layout.addWidget(GlobalEnableGlossary)
+        self.Page_Global_Layout.addStretch()
 
         self.addSubPage(self.Page_Global, "术语表设置")
 
@@ -865,6 +912,15 @@ class GlossaryWindow(TranslateWindow):
         self.logger.debug("翻译术语表初始化完毕")
 
     def setProjectFile(self, projectFile: str):
+        """
+        设置术语表文件路径，可以提供ft-translateProject.txt文件或ft-translateGlossary.txt文件路径。
+        :param projectFile: 路径（str）
+        :return: None
+        """
+        if projectFile is not None:
+            if projectFile.find("ft-translateProject.txt") != -1:
+                projectFile.replace("ft-translateProject.txt", "ft-translateGlossary.txt")
+
         self.projectFile = projectFile
         self.logger.debug(f"已经启动翻译术语表工程文件 {self.projectFile} .")
         return None
@@ -874,12 +930,14 @@ class GlossaryWindow(TranslateWindow):
         if not path.exists():
             return None
 
-        Glossary_Global = funcT.GlossaryTable(self.projectFile)
-        Glossary_Global.load(self.projectFile)
+        Glossary_Global = GlossaryTable(self.projectFile)
+        Glossary_Global.load()
         TableWidget_Global: GlossaryTableWidget = self.APIDirectory["global"]
         TableWidget_Global.setRowCount(len(Glossary_Global.lineList))
         i = 0
         for line in Glossary_Global.lineList:
+            if line == [""] or line is None:
+                break
             item_1 = QTableWidgetItem(line[0])
             item_2 = QTableWidgetItem(line[1])
             TableWidget_Global.setItem(i, 0, item_1)
@@ -931,7 +989,8 @@ class GlossaryWindow(TranslateWindow):
 
     def saveGlossaryTable(self):
         Table_Global: GlossaryTableWidget = self.APIDirectory["global"]
-        Glossary_Global = funcT.GlossaryTable(self.projectFile)
+        Table_Global.deleteBlank()
+        Glossary_Global = GlossaryTable(self.projectFile)
         for i in range(Table_Global.rowCount()):
             Glossary_Global.add(Table_Global.item(i, 0).text(), Table_Global.item(i, 1).text())
         Glossary_Global.save()
