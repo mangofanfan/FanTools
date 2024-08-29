@@ -331,22 +331,27 @@ def translate(originalText: str, apiFunc: staticmethod, self):
 
 
 class GlossaryTable:
-    def __init__(self, projectFile: str, file: str = None):
+    def __init__(self, projectFile: str, file: str = None, preload: bool = True):
         """
         术语表对象。
         :param projectFile: 翻译项目工程文件路径，ft-translateProject.txt，str
         :param file: 术语表存储文件路径，ft-translateGlossary.txt，可选，str
+        :param preload: 是否预先从路径加载文件。在调用目的为保存术语表时，必须指定为False。
         """
         self.projectFile = projectFile
         self.file = file
         if not self.file:
             self.file = self.projectFile.replace("ft-translateProject.txt", "ft-translateGlossary.txt")
         self.logger = logging.getLogger("FanTools.GlossaryTable")
-        self.lineList = []
+        if preload:
+            self.load()
+        else:
+            self.lineList = []
 
     def load(self, file: str = None):
-        self.file = file
         self.lineList = []
+        if file is not None:
+            self.file = file
         if not self.file:
             self.file = self.projectFile.replace("ft-translateProject.txt", "ft-translateGlossary.txt")
         data = basicFunc.readFile(self.file, True).split("\n")
@@ -363,7 +368,15 @@ class GlossaryTable:
         if not self.file:
             raise
         lineList = []
+        _temp = []
+        print(self.lineList)
         for line in self.lineList:
+            if line not in _temp:
+                _temp.append(line)
+            else:
+                self.logger.warning("保存术语表时发现重复词条，这可能是程序存在错误？")
+                self.logger.warning("已跳过重复词条。")
+                continue
             text = f"{line[0]}|!|{line[1]}"
             lineList.append(text)
         fileText = "\n".join(lineList)

@@ -63,12 +63,6 @@ class Ui_Form(object):
         self.horizontalLayout_2.addWidget(self.TextEdit_TranslatedText)
 
         self.TableWidget = TableWidget(Form)
-        if (self.TableWidget.columnCount() < 2):
-            self.TableWidget.setColumnCount(2)
-        __qtablewidgetitem = QTableWidgetItem()
-        self.TableWidget.setHorizontalHeaderItem(0, __qtablewidgetitem)
-        __qtablewidgetitem1 = QTableWidgetItem()
-        self.TableWidget.setHorizontalHeaderItem(1, __qtablewidgetitem1)
         self.TableWidget.setObjectName(u"TableWidget")
         self.TableWidget.setShowGrid(False)
 
@@ -210,10 +204,6 @@ class Ui_Form(object):
 #endif // QT_CONFIG(tooltip)
         self.SplitPushButton.setProperty("text_", QCoreApplication.translate("Form", u"\u4e0b\u62c9\u9009\u62e9\u5feb\u901f\u64cd\u4f5c\u7c7b\u578b", None))
         self.TextEdit_TranslatedText.setPlaceholderText(QCoreApplication.translate("Form", u"\u5728\u6b64\u5904\u8f93\u5165\u5de6\u8fb9\u8bcd\u6761\u7684\u7ffb\u8bd1\u6587\u672c\u2026\u2026", None))
-        ___qtablewidgetitem = self.TableWidget.horizontalHeaderItem(0)
-        ___qtablewidgetitem.setText(QCoreApplication.translate("Form", u"\u539f\u6587\u672c", None));
-        ___qtablewidgetitem1 = self.TableWidget.horizontalHeaderItem(1)
-        ___qtablewidgetitem1.setText(QCoreApplication.translate("Form", u"\u5efa\u8bae\u6587\u672c", None));
         self.PushButton_OneBefore.setText(QCoreApplication.translate("Form", u"\u4e0a\u4e00\u6761", None))
         self.PushButton_OneNext.setText(QCoreApplication.translate("Form", u"\u4e0b\u4e00\u6761", None))
 #if QT_CONFIG(tooltip)

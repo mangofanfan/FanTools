@@ -8,7 +8,7 @@ from PySide2 import QtCore
 from PySide2.QtCore import QObject, Signal, QThread, QSize
 from PySide2.QtGui import QCursor, Qt
 from PySide2.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QButtonGroup, QApplication, \
-    QFrame, QListWidgetItem, QTableWidgetItem, QBoxLayout, QHeaderView
+    QFrame, QListWidgetItem, QTableWidgetItem, QBoxLayout, QHeaderView, QTableWidget
 from qfluentwidgets import FluentIcon as FIC, RadioButton, ToolTipFilter, TextEdit, SwitchSettingCard, ToolButton, \
     MessageBox
 from qfluentwidgets import VBoxLayout, PushButton, RoundMenu, Action, TitleLabel, BodyLabel, SingleDirectionScrollArea, \
@@ -331,13 +331,6 @@ class TranslateToolPage(TranslateWindow):
         ButtonMenu_Quick.addAction(Action(icon=FIC.ZOOM_OUT, text="导出翻译文本", triggered=self.outputProject))
         self.ui.SplitPushButton.setFlyout(ButtonMenu_Quick)
 
-        # 表格
-        self.ui.TableWidget.setBorderVisible(True)
-        self.ui.TableWidget.setBorderRadius(8)
-        self.ui.TableWidget.setWordWrap(False)
-        self.ui.TableWidget.setColumnCount(2)
-        self.ui.TableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-
         # 为每个按钮都装备全新的工具提示
         buttons = [self.ui.PushButton_EditPrompt, self.ui.SplitPushButton, self.ui.PushButton_OneNext, self.ui.PushButton_OneBefore,
                    self.ui.PushButton_SaveProject, self.ui.PushButton_ViewProject, self.ui.PrimaryPushButton_UseAPIText,
@@ -347,11 +340,26 @@ class TranslateToolPage(TranslateWindow):
         for button in buttons:
             button.installEventFilter(ToolTipFilter(button))
 
+        # 表格设置
+        self.ui.TableWidget.setBorderVisible(True)
+        self.ui.TableWidget.setBorderRadius(8)
+        self.ui.TableWidget.setWordWrap(False)
+        self.ui.TableWidget.setColumnCount(2)
+        header_1 = QTableWidgetItem()
+        header_1.setText("原文本")
+        header_2 = QTableWidgetItem()
+        header_2.setText("建议文本")
+        self.ui.TableWidget.setHorizontalHeaderItem(0, header_1)
+        self.ui.TableWidget.setHorizontalHeaderItem(1, header_2)
+        self.ui.TableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.ui.TableWidget.verticalHeader().setVisible(False)
+        self.ui.TableWidget.setEditTriggers(QTableWidget.NoEditTriggers)
+
         # 术语表初始化
         self.Glossary: GlossaryTable = None
         self.ui.TextEdit_TranslatedText.textChanged.connect(self.getGlossaryForText)
         self.TableWidgetRightMenu = RoundMenu()
-        self.TableWidgetRightMenu.addAction(Action(FIC.RETURN, "刷新术语表", triggered=self.loadGlossary))
+        self.TableWidgetRightMenu.addAction(Action(FIC.RETURN, "刷新术语表", triggered=self.reLoadGlossary))
         self.ui.TableWidget.setContextMenuPolicy(Qt.CustomContextMenu)
         self.ui.TableWidget.customContextMenuRequested.connect(lambda: self.TableWidgetRightMenu.popup(QCursor.pos()))
 
@@ -523,13 +531,20 @@ class TranslateToolPage(TranslateWindow):
         self.logger.info(f"已经加载翻译项目 {self.project.projectFile} 的术语表于 {self.Glossary.file} 。")
         return None
 
+    def reLoadGlossary(self):
+        if funcS.cfg.get(funcS.cfg.GlossaryEnable) is False:
+            return None
+
+        self.loadGlossary()
+        self.getGlossaryForText()
+        return None
 
     def getGlossaryForText(self):
         if funcS.cfg.get(funcS.cfg.GlossaryEnable) is False:
             return None
 
         # 清空表格，删除所有行
-        self.ui.TableWidget.clear()
+        self.ui.TableWidget.clearContents()
         for i in range(self.ui.TableWidget.rowCount()):
             self.ui.TableWidget.removeRow(0)
 
@@ -990,9 +1005,12 @@ class GlossaryWindow(TranslateWindow):
     def saveGlossaryTable(self):
         Table_Global: GlossaryTableWidget = self.APIDirectory["global"]
         Table_Global.deleteBlank()
-        Glossary_Global = GlossaryTable(self.projectFile)
+        Glossary_Global = GlossaryTable(self.projectFile, preload=False)
         for i in range(Table_Global.rowCount()):
-            Glossary_Global.add(Table_Global.item(i, 0).text(), Table_Global.item(i, 1).text())
+            originalText = Table_Global.item(i, 0).text()
+            targetText = Table_Global.item(i, 1).text()
+            Glossary_Global.add(originalText, targetText)
+            self.logger.debug(f"保存翻译术语成功：{originalText} ==>> {targetText}")
         Glossary_Global.save()
 
 class CreateProjectWindow(TranslateWindow):

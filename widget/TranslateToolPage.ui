@@ -71,16 +71,6 @@
        <property name="showGrid">
         <bool>false</bool>
        </property>
-       <column>
-        <property name="text">
-         <string>原文本</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>建议文本</string>
-        </property>
-       </column>
       </widget>
      </item>
     </layout>
