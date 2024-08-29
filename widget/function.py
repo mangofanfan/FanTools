@@ -10,7 +10,7 @@ class basicFunc:
 
     @staticmethod
     def getInfo():
-        info = {"v": "0.0.2",
+        info = {"v": "0.1.0",
                 "a": "MangoFanFan_",
                 "au": "https://mangofanfan.cn/",
                 "github": "https://github.com/mangofanfan/FanTools",
