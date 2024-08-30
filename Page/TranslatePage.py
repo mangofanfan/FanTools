@@ -324,8 +324,6 @@ class TranslateToolPage(TranslateWindow):
 
         self.ui.PrimaryPushButton_TranslateWithAPI.clicked.connect(self.translateWithAPI)
 
-        # TODO 寻找合适的更新TranslatedTextEdit的方法，触发函数。
-
         # 顶部右侧的下拉按钮
         ButtonMenu_Quick = RoundMenu(parent=self.ui.SplitPushButton)
         ButtonMenu_Quick.addAction(
@@ -360,9 +358,9 @@ class TranslateToolPage(TranslateWindow):
 
         # 术语表初始化
         self.Glossary: GlossaryTable = None
-        self.ui.TextEdit_OriginalText.textChanged.connect(self.getGlossaryForText)
         self.TableWidgetRightMenu = RoundMenu()
         self.TableWidgetRightMenu.addAction(Action(FIC.RETURN, "刷新术语表", triggered=self.reLoadGlossary))
+        self.TableWidgetRightMenu.addAction(Action(FIC.CHECKBOX, "在译文中匹配", triggered=self.updateTranslateTextEdit))
         self.ui.TableWidget.setContextMenuPolicy(Qt.CustomContextMenu)
         self.ui.TableWidget.customContextMenuRequested.connect(lambda: self.TableWidgetRightMenu.popup(QCursor.pos()))
 
@@ -412,10 +410,15 @@ class TranslateToolPage(TranslateWindow):
         if text.translatedText != "None":
             self.ui.TextEdit_TranslatedText.setText(text.translatedText)
         else:
+            self.ui.TextEdit_TranslatedText.setText(" ")
             self.ui.TextEdit_TranslatedText.clear()
         self.ui.TextEdit_API.clear()
         self.currentId = text.id
         self.logger.debug(f"翻译器条目刷新完毕（{text.id}）。")
+
+        # 术语表查找、高亮
+        self.getGlossaryForText()
+        self.updateTranslateTextEdit()
 
         # 检查是否重复，如果是的话则直接复制已有的翻译 TODO:要先弹出信息框进行询问！或在存在指定参数时才直接复制
         if self.ui.TextEdit_TranslatedText.toPlainText() == "":
@@ -433,7 +436,7 @@ class TranslateToolPage(TranslateWindow):
 
     def saveText(self, text: funcT.TranslateText, translatedText: str, translateTag: str, oneNext: bool = True):
         text.set(translatedText, translateTag)
-        if oneNext:
+        if oneNext is True:
             self.displayText(self.getIdText(self.currentId + 1))
         else:
             self.displayText(self.getIdText(self.currentId))
@@ -574,11 +577,12 @@ class TranslateToolPage(TranslateWindow):
         self.logger.debug(f"已经打印 {originalText} 的术语表查询结果。")
 
         for line in lineList:
-            self.ui.TextEdit_OriginalText.moveCursor(QTextCursor.Start)
-            while self.ui.TextEdit_OriginalText.find(line[0]):
-                self.ui.TextEdit_OriginalText.setCurrentCharFormat(self.matchedTextFormat)
-            self.ui.TextEdit_OriginalText.moveCursor(QTextCursor.Start)
-            self.logger.debug(f"已经在原文文本框中高亮术语词条（{line[0]} ==>> {line[1]}）。")
+            if self.ui.TextEdit_OriginalText.find(line[0]) is True:
+                self.ui.TextEdit_OriginalText.moveCursor(QTextCursor.Start)
+                while self.ui.TextEdit_OriginalText.find(line[0]):
+                    self.ui.TextEdit_OriginalText.setCurrentCharFormat(self.matchedTextFormat)
+                self.ui.TextEdit_OriginalText.moveCursor(QTextCursor.Start)
+                self.logger.debug(f"已经在原文文本框中高亮术语词条（{line[0]} ==>> {line[1]}）。")
 
         self.logger.info(f"查询到 {originalText} 中包含的 {len(lineList)} 个术语词条，并且处理完毕。")
         return None
@@ -589,13 +593,17 @@ class TranslateToolPage(TranslateWindow):
         if n == 0:
             return None
 
+        if self.ui.TextEdit_TranslatedText.toPlainText() == "" or self.ui.TextEdit_TranslatedText.toPlainText() is None:
+            return None
+
         for i in range(n):
             line = [self.ui.TableWidget.item(i, 0).text(), self.ui.TableWidget.item(i, 1).text()]
-            self.ui.TextEdit_TranslatedText.moveCursor(QTextCursor.Start)
-            while self.ui.TextEdit_TranslatedText.find(line[1]):
-                self.ui.TextEdit_TranslatedText.setCurrentCharFormat(self.matchedTextFormat)
-            self.ui.TextEdit_TranslatedText.moveCursor(QTextCursor.Start)
-            self.logger.debug(f"已经在译文文本框中高亮术语词条（{line[0]} ==>> {line[1]}）。")
+            if self.ui.TextEdit_TranslatedText.find(line[1]) is True:
+                self.ui.TextEdit_TranslatedText.moveCursor(QTextCursor.Start)
+                while self.ui.TextEdit_TranslatedText.find(line[1]):
+                    self.ui.TextEdit_TranslatedText.setCurrentCharFormat(self.matchedTextFormat)
+                self.ui.TextEdit_TranslatedText.moveCursor(QTextCursor.Start)
+                self.logger.debug(f"已经在译文文本框中高亮术语词条（{line[0]} ==>> {line[1]}）。")
 
         self.logger.info("已在当前人工翻译译文中高亮显示术语词条。")
         return None
