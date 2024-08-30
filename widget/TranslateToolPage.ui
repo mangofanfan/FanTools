@@ -68,6 +68,9 @@
      </item>
      <item>
       <widget class="TableWidget" name="TableWidget">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;此处显示待翻译词条中匹配到的术语表词条。&lt;/p&gt;&lt;p&gt;人工翻译模式下，术语表不会主动应用；自动翻译模式下，术语表将自动运用。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
        <property name="showGrid">
         <bool>false</bool>
        </property>

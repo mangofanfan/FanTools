@@ -6,7 +6,7 @@ from time import sleep
 
 from PySide2 import QtCore
 from PySide2.QtCore import QObject, Signal, QThread, QSize
-from PySide2.QtGui import QCursor, Qt
+from PySide2.QtGui import QCursor, Qt, QTextCharFormat, QColor, QBrush, QTextCursor
 from PySide2.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QButtonGroup, QApplication, \
     QFrame, QListWidgetItem, QTableWidgetItem, QBoxLayout, QHeaderView, QTableWidget
 from qfluentwidgets import FluentIcon as FIC, RadioButton, ToolTipFilter, TextEdit, SwitchSettingCard, ToolButton, \
@@ -324,6 +324,8 @@ class TranslateToolPage(TranslateWindow):
 
         self.ui.PrimaryPushButton_TranslateWithAPI.clicked.connect(self.translateWithAPI)
 
+        # TODO 寻找合适的更新TranslatedTextEdit的方法，触发函数。
+
         # 顶部右侧的下拉按钮
         ButtonMenu_Quick = RoundMenu(parent=self.ui.SplitPushButton)
         ButtonMenu_Quick.addAction(
@@ -354,14 +356,19 @@ class TranslateToolPage(TranslateWindow):
         self.ui.TableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.ui.TableWidget.verticalHeader().setVisible(False)
         self.ui.TableWidget.setEditTriggers(QTableWidget.NoEditTriggers)
+        self.ui.TableWidget.installEventFilter(ToolTipFilter(self.ui.TableWidget))
 
         # 术语表初始化
         self.Glossary: GlossaryTable = None
-        self.ui.TextEdit_TranslatedText.textChanged.connect(self.getGlossaryForText)
+        self.ui.TextEdit_OriginalText.textChanged.connect(self.getGlossaryForText)
         self.TableWidgetRightMenu = RoundMenu()
         self.TableWidgetRightMenu.addAction(Action(FIC.RETURN, "刷新术语表", triggered=self.reLoadGlossary))
         self.ui.TableWidget.setContextMenuPolicy(Qt.CustomContextMenu)
         self.ui.TableWidget.customContextMenuRequested.connect(lambda: self.TableWidgetRightMenu.popup(QCursor.pos()))
+
+        # 匹配文本高亮初始化
+        self.matchedTextFormat = QTextCharFormat()
+        self.matchedTextFormat.setBackground(QBrush(QColor("yellow")))
 
         IB.msgLoadingReady(self)
         self.logger.info("单词条翻译工具初始化完毕。")
@@ -460,12 +467,12 @@ class TranslateToolPage(TranslateWindow):
         self.Worker_AT = Worker_AutoTranslate(self.project, self.currentId, originalLan, targetLan, apiFunc, self)
         self.Worker_AT.moveToThread(self.Thread_AT)
         self.Worker_AT.targetIdSignal.connect(self.displayIDText)
-        self.Worker_AT.targetTextSignal.connect(self.updateAPIText)
+        self.Worker_AT.targetTextSignal.connect(self.updateAPITextEdit)
         self.runSignal.connect(self.Worker_AT.run)
         self.Thread_AT.start()
         self.runSignal.emit()
 
-    def updateAPIText(self, targetText):
+    def updateAPITextEdit(self, targetText):
         if self.getIdText(self.currentId).translatedText != "None":
             self.logger.info(f"翻译已存在（{self.currentId}），跳过此条目。")
         else:
@@ -564,8 +571,34 @@ class TranslateToolPage(TranslateWindow):
             self.ui.TableWidget.setItem(i, 0, item1)
             self.ui.TableWidget.setItem(i, 1, item2)
             i += 1
-        self.logger.info(f"已经打印 {originalText} 的术语表查询结果。")
+        self.logger.debug(f"已经打印 {originalText} 的术语表查询结果。")
 
+        for line in lineList:
+            self.ui.TextEdit_OriginalText.moveCursor(QTextCursor.Start)
+            while self.ui.TextEdit_OriginalText.find(line[0]):
+                self.ui.TextEdit_OriginalText.setCurrentCharFormat(self.matchedTextFormat)
+            self.ui.TextEdit_OriginalText.moveCursor(QTextCursor.Start)
+            self.logger.debug(f"已经在原文文本框中高亮术语词条（{line[0]} ==>> {line[1]}）。")
+
+        self.logger.info(f"查询到 {originalText} 中包含的 {len(lineList)} 个术语词条，并且处理完毕。")
+        return None
+
+
+    def updateTranslateTextEdit(self):
+        n = self.ui.TableWidget.rowCount()
+        if n == 0:
+            return None
+
+        for i in range(n):
+            line = [self.ui.TableWidget.item(i, 0).text(), self.ui.TableWidget.item(i, 1).text()]
+            self.ui.TextEdit_TranslatedText.moveCursor(QTextCursor.Start)
+            while self.ui.TextEdit_TranslatedText.find(line[1]):
+                self.ui.TextEdit_TranslatedText.setCurrentCharFormat(self.matchedTextFormat)
+            self.ui.TextEdit_TranslatedText.moveCursor(QTextCursor.Start)
+            self.logger.debug(f"已经在译文文本框中高亮术语词条（{line[0]} ==>> {line[1]}）。")
+
+        self.logger.info("已在当前人工翻译译文中高亮显示术语词条。")
+        return None
 
     def closeEvent(self, event):
         self.project = funcT.TranslateProject()
