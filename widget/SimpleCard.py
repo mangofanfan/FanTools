@@ -10,6 +10,7 @@ from qfluentwidgets import CardWidget, ImageLabel, SubtitleLabel, BodyLabel, Hyp
 
 from widget.function import basicFunc
 from widget.function_hitokoto import yi_yan
+from widget.function_setting import cfg
 
 logger = logging.getLogger("FanTools.SimpleCard")
 
@@ -132,7 +133,8 @@ class YiYanCard(CardWidget):
         self.setup()
 
     def setup(self):
-        self.YiYan.start()
+        if cfg.get(cfg.YiYanEnable) is True:
+            self.YiYan.start()
         return None
 
     def _getSignal(self, data: dict):

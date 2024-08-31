@@ -30,13 +30,13 @@ class yi_yan(QObject):
         self.Worker_Timer = Worker_Timer()
         self.Worker_Timer.updateSignal.connect(self.get)
         self.Worker_Timer.moveToThread(self.Thread_Timer)
-        self.Thread_Timer.start()
 
     def start(self):
         """
         启用一言循环，定时获取新的一言并通过信号发送到GUI。
         :return: None
         """
+        self.Thread_Timer.start()
         self.Worker_Timer.runSignal.emit()
         logger.debug("已启动一言API更新的定时线程。")
         return None

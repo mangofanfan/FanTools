@@ -11,7 +11,7 @@ from qfluentwidgets import ComboBoxSettingCard, ColorSettingCard, SettingCardGro
 from qfluentwidgets import FluentIcon as FIC
 from qfluentwidgets import Theme, setTheme, setThemeColor
 
-from widget.function_setting import cfg
+from widget.function_setting import cfg, ProxySettingCard
 from widget.function import PIC
 
 logger = logging.getLogger("FanTools.ConfigPage")
@@ -91,6 +91,7 @@ class ConfigPage:
                                                   content="在用户退出程序时弹出窗口确认，提供取消的机会。",
                                                   configItem=cfg.ExitConfirm)
         self.CardGroup_Function.addSettingCard(self.Card_EditConfirm)
+        # 代理开关
         self.Card_Proxy = SwitchSettingCard(icon=FIC.AIRPLANE,
                                             title="启用代理服务",
                                             content="在通过request调用外部API时添加代理配置。",
@@ -99,25 +100,15 @@ class ConfigPage:
                                    "若为本机代理，只需要修改冒号后的端口号即可。")
         self.Card_Proxy.installEventFilter(ToolTipFilter(self.Card_Proxy))
         self.CardGroup_Function.addSettingCard(self.Card_Proxy)
-        self.ExpandCard_Proxy = ExpandGroupSettingCard(FIC.AIRPLANE,
-                                                       "代理服务设置",
-                                                       "设置此两项后才能启动代理。",
-                                                       self.widget)
-        self.CardGroup_Function.addSettingCard(self.ExpandCard_Proxy)
-        BodyLabel_ProxyHttp = BodyLabel()
-        BodyLabel_ProxyHttp.setText("HTTP代理")
-        LineEdit_ProxyHttp = LineEdit()
-        LineEdit_ProxyHttp.setFixedWidth(200)
-        LineEdit_ProxyHttp.editingFinished.connect(lambda: qconfig.set(cfg.ProxyHttp, LineEdit_ProxyHttp.text()))
-        LineEdit_ProxyHttp.setText(qconfig.get(cfg.ProxyHttp))
-        BodyLabel_ProxyHttps = BodyLabel()
-        BodyLabel_ProxyHttps.setText("HTTPS代理")
-        LineEdit_ProxyHttps = LineEdit()
-        LineEdit_ProxyHttps.setFixedWidth(200)
-        LineEdit_ProxyHttps.editingFinished.connect(lambda: qconfig.set(cfg.ProxyHttps, LineEdit_ProxyHttps.text()))
-        LineEdit_ProxyHttps.setText(qconfig.get(cfg.ProxyHttps))
-        self.ExpandCard_Proxy.addGroupWidget(self.expandCardAddWidget(BodyLabel_ProxyHttp, LineEdit_ProxyHttp))
-        self.ExpandCard_Proxy.addGroupWidget(self.expandCardAddWidget(BodyLabel_ProxyHttps, LineEdit_ProxyHttps))
+        # 代理服务设置
+        self.Card_ProxySetting = ProxySettingCard()
+        self.CardGroup_Function.addSettingCard(self.Card_ProxySetting)
+
+        self.Card_YiYanEnable = SwitchSettingCard(configItem=cfg.YiYanEnable,
+                                                  icon=FIC.PASTE,
+                                                  title="启用一言功能",
+                                                  content="如果关闭此项，所有一言卡片都将显示默认文本。")
+        self.CardGroup_Function.addSettingCard(self.Card_YiYanEnable)
         self.Card_YiYanAPI = OptionsSettingCard(configItem=cfg.YiYanAPI,
                                                 icon=FIC.APPLICATION,
                                                 title="一言API接口",

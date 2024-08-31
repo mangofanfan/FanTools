@@ -27,7 +27,7 @@ from widget.TranslateTextCard import Card as TranslateTextCard
 from widget.TranslateToolPage import Ui_Form as TranslateToolPageUi
 from widget.Window import TranslateWindow, GlossaryTableWidget
 from widget.function import basicFunc
-from widget.function_translate import FileType, GlossaryTable
+from widget.function_setting import ProxySettingCard, cfg
 
 logger = logging.getLogger("FanTools.TranslatePage")
 
@@ -190,6 +190,17 @@ class TranslatePage(QObject):
         self.CardSingle.button.clicked.connect(self.launchTool)
         self.CardMulti.button.clicked.connect(self.launchMulti)
         self.CardGlossary.button.clicked.connect(self.launchGlossary)
+
+        # 设置区域
+        # 代理开关
+        Card_Proxy = SwitchSettingCard(icon=FIC.AIRPLANE,
+                                            title="启用代理服务",
+                                            content="如果调用API翻译不成功，请尝试打开。",
+                                            configItem=cfg.ProxyEnable)
+        # 代理服务设置
+        Card_ProxySetting = ProxySettingCard()
+        self.layout.addWidget(Card_Proxy)
+        self.layout.addWidget(Card_ProxySetting)
 
         self.layout.addStretch()
         return None
@@ -358,7 +369,7 @@ class TranslateToolPage(TranslateWindow):
         self.ui.TableWidget.installEventFilter(ToolTipFilter(self.ui.TableWidget))
 
         # 术语表初始化
-        self.Glossary: GlossaryTable = None
+        self.Glossary: funcT.GlossaryTable = None
         self.TableWidgetRightMenu = RoundMenu()
         self.TableWidgetRightMenu.addAction(Action(FIC.RETURN, "刷新术语表", triggered=self.reLoadGlossary))
         self.TableWidgetRightMenu.addAction(Action(FIC.CHECKBOX, "在译文中匹配", triggered=self.updateTranslateTextEdit))
@@ -515,7 +526,7 @@ class TranslateToolPage(TranslateWindow):
             ps = os.path.splitext(p)[1]
 
             s = None
-            for s in FileType.SuffixList:
+            for s in funcT.FileType.SuffixList:
                 if s.name == ps:
                     _s = s
 
@@ -550,7 +561,7 @@ class TranslateToolPage(TranslateWindow):
         if funcS.cfg.get(funcS.cfg.GlossaryEnable) is False:
             return None
 
-        self.Glossary = GlossaryTable(self.project.projectFile)
+        self.Glossary = funcT.GlossaryTable(self.project.projectFile)
         self.logger.info(f"已经加载翻译项目 {self.project.projectFile} 的术语表于 {self.Glossary.file} 。")
         return None
 
@@ -903,7 +914,7 @@ class TranslateMultiPage(TranslateWindow):
             ps = os.path.splitext(p)[1]
 
             s = None
-            for s in FileType.SuffixList:
+            for s in funcT.FileType.SuffixList:
                 if s.name == ps:
                     _s = s
 
@@ -1036,7 +1047,7 @@ class GlossaryWindow(TranslateWindow):
         if not path.exists():
             return None
 
-        Glossary_Global = GlossaryTable(self.projectFile)
+        Glossary_Global = funcT.GlossaryTable(self.projectFile)
         Glossary_Global.load()
         TableWidget_Global: GlossaryTableWidget = self.APIDirectory["global"]
         TableWidget_Global.setRowCount(len(Glossary_Global.lineList))
@@ -1096,7 +1107,7 @@ class GlossaryWindow(TranslateWindow):
     def saveGlossaryTable(self):
         Table_Global: GlossaryTableWidget = self.APIDirectory["global"]
         Table_Global.deleteBlank()
-        Glossary_Global = GlossaryTable(self.projectFile, preload=False)
+        Glossary_Global = funcT.GlossaryTable(self.projectFile, preload=False)
         for i in range(Table_Global.rowCount()):
             originalText = Table_Global.item(i, 0).text()
             targetText = Table_Global.item(i, 1).text()
