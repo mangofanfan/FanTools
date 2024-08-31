@@ -13,6 +13,7 @@ from qfluentwidgets import FluentIcon as FIC, RadioButton, ToolTipFilter, TextEd
     MessageBox
 from qfluentwidgets import VBoxLayout, PushButton, RoundMenu, Action, TitleLabel, BodyLabel, SingleDirectionScrollArea, \
     HeaderCardWidget, LineEdit, StrongBodyLabel
+from typing import List
 
 import widget.function_translate as funcT
 from widget.function_message import TranslateIB as IB
@@ -456,13 +457,25 @@ class TranslateToolPage(TranslateWindow):
         if self.ui.ToggleButton_AutoTranslateWithAPI.isChecked():
             self.logger.debug("用户启用了自动翻译，正在准备启动 AT 线程。")
             self.autoTranslate(originalLan, targetLan, apiFunc)
-        else:
-            rule = Rule()
-            originalText = rule.translate_rule(originalText)
-            targetText = funcT.translate(originalText, apiFunc, self)
-            targetText = rule.reborn_rule(targetText)
-            self.ui.TextEdit_API.setText(targetText)
-            self.logger.info("完成一次API调用翻译。")
+            return None
+
+        # rule = Rule()
+        # originalText = rule.translate_rule(originalText)
+        targetText = funcT.translate(originalText, apiFunc, self, self.Glossary)
+        if type(targetText) == list:
+            lineList = targetText[1]
+            targetText = targetText[0]
+            self.logger.info("翻译返回了术语表匹配信息，开始执行术语确认。")
+            for line in lineList:
+                t = self.confirmAPIGlossary(targetText, line)
+                if t is None:
+                    self.logger.debug("自动翻译暂停，原因：指定术语表翻译时人为暂停。")
+                    return None
+                else:
+                    targetText = t
+        # targetText = rule.reborn_rule(targetText)
+        self.ui.TextEdit_API.setText(targetText)
+        self.logger.info("完成一次API调用翻译。")
         return None
 
     def autoTranslate(self, originalLan: str = "en", targetLan: str = "zh", apiFunc: staticmethod = funcT.fanyi_baidu):
@@ -514,12 +527,12 @@ class TranslateToolPage(TranslateWindow):
             return None
 
         self.project.saveProject()
-        self.w = MessageBox(title="导出项目语言文件",
-                            content="翻译结束了嘛？好耶！我们已为您自动保存翻译结果~\n"
+        self.wOutput = MessageBox(title="导出项目语言文件",
+                                  content="翻译结束了嘛？好耶！我们已为您自动保存翻译结果~\n"
                                     "接下来将会导出翻译好的译文语种语言文件，该文件完全依照源语言文件生成。\n"
                                     "请在下方完整地输入目标语言文件的文件名（包括格式后缀），仿照已经给出的示例，目标文本会被写入此文件。\n"
                                     "Tip：单行输入框和文件选择器都可以使用，但请务必检查~",
-                            parent=self)
+                                  parent=self)
         self.LineEdit_OutputFile = LineEdit()
         self.LineEdit_OutputFile.setPlaceholderText("C:\\path\\to\\your/file/zh_CN.json 两种路径分隔符都是可行的！")
         self.ToolButton_OutputFile = ToolButton()
@@ -528,9 +541,9 @@ class TranslateToolPage(TranslateWindow):
         hLayout = QHBoxLayout()
         hLayout.addWidget(self.LineEdit_OutputFile)
         hLayout.addWidget(self.ToolButton_OutputFile)
-        self.w.textLayout.addLayout(hLayout)
-        self.w.yesSignal.connect(yes)
-        self.w.show()
+        self.wOutput.textLayout.addLayout(hLayout)
+        self.wOutput.yesSignal.connect(yes)
+        self.wOutput.show()
         return None
 
     def loadGlossary(self):
@@ -608,6 +621,38 @@ class TranslateToolPage(TranslateWindow):
         self.logger.info("已在当前人工翻译译文中高亮显示术语词条。")
         return None
 
+    def confirmAPIGlossary(self, fullText: str, line: List[str]):
+        """
+        术语表在API翻译中的应用，弹窗要求确认。
+        :return: None
+        """
+        self.wAPIConfirm = MessageBox(title="确认术语如何翻译",
+                                      content="我们在刚刚的这次API翻译中识别到了术语表中的内容。\n"
+                                              "请在下方选中以下文本：由您预设的术语表中的「原文本」自动翻译成的翻译文本。\n"
+                                              "一旦选中文本，点击确认视作选择完毕；点击取消或未选择文本就确认视作暂停此次翻译。",
+                                      parent=self)
+        label = BodyLabel()
+        label.setText(f"符合的词条：{line[0]} ==>> {line[1]}")
+        label.setTextColor(QColor("blue"))
+        self.wAPIConfirm.textLayout.addWidget(label)
+        lineEdit = LineEdit()
+        lineEdit.setText(fullText)
+        self.wAPIConfirm.textLayout.addWidget(lineEdit)
+
+        # 确认完毕后
+        if self.wAPIConfirm.exec_():
+            targetGlossaryText = lineEdit.selectedText()
+            if targetGlossaryText is None or targetGlossaryText == "":
+                self.logger.info("未选中术语表应如何翻译，视作暂停自动翻译。")
+                return None
+            else:
+                self.logger.info(f"选中文本 {targetGlossaryText} 作为词条 {line[0]} 通过API翻译得到的默认结果之一。")
+                targetText = fullText.replace(targetGlossaryText, line[1])
+                return targetText
+        else:
+            self.logger.info("取消指定术语表如何翻译，视作暂停自动翻译。")
+            return None
+
     def closeEvent(self, event):
         self.project = funcT.TranslateProject()
         self.logger.info("关闭翻译器窗口，卸载翻译项目。")
@@ -629,6 +674,8 @@ class Worker_AutoTranslate(QObject):
         self.apiFunc = apiFunc
         self.parent = parent
 
+        self.is_pause = False
+
     def getIdText(self, id: int):
         for text in self.project.textList:
             text: funcT.TranslateText
@@ -644,6 +691,9 @@ class Worker_AutoTranslate(QObject):
             if n > self.project.n:
                 self.logger.info(f"自动翻译已结束（{n}）。")
                 break
+            if self.is_pause is True:
+                sleep(2)
+                continue
             rule = Rule()
             originalText = rule.translate_rule(self.getIdText(n).originalText)
             targetText = funcT.translate(originalText, self.apiFunc, self.targetLan.parent)
@@ -865,7 +915,7 @@ class TranslateMultiPage(TranslateWindow):
             return None
 
         self.project.saveProject()
-        self.w = MessageBox(title="导出项目语言文件",
+        self.wOutput = MessageBox(title="导出项目语言文件",
                             content="翻译结束了嘛？好耶！我们已为您自动保存翻译结果~\n"
                                     "接下来将会导出翻译好的译文语种语言文件，该文件完全依照源语言文件生成。\n"
                                     "请在下方完整地输入目标语言文件的文件名（包括格式后缀），仿照已经给出的示例，目标文本会被写入此文件。\n"
@@ -879,9 +929,9 @@ class TranslateMultiPage(TranslateWindow):
         hLayout = QHBoxLayout()
         hLayout.addWidget(self.LineEdit_OutputFile)
         hLayout.addWidget(self.ToolButton_OutputFile)
-        self.w.textLayout.addLayout(hLayout)
-        self.w.yesSignal.connect(yes)
-        self.w.show()
+        self.wOutput.textLayout.addLayout(hLayout)
+        self.wOutput.yesSignal.connect(yes)
+        self.wOutput.show()
         return None
 
     def closeEvent(self, event):

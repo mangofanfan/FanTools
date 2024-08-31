@@ -9,6 +9,8 @@ import urllib3
 from PySide2.QtGui import QIcon
 from typing import List
 
+from PySide2.QtWidgets import QWidget
+
 logger = logging.getLogger("FanTools.funcT")
 
 from widget.function import basicFunc, PIC
@@ -304,32 +306,6 @@ class TranslateAPI:
                     return api
 
 
-def translate(originalText: str, apiFunc: staticmethod, self):
-    try:
-        targetText = apiFunc(originalText)
-    except Exception as e:
-        eType = sys.exc_info()[0]
-        if eType == urllib3.exceptions.SSLError or eType == urllib3.exceptions.ProxyError or eType == requests.exceptions.ProxyError:
-            logger.error("调用翻译接口的过程中出现SSL连接错误，请尝试启动工具箱设置中的「代理」配置，或关闭网络代理工具。")
-            logger.error("此错误是Python网络库requests的错误（或者说不完善），与工具箱无关，我们无法从源头修复。")
-            IB.msgSSLError(self)
-            return None
-        elif eType == urllib3.exceptions.ConnectTimeoutError:
-            logger.error("调用翻译接口时出现连接超时问题，请检查网络连接状态与网络设置。")
-            IB.msgTimeoutError(self)
-            return None
-        else:
-            logger.error("调用翻译接口时出现奇怪的错误，请考虑将此错误提交！ | " + str(e))
-            self.logger.error(traceback.format_exc())
-            IB.msgOtherError(self)
-            return None
-    if targetText is None:
-        logger.error("API返回参数错误，调用失败，这不是芒果工具箱所导致的问题。")
-        IB.msgAPIError(self)
-    return targetText
-
-
-
 class GlossaryTable:
     def __init__(self, projectFile: str, file: str = None, preload: bool = True):
         """
@@ -468,3 +444,40 @@ class history:
         self.historyList.clear()
         self.save()
         return None
+
+
+def translate(originalText: str, apiFunc: staticmethod, self: QWidget, glossaryTable: GlossaryTable = None):
+    try:
+        targetText = apiFunc(originalText)
+    except Exception as e:
+        eType = sys.exc_info()[0]
+        if eType == urllib3.exceptions.SSLError or eType == urllib3.exceptions.ProxyError or eType == requests.exceptions.ProxyError:
+            logger.error("调用翻译接口的过程中出现SSL连接错误，请尝试启动工具箱设置中的「代理」配置，或关闭网络代理工具。")
+            logger.error("此错误是Python网络库requests的错误（或者说不完善），与工具箱无关，我们无法从源头修复。")
+            IB.msgSSLError(self)
+            return None
+        elif eType == urllib3.exceptions.ConnectTimeoutError:
+            logger.error("调用翻译接口时出现连接超时问题，请检查网络连接状态与网络设置。")
+            IB.msgTimeoutError(self)
+            return None
+        else:
+            logger.error("调用翻译接口时出现奇怪的错误，请考虑将此错误提交！ | " + str(e))
+            self.logger.error(traceback.format_exc())
+            IB.msgOtherError(self)
+            return None
+    if targetText is None:
+        logger.error("API返回参数错误，调用失败，这不是芒果工具箱所导致的问题。")
+        IB.msgAPIError(self)
+        return None
+
+    # 术语表处理
+    if glossaryTable is None:
+        self.logger.debug("术语表翻译未启用，翻译结束。")
+        return targetText
+    lineList = glossaryTable.get(originalText)
+    if lineList is None:
+        self.logger.debug("术语表未匹配到符合词条，翻译结束。")
+        return targetText
+    self.logger.debug(f"针对 {originalText} 的API翻译检测到 {len(lineList)} 个术语表词条。")
+    return [targetText, lineList]
+
