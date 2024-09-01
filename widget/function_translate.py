@@ -207,13 +207,12 @@ def fanyi_baidu(originalText: str, originalLan: str = "en", targetLan: str = "zh
     res: dict = requests.get(url=fanyi_url, proxies=proxies, timeout=3).json()
 
     # 处理调用错误
-    try:
-        error_code = res.get("error_code")
-        error_msg = res.get("error_msg")
+
+    error_code = res.get("error_code")
+    error_msg = res.get("error_msg")
+    if error_code is not None and error_msg is not None:
         logger.error(f"百度翻译API调用错误，错误信息如下：{error_code} | {error_msg}")
         return None
-    except Exception:
-        pass
 
     trans_result: dict = res.get("trans_result")[0]
     targetText = trans_result["dst"]
@@ -330,7 +329,14 @@ class GlossaryTable:
             self.file = file
         if not self.file:
             self.file = self.projectFile.replace("ft-translateProject.txt", "ft-translateGlossary.txt")
-        data = basicFunc.readFile(self.file, True).split("\n")
+
+        # 在术语表文件尚不存在时新建术语表文件。
+        try:
+            data = basicFunc.readFile(self.file, True).split("\n")
+        except FileNotFoundError:
+            basicFunc.saveFile(self.file, "", True)
+            data = basicFunc.readFile(self.file, True).split("\n")
+
         for line in data:
             if line != "" and line is not None:
                 self.lineList.append(line.split("|!|"))
@@ -353,23 +359,72 @@ class GlossaryTable:
                 self.logger.warning("保存术语表时发现重复词条，这可能是程序存在错误？")
                 self.logger.warning("已跳过重复词条。")
                 continue
-            text = f"{line[0]}|!|{line[1]}"
+            text = f"{line[0]}|!|{line[1]}|!|{line[2]}"
             lineList.append(text)
         fileText = "\n".join(lineList)
         basicFunc.saveFile(self.file, fileText, True)
         self.logger.debug(f"成功保存 {self.projectFile} 的术语表至 {self.file} 。")
         return None
 
-    def add(self, originalText: str, targetText: str):
-        self.lineList.append([originalText, targetText])
+    def add(self, originalText: str, targetText: str, middleTexts: list = None):
+        if not middleTexts:
+            middleTexts = "None"
+        else:
+            middleTexts = ";;".join(middleTexts)
+        self.lineList.append([originalText, targetText, middleTexts])
         self.logger.debug(f"成功在术语表中添加字段 {originalText} ==>> {targetText} 。")
+        return None
+
+    def setMiddleTexts(self, originalText: str, middleTexts: list):
+        """
+        为术语表中的词条设置API翻译中间词。
+        :param originalText: 术语表词汇原文。
+        :param middleTexts: 中间词。
+        :return: None
+        """
+        if len(middleTexts) == 1:
+            middleTexts = middleTexts[0]
+        else:
+            middleTexts = ";;".join(middleTexts)
+        for line in self.lineList:
+            if originalText == line[0]:
+                if len(line) == 2:
+                    line.append(middleTexts)
+                else:
+                    line[2] = middleTexts
+                self.logger.debug(f"成功为术语表字段 {originalText} 添加中间字段 {middleTexts} 。")
+                return None
+        self.logger.warning(f"未能在术语表中查找到词条 {originalText} 。")
+        return None
+
+    def addMiddleTexts(self, originalText: str, middleTexts: list):
+        """
+        为术语表中的词条添加API翻译中间词，如果尚不存在中间词则执行setMiddleTexts()。
+        :param originalText: 术语表词汇原文。
+        :param middleTexts: 中间词。
+        :return: None
+        """
+        oldMiddleTexts: str = None
+        for line in self.lineList:
+            if originalText == line[0]:
+                if len(line) == 3:
+                    oldMiddleTexts = line[2]
+                else:
+                    self.setMiddleTexts(originalText, middleTexts)
+                break
+        if oldMiddleTexts is None:
+            self.logger.warning(f"未能在术语表中查找到词条 {originalText} 。")
+            return None
+
+        middleTexts = ";;".join(oldMiddleTexts.split(";;") + middleTexts)
+        line[2] = middleTexts
         return None
 
     def get(self, text: str) -> List[List[str]]:
         """
         对传入文本text，在术语表中匹配其中出现的术语。
         :param text: 传入文本（str）
-        :return: 如果匹配成功，返回List[List[str, str]]结构的列表嵌套；如果匹配失败则返回None
+        :return: 如果匹配成功，返回List[List[str]]结构的列表嵌套；如果匹配失败则返回None
         """
         _list = []
         for line in self.lineList:
@@ -401,7 +456,7 @@ class GlossaryTable:
         return None
 
 
-class history:
+class History:
     def __init__(self):
         self.historyList = []
         self.logger = logging.getLogger("FanTools.TranslateHistory")

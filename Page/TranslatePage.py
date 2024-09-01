@@ -55,7 +55,7 @@ class TranslatePage(QObject):
         self.CardMulti = Card_Multi()
         self.CardGlossary = Card_Glossary()
 
-        self.history = funcT.history()
+        self.history = funcT.History()
         self.historyMenu = RoundMenu()
 
         self.Tool = TranslateToolPage()
@@ -197,9 +197,9 @@ class TranslatePage(QObject):
                                             title="启用代理服务",
                                             content="如果调用API翻译不成功，请尝试打开。",
                                             configItem=cfg.ProxyEnable)
+        self.layout.addWidget(Card_Proxy)
         # 代理服务设置
         Card_ProxySetting = ProxySettingCard()
-        self.layout.addWidget(Card_Proxy)
         self.layout.addWidget(Card_ProxySetting)
 
         self.layout.addStretch()
@@ -569,6 +569,7 @@ class TranslateToolPage(TranslateWindow):
         if funcS.cfg.get(funcS.cfg.GlossaryEnable) is False:
             return None
 
+        del self.Glossary
         self.loadGlossary()
         self.getGlossaryForText()
         return None
@@ -634,13 +635,22 @@ class TranslateToolPage(TranslateWindow):
 
     def confirmAPIGlossary(self, fullText: str, line: List[str]):
         """
-        术语表在API翻译中的应用，弹窗要求确认。
-        :return: None
+        术语表在API翻译中的应用，首先尝试从已存在的中间词中进行替换，如失败则弹窗要求确认。
+        :return: 成功时返回替换之后的文本，失败返回None，程序根据此返回值判定是否成功。
         """
+        if funcS.cfg.get(funcS.cfg.GlossaryEnable) is False:
+            return None
+
+        for text in line[2].split(";;"):
+            if fullText.find(text) != -1:
+                targetText = fullText.replace(text, line[2])
+                self.logger.info(f"根据已经存在的术语 {line[1]} 之中间词 {text} 完成翻译： {targetText}")
+                return targetText
+
         self.wAPIConfirm = MessageBox(title="确认术语如何翻译",
                                       content="我们在刚刚的这次API翻译中识别到了术语表中的内容。\n"
                                               "请在下方选中以下文本：由您预设的术语表中的「原文本」自动翻译成的翻译文本。\n"
-                                              "一旦选中文本，点击确认视作选择完毕；点击取消或未选择文本就确认视作暂停此次翻译。",
+                                              "将选中的文本复制（或通过你喜欢的方式转移）到空白输入行中，然后「确认」，直接确认、取消、关闭此窗口均视作暂停并放弃翻译。",
                                       parent=self)
         label = BodyLabel()
         label.setText(f"符合的词条：{line[0]} ==>> {line[1]}")
@@ -648,17 +658,24 @@ class TranslateToolPage(TranslateWindow):
         self.wAPIConfirm.textLayout.addWidget(label)
         lineEdit = LineEdit()
         lineEdit.setText(fullText)
+        lineEdit.setReadOnly(True)
+        lineEdit_2 = LineEdit()
+        lineEdit_2.setPlaceholderText(f"上面的翻译结果中，哪个语素对应了 {line[0]} 且应该被翻译为 {line[1]} ？")
         self.wAPIConfirm.textLayout.addWidget(lineEdit)
+        self.wAPIConfirm.textLayout.addWidget(lineEdit_2)
+        self.wAPIConfirm.yesButton.setText("确认")
+        self.wAPIConfirm.cancelButton.setText("取消")
 
         # 确认完毕后
         if self.wAPIConfirm.exec_():
-            targetGlossaryText = lineEdit.selectedText()
+            targetGlossaryText = lineEdit_2.text()
             if targetGlossaryText is None or targetGlossaryText == "":
                 self.logger.info("未选中术语表应如何翻译，视作暂停自动翻译。")
                 return None
             else:
                 self.logger.info(f"选中文本 {targetGlossaryText} 作为词条 {line[0]} 通过API翻译得到的默认结果之一。")
                 targetText = fullText.replace(targetGlossaryText, line[1])
+                self.Glossary.addMiddleTexts(line[0], [targetText])
                 return targetText
         else:
             self.logger.info("取消指定术语表如何翻译，视作暂停自动翻译。")
@@ -1118,7 +1135,7 @@ class GlossaryWindow(TranslateWindow):
 class CreateProjectWindow(TranslateWindow):
     newProjectSignal = Signal(funcT.TranslateProject, str)
 
-    def __init__(self, history: funcT.history, parent=None):
+    def __init__(self, history: funcT.History, parent=None):
         super().__init__(parent=parent)
         self.ui = TranslateCreateProjectUi()
         self.ui.setupUi(self)
