@@ -10,7 +10,7 @@ from PySide2.QtGui import QCursor, Qt, QTextCharFormat, QColor, QBrush, QTextCur
 from PySide2.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QButtonGroup, QApplication, \
     QFrame, QListWidgetItem, QTableWidgetItem, QBoxLayout, QHeaderView, QTableWidget
 from qfluentwidgets import FluentIcon as FIC, RadioButton, ToolTipFilter, TextEdit, SwitchSettingCard, ToolButton, \
-    MessageBox
+    MessageBox, SubtitleLabel
 from qfluentwidgets import VBoxLayout, PushButton, RoundMenu, Action, TitleLabel, BodyLabel, SingleDirectionScrollArea, \
     HeaderCardWidget, LineEdit, StrongBodyLabel
 from typing import List
@@ -27,7 +27,7 @@ from widget.TranslateTextCard import Card as TranslateTextCard
 from widget.TranslateToolPage import Ui_Form as TranslateToolPageUi
 from widget.Window import TranslateWindow, GlossaryTableWidget
 from widget.function import basicFunc
-from widget.function_setting import ProxySettingCard, cfg
+from widget.function_setting import ProxySettingCard, cfg, BaiDuAPISettingCard, YouDaoAPISettingCard
 
 logger = logging.getLogger("FanTools.TranslatePage")
 
@@ -77,6 +77,8 @@ class TranslatePage(QObject):
         if labelType == "Title":
             label = TitleLabel()
             label.setAlignment(Qt.AlignCenter)
+        elif labelType == "Subtitle":
+            label = SubtitleLabel()
         else:
             label = BodyLabel()
         label.setText(text)
@@ -192,6 +194,7 @@ class TranslatePage(QObject):
         self.CardGlossary.button.clicked.connect(self.launchGlossary)
 
         # 设置区域
+        self.addTextLine("翻译工具有关设置", "Subtitle")
         # 代理开关
         Card_Proxy = SwitchSettingCard(icon=FIC.AIRPLANE,
                                             title="启用代理服务",
@@ -201,6 +204,17 @@ class TranslatePage(QObject):
         # 代理服务设置
         Card_ProxySetting = ProxySettingCard()
         self.layout.addWidget(Card_ProxySetting)
+        # 术语表设置
+        Card_GlossaryEnable =  SwitchSettingCard(configItem=cfg.GlossaryEnable,
+                                                 title="启用术语表（暂不可用！）",
+                                                 content="翻译工具全局启用术语表，术语表的详细设置需要在术语表窗口中设置。",
+                                                 icon=FIC.ERASE_TOOL)
+        self.layout.addWidget(Card_GlossaryEnable)
+        # 翻译API设置
+        Card_BaiDuAPI = BaiDuAPISettingCard(self.widget)
+        Card_YouDaoAPI = YouDaoAPISettingCard(self.widget)
+        self.layout.addWidget(Card_BaiDuAPI)
+        self.layout.addWidget(Card_YouDaoAPI)
 
         self.layout.addStretch()
         return None

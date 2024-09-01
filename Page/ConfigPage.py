@@ -11,7 +11,7 @@ from qfluentwidgets import ComboBoxSettingCard, ColorSettingCard, SettingCardGro
 from qfluentwidgets import FluentIcon as FIC
 from qfluentwidgets import Theme, setTheme, setThemeColor
 
-from widget.function_setting import cfg, ProxySettingCard
+from widget.function_setting import cfg, ProxySettingCard, BaiDuAPISettingCard, YouDaoAPISettingCard
 from widget.function import PIC
 
 logger = logging.getLogger("FanTools.ConfigPage")
@@ -232,54 +232,11 @@ class ConfigPage:
                                                       content="翻译工具全局启用术语表，术语表的详细设置需要在术语表窗口中设置。",
                                                       icon=FIC.ERASE_TOOL)
         self.CardGroup_API.addSettingCard(self.GlobalEnableGlossary)
-        self.ExpandCard_fanyi_baidu = ExpandGroupSettingCard(icon=PIC.IconBaiDu,
-                                                             title="百度通用文本翻译API",
-                                                             content="设置「百度通用文本翻译」的API参数以调用。",
-                                                             parent=self.widget)
-        self.CardGroup_API.addSettingCard(self.ExpandCard_fanyi_baidu)
 
-        BodyLabel_fanyi_baidu_appid = BodyLabel()
-        BodyLabel_fanyi_baidu_appid.setText("APP ID")
-        BodyLabel_fanyi_baidu_appid.setToolTip("可在百度翻译开放平台获取，需要开通通用文本翻译服务。")
-        LineEdit_fanyi_baidu_appid = LineEdit()
-        LineEdit_fanyi_baidu_appid.setFixedWidth(200)
-        LineEdit_fanyi_baidu_appid.editingFinished.connect(lambda: qconfig.set(cfg.BaiduAPPID, LineEdit_fanyi_baidu_appid.text()))
-        LineEdit_fanyi_baidu_appid.setText(qconfig.get(cfg.BaiduAPPID))
-        self.ExpandCard_fanyi_baidu.addGroupWidget(self.expandCardAddWidget(BodyLabel_fanyi_baidu_appid, LineEdit_fanyi_baidu_appid))
-
-        BodyLabel_fanyi_baidu_key = BodyLabel()
-        BodyLabel_fanyi_baidu_key.setText("密钥")
-        BodyLabel_fanyi_baidu_key.setToolTip("可在百度翻译开放平台获取，请不要随意向他人展示。<br>翻译工具会将您的密钥保存在本地。")
-        LineEdit_fanyi_baidu_key = PasswordLineEdit()
-        LineEdit_fanyi_baidu_key.setFixedWidth(200)
-        LineEdit_fanyi_baidu_key.editingFinished.connect(lambda: qconfig.set(cfg.BaiduKey, LineEdit_fanyi_baidu_key.text()))
-        LineEdit_fanyi_baidu_key.setText(qconfig.get(cfg.BaiduKey))
-        self.ExpandCard_fanyi_baidu.addGroupWidget(self.expandCardAddWidget(BodyLabel_fanyi_baidu_key, LineEdit_fanyi_baidu_key))
-
-        self.ExpandCard_fanyi_youdao = ExpandGroupSettingCard(icon=PIC.IconYouDao,
-                                                              title="有道文本翻译API",
-                                                              content="设置「有道文本翻译」的API参数以调用。",
-                                                              parent=self.widget)
-        self.CardGroup_API.addSettingCard(self.ExpandCard_fanyi_youdao)
-
-        BodyLabel_fanyi_youdao_appKey = BodyLabel()
-        BodyLabel_fanyi_youdao_appKey.setText("APP Key")
-        BodyLabel_fanyi_youdao_appKey.setToolTip("可在有道智云AI开放平台获取，需要开通文本翻译服务。")
-        LineEdit_fanyi_youdao_appKey = LineEdit()
-        LineEdit_fanyi_youdao_appKey.setFixedWidth(200)
-        LineEdit_fanyi_youdao_appKey.editingFinished.connect(lambda: qconfig.set(cfg.YoudaoAPPKey, LineEdit_fanyi_youdao_appKey.text()))
-        LineEdit_fanyi_youdao_appKey.setText(qconfig.get(cfg.YoudaoAPPKey))
-        self.ExpandCard_fanyi_youdao.addGroupWidget(self.expandCardAddWidget(BodyLabel_fanyi_youdao_appKey, LineEdit_fanyi_youdao_appKey))
-
-        BodyLabel_fanyi_youdao_key = BodyLabel()
-        BodyLabel_fanyi_youdao_key.setText("密钥")
-        BodyLabel_fanyi_youdao_key.setToolTip(
-            "可在有道智云AI开放平台获取，请不要随意向他人展示。<br>翻译工具会将您的密钥保存在本地。")
-        LineEdit_fanyi_youdao_key = PasswordLineEdit()
-        LineEdit_fanyi_youdao_key.setFixedWidth(200)
-        LineEdit_fanyi_youdao_key.editingFinished.connect(lambda: qconfig.set(cfg.YoudaoKey, LineEdit_fanyi_youdao_key.text()))
-        LineEdit_fanyi_youdao_key.setText(qconfig.get(cfg.YoudaoKey))
-        self.ExpandCard_fanyi_youdao.addGroupWidget(self.expandCardAddWidget(BodyLabel_fanyi_youdao_key, LineEdit_fanyi_youdao_key))
+        self.Card_BaiDuAPI = BaiDuAPISettingCard(self.widget)
+        self.CardGroup_API.addSettingCard(self.Card_BaiDuAPI)
+        self.Card_YouDaoAPI = YouDaoAPISettingCard(self.widget)
+        self.CardGroup_API.addSettingCard(self.Card_YouDaoAPI)
 
         self.layout.addStretch()
 
