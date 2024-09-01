@@ -143,8 +143,8 @@ class BaiDuAPISettingCard(ExpandGroupSettingCard):
         self.addGroupWidget(expandCardAddWidget(BodyLabel_Update, PushButton_Update))
 
     def update(self):
-        self.LineEdit_ProxyHttp.setText(qconfig.get(cfg.ProxyHttp))
-        self.LineEdit_ProxyHttps.setText(qconfig.get(cfg.ProxyHttps))
+        self.LineEdit_fanyi_baidu_appid.setText(qconfig.get(cfg.BaiduAPPID))
+        self.LineEdit_fanyi_baidu_key.setText(qconfig.get(cfg.BaiduKey))
         super().update()
         return None
 
@@ -187,7 +187,7 @@ class YouDaoAPISettingCard(ExpandGroupSettingCard):
         self.addGroupWidget(expandCardAddWidget(BodyLabel_Update, PushButton_Update))
 
     def update(self):
-        self.LineEdit_ProxyHttp.setText(qconfig.get(cfg.ProxyHttp))
-        self.LineEdit_ProxyHttps.setText(qconfig.get(cfg.ProxyHttps))
+        self.LineEdit_fanyi_youdao_appKey.setText(qconfig.get(cfg.YoudaoAPPKey))
+        self.LineEdit_fanyi_youdao_key.setText(qconfig.get(cfg.YoudaoKey))
         super().update()
         return None

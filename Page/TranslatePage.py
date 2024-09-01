@@ -206,7 +206,7 @@ class TranslatePage(QObject):
         self.layout.addWidget(Card_ProxySetting)
         # 术语表设置
         Card_GlossaryEnable =  SwitchSettingCard(configItem=cfg.GlossaryEnable,
-                                                 title="启用术语表（暂不可用！）",
+                                                 title="启用术语表",
                                                  content="翻译工具全局启用术语表，术语表的详细设置需要在术语表窗口中设置。",
                                                  icon=FIC.ERASE_TOOL)
         self.layout.addWidget(Card_GlossaryEnable)
