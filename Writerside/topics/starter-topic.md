@@ -26,7 +26,7 @@ GitHub 中的文档源码随时可能跟随一次 push 而产生更新；同时�
 您可以使用 Writerside 查看仓库中的文档。Writerside 支持作为独立 IDE 或作为其他 Jetbrains IDE 的插件安装使用。
 
 <note>
-    <b>文档更新日期：</b> 2024/9/1；
+    <b>文档更新日期：</b> 2024/9/2；
     文档完成度处于较低状态。
 </note>
 

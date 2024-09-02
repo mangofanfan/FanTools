@@ -98,6 +98,35 @@ QObject::setParent: Cannot set parent, new parent is in a different thread
 
 这样一来我的整个多线程防假死的逻辑就完全不可行了，返工重写喽~
 
+### moveToThread创建多线程时的实例化问题
+
+相比于继承QThread并自己编写MyThread的做法，我更乐意使用QObject的moveToThread方法，使用这个方法需要创建以下一个辅助类：
+
+<code-block lang="python">
+class Worker(QObject):
+    runSignal = Signal()
+    def __init__():
+        super().__init__(parent=None)
+        self.runSignal.connect(self.run)
+    def run():
+        what_you_want_to_do()
+        return None
+</code-block>
+
+然后在你需要创建多线程的地方实例化此类：
+
+<code-block lang="python">
+self.Thread = QThread()
+self.Worker = Worker()
+self.Worker.moveToThread(self.Thread)
+self.Thread.start()
+self.Worker.runSignal.emit()
+</code-block>
+
+`Worker.run()`中的代码现在应当已经在新的线程中运行。这部分的注意事项是，`Worker`继承`QObject`时调用`super().__init__(parent=None)`方法，此时传入的`parent`需要是`None`，不要异想天开地传递一个真实存在的`QWidget`或者什么东西进去，会导致多线程失效。
+
+当`Worker.run()`中的代码运行结束后，线程会自动结束；但如果`Worker.run()`中写的是一个死循环（例如上来一个`while True`），你就需要在适当的时机通过外部手段结束这个线程。
+
 ## 另一种类似多线程的实现
 
 只是为了防止窗口假死的话，我们还有另外一种方案：使用`QApplication.processEvents()`。
