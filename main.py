@@ -116,11 +116,11 @@ class Main:
                                         text="关于芒果工具箱")
 
         self.window_HomePage.ToolCard_Download.clicked.connect(
-            lambda: self.mainWindow.switchTo(self.window_DownloadPage.scrollArea))
+            lambda: self.mainWindow.switchTo(self.window_DownloadPage.bodyWidget))
         self.window_HomePage.ToolCard_Hash.clicked.connect(
-            lambda: self.mainWindow.switchTo(self.window_HashPage.scrollArea))
+            lambda: self.mainWindow.switchTo(self.window_HashPage.bodyWidget))
         self.window_HomePage.ToolCard_Translate.clicked.connect(
-            lambda: self.mainWindow.switchTo(self.window_TranslatePage.scrollArea))
+            lambda: self.mainWindow.switchTo(self.window_TranslatePage.bodyWidget))
 
         self.window_HomePage.YiYanCard.YiYan.APIError.connect(lambda: IB.msgYiYanError(self.mainWindow))
 

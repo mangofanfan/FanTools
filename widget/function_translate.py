@@ -393,6 +393,7 @@ class GlossaryTable:
                 else:
                     line[2] = middleTexts
                 self.logger.debug(f"成功为术语表字段 {originalText} 添加中间字段 {middleTexts} 。")
+                self.save()
                 return None
         self.logger.warning(f"未能在术语表中查找到词条 {originalText} 。")
         return None
@@ -407,10 +408,11 @@ class GlossaryTable:
         oldMiddleTexts: str = None
         for line in self.lineList:
             if originalText == line[0]:
-                if len(line) == 3:
+                if len(line) == 3 and line[2] != "None":
                     oldMiddleTexts = line[2]
                 else:
                     self.setMiddleTexts(originalText, middleTexts)
+                    return None
                 break
         if oldMiddleTexts is None:
             self.logger.warning(f"未能在术语表中查找到词条 {originalText} 。")
@@ -418,6 +420,7 @@ class GlossaryTable:
 
         middleTexts = ";;".join(oldMiddleTexts.split(";;") + middleTexts)
         line[2] = middleTexts
+        self.save()
         return None
 
     def get(self, text: str) -> List[List[str]]:

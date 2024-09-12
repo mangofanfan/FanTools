@@ -5,7 +5,7 @@ from pathlib import Path
 from time import sleep
 
 from PySide2 import QtCore
-from PySide2.QtCore import QObject, Signal, QThread, QSize
+from PySide2.QtCore import QObject, Signal, QThread, QSize, QTimer
 from PySide2.QtGui import QCursor, Qt, QTextCharFormat, QColor, QBrush, QTextCursor
 from PySide2.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QButtonGroup, QApplication, \
     QFrame, QListWidgetItem, QTableWidgetItem, QBoxLayout, QHeaderView, QTableWidget
@@ -305,7 +305,6 @@ class TranslatePage(QObject):
 
 
 class TranslateToolPage(TranslateWindow):
-    runSignal = Signal()
     glossarySignal = Signal()
 
     def __init__(self, file: str = None, parent=None):
@@ -394,6 +393,10 @@ class TranslateToolPage(TranslateWindow):
         self.matchedTextFormat = QTextCharFormat()
         self.matchedTextFormat.setBackground(QBrush(QColor("yellow")))
 
+        # 计时器配置
+        self.timer = QTimer(self)
+        self.timer.timeout.connect(self.autoTranslate)
+
         IB.msgLoadingReady(self)
         self.logger.info("单词条翻译工具初始化完毕。")
 
@@ -427,7 +430,7 @@ class TranslateToolPage(TranslateWindow):
         return None
 
     def displayText(self, text: funcT.TranslateText):
-        # 如果没有返回正确的 text，则不对 UI 进行任何操作。
+        # 如果没有传入正确的 text，则不对 UI 进行任何操作。
         if not text:
             return None
         self.ui.SubtitleLabel.setText(
@@ -446,14 +449,6 @@ class TranslateToolPage(TranslateWindow):
         self.getGlossaryForText()
         self.updateTranslateTextEdit()
 
-        # 检查是否重复，如果是的话则直接复制已有的翻译 TODO:要先弹出信息框进行询问！或在存在指定参数时才直接复制
-        if self.ui.TextEdit_TranslatedText.toPlainText() == "":
-            for text_ in self.project.textList:
-                text_: funcT.TranslateText
-                if text_.translatedText != "None":
-                    if text_.originalText == text.originalText:
-                        self.saveText(text, text_.translatedText, funcT.TranslateTag.repeat, False)
-                        break
         return None
 
     def displayIDText(self, id: int):
@@ -480,13 +475,46 @@ class TranslateToolPage(TranslateWindow):
             return None
 
         if self.ui.ToggleButton_AutoTranslateWithAPI.isChecked():
-            self.logger.debug("用户启用了自动翻译，正在准备启动 AT 线程。")
-            self.autoTranslate(originalLan, targetLan, apiFunc)
+            self.logger.debug("用户启用了自动翻译，正在准备启动 AT 计时器。")
+            self.timer.start(1000)
             return None
 
         # rule = Rule()
         # originalText = rule.translate_rule(originalText)
         targetText = funcT.translate(originalText, apiFunc, self, self.Glossary)
+        if type(targetText) == list:
+            lineList = targetText[1]
+            targetText = targetText[0]
+            self.logger.info("翻译返回了术语表匹配信息，开始执行术语确认。")
+            for line in lineList:
+                t = self.confirmAPIGlossary(targetText, line)
+                if t is None:
+                    self.logger.debug("翻译暂停，原因：指定术语表翻译时人为暂停。")
+                    return None
+                else:
+                    targetText = t
+        # targetText = rule.reborn_rule(targetText)
+        self.ui.TextEdit_API.setText(targetText)
+        self.logger.info("完成一次API调用翻译。")
+        return None
+
+    def autoTranslate(self, originalLan: str = "en", targetLan: str = "zh", apiFunc: staticmethod = funcT.fanyi_baidu):
+        if not self.ui.ToggleButton_AutoTranslateWithAPI.isChecked():
+            self.timer.stop()
+            self.logger.info("自动翻译暂停，AT 计时器已经停止。")
+            return None
+
+        # rule = Rule()
+        # originalText = rule.translate_rule(originalText)
+        self.timer.stop()
+        text = self.getIdText(self.currentId + 1)
+        if not text:
+            IB.msgToolAutoTranslateFinish(self)
+            self.logger.info("无法获取下一位词条，说明本次自动翻译已经结束（抵达尽头！）。")
+            return None
+        self.displayText(text)
+        targetText = funcT.translate(self.ui.TextEdit_OriginalText.toPlainText(), apiFunc, self, self.Glossary)
+
         if type(targetText) == list:
             lineList = targetText[1]
             targetText = targetText[0]
@@ -500,18 +528,14 @@ class TranslateToolPage(TranslateWindow):
                     targetText = t
         # targetText = rule.reborn_rule(targetText)
         self.ui.TextEdit_API.setText(targetText)
-        self.logger.info("完成一次API调用翻译。")
+        self.saveText(self.getIdText(self.currentId),
+                      self.ui.TextEdit_API.toPlainText(),
+                      funcT.TranslateTag.use_API,
+                      False)
+        self.logger.info("完成一次API调用翻译，重启 AT 计时器。")
+        self.timer.start(1000)
         return None
 
-    def autoTranslate(self, originalLan: str = "en", targetLan: str = "zh", apiFunc: staticmethod = funcT.fanyi_baidu):
-        self.Thread_AT = QThread(self)
-        self.Worker_AT = Worker_AutoTranslate(self.project, self.currentId, originalLan, targetLan, apiFunc, self)
-        self.Worker_AT.moveToThread(self.Thread_AT)
-        self.Worker_AT.targetIdSignal.connect(self.displayIDText)
-        self.Worker_AT.targetTextSignal.connect(self.updateAPITextEdit)
-        self.runSignal.connect(self.Worker_AT.run)
-        self.Thread_AT.start()
-        self.runSignal.emit()
 
     def updateAPITextEdit(self, targetText):
         if self.getIdText(self.currentId).translatedText != "None":
@@ -657,8 +681,8 @@ class TranslateToolPage(TranslateWindow):
 
         for text in line[2].split(";;"):
             if fullText.find(text) != -1:
-                targetText = fullText.replace(text, line[2])
-                self.logger.info(f"根据已经存在的术语 {line[1]} 之中间词 {text} 完成翻译： {targetText}")
+                targetText = fullText.replace(text, line[1])
+                self.logger.info(f"根据已经存在的术语 {line[0]} 之中间词 {text} 完成翻译： {targetText}")
                 return targetText
 
         self.wAPIConfirm = MessageBox(title="确认术语如何翻译",
@@ -689,7 +713,7 @@ class TranslateToolPage(TranslateWindow):
             else:
                 self.logger.info(f"选中文本 {targetGlossaryText} 作为词条 {line[0]} 通过API翻译得到的默认结果之一。")
                 targetText = fullText.replace(targetGlossaryText, line[1])
-                self.Glossary.addMiddleTexts(line[0], [targetText])
+                self.Glossary.addMiddleTexts(line[0], [targetGlossaryText])
                 return targetText
         else:
             self.logger.info("取消指定术语表如何翻译，视作暂停自动翻译。")
@@ -699,53 +723,6 @@ class TranslateToolPage(TranslateWindow):
         self.project = funcT.TranslateProject()
         self.logger.info("关闭翻译器窗口，卸载翻译项目。")
         event.accept()
-
-
-class Worker_AutoTranslate(QObject):
-    targetIdSignal = Signal(int)
-    targetTextSignal = Signal(str)
-
-    def __init__(self, project: funcT.TranslateProject, startId: int, originalLan: str = "en", targetLan: str = "zh",
-                 apiFunc: staticmethod = funcT.fanyi_baidu, parent = None):
-        super().__init__(parent)
-
-        self.project = project
-        self.originalLan = originalLan
-        self.targetLan = targetLan
-        self.startId = startId
-        self.apiFunc = apiFunc
-        self.parent = parent
-
-        self.is_pause = False
-
-    def getIdText(self, id: int):
-        for text in self.project.textList:
-            text: funcT.TranslateText
-            if text.id == id:
-                return text
-        raise
-
-    def run(self):
-        from time import sleep
-        n = self.startId
-        self.logger.info(f"自动翻译正在激活，准备从 {n} 开始翻译。")
-        while True:
-            if n > self.project.n:
-                self.logger.info(f"自动翻译已结束（{n}）。")
-                break
-            if self.is_pause is True:
-                sleep(2)
-                continue
-            rule = Rule()
-            originalText = rule.translate_rule(self.getIdText(n).originalText)
-            targetText = funcT.translate(originalText, self.apiFunc, self.targetLan.parent)
-            targetText = rule.reborn_rule(targetText)
-            self.targetIdSignal.emit(n)
-            self.targetTextSignal.emit(targetText)
-            self.logger.info(f"已完成一次自动翻译（{n}）。")
-            sleep(1)
-            n += 1
-        return None
 
 
 class TranslateMultiPage(TranslateWindow):

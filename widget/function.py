@@ -29,7 +29,7 @@ class basicFunc:
     @staticmethod
     def readFile(file: str, realPath: bool = False) -> str:
         if realPath:
-            with open(file=file, mode="r") as f:
+            with open(file=file, mode="r", encoding="utf-8") as f:
                 r = f.read()
             return r
         p = basicFunc.getHerePath() + "/" + file
@@ -46,7 +46,7 @@ class basicFunc:
                 f.write(text)
             return None
         p = basicFunc.getHerePath() + "/" + file
-        with open(file=p, mode="w+") as f:
+        with open(file=p, mode="w+", encoding="utf-8") as f:
             f.write(text)
         return None
 

@@ -105,6 +105,14 @@ class TranslateIB:
                         position=InfoBarPosition.TOP_RIGHT,
                         parent=self)
 
+    def msgToolAutoTranslateFinish(self):
+        InfoBar.success(title="自动翻译完成",
+                        content="自动翻译已经推进至最后一条，这说明翻译已经完成！",
+                        isClosable=True,
+                        duration=4000,
+                        position=InfoBarPosition.TOP_RIGHT,
+                        parent=self)
+
     def msgMultiTranslatingNow(self):
         bar = InfoBar.info(title="正在批量翻译中",
                            content="请稍作等候……",
