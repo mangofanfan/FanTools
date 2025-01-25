@@ -50,8 +50,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>924</width>
-          <height>561</height>
+          <width>919</width>
+          <height>553</height>
          </rect>
         </property>
        </widget>
@@ -67,14 +67,24 @@
         </widget>
        </item>
        <item>
-        <widget class="PushButton" name="PushButton_Glossary">
-         <property name="tabletTracking">
-          <bool>false</bool>
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <property name="topMargin">
+          <number>0</number>
          </property>
-         <property name="text">
-          <string>术语表</string>
-         </property>
-        </widget>
+         <item>
+          <widget class="PushButton" name="PushButton_Glossary">
+           <property name="tabletTracking">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>术语表</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="ToolButton" name="ToolButton_ReloadGlossary"/>
+         </item>
+        </layout>
        </item>
        <item>
         <widget class="ComboBox" name="ComboBox_API">

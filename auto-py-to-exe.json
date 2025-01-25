@@ -26,6 +26,10 @@
    "value": "\u8292\u679c\u5de5\u5177\u7bb1"
   },
   {
+   "optionDest": "upx_dir",
+   "value": "C:\\Users\\mango\\Downloads\\upx"
+  },
+  {
    "optionDest": "clean_build",
    "value": false
   },
@@ -72,6 +76,14 @@
   {
    "optionDest": "excludes",
    "value": "PIL"
+  },
+  {
+   "optionDest": "excludes",
+   "value": "nuitka"
+  },
+  {
+   "optionDest": "excludes",
+   "value": "numpy"
   }
  ],
  "nonPyinstallerOptions": {

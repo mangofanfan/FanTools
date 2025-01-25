@@ -2,7 +2,9 @@
 
 <img src="data/two_mango_es.png" alt="芒果工具箱Logo" height="100" width="100">
 
-本程序的文档使用 Writerside 编写维护，请访问 **[这个页面](https://docs.mangofanfan.cn/fantools)** 查看文档。
+**工具箱已经经历重构，重构版仓库在[此](https://github.com/mangofanfan/FanTools2)。** 本仓库中的源码已经停止维护，请关注重构版工具箱。
+
+~~本程序的文档使用 Writerside 编写维护，请访问 **[这个页面](https://docs.mangofanfan.cn/fantools)** 查看文档。~~ 此版本的工具箱在线文档已经下线，请关注重构版的配套文档在[此](https://docs-fantools.mangofanfan.cn)。
 
 **早期技术测试版本0.0.0已经发布！** | **命令行安装工具[在此](https://github.com/mangofanfan/FanToolsInstaller)！**
 

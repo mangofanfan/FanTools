@@ -36,6 +36,7 @@ class AboutPage:
         self.addTextLine("关于芒果工具箱", "Title", self._layout)
 
         self.buttonLayout = QHBoxLayout()
+        self.buttonLayout.setContentsMargins(5, 0, 5, 0)
         self._layout.addLayout(self.buttonLayout)
 
         self._layout.addWidget(self.scrollArea)

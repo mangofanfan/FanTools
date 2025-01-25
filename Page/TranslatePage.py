@@ -2,10 +2,10 @@ import logging
 import os.path
 from functools import partial
 from pathlib import Path
-from time import sleep
+from typing import List
 
 from PySide2 import QtCore
-from PySide2.QtCore import QObject, Signal, QThread, QSize, QTimer
+from PySide2.QtCore import QObject, Signal, QSize, QTimer
 from PySide2.QtGui import QCursor, Qt, QTextCharFormat, QColor, QBrush, QTextCursor
 from PySide2.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QButtonGroup, QApplication, \
     QFrame, QListWidgetItem, QTableWidgetItem, QBoxLayout, QHeaderView, QTableWidget
@@ -13,11 +13,8 @@ from qfluentwidgets import FluentIcon as FIC, RadioButton, ToolTipFilter, TextEd
     MessageBox, SubtitleLabel
 from qfluentwidgets import VBoxLayout, PushButton, RoundMenu, Action, TitleLabel, BodyLabel, SingleDirectionScrollArea, \
     HeaderCardWidget, LineEdit, StrongBodyLabel
-from typing import List
 
 import widget.function_translate as funcT
-from widget.function_message import TranslateIB as IB
-from script.translate_rule import Rule
 from widget import function_setting as funcS
 from widget.TranslateButtonCard import Card_Single, Card_Multi, Card_Glossary
 from widget.TranslateCreateProject import Ui_Form as TranslateCreateProjectUi
@@ -27,6 +24,7 @@ from widget.TranslateTextCard import Card as TranslateTextCard
 from widget.TranslateToolPage import Ui_Form as TranslateToolPageUi
 from widget.Window import TranslateWindow, GlossaryTableWidget
 from widget.function import basicFunc
+from widget.function_message import TranslateIB as IB
 from widget.function_setting import ProxySettingCard, cfg, BaiDuAPISettingCard, YouDaoAPISettingCard
 
 logger = logging.getLogger("FanTools.TranslatePage")
@@ -731,6 +729,9 @@ class TranslateMultiPage(TranslateWindow):
     def __init__(self, parent=None):
         super().__init__(parent=parent)
 
+        self.Glossary = None
+        self.wAPIConfirm = None
+        self.autoTranslateBar = None
         self.ui = TranslateMultiPageUi()
         self.ui.setupUi(self)
         self.setWindowTitle("列表多项翻译工具")
@@ -742,6 +743,7 @@ class TranslateMultiPage(TranslateWindow):
         self.file = None
         self.n = 0
         self.end = 0
+        self.autoTranslateIndex = 0
 
         self.project = funcT.TranslateProject()
         self.List = QWidget()
@@ -772,7 +774,14 @@ class TranslateMultiPage(TranslateWindow):
         self.ui.ComboBox_API.setCurrentIndex(-1)
 
         self.ui.PushButton_Glossary.clicked.connect(self.glossarySignal.emit)
+        self.ui.ToolButton_ReloadGlossary.clicked.connect(self.reLoadGlossary)
+        self.ui.ToolButton_ReloadGlossary.setToolTip("重新加载术语表")
+        self.ui.ToolButton_ReloadGlossary.installEventFilter(ToolTipFilter(self.ui.ToolButton_ReloadGlossary))
         self.ui.PrimaryPushButton_TranslateWithAPI.clicked.connect(self.translateAllText)
+
+        # 计时器配置
+        self.timer = QTimer(self)
+        self.timer.timeout.connect(self.TranslateMultiRun)
 
         self.logger.info("列表多项翻译工具初始化完毕。")
 
@@ -780,6 +789,7 @@ class TranslateMultiPage(TranslateWindow):
         self.project.loadProject(file)
         self.file = file
         self.limit = limit
+        self.loadGlossary()
         n = len(self.project.textList)
         self.n = n
         self.logger.debug(f"项目加载完毕，词条总数为 {n} （{file} | {limit}）")
@@ -836,8 +846,26 @@ class TranslateMultiPage(TranslateWindow):
             raise
         bar.close()
         IB.msgLoadingReady(self)
+        self.autoTranslateIndex = 0
         self.end = end
         self.logger.info("列表词条翻译器的列表加载完毕。")
+
+    def loadGlossary(self):
+        if funcS.cfg.get(funcS.cfg.GlossaryEnable) is False:
+            return None
+
+        self.Glossary = funcT.GlossaryTable(self.project.projectFile)
+        self.logger.info(f"已经加载翻译项目 {self.project.projectFile} 的术语表于 {self.Glossary.file} 。")
+        return None
+
+    def reLoadGlossary(self):
+        if funcS.cfg.get(funcS.cfg.GlossaryEnable) is False:
+            return None
+
+        del self.Glossary
+        self.loadGlossary()
+        self.getGlossaryForText()
+        return None
 
     def getIdText(self, id: int):
         for text in self.project.textList:
@@ -877,7 +905,18 @@ class TranslateMultiPage(TranslateWindow):
             self.logger.error("尝试执行API翻译，但没有选中任何API接口。")
             return None
 
-        targetText = funcT.translate(originalText, apiFunc, self)
+        targetText = funcT.translate(originalText, apiFunc, self, self.Glossary)
+        if type(targetText) == list:
+            lineList = targetText[1]
+            targetText = targetText[0]
+            self.logger.info("翻译返回了术语表匹配信息，开始执行术语确认。")
+            for line in lineList:
+                t = self.confirmAPIGlossary(targetText, line)
+                if t is None:
+                    self.logger.debug("翻译暂停，原因：指定术语表翻译时人为暂停。")
+                    return None
+                else:
+                    targetText = t
 
         card.text.translatedText = targetText
         card.updateText(targetText, funcT.TranslateTag.use_API)
@@ -891,24 +930,97 @@ class TranslateMultiPage(TranslateWindow):
             self.logger.error("尝试执行API翻译，但没有选中任何API接口。")
             return None
 
-        bar = IB.msgMultiTranslatingNow(self)
-        self.logger.debug("开始进行[整列翻译]（启动MT线程）。")
-
-        self.Thread_MultiTranslator = QThread()
-        self.Worker_MultiTranslator = Worker_MultiTranslator(self.cardList, apiFunc)
-        self.Worker_MultiTranslator.finishSignal.connect(lambda: self.TranslateAllTextFinish(bar))
-        self.Worker_MultiTranslator.moveToThread(self.Thread_MultiTranslator)
-        self.Thread_MultiTranslator.start()
-        self.Worker_MultiTranslator.runSignal.emit()
+        self.autoTranslateBar = IB.msgMultiTranslatingNow(self)
+        self.TranslateMultiRun(apiFunc)
 
         self.logger.info("[整列翻译]已开始。")
         return None
 
-    def TranslateAllTextFinish(self, bar):
-        bar.close()
-        IB.msgMultiTranslateFinish(self)
-        self.logger.info("[整列翻译]已结束。")
-        return None
+    def TranslateMultiRun(self, apiFunc = None):
+        if apiFunc is not None:
+            self.apiFunc = apiFunc
+        else:
+            apiFunc = self.apiFunc
+
+        self.timer.stop()
+        if self.autoTranslateIndex >= self.end:
+            self.autoTranslateBar.close()
+            IB.msgMultiTranslateFinish(self)
+            self.logger.info("[整列翻译]已结束。")
+            return None
+
+        card = self.cardList[self.autoTranslateIndex]
+        card: TranslateTextCard
+        originalText = card.OriginalText_LineEdit.text()
+
+        targetText = funcT.translate(originalText, apiFunc, self, self.Glossary)
+        if type(targetText) == list:
+            lineList = targetText[1]
+            targetText = targetText[0]
+            self.logger.info("翻译返回了术语表匹配信息，开始执行术语确认。")
+            for line in lineList:
+                t = self.confirmAPIGlossary(targetText, line)
+                if t is None:
+                    self.logger.debug("翻译暂停，原因：指定术语表翻译时人为暂停。")
+                    return None
+                else:
+                    targetText = t
+
+        card.text.set(targetText, funcT.TranslateTag.use_API)
+        card.updateText(targetText, funcT.TranslateTag.use_API)
+
+        self.autoTranslateIndex += 1
+        # 启动新计时器
+        self.timer.start(1000)
+        return 0
+
+    def confirmAPIGlossary(self, fullText: str, line: List[str]):
+        """
+        术语表在API翻译中的应用，首先尝试从已存在的中间词中进行替换，如失败则弹窗要求确认。
+        :return: 成功时返回替换之后的文本，失败返回None，程序根据此返回值判定是否成功。
+        """
+        if funcS.cfg.get(funcS.cfg.GlossaryEnable) is False:
+            return None
+
+        for text in line[2].split(";;"):
+            if fullText.find(text) != -1:
+                targetText = fullText.replace(text, line[1])
+                self.logger.info(f"根据已经存在的术语 {line[0]} 之中间词 {text} 完成翻译： {targetText}")
+                return targetText
+
+        self.wAPIConfirm = MessageBox(title="确认术语如何翻译",
+                                      content="我们在刚刚的这次API翻译中识别到了术语表中的内容。\n"
+                                              "请在下方选中以下文本：由您预设的术语表中的「原文本」自动翻译成的翻译文本。\n"
+                                              "将选中的文本复制（或通过你喜欢的方式转移）到空白输入行中，然后「确认」，直接确认、取消、关闭此窗口均视作暂停并放弃翻译。",
+                                      parent=self)
+        label = BodyLabel()
+        label.setText(f"符合的词条：{line[0]} ==>> {line[1]}")
+        label.setTextColor(QColor("blue"))
+        self.wAPIConfirm.textLayout.addWidget(label)
+        lineEdit = LineEdit()
+        lineEdit.setText(fullText)
+        lineEdit.setReadOnly(True)
+        lineEdit_2 = LineEdit()
+        lineEdit_2.setPlaceholderText(f"上面的翻译结果中，哪个语素对应了 {line[0]} 且应该被翻译为 {line[1]} ？")
+        self.wAPIConfirm.textLayout.addWidget(lineEdit)
+        self.wAPIConfirm.textLayout.addWidget(lineEdit_2)
+        self.wAPIConfirm.yesButton.setText("确认")
+        self.wAPIConfirm.cancelButton.setText("取消")
+
+        # 确认完毕后
+        if self.wAPIConfirm.exec_():
+            targetGlossaryText = lineEdit_2.text()
+            if targetGlossaryText is None or targetGlossaryText == "":
+                self.logger.info("未选中术语表应如何翻译，视作暂停自动翻译。")
+                return None
+            else:
+                self.logger.info(f"选中文本 {targetGlossaryText} 作为词条 {line[0]} 通过API翻译得到的默认结果之一。")
+                targetText = fullText.replace(targetGlossaryText, line[1])
+                self.Glossary.addMiddleTexts(line[0], [targetGlossaryText])
+                return targetText
+        else:
+            self.logger.info("取消指定术语表如何翻译，视作暂停自动翻译。")
+            return None
 
     def outputProject(self):
 
@@ -959,30 +1071,6 @@ class TranslateMultiPage(TranslateWindow):
         event.accept()
         return None
 
-
-class Worker_MultiTranslator(QObject):
-    runSignal = Signal()
-    finishSignal = Signal()
-
-    def __init__(self, cardList, apiFunc, parent=None):
-        super().__init__(parent)
-        self.cardList = cardList
-        self.apiFunc = apiFunc
-        self.runSignal.connect(self.run)
-        self.parent = parent
-
-    def run(self):
-        for card in self.cardList:
-            card: TranslateTextCard
-            originalText = card.OriginalText_LineEdit.text()
-
-            targetText = funcT.translate(originalText, self.apiFunc, self.parent)
-
-            card.text.set(targetText, funcT.TranslateTag.use_API)
-            card.updateText(targetText, funcT.TranslateTag.use_API)
-
-            sleep(1)
-        self.finishSignal.emit()
 
 
 class GlossaryWindow(TranslateWindow):

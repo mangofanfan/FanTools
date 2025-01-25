@@ -1,6 +1,6 @@
 aria2p==0.12.0
 PySide2==5.15.2.1
 PySide2==5.15.2.1
-PySide2_Fluent_Widgets==1.6.3
+PySide2_Fluent_Widgets==1.7.0
 Requests==2.32.3
 urllib3~=2.2.2
